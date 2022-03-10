@@ -1,0 +1,47 @@
+<section class="my-10 flex items-center justify-start">
+  <app-custom-stepper
+    [height]="customStepperSize.stepperTwo"
+    [status]="stepperTwoSource()[0].status"
+  >
+  </app-custom-stepper>
+  <div id="stepperTwoContent" class="grid grid-cols-12 w-full gap-2 pr-5">
+    <ds-title
+      class="col-span-12 mb-4"
+      type="t4"
+      family="secondary"
+      weight="bold"
+      color="primary"
+    >
+      <span slot="text">Selecciona tu prestación</span>
+    </ds-title>
+    <ng-container *ngIf="getStepsStatus('stepOne_who', 'personaSeleccionada')">
+      <ng-container *ngFor="let card of chipsData; let i = index">
+        <ds-card
+          id="step2Content"
+          class="cargas-card md:col-span-4 sm:col-span-6 col-span-12"
+          [type]="card.state ? 't1' : 't2'"
+          [ngStyle]="{ 'border-color': '#FFFFFF' }"
+          (click)="selectOption(i)"
+        >
+          <div class="flex items-center justify-around" slot="cardContent">
+            <ds-icon
+              [color]="card.state ? 'actionTertiary' : 'actionPrimary'"
+              size="42"
+              iconName="{{ card.nombre }}"
+            >
+            </ds-icon>
+            <ds-paragraph type="p1" family="primary" weight="regular">
+              <span
+                [ngStyle]="{ color: card.state ? '#EF6F00' : '#43505E' }"
+                class="card-text"
+                slot="text"
+              >
+                {{ card.desripcion }}
+              </span>
+            </ds-paragraph>
+          </div>
+        </ds-card>
+      </ng-container>
+    </ng-container>
+  </div>
+</section>

@@ -1,0 +1,102 @@
+.box {
+    background-color: white;
+    box-shadow: black 0px 0px 10px 1px;
+    min-height: 40vh;
+    border-radius: 10px;
+    width: 64%;
+    padding: 30px 50px;
+}
+.col-span-2 {
+    grid-column: span 2;
+}
+.col-span-3 {
+    grid-column: span 3;
+}
+.col-span-9 {
+    grid-column: span 9;
+}
+.col-span-10 {
+    grid-column: span 10;
+}
+.border-bottom {
+    border-bottom: 1px solid #8f9ead;
+}
+.font-bold-title {
+    //styleName: fonts/semi-bold/p-md--semi-bold;
+    font-family: Titillium Web;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16px;
+    letter-spacing: 0px;
+    text-align: start;
+}
+.font-bold-value {
+    //styleName: fonts/regular/p-md--regular;
+    font-family: Titillium Web;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0px;
+    text-align: right;
+}
+.paragraph {
+    //styleName: fonts/regular/p-md--regular;
+    font-family: Titillium Web;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0px;
+    text-align: left;
+}
+
+button {
+    //styleName: fonts/bold/h5--bold;
+    font-family: Titillium Web;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px;
+    letter-spacing: 0px;
+    text-align: center;
+
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+
+    position: static;
+    height: 40px;
+    left: 0%;
+    right: 0%;
+    top: calc(50% - 40px / 2);
+
+    /* primario/N1 */
+
+    background: #ef6f00;
+    border-radius: 25px;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+    margin: 0px 0px;
+}
+
+.relative {
+    position: relative;
+}
+
+.button-close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+}

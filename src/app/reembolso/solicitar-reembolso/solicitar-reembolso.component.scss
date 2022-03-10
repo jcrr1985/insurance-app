@@ -1,0 +1,38 @@
+* {
+    font-family: "Titillium Web", sans-serif;
+}
+
+ds-icon {
+    margin-right: 1rem;
+    margin-left: 1rem;
+}
+
+.fixedWidth {
+    width: 28rem;
+    min-width: 28rem;
+}
+
+.fixing-stepper {
+    width: min-width !important;
+}
+
+
+#stepperOneContent {
+    min-height: 22vh;
+}
+#stepperTwoContent {
+    min-height: 22vh;
+}
+#stepperThreeContent {
+    min-height: 22vh;
+}
+#stepperFourContent {
+    min-height: 22vh;
+}
+.col-span-10 {
+    grid-column: span 9 / span 9;
+}
+
+.col-span-3 {
+    grid-column: span 3 / span 3;
+}

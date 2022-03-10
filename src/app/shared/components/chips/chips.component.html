@@ -1,0 +1,23 @@
+<ds-card
+  class="cargas-card"
+  type="t1"
+  slotName="cardContent"
+  *ngFor="let card of chipsData; let i = index"
+  (click)="setColor(i)"
+>
+  <div class="" slot="cardContent">
+    <ds-icon
+      [color]="card.state ? 'actionTertiary' : 'actionPrimary'"
+      size="42"
+      iconName="{{ card.nombre }}"
+    ></ds-icon>
+    <ds-paragraph
+      type="p1"
+      family="primary"
+      weight="regular"
+      [ngStyle]="{ color: card.state ? '#EF6F00' : '#43505E'}"
+    >
+      <span class="card-text" slot="text">{{ card.desripcion }}</span>
+    </ds-paragraph>
+  </div>
+</ds-card>

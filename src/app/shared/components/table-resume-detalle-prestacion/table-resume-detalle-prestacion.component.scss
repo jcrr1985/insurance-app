@@ -1,0 +1,15 @@
+.icons-margin {
+    margin-right: 10px;
+}
+.row_defined {
+    background-color: #e9f8e6 !important;
+}
+.row_total {
+    background-color: #bcdeb1;
+    ds-table-body-column:nth-child(1) {
+        border-radius: 0px 0px 0px 10px !important;
+    }
+    ds-table-body-column-actions {
+        border-radius: 0px 0px 10px 0px !important;
+    }
+}

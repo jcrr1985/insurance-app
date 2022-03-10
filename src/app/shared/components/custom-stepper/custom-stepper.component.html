@@ -1,0 +1,18 @@
+<div class="stepper-margin">
+    <div class="flex items-center justify-around">
+        <span *ngIf="status == 'completed'" class="success_icon">
+            <ds-icon [iconName]="'bi-check-circle-fill'" size="26"></ds-icon>
+        </span>
+        <span *ngIf="status == 'waiting'">
+            <ds-icon [iconName]="'bi-circle'" size="26"></ds-icon>
+        </span>
+        <span *ngIf="status == 'active'" class="waiting_icon">
+            <ds-icon [iconName]="'bi-circle'" size="26"></ds-icon>
+        </span>
+    </div>
+    <div class="w-full flex items-center justify-around">
+        <div id="contenedor" [ngStyle]="{'height':height ? height : '70px'}">
+            <div id="barra" [ngClass]="status"></div>
+        </div>
+    </div>
+</div>
