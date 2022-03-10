@@ -1,0 +1,41 @@
+<!-- Tipo Texto -->
+<ng-container *ngIf="type == 'text'">
+  <div>
+    <ds-input
+      [id]="controlName"
+      [helperMessage]="helpMsg"
+      size="s1"
+      labelOrientation="start"
+    >
+    </ds-input>
+  </div>
+</ng-container>
+
+<!-- Tipo Fecha -->
+<ng-container *ngIf="type == 'date'">
+  <div>
+    <ds-datepicker
+      [id]="controlName"
+      type="single"
+      initial-label="ingrese una fecha"
+      person="burda e loco"
+      [helperMessage]="helpMsg"
+    >
+    </ds-datepicker>
+  </div>
+</ng-container>
+
+<!-- Tipo Select -->
+<ng-container *ngIf="type == 'select'">
+  <div>
+    <ds-select
+      [id]="controlName"
+      input-id="first"
+      type="simple"
+      multiple="false"
+      [helperMessage]="helpMsg"
+      [source]="[{ label: 'hola', value: '1', selected: false }]"
+    >
+    </ds-select>
+  </div>
+</ng-container>

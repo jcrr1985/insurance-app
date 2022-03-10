@@ -1,0 +1,32 @@
+.col-span-6 {
+    grid-column: span 6;
+}
+.box {
+    background-color: white;
+    box-shadow: black 0px 0px 10px 1px;
+    min-height: 40vh;
+    border-radius: 10px;
+    width: 64%;
+    padding: 30px 50px;
+}
+.relative {
+    position: relative;
+}
+.close_button {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    cursor: pointer;
+}
+.icon-search {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.icon-check {
+    margin-left: 12px;
+}
+ds-button {
+    margin-left: 20px
+}

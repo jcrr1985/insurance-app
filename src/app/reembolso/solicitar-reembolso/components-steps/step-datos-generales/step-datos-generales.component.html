@@ -1,0 +1,405 @@
+<section class="my-10 flex items-center justify-start">
+  <app-custom-stepper
+    [height]="customStepperSize.stepperThree"
+    [status]="this.stepperThreeSource()[0].status"
+  >
+  </app-custom-stepper>
+  <div id="stepperThreeContent" class="grid grid-cols-12 w-full gap-4 pr-5">
+    <!-- Title -->
+    <ds-title
+      class="col-span-12"
+      type="t4"
+      family="secondary"
+      weight="bold"
+      color="primary"
+    >
+      <span slot="text">Datos Generales</span>
+    </ds-title>
+    <ng-container
+      *ngIf="getStepsStatus('stepTwo_selectOption', 'prestacionSeleccionada')"
+    >
+      <!-- Reembolsaste -->
+      <ds-paragraph
+        class="md:col-span-5 col-span-12 mb-5"
+        type="p1"
+        family="secondary"
+        weight="semiBold"
+        color="secondary"
+      >
+        <span slot="text" class="font-bold"
+          >¿Reembolsaste previamente en tu Isapre?</span
+        >
+      </ds-paragraph>
+      <div
+        class="md:col-span-6 col-span-12 flex items-center justify-start md:-ml-20"
+      >
+        <ds-radio
+          class="mx-5"
+          type="s1"
+          family="primary"
+          label="Si"
+          name="reembolsoIsapre"
+          value="si"
+          (click)="
+            setStepsStatus({
+              step: 'stepThree_general',
+              option: 'reembolsoPrevioIsapre',
+              value: 'si'
+            })
+          "
+        >
+        </ds-radio>
+        <ds-radio
+          class="mx-5"
+          type="s1"
+          family="primary"
+          label="No"
+          name="reembolsoIsapre"
+          value="no"
+          (click)="
+            setStepsStatus({
+              step: 'stepThree_general',
+              option: 'reembolsoPrevioIsapre',
+              value: 'no'
+            })
+          "
+        >
+        </ds-radio>
+      </div>
+      <div
+        class="col-span-12"
+        *ngIf="
+          getStepsStatus('stepThree_general', 'reembolsoPrevioIsapre') == 'no'
+        "
+      >
+        <ds-messaging
+          variant="warning"
+          family="secondary"
+          size="s2"
+          title="Te recomendamos que realices primero tu reembolso en tu Isapre o Fonasa, ya que si no lo haces, el monto de reembolso puede ser menor"
+        >
+        </ds-messaging>
+      </div>
+      <!-- documento -->
+      <ds-paragraph
+        *ngIf="getStepsStatus('stepThree_general', 'reembolsoPrevioIsapre')"
+        class="md:col-span-6 col-span-12 mb-2"
+        type="p1"
+        family="primary"
+        weight="regular"
+        color="secondary"
+      >
+        <span slot="text" class="font-bold"
+          >Selecciona uno de los siguientes documentos
+          <ds-tooltip family="primary" content="Documentos disponibles">
+            <ds-icon
+              slot="tooltip"
+              color="info4"
+              size="28"
+              icon-name="bi-question-circle-fill"
+            >
+            </ds-icon>
+          </ds-tooltip>
+        </span>
+      </ds-paragraph>
+      <div
+        *ngIf="getStepsStatus('stepThree_general', 'reembolsoPrevioIsapre')"
+        class="md:col-span-12 md:flex items-center justify-start block"
+      >
+        <ds-radio
+          *ngIf="
+            getStepsStatus('stepThree_general', 'reembolsoPrevioIsapre') == 'si'
+          "
+          (click)="
+            setStepsStatus({
+              step: 'stepThree_general',
+              option: 'tipoDocumentoSeleccionado',
+              value: 1
+            })
+          "
+          class="mx-5 md:w-max"
+          type="s1"
+          family="primary"
+          label="Documento reembolso isapre o fonasa"
+          name="documentType"
+          value="1"
+        >
+        </ds-radio>
+        <ds-radio
+          *ngIf="
+            getStepsStatus('stepThree_general', 'reembolsoPrevioIsapre') == 'si'
+          "
+          (click)="
+            setStepsStatus({
+              step: 'stepThree_general',
+              option: 'tipoDocumentoSeleccionado',
+              value: 2
+            })
+          "
+          class="mx-5 md:w-max"
+          type="s1"
+          family="primary"
+          label="Bono"
+          name="documentType"
+          value="2"
+        >
+        </ds-radio>
+        <ds-radio
+          (click)="
+            setStepsStatus({
+              step: 'stepThree_general',
+              option: 'tipoDocumentoSeleccionado',
+              value: 3
+            })
+          "
+          class="mx-5 md:w-max"
+          type="s1"
+          family="primary"
+          label="Boleta / Factura"
+          name="documentType"
+          value="3"
+        >
+        </ds-radio>
+      </div>
+      <!-- file upload -->
+      <div
+        *ngIf="getStepsStatus('stepThree_general', 'tipoDocumentoSeleccionado')"
+        class="col-span-12 custom_file_upload h-max flex items-center justify-start px-5 grid grid-cols-12 gap-3"
+      >
+        <div
+          class="md:col-span-1 md:col-start-1 col-span-12 flex items-center justify-center"
+        >
+          <ds-icon
+            color="actionPrimary"
+            size="48"
+            icon-name="bi-cloud-arrow-up"
+          >
+          </ds-icon>
+        </div>
+        <div class="md:col-span-6 col-span-12 grid grid-cols-12 md:py-5">
+          <div class="col-span-12 text-header text-justify">
+            <label for=""
+              >Arrastra y suelta o has clic para adjuntar un archivo</label
+            >
+          </div>
+          <div class="col-span-12 text-description text-justify">
+            <label for="">Tamaño de archivo maximo de 500kb</label>
+          </div>
+        </div>
+        <div
+          class="md:col-span-5 col-span-12 flex items-center md:justify-end justify-center"
+        >
+          <ds-button variant="secondary" slot-name="text2">
+            <span slot="text2"
+              ><label for="file_uploader">Adjuntar Archivo</label></span
+            >
+          </ds-button>
+          <input
+            (change)="uploadingFilesEvent($event)"
+            type="file"
+            id="file_uploader"
+            hidden
+          />
+        </div>
+      </div>
+      <!-- file upload list -->
+      <div
+        *ngIf="getStepsStatus('stepThree_general', 'fileUploaded')"
+        class="col-span-12 grid grid-cols-12 gap-3"
+      >
+        <label class="col-span-12 text-xl font-bold file-uploaded-title"
+          >Archivos adjuntos</label
+        >
+        <ng-container *ngFor="let x of filesUploaded">
+          <div class="col-span-12">
+            <div class="custom-file-upload-list md:w-2/6 sm:w-1/3 w-1/2 p-1">
+              <ds-button variant="complementary" slot-name="files_content">
+                <div class="grid grid-cols-12" slot="files_content">
+                  <div class="col-span-8 flex items-center justify-center">
+                    <ds-icon
+                      color="info6"
+                      size="25"
+                      icon-name="bi-eye-fill"
+                    ></ds-icon>
+                    <label class="-ml-2 whitespace-nowrap">{{ x.name }}</label>
+                  </div>
+                  <div class="col-span-4 flex items-center justify-end">
+                    <ds-icon color="info2" size="20" icon-name="bi-trash">
+                    </ds-icon>
+                  </div>
+                </div>
+              </ds-button>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+      <!-- Completa los siguientes datos -->
+      <ds-paragraph
+        *ngIf="getStepsStatus('stepThree_general', 'fileUploaded')"
+        class="col-span-12 mt-10"
+        type="p1"
+        family="primary"
+        weight="regular"
+        color="secondary"
+      >
+        <span slot="text" class="font-bold"
+          >completa los siguientes datos
+        </span>
+      </ds-paragraph>
+      <!-- First Row Data -->
+      <div
+        *ngIf="getStepsStatus('stepThree_general', 'fileUploaded')"
+        class="md:col-span-4 sm:col-span-6 col-span-12 flex items-center justify-center"
+      >
+        <ds-select
+          class="w-full inputsThirdField"
+          id="isapreFonasaSelect"
+          [initialLabel]="'Isapre/Fonasa'"
+          [state]="'waiting'"
+          [source]="isapreFonasaOptions"
+          [helperMessage]="''"
+        >
+        </ds-select>
+        <ds-icon
+          *ngIf="getStepsStatus('stepThree_general', 'agenciaSeleccionada')"
+          color="info5"
+          size="25"
+          icon-name="bi-check-circle-fill"
+        ></ds-icon>
+      </div>
+      <div
+        *ngIf="getStepsStatus('stepThree_general', 'fileUploaded')"
+        class="md:col-span-4 sm:col-span-6 col-span-12 flex items-center justify-center"
+      >
+        <ds-input
+          class="w-full inputsThirdField"
+          id="rutInstitucion"
+          [helperMessage]="''"
+          [initialLabel]="'Rut institucion/prestador'"
+          size="s2"
+          labelOrientation="start"
+        >
+        </ds-input>
+        <ds-icon
+          *ngIf="getStepsStatus('stepThree_general', 'rutInstitucion')"
+          color="info5"
+          size="25"
+          icon-name="bi-check-circle-fill"
+        ></ds-icon>
+      </div>
+      <div
+        *ngIf="getStepsStatus('stepThree_general', 'fileUploaded')"
+        class="md:col-span-4 sm:col-span-6 col-span-12 flex items-center justify-center"
+      >
+        <ds-input
+          class="w-full inputsThirdField"
+          id="boletaFactura"
+          [helperMessage]="''"
+          [initialLabel]="'Nº Boleta/Factura'"
+          size="s2"
+          labelOrientation="start"
+        >
+        </ds-input>
+        <ds-icon
+          *ngIf="getStepsStatus('stepThree_general', 'boletaFactura')"
+          color="info5"
+          size="25"
+          icon-name="bi-check-circle-fill"
+        ></ds-icon>
+      </div>
+
+      <!-- Second Row data -->
+      <ng-container
+        *ngIf="
+          getStepsStatus('stepThree_general', 'fileUploaded') &&
+          getStepsStatus('stepThree_general', 'agenciaSeleccionada') &&
+          getStepsStatus('stepThree_general', 'rutInstitucion') &&
+          getStepsStatus('stepThree_general', 'boletaFactura')
+        "
+      >
+        <div
+          class="md:col-span-4 sm:col-span-6 col-span-12 flex items-center justify-center"
+        >
+          <ds-datepicker
+            class="w-full inputsThirdField"
+            [type]="'single'"
+            [size]="'s2'"
+            [helperMessage]="''"
+            [initialLabel]="'Fecha de atención'"
+          >
+          </ds-datepicker>
+          <ds-icon
+            *ngIf="getStepsStatus('stepThree_general', 'fechaAtencion')"
+            size="25"
+            icon-name="bi-check-circle-fill"
+            color="info5"
+          ></ds-icon>
+        </div>
+        <div
+          class="md:col-span-4 sm:col-span-6 col-span-12 flex items-center justify-center"
+        >
+          <ds-input
+            class="w-full inputsThirdField"
+            id="valorPrestacion"
+            [helperMessage]="''"
+            [initialLabel]="'Valor total de la prestación'"
+            size="s2"
+            labelOrientation="start"
+          >
+          </ds-input>
+          <ds-icon
+            *ngIf="getStepsStatus('stepThree_general', 'valorPrestacion')"
+            size="25"
+            icon-name="bi-check-circle-fill"
+            color="info5"
+          ></ds-icon>
+        </div>
+        <div
+          class="md:col-span-4 sm:col-span-6 col-span-12 flex items-center justify-center"
+        >
+          <ds-input
+            class="w-full inputsThirdField"
+            id="bonificacionTotal"
+            [helperMessage]="''"
+            [initialLabel]="'Bonificación isapre total'"
+            size="s2"
+            labelOrientation="start"
+          >
+          </ds-input>
+          <ds-icon
+            *ngIf="getStepsStatus('stepThree_general', 'bonificacionTotal')"
+            size="25"
+            icon-name="bi-check-circle-fill"
+            color="info5"
+          ></ds-icon>
+        </div>
+      </ng-container>
+
+      <!-- Mount Refund -->
+
+      <div
+        class="col-span-12 mount-remound-active my-10 p-5 flex items-center justify-between"
+      >
+        <ds-title
+          type="t6"
+          family="secondary"
+          weight="semiBold"
+          slot-name="text"
+          color="tertiary"
+        >
+          <span slot="text">Monto a reembolsar</span>
+        </ds-title>
+        <ds-title
+          type="t6"
+          family="secondary"
+          weight="semiBold"
+          slot-name="text"
+          color="tertiary"
+        >
+          <span slot="text">$ {{ montoReelbolso | number: "1.0-2" }}</span>
+        </ds-title>
+      </div>
+    </ng-container>
+  </div>
+</section>

@@ -1,0 +1,68 @@
+<div class="modal-container flex items-center justify-center">
+  <div class="box md:w-4/5 grid grid-cols-12">
+    <div class="col-span-2 flex items-center justify-center">
+      <ds-icon size="42" [iconName]="'bi-check2-circle'"> </ds-icon>
+    </div>
+    <div class="col-span-8 flex items-center justify-start">
+      <!-- <h1>Recibimos con éxito tu solicitud de reembolso</h1> -->
+      <div class="grid grid-cols-12">
+        <div class="col-span-12">
+          <ds-title type="t4" family="primary" weight="bold" color="primary">
+            <span slot="text"
+              >Recibimos con éxito tu solicitud de reembolso
+            </span>
+          </ds-title>
+        </div>
+        <div class="col-span-12">
+          <ds-paragraph
+            type="p3"
+            family="secondary"
+            weight="bold"
+            color="quaternary"
+          >
+            <span slot="text"
+              >Consulta médica y compra de medicamentos a favor de Alejandro
+              Salgado</span
+            >
+          </ds-paragraph>
+        </div>
+      </div>
+    </div>
+    <div class="col-span-2 relative">
+      <span class="button-close" (click)="closeModal()">
+        <ds-icon size="23" [iconName]="'bi-x'"> </ds-icon>
+      </span>
+    </div>
+    <div class="col-span-2"></div>
+    <div class="col-span-10 mt-10 border-bottom"></div>
+    <!-- <div class="col-span-2"></div> -->
+    <div class="col-span-2"></div>
+    <div class="col-span-10 grid grid-cols-12 gap-8 mt-10">
+      <!-- First Row -->
+      <div class="col-span-3 mt-5 font-bold-title">Prestador:</div>
+      <div class="col-span-3 mt-5 font-bold-value">11.356.172-6</div>
+      <div class="col-span-3 mt-5 font-bold-title">Fecha emisión:</div>
+      <div class="col-span-3 mt-5 font-bold-value">11 / 06 / 2021</div>
+      <!-- Second Row -->
+      <div class="col-span-3 mt-5 font-bold-title">Documento:</div>
+      <div class="col-span-3 mt-5 font-bold-value">Boleta</div>
+      <div class="col-span-3 mt-5 font-bold-title">Monto:</div>
+      <div class="col-span-3 mt-5 font-bold-value">$54.000</div>
+      <!-- Third Row -->
+      <div class="col-span-3 mt-5 font-bold-title">N° Siniestro:</div>
+      <div class="col-span-3 mt-5 font-bold-value">0000-86544-87</div>
+      <!-- Four Row -->
+      <div class="col-span-9 mt-5">
+        <p class="paragraph">
+          Pronto recibirás en tu correo el resultado de tu solicitud.
+        </p>
+        <p class="paragraph">
+          Ante cualquier consulta escríbenos a contactovida@vidasecurity.cl
+        </p>
+      </div>
+      <div class="col-span-12 flex items-center justify-end text-white">
+        <button [routerLink]="['/']">Volver a inicio</button>
+      </div>
+    </div>
+  </div>
+</div>

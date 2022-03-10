@@ -1,0 +1,94 @@
+<div class="modal-container flex items-center justify-center">
+  <div class="box grid grid-cols-12 gap-8">
+    <div class="col-span-12 relative">
+      <span class="close_button" (click)="closeModal()">x</span>
+    </div>
+    <div class="col-span-12">
+      <ds-title type="t5" family="secondary" weight="bold" color="primary">
+        <span slot="text">Ingresa el detalle del medicamento</span>
+      </ds-title>
+    </div>
+    <div class="col-span-12">
+      <div class="w-full relative">
+        <ds-input
+          [initialLabel]="'Nombre del medicamento'"
+          size="s2"
+          [helperMessage]="''"
+          labelOrientation="start"
+        >
+        </ds-input>
+        <div class="icon-search">
+          <ds-icon
+            color="actionPrimary"
+            size="16"
+            icon-name="bi-search"
+          ></ds-icon>
+        </div>
+      </div>
+    </div>
+    <div class="col-span-6 flex items-center justify-between">
+      <ds-input
+        class="w-full"
+        [initialLabel]="'Nombre del medicamento'"
+        size="s2"
+        [helperMessage]="''"
+        labelOrientation="start"
+      >
+      </ds-input>
+      <span class="icon-check success">
+        <ds-icon
+          class="icon-fill-green"
+          color="actionPrimary"
+          size="20"
+          icon-name="bi-check-circle-fill"
+        ></ds-icon
+      ></span>
+    </div>
+    <div class="col-span-6 flex items-center justify-between">
+      <ds-input
+        class="w-full"
+        [initialLabel]="'Nombre del medicamento'"
+        size="s2"
+        [helperMessage]="''"
+        labelOrientation="start"
+      >
+      </ds-input>
+      <span class="icon-check success">
+        <ds-icon
+          class="icon-fill-green"
+          color="actionPrimary"
+          size="20"
+          icon-name="bi-check-circle-fill"
+        ></ds-icon
+      ></span>
+    </div>
+    <div class="col-span-12 flex items-center justify-between">
+      <ds-title
+        type="t6"
+        family="secondary"
+        weight="semiBold"
+        slot-name="text"
+        color="seconday"
+      >
+        <span slot="text">Monto a reembolsar</span>
+      </ds-title>
+      <ds-title
+        type="t6"
+        family="secondary"
+        weight="semiBold"
+        slot-name="text"
+        color="secondary"
+      >
+        <span slot="text">$ 12.000</span>
+      </ds-title>
+    </div>
+    <div class="col-span-12 flex items-center justify-end">
+      <ds-button variant="secondary" slot-name="text2">
+        <span slot="text2">Cancelar</span>
+      </ds-button>
+      <ds-button variant="primary" slot-name="text2">
+        <span class="px-5" slot="text2">Guardar</span>
+      </ds-button>
+    </div>
+  </div>
+</div>

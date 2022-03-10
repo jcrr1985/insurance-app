@@ -1,0 +1,87 @@
+<ds-table style="width: 90vw;">
+    <ds-table-header slot="header">
+        <ds-table-header-column slot="column"><span slot="element">Nombre Prestacion</span></ds-table-header-column>
+        <ds-table-header-column slot="column"><span slot="element">Nº de Sesiones</span></ds-table-header-column>
+        <ds-table-header-column slot="column"><span slot="element">Valor Prestación</span></ds-table-header-column>
+        <ds-table-header-column slot="column"><span slot="element">Bonificacion Isapre</span> </ds-table-header-column>
+        <ds-table-header-column slot="column"><span slot="element">Monto a Reembolsar</span> </ds-table-header-column>
+        <ds-table-header-column slot="column" type="actions"></ds-table-header-column>
+    </ds-table-header>
+    <ds-table-body slot="body">
+        <ds-table-body-row slot="row">
+            <ds-table-body-column slot="column">
+                <span slot="element">Consulta médica</span>
+            </ds-table-body-column>
+            <ds-table-body-column slot="column">
+                <span slot="element">1</span>
+            </ds-table-body-column>
+            <ds-table-body-column slot="column">
+                <span slot="element">$ 18.000</span>
+            </ds-table-body-column>
+            <ds-table-body-column slot="column">
+                <span slot="element">$ 12.000</span>
+            </ds-table-body-column>
+            <ds-table-body-column slot="column">
+                <span slot="element">$ 12.000</span>
+            </ds-table-body-column>
+            <ds-table-body-column-actions slot="column">
+                <span slot="element" class="flex items-center justify-start">
+                    <div class="icons-margin">
+                        <ds-icon size="23" icon-name="bi-pencil-square" color="info6"></ds-icon>
+                    </div>
+                    <div>
+                        <ds-icon size="23" icon-name="bi-trash" color="info6"></ds-icon>
+                    </div>
+                </span>
+            </ds-table-body-column-actions>
+        </ds-table-body-row>
+        <!-- rows of totals -->
+        <!-- Row total reembolsar -->
+        <ds-table-body-row class="row_defined" slot="row">
+            <ds-table-body-column slot="column">
+                <span slot="element">Total Prestaciones</span>
+            </ds-table-body-column>
+            <ds-table-body-column slot="column">
+                <span slot="element"></span>
+            </ds-table-body-column>
+            <ds-table-body-column slot="column">
+                <span slot="element"></span>
+            </ds-table-body-column>
+            <ds-table-body-column slot="column">
+                <span slot="element"></span>
+            </ds-table-body-column>
+            <ds-table-body-column slot="column">
+                <span slot="element"></span>
+            </ds-table-body-column>
+            <ds-table-body-column-actions slot="column">
+                <span slot="element">$ 18.000</span>
+            </ds-table-body-column-actions>
+        </ds-table-body-row>
+        <!-- Row total asignado -->
+        <ds-table-body-row class="row_total" slot="row">
+            <ds-table-body-column slot="column">
+                <span slot="element">Monto a reembolsar</span>
+            </ds-table-body-column>
+            <ds-table-body-column slot="column">
+                <span slot="element"></span>
+            </ds-table-body-column>
+            <ds-table-body-column slot="column">
+                <span slot="element"></span>
+            </ds-table-body-column>
+            <ds-table-body-column slot="column">
+                <span slot="element"></span>
+            </ds-table-body-column>
+            <ds-table-body-column slot="column">
+                <span slot="element"></span>
+            </ds-table-body-column>
+            <ds-table-body-column-actions slot="column">
+                <span slot="element">$ 12.000</span>
+            </ds-table-body-column-actions>
+        </ds-table-body-row>
+    </ds-table-body>
+</ds-table>
+<div class="my-10">
+    <ds-messaging variant="warning" family="secondary" size="s2"
+        title="Los montos que has ingresado no coinciden con el total">
+    </ds-messaging>
+</div>

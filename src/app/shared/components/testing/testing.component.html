@@ -1,0 +1,29 @@
+<div class="grid grid-cols-12">
+  <ng-container *ngFor="let x of availables">
+    <app-input-custom-ds
+      class="col-span-4"
+      controlName="select_chulo 1"
+      type="select"
+      helpMsg="Mamalo1"
+      (emitChange)="receivedChangesOnInput($event)"
+    ></app-input-custom-ds>
+    <app-input-custom-ds
+      class="col-span-4"
+      controlName="date_chulo 2"
+      type="date"
+      helpMsg="Mamalo2"
+      (emitChange)="receivedChangesOnInput($event)"
+    ></app-input-custom-ds>
+    <app-input-custom-ds
+      class="col-span-4"
+      controlName="text_chulo 3"
+      type="text"
+      helpMsg="Mamalo3"
+      (emitChange)="receivedChangesOnInput($event)"
+    ></app-input-custom-ds>
+  </ng-container>
+</div>
+<div class="mt-10">
+  <button (click)="agregar()">Agregar</button>
+  <button (click)="eliminar()">Eliminar</button>
+</div>

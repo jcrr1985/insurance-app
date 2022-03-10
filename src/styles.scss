@@ -1,0 +1,139 @@
+//  @import 'tailwindcss';
+@import "~@vs-design-system/ds-tokens/build/css/tokens.css";
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+// active card with border
+.css-11d6cxn {
+  width: auto !important;
+  height: 60px !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  border-top: 1px solid grey !important;
+  border-right: 1px solid grey !important;
+  border-bottom: 1px solid grey !important;
+  border-left-color: #ef6f00 !important;
+  background-color: none !important;
+  margin-bottom: 10px !important;
+  margin-left: 10px !important;
+}
+
+// inactive card
+.css-ak9sdm {
+  width: auto !important;
+  height: 60px !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  border: 1px solid grey !important;
+  background-color: none !important;
+  margin-bottom: 10px !important;
+  margin-left: 10px !important;
+}
+
+.css-8h3l1g {
+  margin-top: 10px !important;
+}
+
+.vertical-progressbar {
+  margin-top: 40px !important;
+  //corrigiendo stepper
+}
+.css-upkcef {
+  width: min-content;
+}
+.css-blsfar {
+  max-width: 100% !important;
+}
+.css-uxw5ky {
+  max-width: 100% !important;
+}
+
+.font_titilium {
+  font-family: "Titilium";
+}
+
+.css-ou2yfm {
+  display: flex;
+  align-items: center;
+}
+
+app-custom-stepper {
+  span.success_icon {
+    ds-icon {
+      svg {
+        fill: #628e37 !important;
+      }
+    }
+  }
+  span.waiting_icon {
+    ds-icon {
+      svg {
+        fill: #ef6f00 !important;
+      }
+    }
+  }
+}
+
+.css-8h3l1g {
+  display: flex !important;
+}
+
+// button.css-1vyubn8 {
+//   padding: 0 !important;
+//   font-style: normal;
+//   font-weight: 500 !important;
+//   font-size: 16px !important;
+//   color: #424893 !important;
+//   span {
+//     margin: 0 !important;
+//   }
+// }
+
+// button.css-1vyubn8 {
+//   font-style: normal;
+//   font-weight: 500 !important;
+//   font-size: 16px !important;
+//   color: #424893 !important;
+//   #ds-button-cancelar{
+//     padding: 8px 20px!important;
+//   }
+
+//   #ds-button-siguiente{
+//     padding: 10px 63.5px!important;
+//   }
+
+// }
+
+.css-1vyubn8.css-lirlie {
+  padding: 8px 20px !important;
+}
+
+.css-1vyubn8.css-2z0lnu {
+  padding: 10px 63.5px !important;
+}
+.modal-container {
+  width: 100vw;
+  height: 100vh;
+  margin: 0px;
+  padding: 0px;
+  background-color: rgba(0, 0, 0, 0.72);
+  position: fixed !important;
+  top: 0px;
+  right: 0px;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.icon-check.success {
+  ds-icon {
+    svg {
+      fill: #628e37 !important;
+    }
+  }
+}
