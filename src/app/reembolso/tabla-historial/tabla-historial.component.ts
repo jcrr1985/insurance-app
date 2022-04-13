@@ -28,6 +28,7 @@ export class TablaHistorialComponent
   public dsCounterSelectedOptionValue: number = 10;
   public cantidadDeRegistrosEnTabla!: number;
   public tenByDefault: number = 10;
+  public initialLabel: string = '10';
 
   constructor(
     private reembolsoService: ReembolsoService,
@@ -77,7 +78,8 @@ export class TablaHistorialComponent
       selectedAndNot.forEach(element => {
       element.addEventListener('click', (e:any)=> {
         this.dsCounterSelectedOptionValue = (Number(e.target.textContent) * 10)
-        this.setCantidadResultados()
+        this.setCantidadResultados();
+        this.initialLabel = (this.dsCounterSelectedOptionValue).toString();
       })
       
     });

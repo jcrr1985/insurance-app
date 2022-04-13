@@ -112,7 +112,7 @@
       <ds-pagination [totalPages]="paginationSource.length" initial-page="1"></ds-pagination>
     </div>
     <div class="">
-      <ds-pagecounter class="pageCounter" #dsPageCounter initial-label="10" [source]="paginationSource"></ds-pagecounter>
+      <ds-pagecounter class="pageCounter" #dsPageCounter [initialLabel]="initialLabel" [source]="paginationSource"></ds-pagecounter>
     </div>
   </div>
 </div>
