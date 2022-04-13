@@ -16,7 +16,9 @@ import { Router } from '@angular/router';
   templateUrl: './tabla-historial.component.html',
   styleUrls: ['./tabla-historial.component.scss'],
 })
-export class TablaHistorialComponent implements OnInit, AfterViewInit, OnDestroy {
+export class TablaHistorialComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   // @ViewChild('dsPageCounter') dsPageCounter: ElementRef<HTMLElement> =
   //   {} as ElementRef;
   @ViewChild('dsPageCounter') dsPageCounter: any;
@@ -31,7 +33,7 @@ export class TablaHistorialComponent implements OnInit, AfterViewInit, OnDestroy
     private reembolsoService: ReembolsoService,
     private elementRef: ElementRef,
     private router: Router
-  ) { }
+  ) {}
   ngOnDestroy(): void {
     if (window.removeAllListeners) window.removeAllListeners();
   }
@@ -63,19 +65,35 @@ export class TablaHistorialComponent implements OnInit, AfterViewInit, OnDestroy
   ngAfterViewInit() {
     this.dsPageCounter.nativeElement.children[0].children[2].children[0].innerHTML =
       this.totalTableEntriesLabel;
+    console.log('this.totalTableEntriesLabel', this.totalTableEntriesLabel);
 
-    const dsSelectOptions = document.getElementsByClassName('css-xigtd7');
+    const pagNums = Array.from(document.getElementsByClassName('css-16sfy5f'));
+    const leftPaginationSelected = Array.from(document.getElementsByClassName('css-7mrpfl active'));
+    const selectedAndNot = leftPaginationSelected.concat(pagNums)
+    console.log('selectedAndNot', selectedAndNot)
+    
+    
+      //TODO Setear dsCounterSelectedOptionValue (derecha) en funcion del pagination seleccionado (izquierda)
+      selectedAndNot.forEach(element => {
+      element.addEventListener('click', (e:any)=> {
+        this.dsCounterSelectedOptionValue = (Number(e.target.textContent) * 10)
+        this.setCantidadResultados()
+      })
+      
+    });
+    console.log('pagNums', pagNums)
 
     this.elementRef.nativeElement
       .querySelector('.pageCounter')
-      .addEventListener('click', this.setCantidadResultados.bind(this));
+      .addEventListener('click', this.setCantidadResultados());
   }
 
-  setCantidadResultados(event: any) {
-    let dsCounterSelectedOptionValue = Number(event.target.innerHTML);
+  setCantidadResultados() {
+
+    console.log('this.dsCounterSelectedOptionValue', this.dsCounterSelectedOptionValue)
     let chunk = this.datosReembolsosRepetido.slice(
       0,
-      dsCounterSelectedOptionValue
+      this.dsCounterSelectedOptionValue
     );
     this.ArrayEnFuncionDeLaOpcionSeleccionada = chunk;
   }
@@ -84,9 +102,9 @@ export class TablaHistorialComponent implements OnInit, AfterViewInit, OnDestroy
    * @description una funcion temporal para acceder a un apartado de pruebas
    */
   addAccessKey() {
-    window.addEventListener('keydown', event => {
-      if (event.ctrlKey && event.code == 'KeyQ') this.router.navigate(['/testing']);
-    })
+    window.addEventListener('keydown', (event) => {
+      if (event.ctrlKey && event.code == 'KeyQ')
+        this.router.navigate(['/testing']);
+    });
   }
 }
-

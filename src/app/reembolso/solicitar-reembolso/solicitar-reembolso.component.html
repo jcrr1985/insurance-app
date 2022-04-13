@@ -1,7 +1,7 @@
 <!-- HEADER -->
-<div class="grid grid-cols-12 border-b-2 h-24">
+<div class="grid h-24 grid-cols-12 border-b-2">
   <ds-title
-    class="md:col-span-6 col-span-12 font-bold text-xl flex items-center justify-start px-5"
+    class="flex items-center justify-start col-span-12 px-5 text-xl font-bold md:col-span-6"
     type="t4"
     family="secondary"
     weight="bold"
@@ -11,7 +11,7 @@
   </ds-title>
   <div
     [routerLink]="['/historial']"
-    class="md:col-span-6 col-span-12 flex items-center md:justify-end justify-start px-5"
+    class="flex items-center justify-start col-span-12 px-5 md:col-span-6 md:justify-end"
   >
     <ds-button variant="complementary" slotName="back-button-slot">
       <ds-icon
@@ -64,9 +64,9 @@
     (showAddMoreDetailModal)="showAddMoreDetailModal()"
   ></app-step-detalle-prestacion>
   <!-- Button siguiente -->
-  <section class="my-10 grid grid-cols-12">
+  <section class="grid grid-cols-12 my-10">
     <div
-      class="md:col-start-9 md:col-span-4 sm:col-span-12 flex items-center justify-around"
+      class="flex items-center justify-around md:col-start-9 md:col-span-4 sm:col-span-12"
     >
       <ds-button
         [size]="'s2'"

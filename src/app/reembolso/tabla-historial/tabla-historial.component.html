@@ -1,6 +1,6 @@
-<div class="historial-wrapper h-full">
+<div class="h-full historial-wrapper">
   <div
-    class="first-section border-solid border-2 border-black-600 rounded-xl p-5"
+    class="p-5 border-2 border-solid first-section border-black-600 rounded-xl"
   >
     <div class="flex items-center justify-between px-2">
       <div>
@@ -14,7 +14,7 @@
     </div>
   </div>
   <div class="title-historial">
-    <p class="text-2xl py-4 text-indigo-900">Historial de reembolsos</p>
+    <p class="py-4 text-2xl text-indigo-900">Historial de reembolsos</p>
   </div>
   <!--TABLE-->
   <div class="grid w-full">
@@ -106,10 +106,10 @@
       </ds-table-body>
     </ds-table>
   </div>
-  <div class="w-full flex items-center justify-between">
+  <div class="flex items-center justify-between w-full">
     <div>
 
-      <ds-pagination total-pages="{{paginationSource.length}}" initial-page="1"></ds-pagination>
+      <ds-pagination [totalPages]="paginationSource.length" initial-page="1"></ds-pagination>
     </div>
     <div class="">
       <ds-pagecounter class="pageCounter" #dsPageCounter initial-label="10" [source]="paginationSource"></ds-pagecounter>
