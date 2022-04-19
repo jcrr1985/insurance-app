@@ -1,0 +1,34 @@
+.last-col {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .doc-liq {
+        img,
+        p {
+            display: inline-block;
+            text-decoration-line: underline!important;
+        }
+
+        img {
+            margin-right: 5px;
+        }
+
+        p {
+            font-weight: 400;
+            font-size: 14px;
+            color: var(--sec2);
+        }
+    }
+    ds-open.ds-open-historial{
+        display: grid!important;
+        place-content: center!important;
+        padding-right: 7px!important;
+        * {
+            vertical-align: middle!important;
+        }
+    }
+}
+
+:host::ng-deep.css-q8cp4h {
+    background-color: var(--sec2)!important;
+  }

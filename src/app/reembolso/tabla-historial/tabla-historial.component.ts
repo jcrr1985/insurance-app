@@ -22,6 +22,9 @@ export class TablaHistorialComponent
   // @ViewChild('dsPageCounter') dsPageCounter: ElementRef<HTMLElement> =
   //   {} as ElementRef;
   @ViewChild('dsPageCounter') dsPageCounter: any;
+  @ViewChild('theader')
+  theader!: ElementRef;
+
   public totalTableEntriesLabel!: number;
   public paginationSource: PaginationSource[] = [];
   public numberOfpaginationSourceObjects: number = this.paginationSource.length;
@@ -69,30 +72,34 @@ export class TablaHistorialComponent
     console.log('this.totalTableEntriesLabel', this.totalTableEntriesLabel);
 
     const pagNums = Array.from(document.getElementsByClassName('css-16sfy5f'));
-    const leftPaginationSelected = Array.from(document.getElementsByClassName('css-7mrpfl active'));
-    const selectedAndNot = leftPaginationSelected.concat(pagNums)
-    console.log('selectedAndNot', selectedAndNot)
-    
-    
-      //TODO Setear dsCounterSelectedOptionValue (derecha) en funcion del pagination seleccionado (izquierda)
-      selectedAndNot.forEach(element => {
-      element.addEventListener('click', (e:any)=> {
-        this.dsCounterSelectedOptionValue = (Number(e.target.textContent) * 10)
+    const leftPaginationSelected = Array.from(
+      document.getElementsByClassName('css-7mrpfl active')
+    );
+    const selectedAndNot = leftPaginationSelected.concat(pagNums);
+    console.log('selectedAndNot', selectedAndNot);
+
+    //TODO Setear dsCounterSelectedOptionValue (derecha) en funcion del pagination seleccionado (izquierda)
+    selectedAndNot.forEach((element) => {
+      element.addEventListener('click', (e: any) => {
+        this.dsCounterSelectedOptionValue = Number(e.target.textContent) * 10;
         this.setCantidadResultados();
-        this.initialLabel = (this.dsCounterSelectedOptionValue).toString();
-      })
-      
+        this.initialLabel = this.dsCounterSelectedOptionValue.toString();
+      });
     });
-    console.log('pagNums', pagNums)
+    console.log('pagNums', pagNums);
 
     this.elementRef.nativeElement
       .querySelector('.pageCounter')
       .addEventListener('click', this.setCantidadResultados());
+
+    this.theader.nativeElement.style.backgroundColor = 'rgba(122,72,212,.3)';
   }
 
   setCantidadResultados() {
-
-    console.log('this.dsCounterSelectedOptionValue', this.dsCounterSelectedOptionValue)
+    console.log(
+      'this.dsCounterSelectedOptionValue',
+      this.dsCounterSelectedOptionValue
+    );
     let chunk = this.datosReembolsosRepetido.slice(
       0,
       this.dsCounterSelectedOptionValue

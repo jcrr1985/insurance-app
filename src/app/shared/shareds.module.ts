@@ -8,6 +8,9 @@ import { CustomStepperComponent } from './components/custom-stepper/custom-stepp
 import { TableResumeDetallePrestacionComponent } from './components/table-resume-detalle-prestacion/table-resume-detalle-prestacion.component';
 import { InputCustomDsComponent } from './components/input-custom-ds/input-custom-ds.component';
 import { TestingComponent } from "./components/testing/testing.component";
+import { ColDocLiqComponent } from './components/col-doc-liq/col-doc-liq.component';
+import { ColoredDirective } from './directives/colored.directive';
+import { PillComponent } from './components/pill/pill.component';
 
 @NgModule({
   declarations: [
@@ -18,10 +21,14 @@ import { TestingComponent } from "./components/testing/testing.component";
     CustomStepperComponent,
     TableResumeDetallePrestacionComponent,
     InputCustomDsComponent,
-    TestingComponent
+    TestingComponent,
+    ColDocLiqComponent,
+    ColoredDirective,
+    PillComponent,
+    
   ],
   imports: [CommonModule],
-  exports: [TestingComponent, HeaderComponent, SidebarComponent, HeaderComponent, ChipsComponent, CustomStepperComponent, TableResumeDetallePrestacionComponent],
+  exports: [TestingComponent, HeaderComponent, SidebarComponent, HeaderComponent, ChipsComponent, CustomStepperComponent, TableResumeDetallePrestacionComponent, ColDocLiqComponent, ColoredDirective, PillComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SharedsModule { }

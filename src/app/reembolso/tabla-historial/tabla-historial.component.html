@@ -14,12 +14,12 @@
     </div>
   </div>
   <div class="title-historial">
-    <p class="py-4 text-2xl text-indigo-900">Historial de reembolsos</p>
+    <p appColored class="py-4 text-2xl title-1">Historial de reembolsos</p>
   </div>
   <!--TABLE-->
   <div class="grid w-full">
     <ds-table>
-      <ds-table-header slot="header">
+      <ds-table-header appColored #theader class="tabla-header" slot="header">
         <ds-table-header-column class="text-sm" slot="column"
           ><span slot="element"
             >Nombre Beneficiario</span
@@ -50,56 +50,31 @@
           slot="row"
         >
           <ds-table-body-column slot="column">
-            <span slot="element">{{ datoReembolso.nombre }}</span>
+            <span class="texto-normal" slot="element">{{
+              datoReembolso.nombre
+            }}</span>
           </ds-table-body-column>
           <ds-table-body-column slot="column">
-            <span slot="element">{{ datoReembolso.numSolicitud }}</span>
+            <span class="texto-normal" slot="element">{{
+              datoReembolso.numSolicitud
+            }}</span>
           </ds-table-body-column>
           <ds-table-body-column slot="column">
-            <span slot="element">{{ datoReembolso.montoSolicitado }}</span>
+            <span class="texto-normal" slot="element">{{
+              datoReembolso.montoSolicitado
+            }}</span>
           </ds-table-body-column>
           <ds-table-body-column slot="column">
-            <span slot="element">{{
+            <span class="texto-normal" slot="element">{{
               datoReembolso.fechaPago | date: "shortDate"
             }}</span>
           </ds-table-body-column>
           <ds-table-body-column slot="column">
             <!--fix los de abajo-->
-            <span slot="element">estado</span>
+            <app-pill></app-pill>
           </ds-table-body-column>
           <ds-table-body-column slot="column">
-            <span slot="element">
-              <ds-icon
-                color="{{
-                  datoReembolso.documentoLiquidacion.iconLiquidacion.color
-                }}"
-                size="{{
-                  datoReembolso.documentoLiquidacion.iconLiquidacion.size
-                }}"
-                iconName="{{
-                  datoReembolso.documentoLiquidacion.iconLiquidacion.iconName
-                }}"
-              ></ds-icon
-              >&nbsp;
-              <ds-paragraph
-                type="{{
-                  datoReembolso.documentoLiquidacion.textoLiquidacion.type
-                }}"
-                family="{{
-                  datoReembolso.documentoLiquidacion.textoLiquidacion.family
-                }}"
-                weight="{{
-                  datoReembolso.documentoLiquidacion.textoLiquidacion.weight
-                }}"
-                color="{{
-                  datoReembolso.documentoLiquidacion.textoLiquidacion.color
-                }}"
-              >
-                <span slot="text">{{
-                  datoReembolso.documentoLiquidacion.textoLiquidacion.text
-                }}</span>
-              </ds-paragraph>
-            </span>
+            <app-col-doc-liq></app-col-doc-liq>
           </ds-table-body-column>
         </ds-table-body-row>
         <!--End Row-->
@@ -108,11 +83,18 @@
   </div>
   <div class="flex items-center justify-between w-full">
     <div>
-
-      <ds-pagination [totalPages]="paginationSource.length" initial-page="1"></ds-pagination>
+      <ds-pagination
+        [totalPages]="paginationSource.length"
+        initial-page="1"
+      ></ds-pagination>
     </div>
     <div class="">
-      <ds-pagecounter class="pageCounter" #dsPageCounter [initialLabel]="initialLabel" [source]="paginationSource"></ds-pagecounter>
+      <ds-pagecounter
+        class="pageCounter"
+        #dsPageCounter
+        [initialLabel]="initialLabel"
+        [source]="paginationSource"
+      ></ds-pagecounter>
     </div>
   </div>
 </div>
