@@ -52,6 +52,7 @@ export class TablaHistorialComponent
     this.addAccessKey();
 
     let numeroDeRegistros = this.reembolsos.length;
+    console.log('numeroDeRegistros', numeroDeRegistros)
     for (let i = 10; i <= numeroDeRegistros; i += 10) {
       const paginationCounterProperties = { label: i.toString(), value: i };
       this.paginationSource.push(paginationCounterProperties);
@@ -87,7 +88,7 @@ export class TablaHistorialComponent
     });
     console.log('pagNums', pagNums);
 
-    this.dsPageCounter.addEventListener('blur', () =>
+    this.dsPageCounter.addEventListener('mouse', () =>  // TODO DOM traversing get By class
       console.log('blur on dsPageCOunter')
     );
 
