@@ -1,3 +1,4 @@
+import { Reembolsos } from './../../shared/interfaces/interfaces';
 import { PaginationSource } from '../../shared/interfaces/interfaces';
 import {
   AfterViewInit,
@@ -32,38 +33,36 @@ export class TablaHistorialComponent
   public cantidadDeRegistrosEnTabla!: number;
   public tenByDefault: number = 10;
   public initialLabel: string = '10';
+  public reembolsos: Reembolsos[];
 
   constructor(
     private reembolsoService: ReembolsoService,
     private elementRef: ElementRef,
     private router: Router
-  ) {}
+  ) {
+    this.reembolsos = this.reembolsoService.getReembolsos();
+  }
   ngOnDestroy(): void {
     if (window.removeAllListeners) window.removeAllListeners();
   }
 
-  get datosReembolsos() {
-    return this.reembolsoService.getDatosReembolsos();
-  }
-
-  get datosReembolsosRepetido() {
-    return this.reembolsoService.getDatosReembolsosRepetido();
-  }
-
-  public ArrayEnFuncionDeLaOpcionSeleccionada!: any[];
+  public tenEntriesByDefault!: any[];
 
   ngOnInit(): void {
     this.addAccessKey();
 
-    let numeroDeRegistros = this.datosReembolsosRepetido.length;
+    let numeroDeRegistros = this.reembolsos.length;
     for (let i = 10; i <= numeroDeRegistros; i += 10) {
       const paginationCounterProperties = { label: i.toString(), value: i };
       this.paginationSource.push(paginationCounterProperties);
     }
     this.totalTableEntriesLabel =
       this.paginationSource[this.paginationSource.length - 1].value;
-    this.ArrayEnFuncionDeLaOpcionSeleccionada =
-      this.datosReembolsosRepetido.slice(0, this.tenByDefault);
+    this.tenEntriesByDefault = this.reembolsos.slice(
+      0,
+      this.tenByDefault
+    );
+    console.log('tenEntriesByDefault', this.tenEntriesByDefault)
   }
 
   ngAfterViewInit() {
@@ -78,7 +77,7 @@ export class TablaHistorialComponent
     const selectedAndNot = leftPaginationSelected.concat(pagNums);
     console.log('selectedAndNot', selectedAndNot);
 
-    //TODO Setear dsCounterSelectedOptionValue (derecha) en funcion del pagination seleccionado (izquierda)
+    // Setea dsCounterSelectedOptionValue (derecha) en funcion del pagination seleccionado (izquierda)
     selectedAndNot.forEach((element) => {
       element.addEventListener('click', (e: any) => {
         this.dsCounterSelectedOptionValue = Number(e.target.textContent) * 10;
@@ -87,6 +86,10 @@ export class TablaHistorialComponent
       });
     });
     console.log('pagNums', pagNums);
+
+    this.dsPageCounter.addEventListener('blur', () =>
+      console.log('blur on dsPageCOunter')
+    );
 
     this.elementRef.nativeElement
       .querySelector('.pageCounter')
@@ -100,11 +103,8 @@ export class TablaHistorialComponent
       'this.dsCounterSelectedOptionValue',
       this.dsCounterSelectedOptionValue
     );
-    let chunk = this.datosReembolsosRepetido.slice(
-      0,
-      this.dsCounterSelectedOptionValue
-    );
-    this.ArrayEnFuncionDeLaOpcionSeleccionada = chunk;
+    let chunk = this.reembolsos.slice(0, this.dsCounterSelectedOptionValue);
+    this.tenEntriesByDefault = chunk;
   }
 
   /**

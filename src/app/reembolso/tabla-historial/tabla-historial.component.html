@@ -45,33 +45,33 @@
       <ds-table-body slot="body">
         <!--Row Start-->
         <ds-table-body-row
-          *ngFor="let datoReembolso of ArrayEnFuncionDeLaOpcionSeleccionada"
+          *ngFor="let registro of tenEntriesByDefault"
           class="bg-gray-100"
           slot="row"
         >
           <ds-table-body-column slot="column">
             <span class="texto-normal" slot="element">{{
-              datoReembolso.nombre
+              registro.nombre
             }}</span>
           </ds-table-body-column>
           <ds-table-body-column slot="column">
             <span class="texto-normal" slot="element">{{
-              datoReembolso.numSolicitud
+              registro.numSolicitud
             }}</span>
           </ds-table-body-column>
           <ds-table-body-column slot="column">
             <span class="texto-normal" slot="element">{{
-              datoReembolso.montoSolicitado
+              registro.montoSolicitado
             }}</span>
           </ds-table-body-column>
           <ds-table-body-column slot="column">
             <span class="texto-normal" slot="element">{{
-              datoReembolso.fechaPago | date: "shortDate"
+              registro.fechaPago | date: "shortDate"
             }}</span>
           </ds-table-body-column>
           <ds-table-body-column slot="column">
             <!--fix los de abajo-->
-            <app-pill></app-pill>
+            <app-pill [texto]="registro.estado"></app-pill>
           </ds-table-body-column>
           <ds-table-body-column slot="column">
             <app-col-doc-liq></app-col-doc-liq>

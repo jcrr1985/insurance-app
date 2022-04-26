@@ -10,40 +10,14 @@ export interface Chip {
   state: boolean;
 }
 
-export interface DatosReembolso {
+export interface Reembolsos {
   nombre: string;
   numSolicitud: number;
   montoSolicitado: string;
   fechaPago: string;
-  estado: estadoSolicitud;
-  documentoLiquidacion: {
-    iconLiquidacion: IconLiquidacion;
-    textoLiquidacion: TextoLiquidacion;
-  };
+  estado: string;
 }
 
-export interface estadoSolicitud {
-  darkerColor: string;
-  ligterColor: string;
-  text: string;
-  iconText: string;
-  // text:string
-
-}
-
-export interface IconLiquidacion {
-  color: string;
-  size: string;
-  iconName: string;
-}
-
-export interface TextoLiquidacion {
-  type: string;
-  family: string;
-  weight: string;
-  color: string;
-  text: string;
-}
 
 export interface FilesUploaded {
   name: string;

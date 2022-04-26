@@ -8,6 +8,8 @@ import { Component, Input, OnInit } from '@angular/core';
 export class PillComponent implements OnInit {
   @Input()
   estadoPago!: string;
+  @Input()
+  texto!: string;
 
   constructor() {}
 
