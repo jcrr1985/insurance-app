@@ -1,47 +1,61 @@
 <section class="my-10 flex items-center justify-start">
-  <app-custom-stepper
-    [height]="customStepperSize.stepperTwo"
-    [status]="stepperTwoSource()[0].status"
-  >
+  <app-custom-stepper [height]="customStepperSize.stepperTwo" [status]="stepperTwoSource()[0].status">
   </app-custom-stepper>
   <div id="stepperTwoContent" class="grid grid-cols-12 w-full gap-2 pr-5">
-    <ds-title
-      class="col-span-12 mb-4"
-      type="t4"
-      family="secondary"
-      weight="bold"
-      color="primary"
-    >
+    <ds-title class="col-span-12 mb-4" type="t4" family="secondary" weight="bold" color="primary">
       <span slot="text">Selecciona tu prestación</span>
     </ds-title>
     <ng-container *ngIf="getStepsStatus('stepOne_who', 'personaSeleccionada')">
-      <ng-container *ngFor="let card of chipsData; let i = index">
-        <ds-card
-          id="step2Content"
-          class="cargas-card md:col-span-4 sm:col-span-6 col-span-12"
-          [type]="card.state ? 't1' : 't2'"
-          [ngStyle]="{ 'border-color': '#FFFFFF' }"
-          (click)="selectOption(i)"
-        >
+      <!-- <ng-container *ngFor="let card of chipsData; let i = index">
+        <ds-card id="step2Content" class="cargas-card md:col-span-4 sm:col-span-6 col-span-12"
+          [type]="card.state ? 't1' : 't2'" [ngStyle]="{ 'border-color': '#FFFFFF' }" (click)="selectOption(i)">
           <div class="flex items-center justify-around" slot="cardContent">
-            <ds-icon
-              [color]="card.state ? 'actionTertiary' : 'actionPrimary'"
-              size="42"
-              iconName="{{ card.nombre }}"
-            >
+            <ds-icon [color]="card.state ? 'actionTertiary' : 'actionPrimary'" size="42" iconName="{{ card.nombre }}">
             </ds-icon>
             <ds-paragraph type="p1" family="primary" weight="regular">
-              <span
-                [ngStyle]="{ color: card.state ? '#EF6F00' : '#43505E' }"
-                class="card-text"
-                slot="text"
-              >
+              <span [ngStyle]="{ color: card.state ? '#EF6F00' : '#43505E' }" class="card-text" slot="text">
                 {{ card.desripcion }}
               </span>
             </ds-paragraph>
           </div>
-        </ds-card>
+        </ds-card> 
+        
+      </ng-container>-->
+      <ng-container *ngFor="let x of cards;let i = index">
+        <app-card-option [ngClass]="[coldefined]" [status]="x.status" [name]="x.name" [prestacionName]="x.prestacion"
+          (click)="setCard(i)">
+        </app-card-option>
       </ng-container>
+      <!-- Reembolsaste -->
+      <ds-paragraph class="md:col-span-5 col-span-12 mb-5" type="p1" family="secondary" weight="semiBold"
+        color="secondary">
+        <span slot="text" class="font-bold">¿Reembolsaste previamente en tu Isapre?</span>
+      </ds-paragraph>
+      <div class="md:col-span-6 col-span-12 flex items-center justify-start md:-ml-20">
+        <ds-radio class="mx-5" type="s1" family="primary" label="Si" name="reembolsoIsapre" value="si" (click)="
+            setStepsStatus({
+              step: 'stepTwo_selectOption',
+              option: 'reembolsoPrevioIsapre',
+              value: 'si'
+            })
+          ">
+        </ds-radio>
+        <ds-radio class="mx-5" type="s1" family="primary" label="No" name="reembolsoIsapre" value="no" (click)="
+            setStepsStatus({
+              step: 'stepTwo_selectOption',
+              option: 'reembolsoPrevioIsapre',
+              value: 'no'
+            })
+          ">
+        </ds-radio>
+      </div>
+      <div class="col-span-12" *ngIf="
+          getStepsStatus('stepTwo_selectOption', 'reembolsoPrevioIsapre') == 'no'
+        ">
+        <ds-messaging variant="warning" family="secondary" size="s2"
+          title="Te recomendamos que realices primero tu reembolso en tu Isapre o Fonasa, ya que si no lo haces, el monto de reembolso puede ser menor">
+        </ds-messaging>
+      </div>
     </ng-container>
   </div>
 </section>

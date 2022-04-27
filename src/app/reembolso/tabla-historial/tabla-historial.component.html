@@ -1,6 +1,6 @@
-<div class="historial-wrapper h-full">
+<div class="h-full historial-wrapper">
   <div
-    class="first-section border-solid border-2 border-black-600 rounded-xl p-5"
+    class="p-5 border-2 border-solid first-section border-black-600 rounded-xl"
   >
     <div class="flex items-center justify-between px-2">
       <div>
@@ -14,12 +14,12 @@
     </div>
   </div>
   <div class="title-historial">
-    <p class="text-2xl py-4 text-indigo-900">Historial de reembolsos</p>
+    <p appColored class="py-4 text-2xl title-1">Historial de reembolsos</p>
   </div>
   <!--TABLE-->
   <div class="grid w-full">
     <ds-table>
-      <ds-table-header slot="header">
+      <ds-table-header appColored #theader class="tabla-header" slot="header">
         <ds-table-header-column class="text-sm" slot="column"
           ><span slot="element"
             >Nombre Beneficiario</span
@@ -45,74 +45,56 @@
       <ds-table-body slot="body">
         <!--Row Start-->
         <ds-table-body-row
-          *ngFor="let datoReembolso of ArrayEnFuncionDeLaOpcionSeleccionada"
+          *ngFor="let registro of tenEntriesByDefault"
           class="bg-gray-100"
           slot="row"
         >
           <ds-table-body-column slot="column">
-            <span slot="element">{{ datoReembolso.nombre }}</span>
+            <span class="texto-normal" slot="element">{{
+              registro.nombre
+            }}</span>
           </ds-table-body-column>
           <ds-table-body-column slot="column">
-            <span slot="element">{{ datoReembolso.numSolicitud }}</span>
+            <span class="texto-normal" slot="element">{{
+              registro.numSolicitud
+            }}</span>
           </ds-table-body-column>
           <ds-table-body-column slot="column">
-            <span slot="element">{{ datoReembolso.montoSolicitado }}</span>
+            <span class="texto-normal" slot="element">{{
+              registro.montoSolicitado
+            }}</span>
           </ds-table-body-column>
           <ds-table-body-column slot="column">
-            <span slot="element">{{
-              datoReembolso.fechaPago | date: "shortDate"
+            <span class="texto-normal" slot="element">{{
+              registro.fechaPago | date: "shortDate"
             }}</span>
           </ds-table-body-column>
           <ds-table-body-column slot="column">
             <!--fix los de abajo-->
-            <span slot="element">estado</span>
+            <app-pill [texto]="registro.estado"></app-pill>
           </ds-table-body-column>
           <ds-table-body-column slot="column">
-            <span slot="element">
-              <ds-icon
-                color="{{
-                  datoReembolso.documentoLiquidacion.iconLiquidacion.color
-                }}"
-                size="{{
-                  datoReembolso.documentoLiquidacion.iconLiquidacion.size
-                }}"
-                iconName="{{
-                  datoReembolso.documentoLiquidacion.iconLiquidacion.iconName
-                }}"
-              ></ds-icon
-              >&nbsp;
-              <ds-paragraph
-                type="{{
-                  datoReembolso.documentoLiquidacion.textoLiquidacion.type
-                }}"
-                family="{{
-                  datoReembolso.documentoLiquidacion.textoLiquidacion.family
-                }}"
-                weight="{{
-                  datoReembolso.documentoLiquidacion.textoLiquidacion.weight
-                }}"
-                color="{{
-                  datoReembolso.documentoLiquidacion.textoLiquidacion.color
-                }}"
-              >
-                <span slot="text">{{
-                  datoReembolso.documentoLiquidacion.textoLiquidacion.text
-                }}</span>
-              </ds-paragraph>
-            </span>
+            <app-col-doc-liq></app-col-doc-liq>
           </ds-table-body-column>
         </ds-table-body-row>
         <!--End Row-->
       </ds-table-body>
     </ds-table>
   </div>
-  <div class="w-full flex items-center justify-between">
+  <div class="flex items-center justify-between w-full">
     <div>
-
-      <ds-pagination total-pages="{{paginationSource.length}}" initial-page="1"></ds-pagination>
+      <ds-pagination
+        [totalPages]="paginationSource.length"
+        initialLabel="1"
+      ></ds-pagination>
     </div>
     <div class="">
-      <ds-pagecounter class="pageCounter" #dsPageCounter initial-label="10" [source]="paginationSource"></ds-pagecounter>
+      <ds-pagecounter
+        class="pageCounter"
+        #dsPageCounter
+        [initialLabel]="initialLabel"
+        [source]="paginationSource"
+      ></ds-pagecounter>
     </div>
   </div>
 </div>

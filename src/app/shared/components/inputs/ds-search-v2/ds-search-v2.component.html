@@ -1,0 +1,19 @@
+<div class="relative">
+    <ds-input-v2 type="text" [iconActive]="isValid" [statusActive]="isValid" label="{{label}}" helpText="{{helpText}}"
+        (keyupEv)="search($event)" (changeEv)="emitChange()" [value]="value">
+    </ds-input-v2>
+    <div *ngIf="keySearch != ''" class="resultSearch">
+        <ng-container *ngIf="filterResult.length;else noResult">
+            <ng-container *ngFor="let element of filterResult">
+                <div class="itemDisplay" (click)="selectValue(element)">
+                    {{element.key}}
+                </div>
+            </ng-container>
+        </ng-container>
+        <ng-template #noResult>
+            <div class="itemDisplay">
+                No hay resultados para mostrar
+            </div>
+        </ng-template>
+    </div>
+</div>

@@ -10,39 +10,12 @@ export interface Chip {
   state: boolean;
 }
 
-export interface DatosReembolso {
+export interface Reembolsos {
   nombre: string;
   numSolicitud: number;
   montoSolicitado: string;
   fechaPago: string;
-  estado: estadoSolicitud;
-  documentoLiquidacion: {
-    iconLiquidacion: IconLiquidacion;
-    textoLiquidacion: TextoLiquidacion;
-  };
-}
-
-export interface estadoSolicitud {
-  darkerColor: string;
-  ligterColor: string;
-  text: string;
-  iconText: string;
-  // text:string
-
-}
-
-export interface IconLiquidacion {
-  color: string;
-  size: string;
-  iconName: string;
-}
-
-export interface TextoLiquidacion {
-  type: string;
-  family: string;
-  weight: string;
-  color: string;
-  text: string;
+  estado: string;
 }
 
 export interface FilesUploaded {
@@ -54,9 +27,20 @@ export interface PaginationSource {
   value: number;
 }
 
-export interface CustomStepperSize  {
+export interface CustomStepperSize {
   stepperOne: string;
   stepperTwo: string;
   stepperThree: string;
   stepperFour: string;
+  stepperFive: string;
+}
+export interface Prestacion {
+  /**
+   * @description consulta medica - medicamentos - lentes ...
+   */
+  tipoPrestacion: string;
+  prestacionSeleccionada: string;
+  numerosesiones: String;
+  valorPrestacion: number;
+  bonificacion: number;
 }

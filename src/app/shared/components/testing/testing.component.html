@@ -1,29 +1,35 @@
 <div class="grid grid-cols-12">
   <ng-container *ngFor="let x of availables">
-    <app-input-custom-ds
-      class="col-span-4"
-      controlName="select_chulo 1"
-      type="select"
-      helpMsg="Mamalo1"
-      (emitChange)="receivedChangesOnInput($event)"
-    ></app-input-custom-ds>
-    <app-input-custom-ds
-      class="col-span-4"
-      controlName="date_chulo 2"
-      type="date"
-      helpMsg="Mamalo2"
-      (emitChange)="receivedChangesOnInput($event)"
-    ></app-input-custom-ds>
-    <app-input-custom-ds
-      class="col-span-4"
-      controlName="text_chulo 3"
-      type="text"
-      helpMsg="Mamalo3"
-      (emitChange)="receivedChangesOnInput($event)"
-    ></app-input-custom-ds>
+    <app-input-custom-ds class="col-span-4" controlName="select_chulo 1" type="select" helpMsg="Mamalo1"
+      (emitChange)="receivedChangesOnInput($event)"></app-input-custom-ds>
+    <app-input-custom-ds class="col-span-4" controlName="date_chulo 2" type="date" helpMsg="Mamalo2"
+      (emitChange)="receivedChangesOnInput($event)"></app-input-custom-ds>
+    <app-input-custom-ds class="col-span-4" controlName="text_chulo 3" type="text" helpMsg="Mamalo3"
+      (emitChange)="receivedChangesOnInput($event)"></app-input-custom-ds>
   </ng-container>
 </div>
 <div class="mt-10">
   <button (click)="agregar()">Agregar</button>
   <button (click)="eliminar()">Eliminar</button>
+</div>
+
+<div class="mt-20 grid grid-cols-12">
+  <ds-input-v2 class="col-span-3" label="Input tipo numero" helpText="ingresa solo numeros" type="number"
+    (changeEv)="changeEvent($event)" (keyupEv)="keypressEvent($event)">
+  </ds-input-v2>
+  <ds-input-v2 class="col-span-3" label="Input tipo texto" helpText="ingresa cualquier tipo" type="text"
+    (changeEv)="changeEvent($event)" (keyupEv)="keypressEvent($event)">
+  </ds-input-v2>
+  <ds-search-v2 class="col-span-3" label="Input tipo buscador" [source]="sourceSelect"
+    helpText="ingresa un nombre para buscar" (changeEv)="changeEvent($event)" (keyupEv)="keypressEvent($event)">
+  </ds-search-v2>
+  <ds-select-v2 class="col-span-3" [source]="sourceSelect" helpText="Selecciona un elemento para continuar"
+    (changeEv)="selectEvent($event)"></ds-select-v2>
+</div>
+
+<div class="grid grid-cols-12 w-full">
+  <ng-container *ngFor="let x of cards;let i = index">
+    <app-card-option [ngClass]="[coldefined]" [status]="x.status" [name]="x.name" [prestacionName]="x.prestacion" (click)="setCard(i)">
+    </app-card-option>
+  </ng-container>
 </div>

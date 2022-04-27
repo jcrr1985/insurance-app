@@ -1,52 +1,37 @@
 <section class="my-10 flex items-center justify-start">
-  <app-custom-stepper
-    [height]="customStepperSize.stepperFour"
-    [status]="stepperFourSource()[0].status"
-  >
+  <app-custom-stepper [height]="customStepperSize.stepperFive" [status]="stepperFiveSource()[0].status">
   </app-custom-stepper>
-  <div id="stepperFourContent" class="grid grid-cols-12 gap-8">
-    <ds-title
-      class="col-span-12"
-      type="t4"
-      family="secondary"
-      weight="bold"
-      color="primary"
-    >
+  <div id="stepperFiveContent" class="grid grid-cols-12 gap-8">
+    <ds-title class="col-span-12" type="t4" family="secondary" weight="bold" color="primary">
       <span slot="text">Detalle de la prestación</span>
     </ds-title>
-    <ng-container *ngIf="montoReelbolso > 0">
+    <ng-container *ngIf="getStepsStatus('stepFour_general','tipoDocumentoSeleccionado')">
       <div class="col-span-9">
-        <ds-paragraph
-          type="p1"
-          family="primary"
-          weight="regular"
-          color="secondary"
-        >
-          <span slot="text"
-            >Agrega la información que aparece en tu documento como por ejemplo
+        <ds-paragraph type="p1" family="primary" weight="regular" color="secondary">
+          <span slot="text">Agrega la información que aparece en tu documento como por ejemplo
             los tipos de medicamentos, detalles de tu atención, insumos
             comprados, según tu prestación.
           </span>
         </ds-paragraph>
       </div>
-      <div class="col-span-3">
-        <ds-button
-          variant="complementary"
-          slot-name="text2"
-          (click)="showModal()"
-        >
-          <span slot="text2">Agregar otro detalle</span>
-          <ds-icon
-            color="info2"
-            size="24"
-            icon-name="bi-plus-circle"
-            slot="text2"
-          ></ds-icon>
+      <div class="col-span-9" *ngIf="!prestaciones.length">
+        <ds-button (click)="showModal = true" class="mt-10" variant="secondary" slot-name="text2">
+          <span slot="text2">Agregar detalle</span>
         </ds-button>
       </div>
-      <div class="col-span-12 flex">
-        <app-table-resume-detalle-prestacion></app-table-resume-detalle-prestacion>
+      <div class="col-span-3" *ngIf="prestaciones.length">
+        <ds-button variant="complementary" slot-name="text2" (click)="showModal = true">
+          <span slot="text2">Agregar otro detalle</span>
+          <ds-icon color="info2" size="24" icon-name="bi-plus-circle" slot="text2"></ds-icon>
+        </ds-button>
+      </div>
+      <div class="col-span-12 flex" *ngIf="prestaciones.length">
+        <app-table-resume-detalle-prestacion [prestaciones]="prestaciones" (editEv)="edit($event)"
+          (deleteEv)="delete($event)"></app-table-resume-detalle-prestacion>
       </div>
     </ng-container>
   </div>
+  <app-detalle-prestacion *ngIf="showModal" [prestacionSeleccionada]="prestacionSeleccionada"
+    (datosNuevaPrestacion)="nuevaPrestacionDataArray($event)" (hideModalEvent)="hideAddMoreDetailModal()">
+  </app-detalle-prestacion>
 </section>

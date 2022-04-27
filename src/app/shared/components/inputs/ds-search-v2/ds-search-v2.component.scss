@@ -1,0 +1,28 @@
+.resultSearch {
+    margin-top: 15px;
+    box-sizing: border-box;
+    position: absolute;
+    z-index: 200;
+    min-height: 50px;
+    max-height: 170px;
+    width: auto;
+    display: block;
+    overflow-y: auto;
+    flex-flow: column nowrap;
+    background-color: rgb(255, 255, 255);
+    font-family: "Titillium Web", sans-serif;
+    font-size: 14px;
+    border-radius: 8px;
+    box-shadow: rgb(67 80 94 / 20%) 0px 8px 8px 0px;
+    padding-top: 6px;
+}
+.itemDisplay {
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    padding: 8px 16px;
+    color: rgb(67, 80, 94);
+    -webkit-box-align: center;
+    align-items: center;
+}

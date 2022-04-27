@@ -1,0 +1,154 @@
+<section class="flex items-center justify-start my-10">
+  <app-custom-stepper
+    [height]="customStepperSize.stepperFour"
+    [status]="stepperFourSource()[0].status"
+  >
+  </app-custom-stepper>
+  <div id="stepperFourContent" class="grid w-full grid-cols-12 gap-4 pr-5">
+    <!-- Title -->
+    <ds-title
+      class="col-span-12"
+      type="t4"
+      family="secondary"
+      weight="bold"
+      color="primary"
+    >
+      <span slot="text">Sube tus documentos</span>
+    </ds-title>
+    <ng-container *ngIf="getStepsStatus('stepThree_general', 'copagoMayor')">
+      <!-- documento -->
+      <ds-paragraph
+        class="col-span-12 mb-2 md:col-span-6"
+        type="p1"
+        family="primary"
+        weight="regular"
+        color="secondary"
+      >
+        <span slot="text" class="font-bold"
+          >Selecciona uno de los siguientes documentos
+          <ds-tooltip family="primary" content="Documentos disponibles">
+            <ds-icon
+              slot="tooltip"
+              color="info4"
+              size="28"
+              icon-name="bi-question-circle-fill"
+            >
+            </ds-icon>
+          </ds-tooltip>
+        </span>
+      </ds-paragraph>
+      <div class="items-center justify-start block md:col-span-12 md:flex">
+        <ds-radio
+          *ngIf="
+            getStepsStatus('stepTwo_selectOption', 'reembolsoPrevioIsapre') ==
+            'si'
+          "
+          (click)="
+            setStepsStatus({
+              step: 'stepFour_general',
+              option: 'tipoDocumentoSeleccionado',
+              value: 1
+            })
+          "
+          class="mx-5 md:w-max"
+          type="s1"
+          family="primary"
+          label="Documento reembolso isapre o fonasa"
+          name="documentType"
+          value="1"
+        >
+        </ds-radio>
+        <ds-radio
+          *ngIf="
+            getStepsStatus('stepTwo_selectOption', 'reembolsoPrevioIsapre') ==
+            'si'
+          "
+          (click)="
+            setStepsStatus({
+              step: 'stepFour_general',
+              option: 'tipoDocumentoSeleccionado',
+              value: 2
+            })
+          "
+          class="mx-5 md:w-max"
+          type="s1"
+          family="primary"
+          label="Bono"
+          name="documentType"
+          value="2"
+        >
+        </ds-radio>
+        <ds-radio
+          (click)="
+            setStepsStatus({
+              step: 'stepFour_general',
+              option: 'tipoDocumentoSeleccionado',
+              value: 3
+            })
+          "
+          class="mx-5 md:w-max"
+          type="s1"
+          family="primary"
+          label="Boleta / Factura"
+          name="documentType"
+          value="3"
+        >
+        </ds-radio>
+      </div>
+      <ng-container *ngIf="idPrestacionSeleccionada == 1">
+        <ng-container
+          *ngFor="let docs of documentsDisplay.hospitalario.nameFiles"
+        >
+          <div [ngClass]="[documentsDisplay.hospitalario.cols]">
+            <h1 class="titleDocs">{{ docs }}</h1>
+            <ds-file type="default" id="documentsHospitalario"> </ds-file>
+          </div>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="idPrestacionSeleccionada == 2">
+        <ng-container
+          *ngFor="let docs of documentsDisplay.consultamedica.nameFiles"
+        >
+          <div [ngClass]="[documentsDisplay.hospitalario.cols]">
+            <h1 class="titleDocs">{{ docs }}</h1>
+            <ds-file type="default" id="documentsHospitalario"> </ds-file>
+          </div>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="idPrestacionSeleccionada == 3">
+        <ng-container *ngFor="let docs of documentsDisplay.dentales.nameFiles">
+          <div [ngClass]="[documentsDisplay.hospitalario.cols]">
+            <h1 class="titleDocs">{{ docs }}</h1>
+            <ds-file type="default" id="documentsHospitalario"> </ds-file>
+          </div>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="idPrestacionSeleccionada == 4">
+        <ng-container *ngFor="let docs of documentsDisplay.examenes.nameFiles">
+          <div [ngClass]="[documentsDisplay.hospitalario.cols]">
+            <h1 class="titleDocs">{{ docs }}</h1>
+            <ds-file type="default" id="documentsHospitalario"> </ds-file>
+          </div>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="idPrestacionSeleccionada == 5">
+        <ng-container
+          *ngFor="let docs of documentsDisplay.medicamentos.nameFiles"
+        >
+          <div [ngClass]="[documentsDisplay.hospitalario.cols]">
+            <h1 class="titleDocs">{{ docs }}</h1>
+            <ds-file type="default" id="documentsHospitalario"> </ds-file>
+          </div>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="idPrestacionSeleccionada == 6">
+        <ng-container *ngFor="let docs of documentsDisplay.lentes.nameFiles">
+          <div [ngClass]="[documentsDisplay.hospitalario.cols]">
+            <h1 class="titleDocs">{{ docs }}</h1>
+            <ds-file type="default" id="documentsHospitalario"> </ds-file>
+          </div>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </div>
+</section>

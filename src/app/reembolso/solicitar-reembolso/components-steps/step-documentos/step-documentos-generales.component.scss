@@ -1,0 +1,42 @@
+.custom_file_upload {
+    border: solid 2px #d2d9df;
+    border-style: dashed;
+    border-radius: 10px;
+    font-family: "Titilium";
+    .text-header {
+        font-size: 18px;
+    }
+    .text-description {
+        color: #d2d9df;
+        font-size: 14px;
+    }
+}
+
+.custom-file-upload-list {
+    border: solid #d2d9df 2px;
+    border-radius: 10px;
+}
+
+.file-uploaded-title {
+    font-weight: 900;
+    font-size: 16px;
+    color: #989999;
+}
+
+.mount-remound-active {
+    background-color: #424893;
+    border-radius: 10px;
+    height: 55px;
+}
+
+ds-icon {
+    margin-right: 1rem;
+    margin-left: 1rem;
+}
+
+.titleDocs {
+    padding-left: 10px;
+    font-weight: 700;
+    color: rgb(80, 80, 80);
+    padding-bottom: 10px;
+}

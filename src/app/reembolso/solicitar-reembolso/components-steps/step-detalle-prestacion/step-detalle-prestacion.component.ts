@@ -7,17 +7,47 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class StepDetallePrestacionComponent implements OnInit {
   @Input() customStepperSize: any;
-  @Input() stepperFourSource: any;
+  @Input() stepperFiveSource: any;
   @Input() montoReelbolso: any;
+  @Input() stepsStatusOn: any;
   @Output() showAddMoreDetailModal: EventEmitter<any> = new EventEmitter<any>();
-
+  showModal: boolean = false;
+  prestaciones: any[] = [];
+  prestacionSeleccionada: any = {};
   constructor() { }
 
   ngOnInit(): void {
+
+  }
+  edit(prestacion: any) {
+    this.prestacionSeleccionada = prestacion;
+    console.log("edit", this.prestacionSeleccionada);
+    this.showModal = true;
+  }
+  delete(prestacion: any) {
+    this.prestacionSeleccionada = prestacion;
+    this.prestaciones = this.prestaciones.filter(e => e.id != prestacion.id)
+    console.log(this.prestaciones)
+  }
+  nuevaPrestacionDataArray(prestacion: any) {
+    this.prestaciones.push({ ...prestacion, id: this.prestaciones.length + 1 });
+    this.prestacionSeleccionada = {}
+    console.log(this.prestaciones);
+  }
+  hideAddMoreDetailModal() {
+    this.showModal = false;
+    this.prestacionSeleccionada = {}
   }
 
-  showModal(){
-    this.showAddMoreDetailModal.emit();
+  /**
+*
+* @param step property
+* @param option property
+* @returns {boolean | string | null}
+* @description retorna el valor del archivo de stepsStatusOn
+*/
+  getStepsStatus(step: string, option: string) {
+    return this.stepsStatusOn[step][option];
   }
 
 

@@ -32,6 +32,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy {
   public stepperTwoSource = () => [{ label: '', status: 'waiting' }];
   public stepperThreeSource = () => [{ label: '', status: 'waiting' }];
   public stepperFourSource = () => [{ label: '', status: 'waiting' }];
+  public stepperFiveSource = () => [{ label: '', status: 'waiting' }];
 
   public personSelectOption = beneficiariosArray;
   public isapreFonasaOptions = previsionesArray;
@@ -44,6 +45,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy {
     stepperTwo: '104px',
     stepperThree: '104px',
     stepperFour: '104px',
+    stepperFive: '104px',
   };
 
   public stepsStatusOn: any = {
@@ -52,26 +54,33 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy {
     },
     stepTwo_selectOption: {
       prestacionSeleccionada: false,
+      reembolsoPrevioIsapre: null
     },
     stepThree_general: {
-      reembolsoPrevioIsapre: null,
-      tipoDocumentoSeleccionado: null,
+      /* tipoDocumentoSeleccionado: null,
       fileUploaded: false,
-      agenciaSeleccionada: false,
+      agenciaSeleccionada: false, */
       rutInstitucion: false,
       boletaFactura: false,
       fechaAtencion: false,
       valorPrestacion: false,
       bonificacionTotal: false,
+      copagoMayor: null
     },
-    stepFour_Details: {
+    stepFour_general: {
+      tipoDocumentoSeleccionado: null,
+      fileUploaded: false,
+      agenciaSeleccionada: false,
+    },
+
+    stepFive_Details: {
       reembolsoCalculation: false,
     },
   };
 
   private nuevaPrestacionData!: string[];
   public totalHistorico!: number;
-  public isModalActive: boolean = false;
+  public isModalActive: boolean = true;
   public modalSolicitudCompletada: boolean = false;
   public modalRegistrarMedicamento: boolean = false;
 
@@ -130,18 +139,18 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy {
         const value = event.detail;
         this.setStepsStatus({ step: 'stepThree_general', option: 'boletaFactura', value });
       }
-      if (event.target.id == 'valorPrestacion') {
-        const value = event.detail;
-        this.setStepsStatus({ step: 'stepThree_general', option: 'valorPrestacion', value });
-        this.calcMontoReembolsar();
-      }
-      if (event.target.id == 'bonificacionTotal') {
-        const value = event.detail;
-        this.setStepsStatus({ step: 'stepThree_general', option: 'bonificacionTotal', value });
-        this.calcMontoReembolsar();
-        this.stepperThreeSource = () => [{ label: '', status: 'completed' }];
-        this.stepperFourSource = () => [{ label: '', status: 'completed' }];
-      }
+      /*   if (event.target.id == 'valorPrestacion') {
+          const value = event.detail;
+          this.setStepsStatus({ step: 'stepThree_general', option: 'valorPrestacion', value });
+          this.calcMontoReembolsar();
+        } */
+      /*  if (event.target.id == 'bonificacionTotal') {
+         const value = event.detail;
+         this.setStepsStatus({ step: 'stepThree_general', option: 'bonificacionTotal', value });
+         this.calcMontoReembolsar();
+         this.stepperThreeSource = () => [{ label: '', status: 'completed' }];
+         this.stepperFourSource = () => [{ label: '', status: 'waiting' }];
+       } */
     });
     window.addEventListener('onSelectDate', (event: any) => {
       if (event.target.innerText == 'Fecha de atención') {
@@ -233,23 +242,18 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy {
    */
   evaluateStepTwo() {
     const status = this.stepsStatusOn.stepTwo_selectOption
-      .prestacionSeleccionada
+      .prestacionSeleccionada && this.stepsStatusOn.stepTwo_selectOption.reembolsoPrevioIsapre
       ? 'completed'
       : 'waiting';
-    this.stepperTwoSource = () => [{ label: '', status }];
-    this.stepperThreeSource = () => [{ label: '', status: 'active' }];
+
+    if (status == "completed") this.stepperTwoSource = () => [{ label: '', status }];
+    if (status == "completed") this.stepperThreeSource = () => [{ label: '', status: 'active' }];
   }
   /**
    * @description Evalúa los requisitos necesarios para el progress del 3er paso - Datos Generales
    */
   evaluateStepThird() {
-    const statusfileUploaded = this.stepsStatusOn.stepThree_general.fileUploaded
-      ? 'completed'
-      : 'waiting';
-    const statusagenciaSeleccionada = this.stepsStatusOn.stepThree_general
-      .agenciaSeleccionada
-      ? 'completed'
-      : 'waiting';
+
     const statusrutInstitucion = this.stepsStatusOn.stepThree_general
       .rutInstitucion
       ? 'completed'
@@ -273,20 +277,22 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy {
       .bonificacionTotal
       ? 'completed'
       : 'waiting';
+    const statusCopago = this.stepsStatusOn.stepThree_general
+      .copagoMayor
+      ? 'completed'
+      : 'waiting';
+
 
     let status: string;
-
     if (
-      statusfileUploaded == 'completed' &&
-      statusagenciaSeleccionada == 'completed' &&
       statusrutInstitucion == 'completed' &&
       statusboletaFactura == 'completed' &&
       statusFechaAtencion == 'completed' &&
-      statusValorPrestacion == 'completed' &&
-      statusBonificacion == 'completed'
+      // statusValorPrestacion == 'completed' &&
+      //statusBonificacion == 'completed' &&
+      statusCopago == 'completed'
     ) {
       status = 'completed';
-      console.log('status inputs "todos los datos 3rd step llenos :D"', status);
     } else {
       status = 'waiting';
       console.log(
@@ -294,14 +300,37 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy {
         status
       );
     }
-
-    this.formReembolso.valueChanges.subscribe((val) => {
-      console.log('val changed', val);
-      this.stepperThreeSource = () => [{ label: '', status }];
-      this.stepperFourSource = () => [{ label: '', status }];
-    });
+    this.stepperThreeSource = () => [{ label: '', status }];
+    /*  this.formReembolso.valueChanges.subscribe((val) => {
+       console.log('val changed', val);
+       //if (status == 'completed') this.stepperThreeSource = () => [{ label: '', status }];
+     }); */
   }
-  evaluateFourStep() { }
+  /**
+ * @description Evalúa los requisitos necesarios para el progress del 4to paso - sube Documentos
+ */
+  evaluateStepFour() {
+    const statusfileUploaded = this.stepsStatusOn.stepFour_general.fileUploaded
+      ? 'completed'
+      : 'waiting';
+
+    let status: string;
+
+    if (
+      statusfileUploaded == 'completed') {
+      status = 'completed';
+    } else {
+      status = 'waiting';
+    }
+    this.stepperFourSource = () => [{ label: '', status }];
+    this.stepperFiveSource = () => [{ label: '', status }];
+    /* 
+        this.formReembolso.valueChanges.subscribe((val) => {
+          console.log('val changed', val);
+          this.stepperFourSource = () => [{ label: '', status }];
+        }); */
+  }
+  evaluateStepFive() { }
   /**
    * @description calcula el monto total disponible para reembolsar
    */
@@ -325,6 +354,9 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy {
       const four = <any>(
         document.getElementById('stepperFourContent')?.offsetHeight
       );
+      const five = <any>(
+        document.getElementById('stepperFiveContent')?.offsetHeight
+      );
       this.customStepperSize.stepperOne = one - 40 + 'px';
       this.customStepperSize.stepperTwo =
         two <= 110 ? two + 'px' : two - 35 + 'px';
@@ -332,15 +364,9 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy {
         three <= 110 ? three + 'px' : three - 35 + 'px';
       this.customStepperSize.stepperFour =
         four <= 110 ? four + 'px' : four - 35 + 'px';
+      this.customStepperSize.stepperFive =
+        five <= 110 ? five + 'px' : five - 35 + 'px';
     }, 10);
-  }
-
-  nuevaPrestacionDataArray(ev: any) {
-    console.log('ev', ev);
-    this.nuevaPrestacionData = [...ev];
-    console.log('DATA DESDE EL MODAL: ', this.nuevaPrestacionData);
-    this.hideAddMoreDetailModal(false);
-    this.showModalSolicitudCompletada()
   }
 
   /* Modal Agregar detalle adicional */

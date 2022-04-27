@@ -11,21 +11,57 @@ import { ModalRegistrarMedicamentoComponent } from './modales/modal-registrar-me
 import { SolicitarReembolsoComponent } from './solicitar-reembolso/solicitar-reembolso.component';
 import { StepQuienSeAtendioComponent } from './solicitar-reembolso/components-steps/step-quien-se-atendio/step-quien-se-atendio.component';
 import { StepSeleccionaPrestacionComponent } from './solicitar-reembolso/components-steps/step-selecciona-prestacion/step-selecciona-prestacion.component';
+import { StepDocumentosGeneralesComponent } from './solicitar-reembolso/components-steps/step-documentos/step-documentos-generales.component';
 import { StepDatosGeneralesComponent } from './solicitar-reembolso/components-steps/step-datos-generales/step-datos-generales.component';
 import { StepDetallePrestacionComponent } from './solicitar-reembolso/components-steps/step-detalle-prestacion/step-detalle-prestacion.component';
 import { TestingComponent } from '../shared/components/testing/testing.component';
+import { ConsultaMedicaComponent } from './modales/detalle-prestacion/tipos/consulta-medica/consulta-medica.component';
+import { AtencionHospitalariaComponent } from './modales/detalle-prestacion/tipos/atencion-hospitalaria/atencion-hospitalaria.component';
+import { MarcosYLentesComponent } from './modales/detalle-prestacion/tipos/marcos-y-lentes/marcos-y-lentes.component';
+import { AtencionDentalComponent } from './modales/detalle-prestacion/tipos/atencion-dental/atencion-dental.component';
+import { CompraMedicamentosComponent } from './modales/detalle-prestacion/tipos/compra-medicamentos/compra-medicamentos.component';
+import { ExamenesYProcedimientosComponent } from './modales/detalle-prestacion/tipos/examenes-y-procedimientos/examenes-y-procedimientos.component';
 
 const route: Routes = [
   { path: '', component: TablaHistorialComponent },
   { path: 'historial', component: TablaHistorialComponent },
   { path: 'solicitud', component: SolicitarReembolsoComponent },
-  { path: 'testing', component: TestingComponent }
+  { path: 'testing', component: TestingComponent },
 ];
 
 @NgModule({
-  declarations: [ReembolsoComponent, TablaHistorialComponent, DetallePrestacionComponent, ModalSolicitudReembolsoCompletadaComponent, ModalRegistrarMedicamentoComponent, SolicitarReembolsoComponent, StepQuienSeAtendioComponent, StepSeleccionaPrestacionComponent, StepDatosGeneralesComponent, StepDetallePrestacionComponent],
-  imports: [CommonModule, RouterModule.forChild(route), SharedsModule, FormsModule, ReactiveFormsModule],
-  exports: [CommonModule, ReembolsoComponent, TablaHistorialComponent, DetallePrestacionComponent],
+  declarations: [
+    ReembolsoComponent,
+    TablaHistorialComponent,
+    DetallePrestacionComponent,
+    ModalSolicitudReembolsoCompletadaComponent,
+    ModalRegistrarMedicamentoComponent,
+    SolicitarReembolsoComponent,
+    StepQuienSeAtendioComponent,
+    StepSeleccionaPrestacionComponent,
+    StepDocumentosGeneralesComponent,
+    StepDatosGeneralesComponent,
+    StepDetallePrestacionComponent,
+    ConsultaMedicaComponent,
+    AtencionHospitalariaComponent,
+    MarcosYLentesComponent,
+    AtencionDentalComponent,
+    CompraMedicamentosComponent,
+    ExamenesYProcedimientosComponent,
+  ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(route),
+    SharedsModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
+  exports: [
+    CommonModule,
+    ReembolsoComponent,
+    TablaHistorialComponent,
+    DetallePrestacionComponent,
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class ReembolsoModule { }
+export class ReembolsoModule {}
