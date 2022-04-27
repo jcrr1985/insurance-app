@@ -1,0 +1,8 @@
+<div class="card-content grid grid-cols-12 mx-2" [ngClass]="[status]">
+    <div class="col-span-2 flex items-center justify-center">
+        <img *ngIf="name != ''" class="icon" [ngClass]="[status]" [src]="getRouteImg(name)" alt="">
+    </div>
+    <div class="col-span-10 flex items-center justify-start cursor-pointer">
+        <span class="text-card" [ngClass]="[status]">{{prestacionName}}</span>
+    </div>
+</div>

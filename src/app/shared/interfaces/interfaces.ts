@@ -18,7 +18,6 @@ export interface Reembolsos {
   estado: string;
 }
 
-
 export interface FilesUploaded {
   name: string;
 }
@@ -28,9 +27,20 @@ export interface PaginationSource {
   value: number;
 }
 
-export interface CustomStepperSize  {
+export interface CustomStepperSize {
   stepperOne: string;
   stepperTwo: string;
   stepperThree: string;
   stepperFour: string;
+  stepperFive: string;
+}
+export interface Prestacion {
+  /**
+   * @description consulta medica - medicamentos - lentes ...
+   */
+  tipoPrestacion: string;
+  prestacionSeleccionada: string;
+  numerosesiones: String;
+  valorPrestacion: number;
+  bonificacion: number;
 }

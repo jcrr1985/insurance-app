@@ -1,0 +1,12 @@
+<div class="relative flex items-center justify-center">
+    <div class="input_container">
+        <input [ngClass]="{'success':isValid && statusActive}" placeholder=" " id="" type="{{type}}" [(ngModel)]="value"
+            (change)="emitChange()" (keyup)="emitKeyup()">
+        <label *ngIf="label"> {{label}} </label>
+        <p *ngIf="helpText">{{helpText}}</p>
+    </div>
+    <div *ngIf="isValid && iconActive" class="mx-2 flex items-center justify-center">
+        <ds-icon color="info5" [iconName]="'bi-check-circle-fill'" size="24">
+        </ds-icon>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+<div class="flex items-center justify-center modal-container">
+    <div class="modal-wrapper">
+        <div class="px-5 rounded-lg detalle-prestaciones-modal">
+            <div class="titulo-modal-detalle">
+                <ds-paragraph family="primary" weight="semiBold">
+                    <span slot="text" class="w-full px-4 py-3 text-left monto-reembolso">Ingresa el detalle de la
+                        prestación</span>
+                </ds-paragraph>
+            </div>
+            <div class="grid flex-wrap grid-cols-12 gap-3 form-wrapper mb-10">
+                <!--input nombre prestacion-->
+                <ds-search-v2 class="col-span-12 pr-2" [ngClass]="{'sm:col-span-6':sesionRequired}"
+                    label="Tipo de Prestación" [source]="sourceSearch" (changeEv)="itemSelected($event)">
+                </ds-search-v2>
+                <!--input número de sesiones-->
+                <ds-select-v2 *ngIf="sesionRequired" class="col-span-12 sm:col-span-6" [source]="sourceSelect"
+                    label="Número de Sesiones" (changeEv)="selectEvent($event)"></ds-select-v2>
+
+                <!--valor-->
+                <ds-input-v2 class="col-span-12 sm:col-span-6" label="Valor" type="number"
+                    (keyupEv)="setValue('valor',$event)">
+                </ds-input-v2>
+
+                <!--bonificacion isapre/fonasa-->
+                <ds-input-v2 class="col-span-12 sm:col-span-6" label="Bonificación Isapre/Fonasa" type="number"
+                    (keyupEv)="setValue('bonificacion',$event)">
+                </ds-input-v2>
+            </div>
+            <!-- Mensaje de error -->
+            <ds-messaging *ngIf="warningMsg" variant="warning" family="secondary" size="s2"
+                title="El monto que ingresaste es diferente a los registrados para esta prestación ([monto histórico]).'
+                Recuerda que el monto a ingresar debe corresponder al valor de ([sesiones]), si ingresas más de una sesión, debes indicar esa cantidad en el campo “número de sesiones">
+            </ds-messaging>
+
+            <!--Fin mensaje de error-->
+
+            <!--Monto a rembolsar-->
+            <div class="monto-reembolso">
+                <div class="w-full px-4 mb-8 bg-indigo-900 rounded-lg indigo-wrapper">
+                    <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
+                        <span slot="text" class="py-3 text-base text-left text-white bg-indigo-900">Monto a
+                            reembolsar</span>
+                    </ds-paragraph>
+                    <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
+                        <span slot="text" class="py-3 text-base text-left text-white bg-indigo-900">$
+                            {{montoReembolso}}</span>
+                    </ds-paragraph>
+                </div>
+            </div>
+            <!-- botones-->
+            <section class="grid grid-cols-1 seccion-botones">
+                <div class="flex items-center justify-end w-full gap-3">
+                    <ds-button id="ds-button-cancelar" (click)="closeModal()" [size]="'s2'" variant="secondary"
+                        slot-name="cancel-button-slot">
+                        <span slot="cancel-button-slot">Cancelar</span>
+                    </ds-button>
+                    <ds-button id="ds-button-siguiente" (click)="sendData()" [size]="'s2'" variant="primary"
+                        slot-name="next-button-slot">
+                        <span slot="next-button-slot"> Guardar </span>
+                    </ds-button>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

@@ -1,25 +1,13 @@
 <!-- HEADER -->
-<div class="grid h-24 grid-cols-12 border-b-2">
-  <ds-title
-    class="flex items-center justify-start col-span-12 px-5 text-xl font-bold md:col-span-6"
-    type="t4"
-    family="secondary"
-    weight="bold"
-    color="primary"
-  >
+<div class="grid grid-cols-12 border-b-2 h-24">
+  <ds-title class="md:col-span-6 col-span-12 font-bold text-xl flex items-center justify-start px-5" type="t4"
+    family="secondary" weight="bold" color="primary">
     <span slot="text">Solicitud de Reembolso</span>
   </ds-title>
-  <div
-    [routerLink]="['/historial']"
-    class="flex items-center justify-start col-span-12 px-5 md:col-span-6 md:justify-end"
-  >
+  <div [routerLink]="['/historial']"
+    class="md:col-span-6 col-span-12 flex items-center md:justify-end justify-start px-5">
     <ds-button variant="complementary" slotName="back-button-slot">
-      <ds-icon
-        color="info6"
-        size="30"
-        icon-name="bi-arrow-left-short"
-        slot="back-button-slot"
-      ></ds-icon>
+      <ds-icon color="info6" size="30" icon-name="bi-arrow-left-short" slot="back-button-slot"></ds-icon>
       <span slot="back-button-slot">volver atrás</span>
     </ds-button>
     <br />
@@ -28,51 +16,32 @@
 
 <div class="p-5 pb-20">
   <!-- QUIEN SE ATENDIO -->
-  <app-step-quien-se-atendio
-    [stepperOneSource]="stepperOneSource"
-    [customStepperSize]="customStepperSize"
-    [personSelectOption]="personSelectOption"
-    [stepsStatusOn]="stepsStatusOn"
-  ></app-step-quien-se-atendio>
+  <app-step-quien-se-atendio [stepperOneSource]="stepperOneSource" [customStepperSize]="customStepperSize"
+    [personSelectOption]="personSelectOption" [stepsStatusOn]="stepsStatusOn"></app-step-quien-se-atendio>
 
   <!-- SELECCIONA TU PRESTACION -->
-  <app-step-selecciona-prestacion
-    [stepperTwoSource]="stepperTwoSource"
-    [customStepperSize]="customStepperSize"
-    [stepsStatusOn]="stepsStatusOn"
-    [chipsData]="chipsData"
-    (sendData)="setStepsStatus($event)"
-    (evaluateStepTwo)="evaluateStepTwo()"
-  ></app-step-selecciona-prestacion>
+  <app-step-selecciona-prestacion [stepperTwoSource]="stepperTwoSource" [customStepperSize]="customStepperSize"
+    [stepsStatusOn]="stepsStatusOn" [chipsData]="chipsData" (sendData)="setStepsStatus($event)"
+    (evaluateStepTwo)="evaluateStepTwo()"></app-step-selecciona-prestacion>
 
-  <!-- DATOS GENERALES -->
-  <app-step-datos-generales
-    [montoReelbolso]="montoReelbolso"
-    [stepperThreeSource]="stepperThreeSource"
-    [customStepperSize]="customStepperSize"
-    [stepsStatusOn]="stepsStatusOn"
-    [isapreFonasaOptions]="isapreFonasaOptions"
-    (sendData)="setStepsStatus($event)"
-    (evaluateStepThird)="evaluateStepThird()"
-  ></app-step-datos-generales>
 
+  <!-- Completa los Siguentes Datos -->
+  <app-step-datos-generales [montoReelbolso]="montoReelbolso" [stepperThreeSource]="stepperThreeSource"
+    [customStepperSize]="customStepperSize" [stepsStatusOn]="stepsStatusOn" [isapreFonasaOptions]="isapreFonasaOptions"
+    (sendData)="setStepsStatus($event)" (evaluateStepThird)="evaluateStepThird()"></app-step-datos-generales>
+
+  <!-- Sube tus documentos -->
+  <app-step-documentos-generales [montoReelbolso]="montoReelbolso" [stepperFourSource]="stepperFourSource"
+    [customStepperSize]="customStepperSize" [stepsStatusOn]="stepsStatusOn" [isapreFonasaOptions]="isapreFonasaOptions"
+    (sendData)="setStepsStatus($event)" (evaluateStepFour)="evaluateStepFour()"></app-step-documentos-generales>
   <!-- DETALLE PRESTACION -->
-  <app-step-detalle-prestacion
-    [customStepperSize]="customStepperSize"
-    [stepperFourSource]="stepperFourSource"
-    [montoReelbolso]="montoReelbolso"
-    (showAddMoreDetailModal)="showAddMoreDetailModal()"
-  ></app-step-detalle-prestacion>
+  <app-step-detalle-prestacion [customStepperSize]="customStepperSize" [stepperFiveSource]="stepperFiveSource"
+    [montoReelbolso]="montoReelbolso" [stepsStatusOn]="stepsStatusOn"
+    (showAddMoreDetailModal)="showAddMoreDetailModal()"></app-step-detalle-prestacion>
   <!-- Button siguiente -->
-  <section class="grid grid-cols-12 my-10">
-    <div
-      class="flex items-center justify-around md:col-start-9 md:col-span-4 sm:col-span-12"
-    >
-      <ds-button
-        [size]="'s2'"
-        variant="secondary"
-        slot-name="cancel-button-slot"
-      >
+  <section class="my-10 grid grid-cols-12">
+    <div class="md:col-start-9 md:col-span-4 sm:col-span-12 flex items-center justify-around">
+      <ds-button [size]="'s2'" variant="secondary" slot-name="cancel-button-slot">
         <span slot="cancel-button-slot">Cancelar</span>
       </ds-button>
       <ds-button [size]="'s2'" variant="primary" slot-name="next-button-slot">
@@ -82,20 +51,8 @@
   </section>
 </div>
 
-<app-detalle-prestacion
-  [isModalActive]="isModalActive"
-  (datosNuevaPrestacion)="nuevaPrestacionDataArray($event)"
-  (hideModalEvent)="hideAddMoreDetailModal($event)"
-></app-detalle-prestacion>
-
-<app-modal-solicitud-reembolso-completada
-  *ngIf="modalSolicitudCompletada"
-  (close)="hiddenModalSolicitudCompeltada()"
->
+<app-modal-solicitud-reembolso-completada *ngIf="modalSolicitudCompletada" (close)="hiddenModalSolicitudCompeltada()">
 </app-modal-solicitud-reembolso-completada>
 
-<app-modal-registrar-medicamento
-  *ngIf="modalRegistrarMedicamento"
-  (close)="hiddenModalRegistrarMedicamento()"
->
+<app-modal-registrar-medicamento *ngIf="modalRegistrarMedicamento" (close)="hiddenModalRegistrarMedicamento()">
 </app-modal-registrar-medicamento>

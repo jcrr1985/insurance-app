@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
 import '@vs-design-system/ds-title'
 
 
@@ -7,11 +7,49 @@ import '@vs-design-system/ds-title'
   templateUrl: './table-resume-detalle-prestacion.component.html',
   styleUrls: ['./table-resume-detalle-prestacion.component.scss']
 })
-export class TableResumeDetallePrestacionComponent implements OnInit {
+export class TableResumeDetallePrestacionComponent implements OnInit, OnDestroy {
+  @Output() editEv: EventEmitter<any> = new EventEmitter();
+  @Output() deleteEv: EventEmitter<any> = new EventEmitter();
 
+  @Input() prestaciones: any = [];
+  prestacionSeleccionada: any = {};
+  totalPrestaciones: number = 0;
+  montoReembolsar: number = 0;
+  interval: any;
   constructor() { }
-
   ngOnInit(): void {
+    this.interval = setInterval(() => {
+      this.calcMounts();
+    }, 1000)
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.interval);
+  }
+  edit(prestacion: any) {
+    this.prestacionSeleccionada = prestacion;
+    console.log("edit", this.prestacionSeleccionada)
+    this.editEv.emit(this.prestacionSeleccionada);
+  }
+
+  delete(prestacion: any) {
+    this.prestacionSeleccionada = prestacion
+    console.log("delete", this.prestacionSeleccionada)
+    this.deleteEv.emit(this.prestacionSeleccionada);
+  }
+
+  /**
+   * @description calcula los montos de la tabla
+   */
+  calcMounts() {
+    this.totalPrestaciones = 0;
+    this.montoReembolsar = 0;
+    let bonificacion = 0;
+    for (let x of this.prestaciones) {
+      this.totalPrestaciones += Number(x.valorPrestacion);
+      bonificacion += Number(x.bonificacion)
+    }
+    this.montoReembolsar = this.totalPrestaciones - bonificacion;
   }
 
 }

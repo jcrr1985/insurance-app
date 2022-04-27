@@ -15,6 +15,15 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
   @Output() sendData: EventEmitter<any> = new EventEmitter<any>();
   @Output() evaluateStepTwo: EventEmitter<any> = new EventEmitter<any>();
 
+  cards = [
+    { prestacion: 'Atención Hospitalaria', name: 'atencionhospitalaria', status: '' },
+    { prestacion: 'Atención Médica', name: 'atencionmedica', status: 'disabled' },
+    { prestacion: 'Dentales', name: 'dentista', status: '' },
+    { prestacion: 'Examenes y Procedimientos', name: 'examenes', status: '' },
+    { prestacion: 'Medicamentos', name: 'medicamentos', status: '' },
+    { prestacion: 'Lentes y Monturas', name: 'optica', status: '' }
+  ]
+  coldefined = 'col-span-4';
 
   constructor() { }
 
@@ -32,25 +41,20 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
   }
 
   setStepsStatus(data: any) {
-    this.sendData.emit(data)
+    this.sendData.emit(data);
+    this.evaluateStepTwo.emit();
   }
-  /**
-  *
-  * @param id card-id
-  * @description cambia el color y setea la opcion elegida
-  */
-  selectOption(id: number) {
-    this.chipsData.forEach((card: Chip) => {
-      card.state = false;
-    });
-    this.chipsData[id].state = true;
+
+  setCard(index: number) {
     const dataEmit = {
       step: 'stepTwo_selectOption',
       option: 'prestacionSeleccionada',
-      value: this.chipsData[id].desripcion
+      value: this.cards[index].prestacion
     }
     this.setStepsStatus(dataEmit);
     this.evaluateStepTwo.emit();
+    this.cards.forEach(e => e.status = '');
+    this.cards[index].status = 'active';
   }
 
 }
