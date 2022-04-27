@@ -27,7 +27,7 @@ export class ReembolsoService {
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
-      estado: 'transacción IMED',
+      estado: 'Transacción IMED',
     },
     {
       nombre: 'Leandro Letelier 4',
@@ -48,7 +48,7 @@ export class ReembolsoService {
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
-      estado: 'Trasacción Farmacia',
+      estado: 'Transacción Farmacia',
     },
     {
       nombre: 'Leandro Letelier 7',
@@ -69,7 +69,7 @@ export class ReembolsoService {
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
-      estado: 'transacción IMED',
+      estado: 'Transacción IMED',
     },
     {
       nombre: 'Leandro Letelier 10',
@@ -90,7 +90,7 @@ export class ReembolsoService {
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
-      estado: 'Trasacción Farmacia',
+      estado: 'Transacción Farmacia',
     },
     {
       nombre: 'Leandro Letelier 13',
@@ -111,7 +111,7 @@ export class ReembolsoService {
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
-      estado: 'transacción IMED',
+      estado: 'Transacción IMED',
     },
     {
       nombre: 'Leandro Letelier 16',
@@ -132,7 +132,7 @@ export class ReembolsoService {
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
-      estado: 'Trasacción Farmacia',
+      estado: 'Transacción Farmacia',
     },
     {
       nombre: 'Leandro Letelier 19',
@@ -153,7 +153,7 @@ export class ReembolsoService {
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
-      estado: 'transacción IMED',
+      estado: 'Transacción IMED',
     },
     {
       nombre: 'Leandro Letelier 22 ',
@@ -174,7 +174,7 @@ export class ReembolsoService {
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
-      estado: 'Trasacción Farmacia',
+      estado: 'Transacción Farmacia',
     },
     {
       nombre: 'Leandro Letelier 25',
@@ -195,7 +195,7 @@ export class ReembolsoService {
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
-      estado: 'transacción IMED',
+      estado: 'Transacción IMED',
     },
     {
       nombre: 'Leandro Letelier 28',
@@ -216,7 +216,7 @@ export class ReembolsoService {
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
-      estado: 'Trasacción Farmacia',
+      estado: 'Transacción Farmacia',
     },
     {
       nombre: 'Leandro Letelier 31',
@@ -237,7 +237,7 @@ export class ReembolsoService {
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
-      estado: 'transacción IMED',
+      estado: 'Transacción IMED',
     },
     {
       nombre: 'Leandro Letelier 34',
@@ -258,7 +258,7 @@ export class ReembolsoService {
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
-      estado: 'Trasacción Farmacia',
+      estado: 'Transacción Farmacia',
     },
   ];
 

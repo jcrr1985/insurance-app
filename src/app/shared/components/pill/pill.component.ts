@@ -7,11 +7,33 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class PillComponent implements OnInit {
   @Input()
-  estadoPago!: string;
-  @Input()
   texto!: string;
+  
+  public check: any;
 
   constructor() {}
 
-  ngOnInit(): void {}
+
+  ngOnInit(): void {
+    switch (this.texto) {
+      case 'Pagado':
+        this.check = './../../../../assets/images/svgs/pagado.svg'
+        break;
+        case 'Pagado parcial':
+        this.check = './../../../../assets/images/svgs/pagado.svg'
+        break;
+        case 'En evaluación':
+        this.check = './../../../../assets/images/svgs/en-evaluacion.svg'
+        break;
+        case 'Sin pago':
+        this.check = './../../../../assets/images/svgs/rechazado.svg'
+        break;
+        case 'Transacción IMED':
+        this.check = './../../../../assets/images/svgs/pagado.svg'
+        break;
+        case 'Transacción Farmacia':
+        this.check = './../../../../assets/images/svgs/pagado.svg'
+        break;
+    }
+  }
 }
