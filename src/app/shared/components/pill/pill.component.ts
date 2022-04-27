@@ -10,8 +10,19 @@ export class PillComponent implements OnInit {
   estadoPago!: string;
   @Input()
   texto!: string;
+  public check: any;
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    switch (this.texto) {
+      case 'Pagado':
+        this.check = './../../../../assets/images/svgs/pagado.svg'
+        break;
+      default:
+        this.check = './../../../../assets/images/svgs/pagado.svg'
+        break;  
+        break;
+    }
+  }
 }

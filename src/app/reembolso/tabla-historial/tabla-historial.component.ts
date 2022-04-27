@@ -34,6 +34,7 @@ export class TablaHistorialComponent
   public tenByDefault: number = 10;
   public initialLabel: string = '10';
   public reembolsos: Reembolsos[];
+  public leftAssignmentFromRight:number = 10;
 
   constructor(
     private reembolsoService: ReembolsoService,
@@ -52,18 +53,15 @@ export class TablaHistorialComponent
     this.addAccessKey();
 
     let numeroDeRegistros = this.reembolsos.length;
-    console.log('numeroDeRegistros', numeroDeRegistros)
+    console.log('numeroDeRegistros', numeroDeRegistros);
     for (let i = 10; i <= numeroDeRegistros; i += 10) {
       const paginationCounterProperties = { label: i.toString(), value: i };
       this.paginationSource.push(paginationCounterProperties);
     }
     this.totalTableEntriesLabel =
       this.paginationSource[this.paginationSource.length - 1].value;
-    this.tenEntriesByDefault = this.reembolsos.slice(
-      0,
-      this.tenByDefault
-    );
-    console.log('tenEntriesByDefault', this.tenEntriesByDefault)
+    this.tenEntriesByDefault = this.reembolsos.slice(0, this.tenByDefault);
+    console.log('tenEntriesByDefault', this.tenEntriesByDefault);
   }
 
   ngAfterViewInit() {
@@ -79,8 +77,8 @@ export class TablaHistorialComponent
     console.log('selectedAndNot', selectedAndNot);
 
     // Setea dsCounterSelectedOptionValue (derecha) en funcion del pagination seleccionado (izquierda)
-    selectedAndNot.forEach((element) => {
-      element.addEventListener('click', (e: any) => {
+    selectedAndNot.forEach((leftPag) => {
+      leftPag.addEventListener('click', (e: any) => {
         this.dsCounterSelectedOptionValue = Number(e.target.textContent) * 10;
         this.setCantidadResultados();
         this.initialLabel = this.dsCounterSelectedOptionValue.toString();
@@ -88,9 +86,22 @@ export class TablaHistorialComponent
     });
     console.log('pagNums', pagNums);
 
-    this.dsPageCounter.addEventListener('mouse', () =>  // TODO DOM traversing get By class
-      console.log('blur on dsPageCOunter')
-    );
+    setTimeout(() => {
+      const counterOptions = Array.from(
+        document.querySelectorAll('.css-1dzmd0k')
+      );
+      console.log('counterOptions', counterOptions);
+      const leftAssignmentFromRight = 0
+      for (const counterOption of counterOptions as any) {
+        counterOption.addEventListener('click', (e: any) => {
+          this.dsCounterSelectedOptionValue = Number(e.target.innerHTML);
+          // this.leftAssignmentFromRight = this.dsCounterSelectedOptionValue / 10;
+          this.setCantidadResultados();
+        this.initialLabel = this.dsCounterSelectedOptionValue.toString();
+        
+        });
+      }
+    }, 100);
 
     this.elementRef.nativeElement
       .querySelector('.pageCounter')
