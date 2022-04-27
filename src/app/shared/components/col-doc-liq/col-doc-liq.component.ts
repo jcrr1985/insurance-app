@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import '@vs-design-system/ds-input';
 
 @Component({
   selector: 'app-col-doc-liq',

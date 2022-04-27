@@ -1,15 +1,17 @@
 <div
   class="pill-estado"
   [ngClass]="{
-    enEvaluacion: estadoPago == 'enEvaluacion',
-    pagado: estadoPago == 'pagado',
-    'pagado-parcial': estadoPago == 'pagadoParcial',
-    'sin-pago': estadoPago == 'sinPago'
+    enEvaluacion: texto === 'En evaluación',
+    pagado: texto === 'Pagado',
+    pagadoParcial: texto === 'Pagado parcial',
+    sinPago: texto === 'Sin pago',
+    transImed: texto === 'Transacción IMED',
+    transFarmacia: texto === 'Transacción Farmacia'
   }"
 >
   <img
     [src]="check"
-    alt="en evaluacion"
+    alt=""
   />
   <span class="estado-texto">{{texto}}</span>
 </div>

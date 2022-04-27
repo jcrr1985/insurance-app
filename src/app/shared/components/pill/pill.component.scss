@@ -2,12 +2,30 @@
     display: flex;
     align-items: center;
     padding: 10px 10px 10px 5px;
-    border: 1px solid #EF6F00;
     border-radius: 15px;
     width: 150px;
+    box-sizing: border-box;
+}
+
+.enEvaluacion {
+    background-color: var(--color-primary-n-5);
+    border: 1px solid var(--color-primary-n-1);
+}
+
+.pagado, .pagadoParcial, .transImed, .transFarmacia {
+    background-color: var(--color-complementary-v-5);
+    border: 1px solid var(--color-complementary-v-1);
+}
+
+.sinPago {
+    background-color: var(--color-complementary-r-5);
+    border: 1px solid var(--color-complementary-r-1);
 }
 
 .estado-texto {
     font-size: 12px;
     font-weight: 400;
+    margin-top: 5.5px;
+    margin-bottom: 5.5px;
+    margin-left: 5.5px;
 }

@@ -264,3 +264,16 @@ ds-select-v2 ds-icon {
     padding: 4px 12px 0px;
   }
 }
+
+ds-open.ds-open-historial{
+  display: grid!important;
+  place-content: center!important;
+  padding-right: 7px!important;
+  * {
+      vertical-align: middle!important;
+  }
+  svg { 
+    position: relative!important;
+    top: -4px!important;
+  }
+}
