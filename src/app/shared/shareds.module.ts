@@ -15,6 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DsSelectV2Component } from './components/inputs/ds-select-v2/ds-select-v2.component';
 import { DsSearchV2Component } from './components/inputs/ds-search-v2/ds-search-v2.component';
 import { CardOptionComponent } from './components/card-option/card-option.component';
+import { PillComponent } from './components/pill/pill.component';
+import { ColDocLiqComponent } from './components/col-doc-liq/col-doc-liq.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { CardOptionComponent } from './components/card-option/card-option.compon
     DsSelectV2Component,
     DsSearchV2Component,
     CardOptionComponent,
+    PillComponent,
+    ColDocLiqComponent
   ],
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   exports: [
@@ -46,6 +50,8 @@ import { CardOptionComponent } from './components/card-option/card-option.compon
     DsSelectV2Component,
     DsSearchV2Component,
     CardOptionComponent,
+    PillComponent,
+    ColDocLiqComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
