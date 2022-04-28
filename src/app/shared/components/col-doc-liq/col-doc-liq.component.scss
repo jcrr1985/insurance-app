@@ -19,18 +19,6 @@
             color: var(--sec2);
         }
     }
-    ds-open.ds-open-historial{
-        display: grid!important;
-        place-content: center!important;
-        padding-right: 7px!important;
-        * {
-            vertical-align: middle!important;
-        }
-        svg { 
-            position: relative!important;
-            top: -4px!important;
-        }
-    }
 }
 
 :host::ng-deep.css-q8cp4h {

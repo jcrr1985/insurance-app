@@ -34,7 +34,7 @@ export class TablaHistorialComponent
   public tenByDefault: number = 10;
   public initialLabel: string = '10';
   public reembolsos: Reembolsos[];
-  public leftAssignmentFromRight:number = 10;
+  public leftAssignmentFromRight: number = 10;
 
   constructor(
     private reembolsoService: ReembolsoService,
@@ -51,9 +51,7 @@ export class TablaHistorialComponent
 
   ngOnInit(): void {
     this.addAccessKey();
-
     let numeroDeRegistros = this.reembolsos.length;
-    console.log('numeroDeRegistros', numeroDeRegistros);
     for (let i = 10; i <= numeroDeRegistros; i += 10) {
       const paginationCounterProperties = { label: i.toString(), value: i };
       this.paginationSource.push(paginationCounterProperties);
@@ -61,13 +59,11 @@ export class TablaHistorialComponent
     this.totalTableEntriesLabel =
       this.paginationSource[this.paginationSource.length - 1].value;
     this.tenEntriesByDefault = this.reembolsos.slice(0, this.tenByDefault);
-    console.log('tenEntriesByDefault', this.tenEntriesByDefault);
   }
 
   ngAfterViewInit() {
     this.dsPageCounter.nativeElement.children[0].children[2].children[0].innerHTML =
       this.totalTableEntriesLabel;
-    console.log('this.totalTableEntriesLabel', this.totalTableEntriesLabel);
 
     const pagNums = Array.from(document.getElementsByClassName('css-16sfy5f'));
     const leftPaginationSelected = Array.from(
@@ -84,21 +80,31 @@ export class TablaHistorialComponent
         this.initialLabel = this.dsCounterSelectedOptionValue.toString();
       });
     });
-    console.log('pagNums', pagNums);
 
     setTimeout(() => {
       const counterOptions = Array.from(
         document.querySelectorAll('.css-1dzmd0k')
       );
-      console.log('counterOptions', counterOptions);
-      const leftAssignmentFromRight = 0
       for (const counterOption of counterOptions as any) {
         counterOption.addEventListener('click', (e: any) => {
           this.dsCounterSelectedOptionValue = Number(e.target.innerHTML);
-          // this.leftAssignmentFromRight = this.dsCounterSelectedOptionValue / 10;
+          this.leftAssignmentFromRight = this.dsCounterSelectedOptionValue / 10;
           this.setCantidadResultados();
-        this.initialLabel = this.dsCounterSelectedOptionValue.toString();
-        
+
+          //Mirror left side:
+          selectedAndNot.filter((e: any) => {
+            if (Number(e.innerHTML) == this.leftAssignmentFromRight) {
+              console.log('found :', e.innerHTML);
+
+              e.classList.remove('css-16sfy5f');
+              e.classList.add('css-7mrpfl');
+              e.classList.add('active');
+            } else {
+              e.classList.add('css-16sfy5f');
+              e.classList.remove('css-7mrpfl');
+              e.classList.remove('active');
+            }
+          });
         });
       }
     }, 100);
@@ -111,10 +117,6 @@ export class TablaHistorialComponent
   }
 
   setCantidadResultados() {
-    console.log(
-      'this.dsCounterSelectedOptionValue',
-      this.dsCounterSelectedOptionValue
-    );
     let chunk = this.reembolsos.slice(0, this.dsCounterSelectedOptionValue);
     this.tenEntriesByDefault = chunk;
   }
