@@ -81,6 +81,7 @@ export class TablaHistorialComponent
       });
     });
 
+    //seteando pagination: leftside from rightside
     setTimeout(() => {
       const counterOptions = Array.from(
         document.querySelectorAll('.css-1dzmd0k')
