@@ -26,42 +26,13 @@ const route: Routes = [
   { path: '', component: TablaHistorialComponent },
   { path: 'historial', component: TablaHistorialComponent },
   { path: 'solicitud', component: SolicitarReembolsoComponent },
-  { path: 'testing', component: TestingComponent },
+  { path: 'testing', component: TestingComponent }
 ];
 
 @NgModule({
-  declarations: [
-    ReembolsoComponent,
-    TablaHistorialComponent,
-    DetallePrestacionComponent,
-    ModalSolicitudReembolsoCompletadaComponent,
-    ModalRegistrarMedicamentoComponent,
-    SolicitarReembolsoComponent,
-    StepQuienSeAtendioComponent,
-    StepSeleccionaPrestacionComponent,
-    StepDocumentosGeneralesComponent,
-    StepDatosGeneralesComponent,
-    StepDetallePrestacionComponent,
-    ConsultaMedicaComponent,
-    AtencionHospitalariaComponent,
-    MarcosYLentesComponent,
-    AtencionDentalComponent,
-    CompraMedicamentosComponent,
-    ExamenesYProcedimientosComponent,
-  ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(route),
-    SharedsModule,
-    FormsModule,
-    ReactiveFormsModule,
-  ],
-  exports: [
-    CommonModule,
-    ReembolsoComponent,
-    TablaHistorialComponent,
-    DetallePrestacionComponent,
-  ],
+  declarations: [ReembolsoComponent, TablaHistorialComponent, DetallePrestacionComponent, ModalSolicitudReembolsoCompletadaComponent, ModalRegistrarMedicamentoComponent, SolicitarReembolsoComponent, StepQuienSeAtendioComponent, StepSeleccionaPrestacionComponent, StepDocumentosGeneralesComponent, StepDatosGeneralesComponent, StepDetallePrestacionComponent, ConsultaMedicaComponent, AtencionHospitalariaComponent, MarcosYLentesComponent, AtencionDentalComponent, CompraMedicamentosComponent, ExamenesYProcedimientosComponent],
+  imports: [CommonModule, RouterModule.forChild(route), SharedsModule, FormsModule, ReactiveFormsModule],
+  exports: [CommonModule, ReembolsoComponent, TablaHistorialComponent, DetallePrestacionComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class ReembolsoModule {}
+export class ReembolsoModule { }

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Persona } from './shared/interfaces/interfaces';
 import '@vs-design-system/ds-table'
 
 @Component({
@@ -10,7 +9,7 @@ import '@vs-design-system/ds-table'
 export class AppComponent {
   title: string = 'web app';
 
-  constructor(){
+  constructor() {
   }
 
 

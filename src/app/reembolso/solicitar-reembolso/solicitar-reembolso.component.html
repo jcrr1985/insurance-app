@@ -17,7 +17,7 @@
 <div class="p-5 pb-20">
   <!-- QUIEN SE ATENDIO -->
   <app-step-quien-se-atendio [stepperOneSource]="stepperOneSource" [customStepperSize]="customStepperSize"
-    [personSelectOption]="personSelectOption" [stepsStatusOn]="stepsStatusOn"></app-step-quien-se-atendio>
+    [personSelectOption]="personSelectOption" [stepsStatusOn]="stepsStatusOn" (sendData)="evaluateStepOne()"></app-step-quien-se-atendio>
 
   <!-- SELECCIONA TU PRESTACION -->
   <app-step-selecciona-prestacion [stepperTwoSource]="stepperTwoSource" [customStepperSize]="customStepperSize"

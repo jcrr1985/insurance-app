@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import '@vs-design-system/ds-select';
 import '@vs-design-system/ds-title';
 import '@vs-design-system/ds-icon';
@@ -14,6 +14,8 @@ export class StepQuienSeAtendioComponent implements OnInit {
   @Input() customStepperSize: any;
   @Input() personSelectOption: any;
 
+  @Output() sendData: EventEmitter<any> = new EventEmitter();
+
   constructor() { }
 
   ngOnInit(): void {
@@ -21,7 +23,10 @@ export class StepQuienSeAtendioComponent implements OnInit {
     console.log(this.stepsStatusOn);
   }
 
-
+  setStatusOn(data: any) {
+    this.stepsStatusOn.stepOne_who.personaSeleccionada = data.value;
+    this.sendData.emit(data);
+  }
   /**
     *
     * @param step property
