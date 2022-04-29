@@ -2,7 +2,15 @@
 .texto-normal {
     font-weight: 400;
     font-size: 14px;
-    color:var(--ter0);
+    line-height: 16px;
+    color:var(--color-font-paragraph-secondary);
+}
+
+.texto-especial {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: var(--color-font-paragraph-quaternary);
 }
 
 ds-table-header.tabla-header {
