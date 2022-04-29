@@ -10,6 +10,7 @@ export class ReembolsoService {
   public reembolsos: Reembolsos[] = [
     {
       nombre: 'Leandro Letelier 1',
+      parentesco: 'Yo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -17,6 +18,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 2',
+      parentesco: 'Hijo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -24,6 +26,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 3',
+      parentesco: 'Madre',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -31,6 +34,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 4',
+      parentesco: 'Conyugue',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -38,6 +42,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 5',
+      parentesco: 'Yo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -45,6 +50,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 6',
+      parentesco: 'Hijo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -52,6 +58,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 7',
+      parentesco: 'Madre',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -59,6 +66,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 8',
+      parentesco: 'Conyugue',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -66,6 +74,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 9',
+      parentesco: 'Yo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -73,6 +82,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 10',
+      parentesco: 'Hijo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -80,6 +90,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 11',
+      parentesco: 'Madre',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -87,6 +98,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 12',
+      parentesco: 'Conyugue',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -94,6 +106,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 13',
+      parentesco: 'Yo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -101,6 +114,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 14',
+      parentesco: 'Hijo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -108,6 +122,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 15',
+      parentesco: 'Madre',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -115,6 +130,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 16',
+      parentesco: 'Conyugue',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -122,6 +138,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 17',
+      parentesco: 'Yo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -129,6 +146,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 18',
+      parentesco: 'Hijo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -136,6 +154,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 19',
+      parentesco: 'Madre',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -143,6 +162,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 20',
+      parentesco: 'Conyugue',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -150,6 +170,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 21 ',
+      parentesco: 'Yo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -157,6 +178,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 22 ',
+      parentesco: 'Hijo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -164,6 +186,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 23',
+      parentesco: 'Madre',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -171,6 +194,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 24',
+      parentesco: 'Conyugue',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -178,6 +202,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 25',
+      parentesco: 'Yo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -185,6 +210,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 26',
+      parentesco: 'Hijo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -192,6 +218,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 27',
+      parentesco: 'Madre',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -199,6 +226,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 28',
+      parentesco: 'Coyugue',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -206,6 +234,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 29',
+      parentesco: 'Yo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -213,6 +242,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 30',
+      parentesco: 'Hijo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -220,6 +250,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 31',
+      parentesco: 'Madre',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -227,6 +258,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 32',
+      parentesco: 'Conyugue',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -234,6 +266,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 33',
+      parentesco: 'Yo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -241,6 +274,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 34',
+      parentesco: 'Hijo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -248,6 +282,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 35',
+      parentesco: 'Madre',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
@@ -255,6 +290,7 @@ export class ReembolsoService {
     },
     {
       nombre: 'Leandro Letelier 36',
+      parentesco: 'Conyugue',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
       fechaPago: '2021-12-28T11:44:00Z',
