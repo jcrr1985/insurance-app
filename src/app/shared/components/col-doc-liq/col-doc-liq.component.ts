@@ -14,11 +14,10 @@ export class ColDocLiqComponent implements OnInit {
     setTimeout(() => {
      const chevrons =  Array.from(document.getElementsByClassName('ds-open-tabla-hist'));
      chevrons.forEach((chevron:any) => {
-       const svg: HTMLElement = chevron.children[0].children[0].children[0].children[0];
+       const svg: HTMLElement = chevron.children[0].querySelector('ds-icon');
        svg.style.position = "relative";
-       svg.style.top = "-3px"       
+       svg.style.top = "-8px";
      });
-    //  console.log('chevrons', chevrons)
     }, 100);
   }
 
