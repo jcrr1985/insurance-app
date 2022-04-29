@@ -21,18 +21,18 @@ export class StepDocumentosGeneralesComponent implements OnInit {
     hospitalario: {
       multi: false,
       nameFiles: ['Documento de reembolso', 'Documento de diagnóstico', 'Documento adicional'],
-      cols: 'col-span-3'
+      cols: 'col-span-4'
     },
 
     consultamedica: {
       multi: false,
       nameFiles: ['Documento 1', 'Documento 2', 'Documento 3'],
-      cols: 'col-span-3'
+      cols: 'col-span-4'
     },
     dentales: {
       multi: false,
       nameFiles: ['Documento 1', 'Documento 2', 'Documento 3'],
-      cols: 'col-span-3'
+      cols: 'col-span-4'
     },
     examenes: {
       multi: false,

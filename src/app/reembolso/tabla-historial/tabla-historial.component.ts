@@ -12,6 +12,7 @@ import { ReembolsoService } from 'src/app/shared/services/reembolso.service';
 import '@vs-design-system/ds-pagination';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-tabla-historial',
   templateUrl: './tabla-historial.component.html',
@@ -32,14 +33,13 @@ export class TablaHistorialComponent
   public dsCounterSelectedOptionValue: number = 10;
   public cantidadDeRegistrosEnTabla!: number;
   public tenByDefault: number = 10;
-  public initialLabel: string = '10';
+  public  initialLabel: string = '10';
   public reembolsos: Reembolsos[];
   public leftAssignmentFromRight: number = 10;
 
   constructor(
     private reembolsoService: ReembolsoService,
-    private elementRef: ElementRef,
-    private router: Router
+    private router: Router,
   ) {
     this.reembolsos = this.reembolsoService.getReembolsos();
   }
@@ -62,9 +62,11 @@ export class TablaHistorialComponent
   }
 
   ngAfterViewInit() {
+    //ultimo numero en el counter de la derecha (cantidad de resultados )
+    console.log('this.dsPageCounter.nativeElement.children[0].children[2]', this.dsPageCounter.nativeElement.children[0].children[2])
+
     this.dsPageCounter.nativeElement.children[0].children[2].children[0].innerHTML =
       this.totalTableEntriesLabel;
-
     const pagNums = Array.from(document.getElementsByClassName('css-16sfy5f'));
     const leftPaginationSelected = Array.from(
       document.getElementsByClassName('css-7mrpfl active')
@@ -74,10 +76,11 @@ export class TablaHistorialComponent
 
     // Setea dsCounterSelectedOptionValue (derecha) en funcion del pagination seleccionado (izquierda)
     selectedAndNot.forEach((leftPag) => {
-      leftPag.addEventListener('click', (e: any) => {
-        this.dsCounterSelectedOptionValue = Number(e.target.textContent) * 10;
+      leftPag.addEventListener('click', (leftNum: any) => {
+        this.dsCounterSelectedOptionValue = Number(leftNum.target.textContent) * 10;
         this.setCantidadResultados();
         this.initialLabel = this.dsCounterSelectedOptionValue.toString();
+        console.log('this.initialLabel', this.initialLabel)
       });
     });
 
@@ -109,10 +112,6 @@ export class TablaHistorialComponent
         });
       }
     }, 100);
-
-    this.elementRef.nativeElement
-      .querySelector('.pageCounter')
-      .addEventListener('click', this.setCantidadResultados());
 
     this.theader.nativeElement.style.backgroundColor = 'rgba(122,72,212,.3)';
   }
