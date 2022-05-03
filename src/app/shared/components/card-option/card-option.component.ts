@@ -11,7 +11,7 @@ export class CardOptionComponent implements OnInit {
   @Input() prestacionName: string = '';
 
   constructor() { }
-  svgAvaliables: any = {
+  svgAvailables: any = {
     "atencionhospitalaria": "../../../../assets/svg/atencionhospitalaria",
     "atencionmedica": "../../../../assets/svg/atencionmedica",
     "dentista": "../../../../assets/svg/dentista",
@@ -21,7 +21,7 @@ export class CardOptionComponent implements OnInit {
   }
   getRouteImg(nameItem: string) {
     try {
-      return this.status == 'active' ? this.svgAvaliables[nameItem] + 'Activa.svg' : this.svgAvaliables[nameItem] + '.svg';
+      return this.status == 'active' ? this.svgAvailables[nameItem] + 'Activa.svg' : this.svgAvailables[nameItem] + '.svg';
     } catch (error) {
       return '';
     }

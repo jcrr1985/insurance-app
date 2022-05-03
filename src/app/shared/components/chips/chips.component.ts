@@ -37,10 +37,6 @@ export class ChipsComponent implements OnInit {
     state: false
   }];
 
-  public paragraphEnabled: string = '#EF6F00';
-  public paragraphDisabled: string = '#43505E';
-
-
   constructor() { }
 
   ngOnInit(): void {

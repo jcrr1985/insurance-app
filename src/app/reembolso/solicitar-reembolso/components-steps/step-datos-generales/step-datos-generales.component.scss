@@ -3,9 +3,11 @@
     border-style: dashed;
     border-radius: 10px;
     font-family: "Titilium";
+
     .text-header {
         font-size: 18px;
     }
+
     .text-description {
         color: #d2d9df;
         font-size: 14px;
@@ -32,4 +34,9 @@
 ds-icon {
     margin-right: 1rem;
     margin-left: 1rem;
+}
+
+span.step-title {
+    font-weight: 600!important;
+    font-size: 22px!important;
 }

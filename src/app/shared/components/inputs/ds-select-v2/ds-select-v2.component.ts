@@ -18,6 +18,7 @@ export class DsSelectV2Component implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
   }
   selectValue(element: sourceDsSelect | any) {
     this.valueDisplay = element.key;
@@ -29,7 +30,6 @@ export class DsSelectV2Component implements OnInit {
 
   showElements() {
     this.display = true;
-
   }
 
   hiddenElement() {

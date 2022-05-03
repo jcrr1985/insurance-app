@@ -17,36 +17,37 @@ export class StepDocumentosGeneralesComponent implements OnInit {
 
   @Output() sendData: EventEmitter<any> = new EventEmitter<any>();
   @Output() evaluateStepFour: EventEmitter<any> = new EventEmitter<any>();
-  documentsDisplay = {
+  documentsDisplay: any = {
     hospitalario: {
       multi: false,
-      nameFiles: ['Documento de reembolso', 'Documento de diagnóstico', 'Documento adicional'],
+      nameFiles: [{ name: 'Documento Reembolso', files: [] }, { name: 'Documento de diagnóstico', files: [] }, { name: 'Documento adicional', files: [] }],
+      filesUploades: [[], [], []],
       cols: 'col-span-4'
     },
 
     consultamedica: {
       multi: false,
-      nameFiles: ['Documento 1', 'Documento 2', 'Documento 3'],
-      cols: 'col-span-4'
+      nameFiles: [{ name: 'Documento Reembolso', files: [] }, { name: 'Documento de diagnóstico', files: [] }, { name: 'Documento adicional', files: [] }],
+      cols: 'col-span-3'
     },
     dentales: {
       multi: false,
-      nameFiles: ['Documento 1', 'Documento 2', 'Documento 3'],
-      cols: 'col-span-4'
+      nameFiles: [{ name: 'Documento Reembolso', files: [] }, { name: 'Documento de diagnóstico', files: [] }, { name: 'Documento adicional', files: [] }],
+      cols: 'col-span-3'
     },
     examenes: {
       multi: false,
-      nameFiles: ['Documento 1', 'Documento 2', 'Documento 3', 'Documento 4'],
+      nameFiles: [{ name: 'Documento Reembolso', files: [] }, { name: 'Documento de diagnóstico', files: [] }, { name: 'Documento adicional', files: [] }],
       cols: 'col-span-3'
     },
     medicamentos: {
       multi: false,
-      nameFiles: ['Documento 1', 'Documento 2', 'Documento 3', 'Documento 4'],
+      nameFiles: [{ name: 'Documento Reembolso', files: [] }, { name: 'Documento de diagnóstico', files: [] }, { name: 'Documento adicional', files: [] }],
       cols: 'col-span-3'
     },
     lentes: {
       multi: false,
-      nameFiles: ['Documento 1', 'Documento 2', 'Documento 3', 'Documento 4'],
+      nameFiles: [{ name: 'Documento Reembolso', files: [] }, { name: 'Documento de diagnóstico', files: [] }, { name: 'Documento adicional', files: [] }],
       cols: 'col-span-3'
     },
 
@@ -57,6 +58,54 @@ export class StepDocumentosGeneralesComponent implements OnInit {
   constructor() { }
   filesUploaded: any = [];
   ngOnInit(): void {
+    this.addEventListener();
+  }
+
+  addEventListener() {
+    document.addEventListener('dsFileSendFiles', (evt: any) => {
+      const index = parseInt(evt.target.id.replace('documento', ''));
+      console.log(evt.detail)
+      switch (this.idPrestacionSeleccionada) {
+        case 1:
+          this.documentsDisplay.hospitalario.nameFiles[index].files = evt.detail;
+          break;
+        case 2:
+          this.documentsDisplay.consultamedica.nameFiles[index].files = evt.detail;
+          break;
+        case 3:
+          this.documentsDisplay.dentales.nameFiles[index].files = evt.detail;
+          break;
+        case 4:
+          this.documentsDisplay.examenes.nameFiles[index].files = evt.detail;
+          break;
+        case 5:
+          this.documentsDisplay.medicamentos.nameFiles[index].files = evt.detail;
+          break;
+        case 6:
+          this.documentsDisplay.lentes.nameFiles[index].files = evt.detail;
+          break;
+
+        default:
+          break;
+      }
+      console.log(evt.detail)
+    })
+    document.addEventListener('dsFileDeleteFile', (evt: any) => {
+      const index = parseInt(evt.target.id.replace('documento', ''));
+      console.log(evt.detail)
+    })
+    document.addEventListener('dsFileClick', (evt: any) => {
+      const index = parseInt(evt.target.id.replace('documento', ''));
+      console.log(evt.detail)
+    })
+  }
+
+  deleteDocs(prestacion: string, indexNameFiles: number, nameFile: string) {
+    let newFiles = [];
+    for (let x of this.documentsDisplay[prestacion]['nameFiles'][indexNameFiles]['files']) {
+      if (x.name != nameFile) newFiles.push(x);
+    }
+    this.documentsDisplay[prestacion]['nameFiles'][indexNameFiles]['files'] = newFiles;
   }
 
   setStepsStatus(data: any) {

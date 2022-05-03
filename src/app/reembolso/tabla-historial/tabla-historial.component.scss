@@ -1,10 +1,18 @@
-
 .texto-normal {
     font-weight: 400;
     font-size: 14px;
-    color:var(--ter0);
+    color: var(--ter0);
 }
 
 ds-table-header.tabla-header {
-    background-color: var(--sec2)!important;
-  }
+    background-color: var(--sec2) !important;
+}
+
+
+.miya {
+
+    // font-weight: 700!important;
+    font-size: 16px !important;
+    line-height: 20px !important;
+    padding: 10px 38px !important;
+}

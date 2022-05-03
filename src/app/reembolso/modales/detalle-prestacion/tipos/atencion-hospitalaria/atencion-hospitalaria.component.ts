@@ -30,11 +30,16 @@ export class AtencionHospitalariaComponent implements OnInit {
     { key: 'Examenes', value: '5', sesionRequired: false }
   ]
   sourceSelect = [
-    { key: '1 sesion', value: 1 },
-    { key: '2 sesiones', value: 2 },
-    { key: '3 sesiones', value: 3 },
-    { key: '4 sesiones', value: 4 },
-    { key: '5 sesiones', value: 5 }
+    { label: '1 sesión', value: '1' },
+    { label: '2 sesiónes', value: '2' },
+    { label: '3 sesiónes', value: '3' },
+    { label: '4 sesiónes', value: '4' },
+    { label: '5 sesiónes', value: '5' },
+    { label: '6 sesiónes', value: '6' },
+    { label: '7 sesiónes', value: '7' },
+    { label: '8 sesiónes', value: '8' },
+    { label: '9 sesiónes', value: '9' },
+    { label: '10 sesiónes', value: '10' },
   ]
   initData() {
     this.prestacion = {

@@ -1,9 +1,13 @@
 //  @import 'tailwindcss';
 @import "~@vs-design-system/ds-tokens/build/css/tokens.css";
 
-@import "tailwindcss/base";
+// @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+* {
+  font-family: "Titillium Web" !important;
+}
 
 // active card with border
 .css-11d6cxn {
@@ -44,12 +48,15 @@
   margin-top: 40px !important;
   //corrigiendo stepper
 }
+
 .css-upkcef {
   width: min-content;
 }
+
 .css-blsfar {
   max-width: 100% !important;
 }
+
 .css-uxw5ky {
   max-width: 100% !important;
 }
@@ -71,6 +78,7 @@ app-custom-stepper {
       }
     }
   }
+
   span.waiting_icon {
     ds-icon {
       svg {
@@ -91,6 +99,19 @@ app-custom-stepper {
 .css-1vyubn8.css-2z0lnu {
   padding: 10px 63.5px !important;
 }
+
+// ancho file uploadDocs
+.css-ivir7d {
+  width: 100% !important;
+}
+
+.text-no-overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 5px;
+}
+
 .modal-container {
   width: 100vw;
   height: 100vh;
@@ -118,11 +139,13 @@ ds-icon {
     margin-top: 5px;
   }
 }
+
 ds-select-v2 ds-icon {
   svg {
     margin-top: 0px;
   }
 }
+
 .input_container {
   box-sizing: border-box;
   position: relative;
@@ -165,12 +188,14 @@ ds-select-v2 ds-icon {
     line-height: 1.43;
     padding: 10px 40px 10px 12px;
   }
+
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin-right: 0;
   }
-  input:placeholder-shown + label {
+
+  input:placeholder-shown+label {
     position: absolute;
     font-family: "Titillium Web", sans-serif;
     font-size: 14px;
@@ -182,7 +207,8 @@ ds-select-v2 ds-icon {
     display: block;
     padding: 0px;
   }
-  input:focus + label {
+
+  input:focus+label {
     display: block;
     font-family: "Titillium Web", sans-serif;
     font-size: 12px;
@@ -195,6 +221,7 @@ ds-select-v2 ds-icon {
     left: 12px;
     transition: top 0.4s ease 0s, left 0.4s ease 0s, font-size 0.4s ease 0s;
   }
+
   label {
     display: block;
     font-family: "Titillium Web", sans-serif;
@@ -208,6 +235,7 @@ ds-select-v2 ds-icon {
     left: 12px;
     transition: top 0.4s ease 0s, left 0.4s ease 0s, font-size 0.4s ease 0s;
   }
+
   p {
     margin: 0px;
     font-family: "Titillium Web", sans-serif;
@@ -216,5 +244,11 @@ ds-select-v2 ds-icon {
     text-align: left;
     padding: 4px 12px 0px;
   }
-  
+
+
+}
+
+span.steps-title {
+  font-weight: 600 !important;
+  font-size: 22px !important;
 }

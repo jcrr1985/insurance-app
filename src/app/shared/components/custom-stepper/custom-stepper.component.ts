@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-custom-stepper',
@@ -8,13 +8,19 @@ import { Component, Input, OnInit } from '@angular/core';
 export class CustomStepperComponent implements OnInit {
 
   constructor() {
-    this.height = '100px';
-    this.status = 'waiting';
-  }
-  @Input() height: string;
-  @Input() status: string;
-  ngOnInit(): void {
 
+  }
+  @Input() height!: string;
+  @Input() status!: string;
+  @Input() texto!: string;
+  @Input() stepsStatusOn: any;
+  @Output() sendData: any;
+
+  ngOnInit(): void {}
+
+  setStatusOn(data: any) {
+    this.stepsStatusOn.stepOne_who.personaSeleccionada = data.value;
+    this.sendData.emit(data);
   }
 
 }

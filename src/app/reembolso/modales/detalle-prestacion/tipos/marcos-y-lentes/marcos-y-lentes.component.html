@@ -7,7 +7,7 @@
                         prestación</span>
                 </ds-paragraph>
             </div>
-            <div class="grid flex-wrap grid-cols-12 gap-3 form-wrapper mb-10">
+            <div class="grid flex-wrap grid-cols-12 gap-3 mb-10 form-wrapper">
                 <!--input nombre prestacion-->
                 <ds-search-v2 class="col-span-12 pr-2" [ngClass]="{'sm:col-span-6':sesionRequired}"
                     label="Tipo de Prestación" [source]="sourceSearch" (changeEv)="itemSelected($event)">
@@ -36,7 +36,7 @@
 
             <!--Monto a rembolsar-->
             <div class="monto-reembolso">
-                <div class="w-full px-4 mb-8 bg-indigo-900 rounded-lg indigo-wrapper">
+                <div class="px-4 mb-8 bg-indigo-900 rounded-lg indigo-wrapper">
                     <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
                         <span slot="text" class="py-3 text-base text-left text-white bg-indigo-900">Monto a
                             reembolsar</span>

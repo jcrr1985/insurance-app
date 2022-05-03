@@ -1,10 +1,17 @@
 import { IArancel } from './../interfaces/arancel';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ArancelService {
+  public aranceles = aranceles;
+  public prestacionSeleccionada: any;
+  // public setPrestacion$ = this.setPrestacion.asObservable();
+  public respuestaFiltro!: IArancel[] | undefined[];
+  public esListaActiva!: boolean;
+
   constructor() {
     for (let i = 0; i < aranceles.length; i++) {
       aranceles[i].Arancel = aranceles[i].Arancel.toLowerCase();
@@ -13,7 +20,95 @@ export class ArancelService {
         aranceles[i].Arancel.slice(1);
     }
   }
-  public aranceles = aranceles;
+
+  public get getPrestacionSeleccionada(){
+    return this.prestacionSeleccionada;
+  }
+  /**
+   * @description filtro para resultados basados en
+   * si la palabra se encuentra en cualquier parte del
+   * nombre del arancel.
+   */
+  public filtroAranceles(filtro: string): any[] {
+    console.log('filtro parameter: ', this.getPrestacionSeleccionada);
+    let filtroPrestacion: string = '';
+
+    switch (this.getPrestacionSeleccionada) {
+      case 'atencionhospitalaria':
+        filtroPrestacion = 'CONSULTA';
+        console.log('filtroPrestacion', filtroPrestacion)
+        break;
+      case 'atencionmedica':
+        filtroPrestacion = 'DENTAL';
+        console.log('filtroPrestacion', filtroPrestacion)
+        break;
+      case 'dentista':
+        filtroPrestacion = 'OPTICA';
+        console.log('filtroPrestacion', filtroPrestacion)
+        break;
+      case 'examenes':
+        filtroPrestacion = 'EXAMENES Y PROCEDIMIENTOS';
+        console.log('filtroPrestacion', filtroPrestacion)
+        break;
+      case 'medicamentos':
+        filtroPrestacion = 'MEDICAMENTO';
+        console.log('filtroPrestacion', filtroPrestacion)
+        break;
+      case 'optica':
+        filtroPrestacion = 'MEDICAMENTO';
+        console.log('filtroPrestacion', filtroPrestacion)
+        break;
+      default:
+        console.log('en el default')
+        break;
+      }
+      
+      if (filtro) {
+        const resultados = this.aranceles.filter((arancel) => {
+        return (
+          arancel.Arancel.toLowerCase().search(filtro) >= 0 &&
+          arancel.TipoLiquidacion === filtroPrestacion
+        );
+      });
+      console.log('resultados', resultados);
+      return resultados;
+    } else {
+      return [undefined];
+    }
+
+  }
+
+  busquedaAranceles(filtro: string): any[] {
+    try {
+      if (filtro.trim().length > 2 && filtro.trim() !== '') {
+        console.log('dentro del try')
+        this.respuestaFiltro = this.filtroAranceles(filtro);
+        this.esListaActiva = true;
+        const listado = document.getElementById('busqueda-predictiva');
+        if (this.respuestaFiltro.length > 0) {
+          // setTimeout(() => {
+          //   try {
+          //     listado.classList.toggle('height-1', this.respuestaFiltro.length === 1);
+          //     listado.classList.toggle('height-2', this.respuestaFiltro.length === 2);
+          //     listado.classList.toggle('height-3', this.respuestaFiltro.length > 2);
+          //   } catch (error) {
+
+          //   }
+          // }, 100);
+          return this.respuestaFiltro;
+        } else {
+          this.esListaActiva = false;
+          return [undefined];
+        }
+      } else {
+        this.esListaActiva = false;
+        return [undefined];
+      }
+    } catch (error) {
+      // Error de filtro al vaciar forms.
+      return [undefined];
+    }
+  }
 }
 
 const aranceles: IArancel[] = [

@@ -1,6 +1,6 @@
-<div class="modal-container flex items-center justify-center">
-  <div class="box grid grid-cols-12 gap-8">
-    <div class="col-span-12 relative">
+<div class="flex items-center justify-center modal-container">
+  <div class="grid grid-cols-12 gap-8 box">
+    <div class="relative col-span-12">
       <span class="close_button" (click)="closeModal()">x</span>
     </div>
     <div class="col-span-12">
@@ -9,80 +9,39 @@
       </ds-title>
     </div>
     <div class="col-span-12">
-      <div class="w-full relative">
-        <ds-input
-          [initialLabel]="'Nombre del medicamento'"
-          size="s2"
-          [helperMessage]="''"
-          labelOrientation="start"
-        >
+      <div class="relative w-full">
+        <ds-input [initialLabel]="'Nombre del medicamento'" size="s2" [helperMessage]="''" labelOrientation="start">
         </ds-input>
         <div class="icon-search">
-          <ds-icon
-            color="actionPrimary"
-            size="16"
-            icon-name="bi-search"
-          ></ds-icon>
+          <ds-icon color="actionPrimary" size="16" icon-name="bi-search"></ds-icon>
         </div>
       </div>
     </div>
-    <div class="col-span-6 flex items-center justify-between">
-      <ds-input
-        class="w-full"
-        [initialLabel]="'Nombre del medicamento'"
-        size="s2"
-        [helperMessage]="''"
-        labelOrientation="start"
-      >
+    <div class="flex items-center justify-between col-span-6">
+      <ds-input class="w-full" [initialLabel]="'Nombre del medicamento'" size="s2" [helperMessage]="''"
+        labelOrientation="start">
       </ds-input>
       <span class="icon-check success">
-        <ds-icon
-          class="icon-fill-green"
-          color="actionPrimary"
-          size="20"
-          icon-name="bi-check-circle-fill"
-        ></ds-icon
-      ></span>
+        <ds-icon class="icon-fill-green" color="actionPrimary" size="20" icon-name="bi-check-circle-fill"></ds-icon>
+      </span>
     </div>
-    <div class="col-span-6 flex items-center justify-between">
-      <ds-input
-        class="w-full"
-        [initialLabel]="'Nombre del medicamento'"
-        size="s2"
-        [helperMessage]="''"
-        labelOrientation="start"
-      >
+    <div class="flex items-center justify-between col-span-6">
+      <ds-input class="w-full" [initialLabel]="'Nombre del medicamento'" size="s2" [helperMessage]="''"
+        labelOrientation="start">
       </ds-input>
       <span class="icon-check success">
-        <ds-icon
-          class="icon-fill-green"
-          color="actionPrimary"
-          size="20"
-          icon-name="bi-check-circle-fill"
-        ></ds-icon
-      ></span>
+        <ds-icon class="icon-fill-green" color="actionPrimary" size="20" icon-name="bi-check-circle-fill"></ds-icon>
+      </span>
     </div>
-    <div class="col-span-12 flex items-center justify-between">
-      <ds-title
-        type="t6"
-        family="secondary"
-        weight="semiBold"
-        slot-name="text"
-        color="seconday"
-      >
+    <div class="flex items-center justify-between col-span-12">
+      <ds-title type="t6" family="secondary" weight="semiBold" slot-name="text" color="seconday">
         <span slot="text">Monto a reembolsar</span>
       </ds-title>
-      <ds-title
-        type="t6"
-        family="secondary"
-        weight="semiBold"
-        slot-name="text"
-        color="secondary"
-      >
+      <ds-title type="t6" family="secondary" weight="semiBold" slot-name="text" color="secondary">
         <span slot="text">$ 12.000</span>
       </ds-title>
     </div>
-    <div class="col-span-12 flex items-center justify-end">
+    <div class="flex items-center justify-end col-span-12">
       <ds-button variant="secondary" slot-name="text2">
         <span slot="text2">Cancelar</span>
       </ds-button>

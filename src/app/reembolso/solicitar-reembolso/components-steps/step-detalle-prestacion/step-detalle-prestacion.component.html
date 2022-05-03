@@ -1,9 +1,9 @@
-<section class="my-10 flex items-center justify-start">
+<section class="flex items-center justify-start my-10">
   <app-custom-stepper [height]="customStepperSize.stepperFive" [status]="stepperFiveSource()[0].status">
   </app-custom-stepper>
   <div id="stepperFiveContent" class="grid grid-cols-12 gap-8">
     <ds-title class="col-span-12" type="t4" family="secondary" weight="bold" color="primary">
-      <span slot="text">Detalle de la prestación</span>
+      <span class="steps-title five" slot="text">Detalle de la prestación</span>
     </ds-title>
     <ng-container *ngIf="getStepsStatus('stepFour_general','tipoDocumentoSeleccionado')">
       <div class="col-span-9">
@@ -25,7 +25,7 @@
           <ds-icon color="info2" size="24" icon-name="bi-plus-circle" slot="text2"></ds-icon>
         </ds-button>
       </div>
-      <div class="col-span-12 flex" *ngIf="prestaciones.length">
+      <div class="flex col-span-12" *ngIf="prestaciones.length">
         <app-table-resume-detalle-prestacion [prestaciones]="prestaciones" (editEv)="edit($event)"
           (deleteEv)="delete($event)"></app-table-resume-detalle-prestacion>
       </div>

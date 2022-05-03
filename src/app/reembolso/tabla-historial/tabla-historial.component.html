@@ -1,14 +1,12 @@
 <div class="h-full historial-wrapper">
-  <div
-    class="p-5 border-2 border-solid first-section border-black-600 rounded-xl"
-  >
+  <div class="p-5 border-2 border-solid first-section border-black-600 rounded-xl">
     <div class="flex items-center justify-between px-2">
       <div>
         <p class="text-2xl">¿Quieres solicitar un reembolso?</p>
       </div>
       <div class="button-wrapper" [routerLink]="['/solicitud']">
-        <ds-button variant="primary" slot-name="text2" size="s3">
-          <span class="text-xl" slot="text2">Solicitar</span>
+        <ds-button variant="primary" slot-name="text2">
+          <span class="miya" slot="text2">Solicitar</span>
         </ds-button>
       </div>
     </div>
@@ -20,54 +18,41 @@
   <div class="grid w-full">
     <ds-table>
       <ds-table-header appColored #theader class="tabla-header" slot="header">
-        <ds-table-header-column class="text-sm" slot="column"
-          ><span slot="element"
-            >Nombre Beneficiario</span
-          ></ds-table-header-column
-        >
-        <ds-table-header-column slot="column"
-          ><span slot="element">N° Solicitud</span></ds-table-header-column
-        >
-        <ds-table-header-column slot="column" sortable="true"
-          ><span slot="element">Monto solicitado</span>
+        <ds-table-header-column class="text-sm" slot="column"><span slot="element">Nombre Beneficiario</span>
         </ds-table-header-column>
-        <ds-table-header-column slot="column" sortable="true"
-          ><span slot="element">Fecha pago</span>
+        <ds-table-header-column slot="column"><span slot="element">N° Solicitud</span></ds-table-header-column>
+        <ds-table-header-column slot="column" sortable="true"><span slot="element">Monto solicitado</span>
         </ds-table-header-column>
-        <ds-table-header-column slot="column" sortable="true"
-          ><span slot="element">Estado</span>
+        <ds-table-header-column slot="column" sortable="true"><span slot="element">Fecha pago</span>
         </ds-table-header-column>
-        <ds-table-header-column slot="column" sortable="true"
-          ><span slot="element">Documento de liquidación</span>
+        <ds-table-header-column slot="column" sortable="true"><span slot="element">Estado</span>
+        </ds-table-header-column>
+        <ds-table-header-column slot="column" sortable="true"><span slot="element">Documento de liquidación</span>
         </ds-table-header-column>
       </ds-table-header>
       <!--TABLE BODY-->
       <ds-table-body slot="body">
         <!--Row Start-->
-        <ds-table-body-row
-          *ngFor="let registro of tenEntriesByDefault"
-          class="bg-gray-100"
-          slot="row"
-        >
+        <ds-table-body-row *ngFor="let registro of tenEntriesByDefault" class="bg-gray-100" slot="row">
           <ds-table-body-column slot="column">
             <span class="texto-normal" slot="element">{{
               registro.nombre
-            }}</span>
+              }}</span>
           </ds-table-body-column>
           <ds-table-body-column slot="column">
             <span class="texto-normal" slot="element">{{
               registro.numSolicitud
-            }}</span>
+              }}</span>
           </ds-table-body-column>
           <ds-table-body-column slot="column">
             <span class="texto-normal" slot="element">{{
               registro.montoSolicitado
-            }}</span>
+              }}</span>
           </ds-table-body-column>
           <ds-table-body-column slot="column">
             <span class="texto-normal" slot="element">{{
               registro.fechaPago | date: "shortDate"
-            }}</span>
+              }}</span>
           </ds-table-body-column>
           <ds-table-body-column slot="column">
             <!--fix los de abajo-->
@@ -83,17 +68,11 @@
   </div>
   <div class="flex items-center justify-between w-full">
     <div>
-      <ds-pagination
-        [totalPages]="paginationSource.length"
-      ></ds-pagination>
+      <ds-pagination [totalPages]="paginationSource.length"></ds-pagination>
     </div>
     <div class="">
-      <ds-pagecounter
-        class="pageCounter"
-        #dsPageCounter
-        [initialLabel]="initialLabel"
-        [source]="paginationSource"
-      ></ds-pagecounter>
+      <ds-pagecounter class="pageCounter" #dsPageCounter [initialLabel]="initialLabel" [source]="paginationSource">
+      </ds-pagecounter>
     </div>
   </div>
 </div>
