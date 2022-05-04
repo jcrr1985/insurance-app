@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ICard } from 'src/app/shared/interfaces/icard';
 import { Chip } from 'src/app/shared/interfaces/interfaces';
 
 @Component({
@@ -15,7 +16,7 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
   @Output() sendData: EventEmitter<any> = new EventEmitter<any>();
   @Output() evaluateStepTwo: EventEmitter<any> = new EventEmitter<any>();
 
-  cards = [
+  public cards: ICard[] = [
     { prestacion: 'Atención Hospitalaria', name: 'atencionhospitalaria', status: '' },
     { prestacion: 'Atención Médica', name: 'atencionmedica', status: 'disabled' },
     { prestacion: 'Dentales', name: 'dentista', status: '' },
@@ -23,7 +24,9 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
     { prestacion: 'Medicamentos', name: 'medicamentos', status: '' },
     { prestacion: 'Lentes y Monturas', name: 'optica', status: '' }
   ]
-  coldefined = 'col-span-4';
+  public coldefined: string = 'col-span-4';
+
+  public tarjetaSeleccionada!: ICard;
 
   constructor() { }
 
@@ -45,16 +48,17 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
     this.evaluateStepTwo.emit();
   }
 
-  setCard(index: number) {
+  setCard(tarjeta: ICard) {
     const dataEmit = {
       step: 'stepTwo_selectOption',
       option: 'prestacionSeleccionada',
-      value: this.cards[index].prestacion
+      value: tarjeta.prestacion
     }
     this.setStepsStatus(dataEmit);
     this.evaluateStepTwo.emit();
     this.cards.forEach(e => e.status = '');
-    this.cards[index].status = 'active';
+    tarjeta.status = 'active';
+    this.tarjetaSeleccionada = tarjeta;
   }
 
 }

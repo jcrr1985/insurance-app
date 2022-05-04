@@ -9,7 +9,7 @@ export class ReembolsoService {
 
   public reembolsos: Reembolsos[] = [
     {
-      nombre: 'Leandro Letelier 1',
+      nombre: 'Alejandro Salgado',
       parentesco: 'Yo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -17,7 +17,7 @@ export class ReembolsoService {
       estado: 'Pagado',
     },
     {
-      nombre: 'Leandro Letelier 2',
+      nombre: 'Marcelo Salgado',
       parentesco: 'Hijo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -25,7 +25,7 @@ export class ReembolsoService {
       estado: 'Pagado parcial',
     },
     {
-      nombre: 'Leandro Letelier 3',
+      nombre: 'Ana María Gonzales',
       parentesco: 'Madre',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -33,7 +33,7 @@ export class ReembolsoService {
       estado: 'Transacción IMED',
     },
     {
-      nombre: 'Leandro Letelier 4',
+      nombre: 'Francisca Arriagada',
       parentesco: 'Conyugue',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -41,7 +41,7 @@ export class ReembolsoService {
       estado: 'En evaluación',
     },
     {
-      nombre: 'Leandro Letelier 5',
+      nombre: 'Alejandro Salgado',
       parentesco: 'Yo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -49,7 +49,7 @@ export class ReembolsoService {
       estado: 'Sin pago',
     },
     {
-      nombre: 'Leandro Letelier 6',
+      nombre: 'Marcelo Salgado',
       parentesco: 'Hijo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -57,7 +57,7 @@ export class ReembolsoService {
       estado: 'Transacción Farmacia',
     },
     {
-      nombre: 'Leandro Letelier 7',
+      nombre: 'Ana María Gonzales',
       parentesco: 'Madre',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -65,7 +65,7 @@ export class ReembolsoService {
       estado: 'Pagado',
     },
     {
-      nombre: 'Leandro Letelier 8',
+      nombre: 'Francisca Arriagada',
       parentesco: 'Conyugue',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -73,7 +73,7 @@ export class ReembolsoService {
       estado: 'Pagado parcial',
     },
     {
-      nombre: 'Leandro Letelier 9',
+      nombre: 'Alejandro Salgado',
       parentesco: 'Yo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -81,7 +81,7 @@ export class ReembolsoService {
       estado: 'Transacción IMED',
     },
     {
-      nombre: 'Leandro Letelier 10',
+      nombre: 'Marcelo Salgado',
       parentesco: 'Hijo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -89,7 +89,7 @@ export class ReembolsoService {
       estado: 'En evaluación',
     },
     {
-      nombre: 'Leandro Letelier 11',
+      nombre: 'Ana María Gonzales',
       parentesco: 'Madre',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -97,7 +97,7 @@ export class ReembolsoService {
       estado: 'Sin pago',
     },
     {
-      nombre: 'Leandro Letelier 12',
+      nombre: 'Francisca Arriagada',
       parentesco: 'Conyugue',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -105,7 +105,7 @@ export class ReembolsoService {
       estado: 'Transacción Farmacia',
     },
     {
-      nombre: 'Leandro Letelier 13',
+      nombre: 'Alejandro Salgado',
       parentesco: 'Yo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -113,7 +113,7 @@ export class ReembolsoService {
       estado: 'Pagado',
     },
     {
-      nombre: 'Leandro Letelier 14',
+      nombre: 'Marcelo Salgado',
       parentesco: 'Hijo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -121,7 +121,7 @@ export class ReembolsoService {
       estado: 'Pagado parcial',
     },
     {
-      nombre: 'Leandro Letelier 15',
+      nombre: 'Ana María Gonzales',
       parentesco: 'Madre',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -129,7 +129,7 @@ export class ReembolsoService {
       estado: 'Transacción IMED',
     },
     {
-      nombre: 'Leandro Letelier 16',
+      nombre: 'Francisca Arriagada',
       parentesco: 'Conyugue',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -137,7 +137,7 @@ export class ReembolsoService {
       estado: 'En evaluación',
     },
     {
-      nombre: 'Leandro Letelier 17',
+      nombre: 'Alejandro Salgado',
       parentesco: 'Yo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -145,7 +145,7 @@ export class ReembolsoService {
       estado: 'Sin pago',
     },
     {
-      nombre: 'Leandro Letelier 18',
+      nombre: 'Marcelo Salgado',
       parentesco: 'Hijo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -153,7 +153,7 @@ export class ReembolsoService {
       estado: 'Transacción Farmacia',
     },
     {
-      nombre: 'Leandro Letelier 19',
+      nombre: 'Ana María Gonzales',
       parentesco: 'Madre',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -161,7 +161,7 @@ export class ReembolsoService {
       estado: 'Pagado',
     },
     {
-      nombre: 'Leandro Letelier 20',
+      nombre: 'Francisca Arriagada',
       parentesco: 'Conyugue',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -169,7 +169,7 @@ export class ReembolsoService {
       estado: 'Pagado parcial',
     },
     {
-      nombre: 'Leandro Letelier 21 ',
+      nombre: 'Alejandro Salgado',
       parentesco: 'Yo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -177,7 +177,7 @@ export class ReembolsoService {
       estado: 'Transacción IMED',
     },
     {
-      nombre: 'Leandro Letelier 22 ',
+      nombre: 'Marcelo Salgado',
       parentesco: 'Hijo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -185,7 +185,7 @@ export class ReembolsoService {
       estado: 'En evaluación',
     },
     {
-      nombre: 'Leandro Letelier 23',
+      nombre: 'Ana María Gonzales',
       parentesco: 'Madre',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -193,7 +193,7 @@ export class ReembolsoService {
       estado: 'Sin pago',
     },
     {
-      nombre: 'Leandro Letelier 24',
+      nombre: 'Francisca Arriagada',
       parentesco: 'Conyugue',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -201,7 +201,7 @@ export class ReembolsoService {
       estado: 'Transacción Farmacia',
     },
     {
-      nombre: 'Leandro Letelier 25',
+      nombre: 'Alejandro Salgado',
       parentesco: 'Yo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -209,7 +209,7 @@ export class ReembolsoService {
       estado: 'Pagado',
     },
     {
-      nombre: 'Leandro Letelier 26',
+      nombre: 'Marcelo Salgado',
       parentesco: 'Hijo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -217,7 +217,7 @@ export class ReembolsoService {
       estado: 'Pagado parcial',
     },
     {
-      nombre: 'Leandro Letelier 27',
+      nombre: 'Ana María Gonzales',
       parentesco: 'Madre',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -233,7 +233,7 @@ export class ReembolsoService {
       estado: 'En evaluación',
     },
     {
-      nombre: 'Leandro Letelier 29',
+      nombre: 'Alejandro Salgado',
       parentesco: 'Yo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -241,7 +241,7 @@ export class ReembolsoService {
       estado: 'Sin pago',
     },
     {
-      nombre: 'Leandro Letelier 30',
+      nombre: 'Marcelo Salgado',
       parentesco: 'Hijo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -249,7 +249,7 @@ export class ReembolsoService {
       estado: 'Transacción Farmacia',
     },
     {
-      nombre: 'Leandro Letelier 31',
+      nombre: 'Ana María Gonzales',
       parentesco: 'Madre',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -257,7 +257,7 @@ export class ReembolsoService {
       estado: 'Pagado',
     },
     {
-      nombre: 'Leandro Letelier 32',
+      nombre: 'Francisca Arriagada',
       parentesco: 'Conyugue',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -265,7 +265,7 @@ export class ReembolsoService {
       estado: 'Pagado parcial',
     },
     {
-      nombre: 'Leandro Letelier 33',
+      nombre: 'Alejandro Salgado',
       parentesco: 'Yo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -273,7 +273,7 @@ export class ReembolsoService {
       estado: 'Transacción IMED',
     },
     {
-      nombre: 'Leandro Letelier 34',
+      nombre: 'Marcelo Salgado',
       parentesco: 'Hijo',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -281,7 +281,7 @@ export class ReembolsoService {
       estado: 'En evaluación',
     },
     {
-      nombre: 'Leandro Letelier 35',
+      nombre: 'Ana María Gonzales',
       parentesco: 'Madre',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
@@ -289,7 +289,7 @@ export class ReembolsoService {
       estado: 'Sin pago',
     },
     {
-      nombre: 'Leandro Letelier 36',
+      nombre: 'Francisca Arriagada',
       parentesco: 'Conyugue',
       numSolicitud: 152734,
       montoSolicitado: '$13.000',
