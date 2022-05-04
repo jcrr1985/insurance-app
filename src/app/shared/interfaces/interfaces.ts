@@ -12,6 +12,7 @@ export interface Chip {
 
 export interface Reembolsos {
   nombre: string;
+  parentesco: string;
   numSolicitud: number;
   montoSolicitado: string;
   fechaPago: string;

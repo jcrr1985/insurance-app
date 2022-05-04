@@ -1,18 +1,43 @@
 .texto-normal {
     font-weight: 400;
     font-size: 14px;
-    color: var(--ter0);
+    line-height: 16px;
+    color:var(--color-font-paragraph-secondary);
+}
+
+.texto-especial {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: var(--color-font-paragraph-quaternary);
 }
 
 ds-table-header.tabla-header {
-    background-color: var(--sec2) !important;
+    background-color: var(--sec2)!important;
+  }
+
+
+.css-1vyubn8.css-2z0lnu {
+    padding: 10px 25px !important;
 }
 
 
-.miya {
+.bold1{
+  font-size: 18px!important;
+  font-weight: bold!important;
+}
 
-    // font-weight: 700!important;
-    font-size: 16px !important;
-    line-height: 20px !important;
-    padding: 10px 38px !important;
+.bold2{
+  font-weight: bold!important;
+}
+
+.text-2xl{
+  color: var(--sec2);
+  font-weight: bolder;
+  font-size: 1.625rem;
+  line-height: 1.625rem;
+} 
+
+.first-section {
+  border: 1px solid var(--ter4)
 }

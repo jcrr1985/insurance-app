@@ -35,11 +35,11 @@ export class ArancelService {
 
     switch (this.getPrestacionSeleccionada) {
       case 'atencionhospitalaria':
-        filtroPrestacion = 'CONSULTA';
+        filtroPrestacion = 'CONSULTA'; //TODO ¿Qué chingados irá aqui? estoy seguro que no es 'CONSULTA', consulta va abajo
         console.log('filtroPrestacion', filtroPrestacion)
         break;
       case 'atencionmedica':
-        filtroPrestacion = 'DENTAL';
+        filtroPrestacion = 'CONSULTA'; 
         console.log('filtroPrestacion', filtroPrestacion)
         break;
       case 'dentista':
@@ -110,6 +110,8 @@ export class ArancelService {
     }
   }
 }
+
+
 
 const aranceles: IArancel[] = [
   {
@@ -35508,3 +35510,5 @@ const aranceles: IArancel[] = [
     SiempreRechaza: '0',
   },
 ];
+
+const tiposdeLiquidacion: string[] = [];  

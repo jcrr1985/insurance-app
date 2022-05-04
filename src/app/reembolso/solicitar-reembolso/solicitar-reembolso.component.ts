@@ -103,6 +103,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
   ngOnInit(): void {
     this.subscribeChangesOnInput();
     this.addAccessKey();
+    this.getSizeStepper();
   }
 
   ngAfterContentChecked() {
@@ -190,7 +191,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     try {
       this.formReembolso.get(formControlName)?.patchValue(value);
     } catch (error) {
-      console.log('error setting form', formControlName);
+      console.log('error setting field', formControlName);
     }
   }
   /**
@@ -361,6 +362,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       this.customStepperSize.stepperFive =
         five <= 110 ? five + 'px' : five - 35 + 'px';
     }, 10);
+    console.log("this.customStepperSize", this.customStepperSize)
   }
 
   /* Modal Agregar detalle adicional */
@@ -404,7 +406,11 @@ const beneficiariosArray = [
 ];
 const previsionesArray = [
   { label: 'Seleccione', value: 0, selected: false },
+  { label: 'Fonasa', value: 3, selected: false },
   { label: 'Colmena', value: 1, selected: false },
   { label: 'Consalud', value: 2, selected: false },
   { label: 'Cruz Blanca', value: 3, selected: false },
+  { label: 'Banmédica', value: 0, selected: false },
+  { label: 'Masvida', value: 2, selected: false },
+  { label: 'Vida', value: 1, selected: false },
 ];

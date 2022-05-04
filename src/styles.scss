@@ -97,7 +97,11 @@ app-custom-stepper {
 }
 
 .css-1vyubn8.css-2z0lnu {
-  padding: 10px 63.5px !important;
+  padding: 10px 38px !important;
+  font-weight: bold !important;
+  font-size: 18px !important;
+  color: rgb(255, 255, 255);
+  box-shadow: none !important;
 }
 
 // ancho file uploadDocs
@@ -251,4 +255,8 @@ ds-select-v2 ds-icon {
 span.steps-title {
   font-weight: 600 !important;
   font-size: 22px !important;
+}
+
+b {
+  font-weight: bold !important;
 }
