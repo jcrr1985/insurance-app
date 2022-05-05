@@ -11,7 +11,7 @@ import { ArancelService } from 'src/app/shared/services/arancel-service.service'
 export class DsSearchV2Component implements OnInit {
   @Input() label!: string;
   @Input() helpText!: string;
-  @Input() source: any[] = [];
+  // @Input() source: any[] = [];
   @Input() value = '';
   @Output() changeEv: EventEmitter<any> = new EventEmitter();
   @Output() keyupEv: EventEmitter<any> = new EventEmitter();
@@ -29,13 +29,13 @@ export class DsSearchV2Component implements OnInit {
     this.keySearch = keySearch;
     console.log("to search", this.keySearch);
     const val = this.keySearch && this.keySearch.trim().toLowerCase();
-    // this.filterResult = this.source.filter(e => (e.key.toString().toLowerCase() as string).startsWith(val));
     this.filterResult = this.arancelService.busquedaAranceles(keySearch)
     console.log('filterResult', this.filterResult)
   }
   selectValue(element: any) {
+    console.log('selectValue param', element)
     console.log("1")
-    this.value = element.key;
+    this.value = element.Arancel;
     this.elementSelected = element;
     this.keySearch = '';
     this.filterResult = [];

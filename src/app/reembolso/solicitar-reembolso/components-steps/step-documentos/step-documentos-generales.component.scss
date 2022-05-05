@@ -1,3 +1,17 @@
+#stepperFourContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    min-height: 22vh;
+
+    ds-title {
+        height: 8vh;
+        margin: 0;
+    }
+
+}
+
 .archivo-personalizado-cargado {
     border: solid 2px #d2d9df;
     border-style: dashed;
@@ -68,11 +82,11 @@ ds-icon {
         .container-name-file {
             padding-left: 60px;
             height: 100%;
-            width: 100%;
+            max-width: 100%;
             text-decoration: underline;
 
             div {
-                width: 80%;
+                width: 70%;
             }
         }
 
