@@ -10,6 +10,7 @@ export class DetallePrestacionComponent
   public modalMontoReembolso!: number;
   public prestacionNombre!: any;
   public modalData: Array<any> = [];
+  private inputPredictivoNativo: any;
   @Input() idprestacionSeleccionada: number = 2;
   @Input() prestacionSeleccionada: any = {};
   @Output() datosNuevaPrestacion: EventEmitter<any> = new EventEmitter<any>();
@@ -17,7 +18,12 @@ export class DetallePrestacionComponent
 
   constructor() { }
 
-  ngOnInit(): void { console.log(this.prestacionSeleccionada) }
+  ngOnInit(): void {
+    console.log(this.prestacionSeleccionada)
+    setTimeout(() => {
+      this.inputPredictivoNativo = document.getElementById('busqueda-predictiva')!.querySelector('input');
+    }, 100);
+  }
 
 
   enviarDetalleModalData() {
@@ -30,6 +36,11 @@ export class DetallePrestacionComponent
   }
   receivedModalData(data: any) {
     this.datosNuevaPrestacion.emit(data);
+  }
+
+  setearValorInputPredictivo(textoArancel: string){
+    console.log('capturado custom event textoArancel, su data ->', textoArancel)
+    this.inputPredictivoNativo.value = textoArancel;
   }
 
   ngAfterViewInit() { }

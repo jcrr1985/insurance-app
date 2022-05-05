@@ -1,3 +1,4 @@
+import { IArancel } from './../../../../../shared/interfaces/arancel';
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Prestacion } from 'src/app/shared/interfaces/interfaces'
@@ -11,39 +12,33 @@ import { Prestacion } from 'src/app/shared/interfaces/interfaces'
 
 
 export class ConsultaMedicaComponent implements OnInit {
-  valor: any = 0;
-  bonificacion: any = 0;
-  montoReembolso: any = 0;
-  sesionRequired: boolean = false;
-  prestacion!: Prestacion;
-  warningMsg: boolean = false;
-  public prestacioSeleccionada = this.arancelService.getPrestacionSeleccionada
-
   @Output() close: EventEmitter<any> = new EventEmitter();
   @Output() dataEvent: EventEmitter<any> = new EventEmitter();
+  @Output() textoArancelSeleccionado: EventEmitter<string> = new EventEmitter();
+
+  public valor: any = 0;
+  public bonificacion: any = 0;
+  public montoReembolso: any = 0;
+  public sesionRequired: boolean = false;
+  public prestacion: Prestacion = {} as Prestacion;
+  public warningMsg: boolean = false;
+  public prestacioSeleccionada = this.arancelService.getPrestacionSeleccionada;
+  public textoArancel!: string;
   public sourceSearch: any;
-  constructor(public arancelService: ArancelService) { this.initData() }
+
+  constructor(public arancelService: ArancelService) { }
 
   ngOnInit(): void {
     console.log('prestacioSeleccionada', this.prestacioSeleccionada);
-    
   }
 
-  initData() {
-    // this.prestacion = {
-    //   tipoPrestacion: 'Consulta Médica',
-    //   prestacionSeleccionada: '',
-    //   numerosesiones: '0',
-    //   bonificacion: 0,
-    //   valorPrestacion: 0
-    // }
-  }
-  itemSelected(item: any) {
-    console.log(item);
-    this.sesionRequired = item.sesionRequired;
-    this.prestacion.prestacionSeleccionada = item.key;
-    this.sourceSearch = this.arancelService.busquedaAranceles(item)
-    console.log('this.sourceSearch', this.sourceSearch)
+  itemSelected(arancel: IArancel) {
+    this.sesionRequired = arancel.RequiereSesiones === '1' ? true : false;
+    this.prestacion.prestacionSeleccionada = arancel.Arancel;
+    this.prestacion.tipoPrestacion = arancel.TipoLiquidacion
+    this.textoArancel = arancel.Arancel;
+    this.textoArancelSeleccionado.emit(this.textoArancel);
+
   }
 
   selectEvent(item: any) {

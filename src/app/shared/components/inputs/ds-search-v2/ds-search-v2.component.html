@@ -6,7 +6,6 @@
         <ng-container *ngIf="filterResult.length;else noResult">
             <ng-container *ngFor="let arancel of filterResult">
                 <div class="itemDisplay" *ngIf="arancel" (click)="selectValue(arancel)">
-                   <!--  {{arancel.Arancel | titlecase}} -->
                   {{arancel.Arancel | titlecase}}
                 </div>
             </ng-container>

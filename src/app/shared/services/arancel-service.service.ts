@@ -81,9 +81,7 @@ export class ArancelService {
     }
 
     if (filtro) {
-
-
-      console.log('las pinbches lentras ingresadas', filtro)
+      console.log('letras ingresadas', filtro)
       const resultados = this.aranceles.filter((arancel) => {
         return (
           arancel.Arancel.toLowerCase().search(filtro) >= 0 &&
@@ -98,7 +96,7 @@ export class ArancelService {
 
   }
 
-  busquedaAranceles(filtro: string): any[] { // y este paraemtro filtro son las tecleadas del usuario
+  busquedaAranceles(filtro: string): any[] {
     try {
       if (filtro.trim().length > 2 && filtro.trim() !== '') {
         console.log('dentro del try')
