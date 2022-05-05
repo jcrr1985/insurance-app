@@ -1,12 +1,13 @@
 <div class="relative">
-    <ds-input-v2 type="text" [iconActive]="isValid" [statusActive]="isValid" label="{{label}}" helpText="{{helpText}}"
+    <ds-input-v2 id="busqueda-predictiva" type="text" [iconActive]="isValid" [statusActive]="isValid" label="{{label}}" helpText="{{helpText}}"
         (keyupEv)="search($event)" (changeEv)="emitChange()" [value]="value">
     </ds-input-v2>
     <div *ngIf="keySearch != ''" class="resultSearch">
         <ng-container *ngIf="filterResult.length;else noResult">
-            <ng-container *ngFor="let element of filterResult">
-                <div class="itemDisplay" (click)="selectValue(element)">
-                    {{element.key}}
+            <ng-container *ngFor="let arancel of filterResult">
+                <div class="itemDisplay" *ngIf="arancel" (click)="selectValue(arancel)">
+                   <!--  {{arancel.Arancel | titlecase}} -->
+                  {{arancel.Arancel | titlecase}}
                 </div>
             </ng-container>
         </ng-container>

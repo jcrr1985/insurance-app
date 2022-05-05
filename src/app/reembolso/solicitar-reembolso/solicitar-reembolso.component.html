@@ -1,11 +1,11 @@
 <!-- HEADER -->
-<div class="grid grid-cols-12 border-b-2 h-24">
-  <ds-title class="md:col-span-6 col-span-12 font-bold text-xl flex items-center justify-start px-5" type="t4"
+<div class="grid h-24 grid-cols-12 border-b-2">
+  <ds-title class="flex items-center justify-start col-span-12 px-5 text-xl font-bold md:col-span-6" type="t4"
     family="secondary" weight="bold" color="primary">
     <span slot="text">Solicitud de Reembolso</span>
   </ds-title>
   <div [routerLink]="['/historial']"
-    class="md:col-span-6 col-span-12 flex items-center md:justify-end justify-start px-5">
+    class="flex items-center justify-start col-span-12 px-5 md:col-span-6 md:justify-end">
     <ds-button variant="complementary" slotName="back-button-slot">
       <ds-icon color="info6" size="30" icon-name="bi-arrow-left-short" slot="back-button-slot"></ds-icon>
       <span slot="back-button-slot">volver atrás</span>
@@ -25,22 +25,22 @@
     (evaluateStepTwo)="evaluateStepTwo()"></app-step-selecciona-prestacion>
 
 
-  <!-- Completa los Siguentes Datos -->
-  <app-step-datos-generales [montoReelbolso]="montoReelbolso" [stepperThreeSource]="stepperThreeSource"
+  <!-- COMPLETAR DATOS GENERALES -->
+  <app-step-datos-generales [stepperThreeSource]="stepperThreeSource"
     [customStepperSize]="customStepperSize" [stepsStatusOn]="stepsStatusOn" [isapreFonasaOptions]="isapreFonasaOptions"
-    (sendData)="setStepsStatus($event)" (evaluateStepThird)="evaluateStepThird()"></app-step-datos-generales>
+    (sendData)="setStepsStatus($event)" (evaluateStepThree)="evaluateStepThree()"></app-step-datos-generales>
 
-  <!-- Sube tus documentos -->
+  <!-- CARGA DE DOCUMENTOS -->
   <app-step-documentos-generales [montoReelbolso]="montoReelbolso" [stepperFourSource]="stepperFourSource"
     [customStepperSize]="customStepperSize" [stepsStatusOn]="stepsStatusOn" [isapreFonasaOptions]="isapreFonasaOptions"
     (sendData)="setStepsStatus($event)" (evaluateStepFour)="evaluateStepFour()"></app-step-documentos-generales>
   <!-- DETALLE PRESTACION -->
   <app-step-detalle-prestacion [customStepperSize]="customStepperSize" [stepperFiveSource]="stepperFiveSource"
     [montoReelbolso]="montoReelbolso" [stepsStatusOn]="stepsStatusOn"
-    (showAddMoreDetailModal)="showAddMoreDetailModal()"></app-step-detalle-prestacion>
+    (mostrarAgregarDetallesModal)="mostrarAgregarDetallesModal()"></app-step-detalle-prestacion>
   <!-- Button siguiente -->
-  <section class="my-10 grid grid-cols-12">
-    <div class="md:col-start-9 md:col-span-4 sm:col-span-12 flex items-center justify-around">
+  <section class="grid grid-cols-12 my-10">
+    <div class="flex items-center justify-around md:col-start-9 md:col-span-4 sm:col-span-12">
       <ds-button [size]="'s2'" variant="secondary" slot-name="cancel-button-slot">
         <span slot="cancel-button-slot">Cancelar</span>
       </ds-button>
@@ -51,8 +51,8 @@
   </section>
 </div>
 
-<app-modal-solicitud-reembolso-completada *ngIf="modalSolicitudCompletada" (close)="hiddenModalSolicitudCompeltada()">
+<app-modal-solicitud-reembolso-completada *ngIf="modalSolicitudCompletada" (close)="ocultarModalSolicitudCompeltada()">
 </app-modal-solicitud-reembolso-completada>
 
-<app-modal-registrar-medicamento *ngIf="modalRegistrarMedicamento" (close)="hiddenModalRegistrarMedicamento()">
+<app-modal-registrar-medicamento *ngIf="modalRegistrarMedicamento" (close)="ocultarModalRegistrarMedicamento()">
 </app-modal-registrar-medicamento>

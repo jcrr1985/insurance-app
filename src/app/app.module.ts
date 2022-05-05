@@ -1,3 +1,4 @@
+import { ArancelService } from 'src/app/shared/services/arancel-service.service';
 import { CommonModule } from '@angular/common';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -7,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReembolsoModule } from './reembolso/reembolso.module';
 import { SharedsModule } from './shared/shareds.module';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +28,7 @@ import { SharedsModule } from './shared/shareds.module';
     ReembolsoModule,
 
   ],
-  providers: [],
+  providers: [ArancelService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

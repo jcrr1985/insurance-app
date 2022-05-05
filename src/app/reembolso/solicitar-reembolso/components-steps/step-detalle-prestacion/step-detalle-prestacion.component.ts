@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ArancelService } from 'src/app/shared/services/arancel-service.service';
 
 @Component({
   selector: 'app-step-detalle-prestacion',
@@ -8,16 +9,15 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class StepDetallePrestacionComponent implements OnInit {
   @Input() customStepperSize: any;
   @Input() stepperFiveSource: any;
-  @Input() montoReelbolso: any;
   @Input() stepsStatusOn: any;
-  @Output() showAddMoreDetailModal: EventEmitter<any> = new EventEmitter<any>();
+  @Output() mostrarAgregarDetallesModal: EventEmitter<any> = new EventEmitter<any>();
   showModal: boolean = false;
   prestaciones: any[] = [];
-  prestacionSeleccionada: any = {};
-  constructor() { }
+  constructor(private arancelService: ArancelService) { }
+  prestacionSeleccionada: any = this.arancelService.getPrestacionSeleccionada
 
   ngOnInit(): void {
-
+    console.log('this.prestacionSeleccionada', this.prestacionSeleccionada)
   }
   edit(prestacion: any) {
     this.prestacionSeleccionada = prestacion;

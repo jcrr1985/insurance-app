@@ -1,4 +1,3 @@
-
 .texto-normal {
     font-weight: 400;
     font-size: 14px;
@@ -33,8 +32,12 @@ ds-table-header.tabla-header {
 }
 
 .text-2xl{
-  color: #424893;
+  color: var(--sec2);
   font-weight: bolder;
   font-size: 1.625rem;
   line-height: 1.625rem;
 } 
+
+.first-section {
+  border: 1px solid var(--ter4)
+}

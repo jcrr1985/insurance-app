@@ -1,30 +1,32 @@
-.custom_file_upload {
+.archivo-personalizado-cargado {
     border: solid 2px #d2d9df;
     border-style: dashed;
     border-radius: 10px;
     font-family: "Titilium";
+
     .text-header {
         font-size: 18px;
     }
+
     .text-description {
         color: #d2d9df;
         font-size: 14px;
     }
 }
 
-.custom-file-upload-list {
+.lista-archivos-cargados-custom {
     border: solid #d2d9df 2px;
     border-radius: 10px;
 }
 
-.file-uploaded-title {
+.titulo-archivo-cargado {
     font-weight: 900;
     font-size: 16px;
     color: #989999;
 }
 
-.mount-remound-active {
-    background-color: #424893;
+.monto-reembolsado-activo {
+    background-color: var(--sec2);
     border-radius: 10px;
     height: 55px;
 }
@@ -32,4 +34,9 @@
 ds-icon {
     margin-right: 1rem;
     margin-left: 1rem;
+}
+
+span.step-title {
+    font-weight: 600!important;
+    font-size: 22px!important;
 }

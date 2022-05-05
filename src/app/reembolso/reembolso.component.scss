@@ -16,7 +16,7 @@ ds-icon {
   width: min-width !important;
 }
 
-.custom_file_upload {
+.archivo-personalizado-cargado {
   border: solid 2px #d2d9df;
   border-style: dashed;
   border-radius: 10px;
@@ -30,19 +30,19 @@ ds-icon {
   }
 }
 
-.custom-file-upload-list {
+.lista-archivos-cargados-custom {
   border: solid #d2d9df 2px;
   border-radius: 10px;
 }
 
-.file-uploaded-title {
+.titulo-archivo-cargado {
   font-weight: 900;
   font-size: 16px;
   color: #989999;
 }
 
-.mount-remound-active {
-  background-color: #424893;
+.monto-reembolsado-activo {
+  background-color: var(--sec2);
   border-radius: 10px;
   height: 55px;
 }

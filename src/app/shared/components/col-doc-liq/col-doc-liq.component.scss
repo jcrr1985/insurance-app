@@ -2,11 +2,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     .doc-liq {
+
         img,
         p {
             display: inline-block;
-            text-decoration-line: underline!important;
+            text-decoration-line: underline !important;
         }
 
         img {
@@ -22,9 +24,14 @@
 }
 
 :host::ng-deep.css-q8cp4h {
-    background-color: var(--sec2)!important;
-  }
+    background-color: var(--sec2) !important;
+}
 
-  ds-open.ds-open-tabla-hist svg{
-      transform: scale(2)!important;
-  }
+ds-open.ds-open-tabla-hist svg {
+    transform: scale(2) !important;
+}
+
+.descarga-documento-span {
+   position: relative;
+   top: 5px;
+}

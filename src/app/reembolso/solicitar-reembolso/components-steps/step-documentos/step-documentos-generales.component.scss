@@ -1,30 +1,32 @@
-.custom_file_upload {
+.archivo-personalizado-cargado {
     border: solid 2px #d2d9df;
     border-style: dashed;
     border-radius: 10px;
     font-family: "Titilium";
+
     .text-header {
         font-size: 18px;
     }
+
     .text-description {
         color: #d2d9df;
         font-size: 14px;
     }
 }
 
-.custom-file-upload-list {
+.lista-archivos-cargados-custom {
     border: solid #d2d9df 2px;
     border-radius: 10px;
 }
 
-.file-uploaded-title {
+.titulo-archivo-cargado {
     font-weight: 900;
     font-size: 16px;
     color: #989999;
 }
 
-.mount-remound-active {
-    background-color: #424893;
+.monto-reembolsado-activo {
+    background-color: var(--sec2);
     border-radius: 10px;
     height: 55px;
 }
@@ -39,4 +41,52 @@ ds-icon {
     font-weight: 700;
     color: rgb(80, 80, 80);
     padding-bottom: 10px;
+}
+
+.filesUploaded {
+    .container-file {
+        /* Auto layout */
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 0px;
+        position: static;
+        width: 100%;
+        height: 40px;
+        left: 0px;
+        top: 0px;
+        background: #ffffff;
+        border: 1px solid #d2d9df;
+        box-sizing: border-box;
+        border-radius: 8px;
+        flex: none;
+        order: 0;
+        align-self: stretch;
+        flex-grow: 1;
+
+        .container-name-file {
+            padding-left: 60px;
+            height: 100%;
+            width: 100%;
+            text-decoration: underline;
+
+            div {
+                width: 80%;
+            }
+        }
+
+        .icono-view {
+            position: absolute;
+            left: 0%;
+            right: 0%;
+            bottom: 10.88%;
+        }
+
+        .icono-delete {
+            position: absolute;
+            right: 10px;
+            bottom: 14.88%;
+        }
+    }
 }

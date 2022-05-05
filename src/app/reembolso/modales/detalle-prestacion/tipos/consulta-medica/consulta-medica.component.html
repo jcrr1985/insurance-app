@@ -13,9 +13,9 @@
                     label="Tipo de Prestación" [source]="sourceSearch" (changeEv)="itemSelected($event)">
                 </ds-search-v2>
                 <!--input número de sesiones-->
-                <ds-select-v2 *ngIf="sesionRequired" class="col-span-12 sm:col-span-6" [source]="sourceSelect"
-                    label="Número de Sesiones" (changeEv)="selectEvent($event)"></ds-select-v2>
-
+                <!-- TODO modificar esta alteracion del select para las opciones -->
+                <!--                 <ds-select-v2 *ngIf="sesionRequired" class="col-span-12 sm:col-span-6" [source]="sourceSelect"
+                    label="Número de Sesiones" (changeEv)="selectEvent($event)"></ds-select-v2> -->
                 <!--valor-->
                 <ds-input-v2 class="col-span-12 sm:col-span-6" label="Valor" type="number"
                     (keyupEv)="setValue('valor',$event)">
@@ -36,7 +36,7 @@
 
             <!--Monto a rembolsar-->
             <div class="monto-reembolso">
-                <div class="w-full px-4 mb-8 bg-indigo-900 rounded-lg indigo-wrapper">
+                <div class="px-4 mb-8 bg-indigo-900 rounded-lg indigo-wrapper">
                     <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
                         <span slot="text" class="py-3 text-base text-left text-white bg-indigo-900">Monto a
                             reembolsar</span>

@@ -1,7 +1,7 @@
 //  @import 'tailwindcss';
 @import "~@vs-design-system/ds-tokens/build/css/tokens.css";
 
-@import "tailwindcss/base";
+// @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
@@ -104,6 +104,18 @@ app-custom-stepper {
   box-shadow: none !important;
 }
 
+// ancho file uploadDocs
+.css-ivir7d {
+  width: 100% !important;
+}
+
+.text-no-overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 5px;
+}
+
 .modal-container {
   width: 100vw;
   height: 100vh;
@@ -134,13 +146,8 @@ ds-icon {
 
 ds-select-v2 ds-icon {
   svg {
-    margin-top: 0px;
+    margin-top: 0px; //nmaruco esto era culpa del tailwind/base ... el tener que hacer esto en los SVG. ya no es 
   }
-}
-
-.css-qndpii {
-  overflow-y: unset !important;
-  max-height: fit-content !important;
 }
 
 .input_container {
@@ -241,8 +248,10 @@ ds-select-v2 ds-icon {
     text-align: left;
     padding: 4px 12px 0px;
   }
+
 }
 
-b {
-  font-weight: bold !important;
+span.steps-title {
+  font-weight: 600 !important;
+  font-size: 22px !important;
 }

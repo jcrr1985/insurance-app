@@ -1,5 +1,7 @@
+import { IArancel } from './../../../interfaces/arancel';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { timer } from 'rxjs';
+import { ArancelService } from 'src/app/shared/services/arancel-service.service';
 
 @Component({
   selector: 'ds-search-v2',
@@ -15,10 +17,10 @@ export class DsSearchV2Component implements OnInit {
   @Output() keyupEv: EventEmitter<any> = new EventEmitter();
   keySearch: string = '';
   isValid: boolean = false;
-  filterResult: any[] = [];
+  public filterResult: IArancel[] = [];
   elementSelected: any;
 
-  constructor() { }
+  constructor(private arancelService: ArancelService) { }
 
   ngOnInit(): void {
   }
@@ -27,7 +29,9 @@ export class DsSearchV2Component implements OnInit {
     this.keySearch = keySearch;
     console.log("to search", this.keySearch);
     const val = this.keySearch && this.keySearch.trim().toLowerCase();
-    this.filterResult = this.source.filter(e => (e.key.toString().toLowerCase() as string).startsWith(val));
+    // this.filterResult = this.source.filter(e => (e.key.toString().toLowerCase() as string).startsWith(val));
+    this.filterResult = this.arancelService.busquedaAranceles(keySearch)
+    console.log('filterResult', this.filterResult)
   }
   selectValue(element: any) {
     console.log("1")
