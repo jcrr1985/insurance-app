@@ -1,8 +1,7 @@
-import { ICard } from './../../../../shared/interfaces/ICard';
+import { ICard } from './../../../../shared/interfaces/icard';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
 import { Chip } from 'src/app/shared/interfaces/interfaces';
-
 @Component({
   selector: 'app-step-selecciona-prestacion',
   templateUrl: './step-selecciona-prestacion.component.html',
