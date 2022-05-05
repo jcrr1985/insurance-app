@@ -249,6 +249,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       : 'waiting';
     this.stepperOneSource = () => [{ label: '', status }];
     this.stepperTwoSource = () => [{ label: '', status: 'active' }];
+    this.getSizeStepper();
   }
   /**
    * @description Evalua los requisitos necesarios para el progressF del 2do paso - Selecciona tu prestacion
@@ -330,6 +331,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     // }
     this.stepperFourSource = () => [{ label: '', status: statusfileUploaded }];
     this.stepperFiveSource = () => [{ label: '', status: statusfileUploaded }];
+    this.getSizeStepper();
   }
   evaluateStepFive() { }
   /**
@@ -358,15 +360,17 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       const five = <any>(
         document.getElementById('stepperFiveContent')?.offsetHeight
       );
-      this.customStepperSize.stepperOne = one - 40 + 'px';
+      this.customStepperSize.stepperOne = one + 5 + 'px';
+
       this.customStepperSize.stepperTwo =
-        two <= 110 ? two + 'px' : two - 35 + 'px';
+        two <= 110 ? two + 'px' : two - 40 + 'px';
+
       this.customStepperSize.stepperThree =
-        three <= 110 ? three + 'px' : three - 35 + 'px';
+        three <= 110 ? three + 50 + 'px' : three - 35 + 'px';
       this.customStepperSize.stepperFour =
-        four <= 110 ? four + 'px' : four - 35 + 'px';
+        four <= 110 ? four + 50 + 'px' : four - 35 + 'px';
       this.customStepperSize.stepperFive =
-        five <= 110 ? five + 'px' : five - 35 + 'px';
+        five <= 110 ? five + 50 + 'px' : five - 35 + 'px';
     }, 10);
     console.log("this.customStepperSize", this.customStepperSize)
   }
