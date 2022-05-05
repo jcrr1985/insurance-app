@@ -18,12 +18,12 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
   public tarjetaSeleccionada!: ICard
 
   public cards: ICard[] = [
-    { prestacion: 'Atención Hospitalaria', name: 'atencionhospitalaria', status: '' },
-    { prestacion: 'Atención Médica', name: 'atencionmedica', status: 'disabled' },
-    { prestacion: 'Dentales', name: 'dentista', status: '' },
-    { prestacion: 'Examenes y Procedimientos', name: 'examenes', status: '' },
-    { prestacion: 'Medicamentos', name: 'medicamentos', status: '' },
-    { prestacion: 'Lentes y Monturas', name: 'optica', status: '' }
+    { prestacion: 'Atención Hospitalaria', name: 'atencionhospitalaria', status: '' , idPrestacion: 1},
+    { prestacion: 'Atención Médica', name: 'atencionmedica', status: 'disabled' , idPrestacion: 2},
+    { prestacion: 'Dentales', name: 'dentista', status: '', idPrestacion: 3 },
+    { prestacion: 'Examenes y Procedimientos', name: 'examenes', status: '' , idPrestacion: 4},
+    { prestacion: 'Medicamentos', name: 'medicamentos', status: '' , idPrestacion: 5},
+    { prestacion: 'Lentes y Monturas', name: 'optica', status: '' , idPrestacion: 6}
   ]
   public coldefined: string = 'col-span-4';
 
@@ -63,5 +63,6 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
     tarjeta.status = 'active';
     this.tarjetaSeleccionada = tarjeta;
     this.arancelService.setTarjetaSeleccionada(tarjeta.name);
+    this.arancelService.setPrestacionSeleccionadaId(tarjeta.idPrestacion);
   }
 }

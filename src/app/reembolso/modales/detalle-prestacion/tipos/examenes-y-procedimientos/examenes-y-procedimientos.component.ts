@@ -13,7 +13,7 @@ export class ExamenesYProcedimientosComponent implements OnInit {
   bonificacion: any = 0;
   montoReembolso: any = 0;
   sesionRequired: boolean = false;
-  prestacion!: Prestacion;
+  public prestacion: Prestacion = {} as Prestacion;
   warningMsg: boolean = false;
 
   @Output() close: EventEmitter<any> = new EventEmitter();

@@ -1,3 +1,4 @@
+import { ArancelService } from 'src/app/shared/services/arancel-service.service';
 import { Component, OnInit, AfterViewInit, EventEmitter, Output, OnChanges, SimpleChanges, Input } from '@angular/core';
 
 @Component({
@@ -11,18 +12,19 @@ export class DetallePrestacionComponent
   public prestacionNombre!: any;
   public modalData: Array<any> = [];
   private inputPredictivoNativo: any;
-  @Input() idprestacionSeleccionada: number = 2;
+  public idprestacionSeleccionada!: number;
   @Input() prestacionSeleccionada: any = {};
   @Output() datosNuevaPrestacion: EventEmitter<any> = new EventEmitter<any>();
   @Output() hideModalEvent: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor() { }
+  constructor(private arancelService: ArancelService) { }
 
   ngOnInit(): void {
     console.log(this.prestacionSeleccionada)
     setTimeout(() => {
       this.inputPredictivoNativo = document.getElementById('busqueda-predictiva')!.querySelector('input');
     }, 100);
+    this.idprestacionSeleccionada = this.arancelService.getPrestacionSeleccionadaId()
   }
 
 

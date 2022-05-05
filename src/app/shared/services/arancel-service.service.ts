@@ -11,6 +11,7 @@ export class ArancelService {
   public respuestaFiltro!: IArancel[] | undefined[];
   public esListaActiva!: boolean;
   public tarjetaSeleccionada: any;
+  public idprestacionSeleccionada!: number;
 
   constructor() {
     for (let i = 0; i < aranceles.length; i++) {
@@ -29,6 +30,14 @@ export class ArancelService {
   public setTarjetaSeleccionada(cardName:string) {
      this.tarjetaSeleccionada = cardName;
   } 
+
+  public setPrestacionSeleccionadaId(cardId:number) {
+    this.idprestacionSeleccionada  = cardId;
+ } 
+
+ public getPrestacionSeleccionadaId() {
+  return this.idprestacionSeleccionada;
+}   
   /**
    * @description filtro para resultados basados en
    * si la palabra se encuentra en cualquier parte del
