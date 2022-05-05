@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { IArancel } from 'src/app/shared/interfaces/arancel';
 import { Prestacion } from 'src/app/shared/interfaces/interfaces'
+import { ArancelService } from 'src/app/shared/services/arancel-service.service';
 
 
 @Component({
@@ -12,48 +14,26 @@ export class AtencionHospitalariaComponent implements OnInit {
   bonificacion: any = 0;
   montoReembolso: any = 0;
   sesionRequired: boolean = false;
-  prestacion!: Prestacion;
   warningMsg: boolean = false;
 
   @Output() close: EventEmitter<any> = new EventEmitter();
   @Output() dataEvent: EventEmitter<any> = new EventEmitter();
-  constructor() { this.initData() }
+  @Output() textoArancelSeleccionado: EventEmitter<string> = new EventEmitter();
 
+  public prestacion: Prestacion = {} as Prestacion;
+  public prestacioSeleccionada = this.arancelService.getPrestacionSeleccionada;
+  public textoArancel!: string;
+
+  constructor(public arancelService: ArancelService) { }
+
+  itemSelected(arancel: IArancel) {
+    this.sesionRequired = arancel.RequiereSesiones === '1' ? true : false;
+    this.prestacion.prestacionSeleccionada = arancel.Arancel;
+    this.prestacion.tipoPrestacion = arancel.TipoLiquidacion
+    this.textoArancel = arancel.Arancel;
+    this.textoArancelSeleccionado.emit(this.textoArancel);
+  }
   ngOnInit(): void {
-  }
-
-  sourceSearch = [
-    { key: 'Psiquiatria', value: '1', sesionRequired: true },
-    { key: 'Dental', value: '2', sesionRequired: true },
-    { key: 'Omeprazol', value: '3', sesionRequired: false },
-    { key: 'Lentes', value: '4', sesionRequired: false },
-    { key: 'Examenes', value: '5', sesionRequired: false }
-  ]
-  sourceSelect = [
-    { label: '1 sesión', value: '1' },
-    { label: '2 sesiónes', value: '2' },
-    { label: '3 sesiónes', value: '3' },
-    { label: '4 sesiónes', value: '4' },
-    { label: '5 sesiónes', value: '5' },
-    { label: '6 sesiónes', value: '6' },
-    { label: '7 sesiónes', value: '7' },
-    { label: '8 sesiónes', value: '8' },
-    { label: '9 sesiónes', value: '9' },
-    { label: '10 sesiónes', value: '10' },
-  ]
-  initData() {
-    this.prestacion = {
-      tipoPrestacion: 'Atencion Hospitalaria',
-      prestacionSeleccionada: '',
-      numerosesiones: '0',
-      bonificacion: 0,
-      valorPrestacion: 0
-    }
-  }
-  itemSelected(item: any) {
-    console.log(item);
-    this.sesionRequired = item.sesionRequired;
-    this.prestacion.prestacionSeleccionada = item.key;
   }
 
   selectEvent(item: any) {

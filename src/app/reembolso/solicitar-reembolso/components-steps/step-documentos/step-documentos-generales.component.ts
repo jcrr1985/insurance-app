@@ -88,7 +88,7 @@ export class StepDocumentosGeneralesComponent implements OnInit {
         default:
           break;
       }
-      console.log(evt.detail)
+      this.evaluateStepFour.emit()
     })
     document.addEventListener('dsFileDeleteFile', (evt: any) => {
       const index = parseInt(evt.target.id.replace('documento', ''));

@@ -2,7 +2,7 @@
   <app-atencion-hospitalaria (close)="closeModal()" (dataEvent)=receivedModalData($event)></app-atencion-hospitalaria>
 </div>
 <div *ngIf="idprestacionSeleccionada == 2">
-  <app-consulta-medica (close)="closeModal()" (dataEvent)=receivedModalData($event)></app-consulta-medica>
+  <app-consulta-medica (close)="closeModal()" (dataEvent)=receivedModalData($event) (textoArancelSeleccionado)="setearValorInputPredictivo($event)"></app-consulta-medica>
 </div>
 <div *ngIf="idprestacionSeleccionada == 3">
   <app-atencion-dental (close)="closeModal()" (dataEvent)=receivedModalData($event)></app-atencion-dental>

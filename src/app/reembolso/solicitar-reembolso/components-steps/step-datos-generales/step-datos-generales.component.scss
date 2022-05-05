@@ -40,3 +40,17 @@ span.step-title {
     font-weight: 600!important;
     font-size: 22px!important;
 }
+
+#stepperThreeContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    min-height: 22vh;
+
+    ds-title {
+        height: 8vh;
+        margin: 0;
+    }
+
+}
