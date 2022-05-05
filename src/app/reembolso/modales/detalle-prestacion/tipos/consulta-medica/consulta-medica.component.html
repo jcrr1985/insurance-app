@@ -13,9 +13,9 @@
                     label="Tipo de Prestación" [source]="sourceSearch" (changeEv)="itemSelected($event)">
                 </ds-search-v2>
                 <!--input número de sesiones-->
-                <ds-select-v2 *ngIf="sesionRequired" class="col-span-12 sm:col-span-6" [source]="sourceSelect"
-                    label="Número de Sesiones" (changeEv)="selectEvent($event)"></ds-select-v2>
-
+                <!-- TODO modificar esta alteracion del select para las opciones -->
+                <!--                 <ds-select-v2 *ngIf="sesionRequired" class="col-span-12 sm:col-span-6" [source]="sourceSelect"
+                    label="Número de Sesiones" (changeEv)="selectEvent($event)"></ds-select-v2> -->
                 <!--valor-->
                 <ds-input-v2 class="col-span-12 sm:col-span-6" label="Valor" type="number"
                     (keyupEv)="setValue('valor',$event)">

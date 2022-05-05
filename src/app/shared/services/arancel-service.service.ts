@@ -8,9 +8,9 @@ import { Subject } from 'rxjs';
 export class ArancelService {
   public aranceles = aranceles;
   public prestacionSeleccionada: any;
-  // public setPrestacion$ = this.setPrestacion.asObservable();
   public respuestaFiltro!: IArancel[] | undefined[];
   public esListaActiva!: boolean;
+  public tarjetaSeleccionada: any;
 
   constructor() {
     for (let i = 0; i < aranceles.length; i++) {
@@ -21,50 +21,70 @@ export class ArancelService {
     }
   }
 
-  public get getPrestacionSeleccionada(){
-    return this.prestacionSeleccionada;
+  public get getPrestacionSeleccionada() {
+    return this.tarjetaSeleccionada;
   }
+
+
+  public setTarjetaSeleccionada(cardName:string) {
+     this.tarjetaSeleccionada = cardName;
+  } 
   /**
    * @description filtro para resultados basados en
    * si la palabra se encuentra en cualquier parte del
    * nombre del arancel.
-   */
+   */ 
   public filtroAranceles(filtro: string): any[] {
-    console.log('filtro parameter: ', this.getPrestacionSeleccionada);
+    console.log('tajeta seleccionada name: ', this.tarjetaSeleccionada);
     let filtroPrestacion: string = '';
 
-    switch (this.getPrestacionSeleccionada) {
+    switch (this.tarjetaSeleccionada) {
       case 'atencionhospitalaria':
+      console.log('this.getPrestacionSeleccionada', this.getPrestacionSeleccionada)
+
         filtroPrestacion = 'CONSULTA'; //TODO ¿Qué chingados irá aqui? estoy seguro que no es 'CONSULTA', consulta va abajo
         console.log('filtroPrestacion', filtroPrestacion)
         break;
       case 'atencionmedica':
-        filtroPrestacion = 'CONSULTA'; 
+      console.log('this.getPrestacionSeleccionada', this.getPrestacionSeleccionada)
+
+        filtroPrestacion = 'CONSULTA';
         console.log('filtroPrestacion', filtroPrestacion)
         break;
       case 'dentista':
-        filtroPrestacion = 'OPTICA';
+      console.log('this.getPrestacionSeleccionada', this.getPrestacionSeleccionada)
+
+        filtroPrestacion = 'DENTAL';
         console.log('filtroPrestacion', filtroPrestacion)
         break;
       case 'examenes':
+      console.log('this.getPrestacionSeleccionada', this.getPrestacionSeleccionada)
+
         filtroPrestacion = 'EXAMENES Y PROCEDIMIENTOS';
         console.log('filtroPrestacion', filtroPrestacion)
         break;
       case 'medicamentos':
+      console.log('this.getPrestacionSeleccionada', this.getPrestacionSeleccionada)
+
         filtroPrestacion = 'MEDICAMENTO';
         console.log('filtroPrestacion', filtroPrestacion)
         break;
       case 'optica':
-        filtroPrestacion = 'MEDICAMENTO';
+      console.log('this.getPrestacionSeleccionada', this.getPrestacionSeleccionada)
+
+        filtroPrestacion = 'OPTICA';
         console.log('filtroPrestacion', filtroPrestacion)
         break;
       default:
         console.log('en el default')
         break;
-      }
-      
-      if (filtro) {
-        const resultados = this.aranceles.filter((arancel) => {
+    }
+
+    if (filtro) {
+
+
+      console.log('las pinbches lentras ingresadas', filtro)
+      const resultados = this.aranceles.filter((arancel) => {
         return (
           arancel.Arancel.toLowerCase().search(filtro) >= 0 &&
           arancel.TipoLiquidacion === filtroPrestacion
@@ -78,11 +98,11 @@ export class ArancelService {
 
   }
 
-  busquedaAranceles(filtro: string): any[] {
+  busquedaAranceles(filtro: string): any[] { // y este paraemtro filtro son las tecleadas del usuario
     try {
       if (filtro.trim().length > 2 && filtro.trim() !== '') {
         console.log('dentro del try')
-        this.respuestaFiltro = this.filtroAranceles(filtro);
+        this.respuestaFiltro = this.filtroAranceles(filtro); // por prestacion
         this.esListaActiva = true;
         const listado = document.getElementById('busqueda-predictiva');
         if (this.respuestaFiltro.length > 0) {
@@ -109,6 +129,9 @@ export class ArancelService {
       return [undefined];
     }
   }
+
+
+
 }
 
 
@@ -35511,4 +35534,5 @@ const aranceles: IArancel[] = [
   },
 ];
 
-const tiposdeLiquidacion: string[] = [];  
+const tiposdeLiquidacion: string[] = [];
+// 
