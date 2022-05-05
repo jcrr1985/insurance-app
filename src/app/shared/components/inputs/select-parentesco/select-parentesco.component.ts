@@ -10,17 +10,19 @@ export class SelectParentescoComponent implements OnInit {
 
   source = [
     { key: 'Alejandro Salgado', value: '1', parentesco: 'Yo' },
-    { key: 'Maria Salgado', value: '2', parentesco: 'Hermana' },
-    { key: 'Camilo Salgado', value: '3', parentesco: 'Padre' },
+    { key: 'Marcelo Salgado', value: '2', parentesco: 'Hijo' },
+    { key: 'Ana María Gonzales', value: '3', parentesco: 'Madre' },
+    { key: 'Francisca Arriagada', value: '4', parentesco: 'Conyugue' },
   ]
-  label = 'Elige una persona';
+
+  label = 'Seleccione una persona';
   constructor() { }
 
   ngOnInit(): void {
   }
 
   selectPerson(value: any) {
-    if (value == 0) this.label = 'Elige una persona'
+    if (value == 0) this.label = 'Seleccione una persona'
     else {
       this.label = value.parentesco;
       this.changeEv.emit(value);

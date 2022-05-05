@@ -1,6 +1,7 @@
 import { ICard } from './../../../../shared/interfaces/ICard';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
+import { Chip } from 'src/app/shared/interfaces/interfaces';
 
 @Component({
   selector: 'app-step-selecciona-prestacion',
@@ -14,23 +15,18 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
   @Output() sendData: EventEmitter<any> = new EventEmitter<any>();
   @Output() evaluateStepTwo: EventEmitter<any> = new EventEmitter<any>();
 
-  cards: ICard[] = [
-    {
-      prestacion: 'Atención Hospitalaria',
-      name: 'atencionhospitalaria',
-      status: '',
-    },
-    {
-      prestacion: 'Atención Médica',
-      name: 'atencionmedica',
-      status: 'disabled',
-    },
+  public tarjetaSeleccionada!: ICard
+
+  public cards: ICard[] = [
+    { prestacion: 'Atención Hospitalaria', name: 'atencionhospitalaria', status: '' },
+    { prestacion: 'Atención Médica', name: 'atencionmedica', status: 'disabled' },
     { prestacion: 'Dentales', name: 'dentista', status: '' },
     { prestacion: 'Examenes y Procedimientos', name: 'examenes', status: '' },
     { prestacion: 'Medicamentos', name: 'medicamentos', status: '' },
-    { prestacion: 'Lentes y Monturas', name: 'optica', status: '' },
-  ];
-  coldefined = 'col-span-4';
+    { prestacion: 'Lentes y Monturas', name: 'optica', status: '' }
+  ]
+  public coldefined: string = 'col-span-4';
+
 
   constructor(private arancelService: ArancelService) { }
 
@@ -44,7 +40,7 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
    * @returns {boolean | string | null}
    * @description retorna el valor del archivo de stepsStatusOn
    */
-  getStepsStatus(step: string, option: string):boolean | string {
+  getStepsStatus(step: string, option: string): boolean | string {
     return this.stepsStatusOn[step][option];
   }
 
@@ -53,17 +49,19 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
     this.evaluateStepTwo.emit();
   }
 
-  setCard(card: any) {
-    console.log('card ok', card);
+  setCard(tarjeta: ICard) {
+    console.log('tarjeta', tarjeta)
     const dataEmit = {
       step: 'stepTwo_selectOption',
       option: 'prestacionSeleccionada',
-      value: card.prestacion,
-    };
+      value: tarjeta.prestacion
+    }
+    console.log("dataEmit", dataEmit);
     this.setStepsStatus(dataEmit);
     this.evaluateStepTwo.emit();
-    this.cards.forEach((e) => (e.status = ''));
-    card.status = 'active';
-    this.arancelService.prestacionSeleccionada = card.name;
+    this.cards.forEach(e => e.status = '');
+    tarjeta.status = 'active';
+    this.tarjetaSeleccionada = tarjeta;
+    this.arancelService.setTarjetaSeleccionada(tarjeta.name);
   }
 }

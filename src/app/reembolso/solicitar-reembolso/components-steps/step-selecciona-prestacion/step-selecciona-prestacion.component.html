@@ -12,28 +12,30 @@
         </app-card-option>
       </ng-container>
       <!-- Reembolsaste -->
-      <ds-paragraph class="col-span-12 mb-5 md:col-span-5" type="p1" family="secondary" weight="semiBold"
-        color="secondary">
-        <span slot="text" class="font-bold">¿Reembolsaste previamente en tu Isapre?</span>
-      </ds-paragraph>
-      <div class="flex items-center justify-start col-span-12 md:col-span-6 md:-ml-20">
-        <ds-radio class="mx-5" type="s1" family="primary" label="Si" name="reembolsoIsapre" value="si" (click)="
-            setStepsStatus({
-              step: 'stepTwo_selectOption',
-              option: 'reembolsoPrevioIsapre',
-              value: 'si'
-            })
-          ">
-        </ds-radio>
-        <ds-radio class="mx-5" type="s1" family="primary" label="No" name="reembolsoIsapre" value="no" (click)="
-            setStepsStatus({
-              step: 'stepTwo_selectOption',
-              option: 'reembolsoPrevioIsapre',
-              value: 'no'
-            })
-          ">
-        </ds-radio>
-      </div>
+      <ng-container *ngIf="tarjetaSeleccionada?.name==='atencionmedica'||tarjetaSeleccionada?.name==='examenes'">
+        <ds-paragraph class="md:col-span-5 col-span-12 mb-5" type="p1" family="secondary" weight="semiBold"
+          color="secondary">
+          <span slot="text" class="font-bold">¿Reembolsaste previamente en tu Isapre?</span>
+        </ds-paragraph>
+        <div class="md:col-span-6 col-span-12 flex items-center justify-start md:-ml-20">
+          <ds-radio class="mx-5" type="s1" family="primary" label="Si" name="reembolsoIsapre" value="si" (click)="
+              setStepsStatus({
+                step: 'stepTwo_selectOption',
+                option: 'reembolsoPrevioIsapre',
+                value: 'si'
+              })
+            ">
+          </ds-radio>
+          <ds-radio class="mx-5" type="s1" family="primary" label="No" name="reembolsoIsapre" value="no" (click)="
+              setStepsStatus({
+                step: 'stepTwo_selectOption',
+                option: 'reembolsoPrevioIsapre',
+                value: 'no'
+              })
+            ">
+          </ds-radio>
+        </div>
+      </ng-container>
       <div class="col-span-12" *ngIf="
           getStepsStatus('stepTwo_selectOption', 'reembolsoPrevioIsapre') == 'no'
         ">

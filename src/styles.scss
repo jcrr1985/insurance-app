@@ -146,7 +146,7 @@ ds-icon {
 
 ds-select-v2 ds-icon {
   svg {
-    margin-top: 0px;
+    margin-top: 0px; //nmaruco esto era culpa del tailwind/base ... el tener que hacer esto en los SVG. ya no es 
   }
 }
 
@@ -249,14 +249,9 @@ ds-select-v2 ds-icon {
     padding: 4px 12px 0px;
   }
 
-
 }
 
 span.steps-title {
   font-weight: 600 !important;
   font-size: 22px !important;
-}
-
-b {
-  font-weight: bold !important;
 }

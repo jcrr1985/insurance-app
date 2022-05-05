@@ -44,6 +44,12 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
   public montoReelbolso: number = 0;
   public prestacionSeleccionada: any = null;
 
+  public historicoSesiones = [
+    { prestacion: "consulta psicologica", valor: 50000 },
+    { prestacion: "consulta psiquiatrica", valor: 60000 }
+  ]
+
+
   public customStepperSize: CustomStepperSize = {
     stepperOne: '104px',
     stepperTwo: '104px',
@@ -413,4 +419,5 @@ const previsionesArray = [
   { label: 'Banmédica', value: 0, selected: false },
   { label: 'Masvida', value: 2, selected: false },
   { label: 'Vida', value: 1, selected: false },
+
 ];
