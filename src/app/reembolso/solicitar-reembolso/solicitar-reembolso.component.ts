@@ -261,10 +261,26 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
         ? 'completed'
         : 'waiting';
 
-    if (status == 'completed')
-      this.stepperTwoSource = () => [{ label: '', status }];
-    if (status == 'completed')
-      this.stepperThreeSource = () => [{ label: '', status: 'active' }];
+    if (status == 'completed') {
+        this.stepperTwoSource = () => [{ label: '', status }];
+        this.stepperThreeSource = () => [{ label: '', status: 'active' }];
+        let stepThreeStatus = this.stepperThreeSource()[0].status
+        setTimeout(() => {
+          if (stepThreeStatus == 'active') {
+
+            // Capturando el Width del ds-select
+            let dsSelectPrevision = document.getElementById('isapreFonasaSelect') as HTMLElement;
+            let dsSelectPrevisionWith = dsSelectPrevision.clientWidth;
+            // seteando el width capturado arriba en el contenedor para las 'options' genera el de-select
+           let contenedorOpcionesDsSelect = document.getElementsByClassName('resultSearch');
+           console.log('contenedorOpcionesDsSelect', contenedorOpcionesDsSelect)
+            // contenedorOpcionesDsSelect.style.width= dsSelectPrevisionWith
+          }else{
+            console.log('status 2: ', status)
+          }
+
+        }, 100);
+      }
   }
   /**
    * @description Evalúa los requisitos necesarios para el progress del 3er paso - Datos Generales

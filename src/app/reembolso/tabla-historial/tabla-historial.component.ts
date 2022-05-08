@@ -1,6 +1,5 @@
-import { Reembolsos } from './../../shared/interfaces/interfaces';
-import { PaginationSource } from '../../shared/interfaces/interfaces';
-import {
+import { Reembolsos, PaginationSource } from '../../shared/interfaces/interfaces';
+  import {
   AfterViewInit,
   Component,
   ElementRef,
