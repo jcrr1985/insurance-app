@@ -52,7 +52,7 @@
               icon-name="bi-check-circle-fill"></ds-icon>
           </div>
           <div class="flex items-center justify-center col-span-12 md:col-span-6 sm:col-span-6">
-            <ds-datepicker class="w-full inputsThirdField" [type]="'single'" [size]="'s2'" [helperMessage]="''"
+            <ds-datepicker class="w-full inputsThirdField" id="fecha_generales" [type]="'single'" [size]="'s2'" [helperMessage]="''"
               [initialLabel]="'Fecha de atención'">
             </ds-datepicker>
             <ds-icon *ngIf="getStepsStatus('stepThree_general', 'fechaAtencion')" size="25"

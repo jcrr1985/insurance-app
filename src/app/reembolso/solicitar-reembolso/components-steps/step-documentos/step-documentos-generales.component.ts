@@ -84,23 +84,23 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
           this.emitirCambioArchivo()
           break;
         case 3:
+          this.documentsDisplay.lentes.nameFiles[index].files = evt.detail;
+          this.validateFileState('lentes', index);
+          this.emitirCambioArchivo()
+          break;
+        case 4:
           this.documentsDisplay.dentales.nameFiles[index].files = evt.detail;
           this.validateFileState('dentales', index);
           this.emitirCambioArchivo()
           break;
-        case 4:
+        case 5:
           this.documentsDisplay.examenes.nameFiles[index].files = evt.detail;
           this.validateFileState('examenes', index);
           this.emitirCambioArchivo()
           break;
-        case 5:
+        case 6:
           this.documentsDisplay.medicamentos.nameFiles[index].files = evt.detail;
           this.validateFileState('medicamentos', index);
-          this.emitirCambioArchivo()
-          break;
-        case 6:
-          this.documentsDisplay.lentes.nameFiles[index].files = evt.detail;
-          this.validateFileState('lentes', index);
           this.emitirCambioArchivo()
           break;
 
@@ -132,26 +132,21 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
     switch (this.idPrestacionSeleccionada) {
       case 1:
         selected = this.documentsDisplay.consultamedica.nameFiles;
-
         break;
       case 2:
         selected = this.documentsDisplay.hospitalario.nameFiles;
-
         break;
       case 3:
-        selected = this.documentsDisplay.dentales.nameFiles;
-
+        selected = this.documentsDisplay.lentes.nameFiles;
         break;
       case 4:
-        selected = this.documentsDisplay.examenes.nameFiles;
-
+        selected = this.documentsDisplay.dentales.nameFiles;
         break;
       case 5:
-        selected = this.documentsDisplay.medicamentos.nameFiles;
-
+        selected = this.documentsDisplay.examenes.nameFiles;
         break;
       case 6:
-        selected = this.documentsDisplay.lentes.nameFiles;
+        selected = this.documentsDisplay.medicamentos.nameFiles;
         break;
 
       default:

@@ -26,6 +26,7 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
   }
   filesUploaded: any = [];
   ngOnInit(): void {
+
     this.prestacionService.setIdSubject$.subscribe(idPrestacionSeleccionada => {
       this.idPestacionSeleccionada = idPrestacionSeleccionada;
     });
@@ -44,11 +45,11 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
         break;
       case 3:
         this.textPreguntas = '¿Estás declarando más de una atención en tu boleta?';
-        this.mostrarRadioButtons = false;
+        this.mostrarRadioButtons = true;
         break;
       case 4:
         this.textPreguntas = '¿Estás declarando más de una atención en tu boleta?';
-        this.mostrarRadioButtons = false;
+        this.mostrarRadioButtons = true;
         break;
       case 5:
         this.textPreguntas = '¿El monto total de tu copago fue mayor a UF15?';
@@ -56,7 +57,7 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
         break;
       case 6:
         this.textPreguntas = '¿Esta es una receta permanente?';
-        this.mostrarRadioButtons = false;
+        this.mostrarRadioButtons = true;
         break;
       default:
         this.textPreguntas = '';

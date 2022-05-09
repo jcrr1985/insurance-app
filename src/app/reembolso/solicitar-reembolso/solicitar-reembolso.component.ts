@@ -163,7 +163,9 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       }
     });
     window.addEventListener('onSelectDate', (event: any) => {
-      if (event.target.innerText == 'Fecha de atención') {
+      console.log(event)
+      const id = event.path[1].id
+      if (id == 'fecha_generales') {
         const value = event.detail.init;
         this.setStepsStatus({
           step: 'stepThree_general',
@@ -225,6 +227,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
   setStepsStatus(data: any) {
     const { step, option, value } = data;
     console.log('value', value);
+
 
     this.stepsStatusOn[step][option] = value;
     this.setForm(option, value);
@@ -315,9 +318,9 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     let status: string;
     if (
       (statusrutInstitucion == 'completed' &&
-      statusboletaFactura == 'completed' &&
-      statusFechaAtencion == 'completed' &&
-      statusCopago == 'completed') ||
+        statusboletaFactura == 'completed' &&
+        statusFechaAtencion == 'completed' &&
+        statusCopago == 'completed') ||
       statusMontoSolicitado == 'completed'
     ) {
       status = 'completed';

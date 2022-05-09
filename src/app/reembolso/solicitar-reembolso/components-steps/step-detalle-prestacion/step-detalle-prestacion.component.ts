@@ -17,7 +17,9 @@ export class StepDetallePrestacionComponent implements OnInit {
   prestacionSeleccionada: any = this.arancelService.getPrestacionSeleccionada
 
   ngOnInit(): void {
-    console.log('this.prestacionSeleccionada', this.prestacionSeleccionada)
+    this.arancelService.setIdSubject.subscribe(e => {
+      this.prestacionSeleccionada = e;
+    })
   }
   edit(prestacion: any) {
     this.prestacionSeleccionada = prestacion;
@@ -30,7 +32,8 @@ export class StepDetallePrestacionComponent implements OnInit {
     console.log(this.prestaciones)
   }
   nuevaPrestacionDataArray(prestacion: any) {
-    this.prestaciones.push({ ...prestacion, id: this.arancelService.getPrestacionSeleccionadaId });
+    //this.prestaciones.push({ ...prestacion, id: this.arancelService.getPrestacionSeleccionadaId });
+    this.prestaciones.push({ ...prestacion, id: this.prestaciones.length + 1 });
     this.prestacionSeleccionada = {}
     console.log(this.prestaciones);
   }

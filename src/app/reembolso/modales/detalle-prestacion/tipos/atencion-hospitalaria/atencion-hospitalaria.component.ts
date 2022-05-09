@@ -41,7 +41,9 @@ export class AtencionHospitalariaComponent implements OnInit {
   }
 
   calcMontoReembolso() {
-    this.montoReembolso = Number(this.prestacion.valorPrestacion) - Number(this.prestacion.bonificacion);
+    const prestacion = this.prestacion.valorPrestacion ? this.prestacion.valorPrestacion : 0;
+    const bonificacion = this.prestacion.bonificacion ? this.prestacion.bonificacion : 0;
+    this.montoReembolso = Number(prestacion) - Number(bonificacion);
   }
 
   setValue(key: any, value: any) {

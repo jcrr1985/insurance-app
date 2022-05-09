@@ -36,7 +36,7 @@
     </div>
 
   </div>
-  <app-detalle-prestacion *ngIf="showModal" [prestacionSeleccionada]="prestacionSeleccionada"
+  <app-detalle-prestacion *ngIf="showModal" [prestacionSeleccionada]="prestacionSeleccionada" [stepsStatusOn]="stepsStatusOn"
     (datosNuevaPrestacion)="nuevaPrestacionDataArray($event)" (hideModalEvent)="hideAddMoreDetailModal()">
   </app-detalle-prestacion>
 </section>
