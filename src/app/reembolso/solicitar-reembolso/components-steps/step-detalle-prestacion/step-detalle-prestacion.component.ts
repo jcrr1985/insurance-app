@@ -30,7 +30,7 @@ export class StepDetallePrestacionComponent implements OnInit {
     console.log(this.prestaciones)
   }
   nuevaPrestacionDataArray(prestacion: any) {
-    this.prestaciones.push({ ...prestacion, id: this.arancelService.getPrestacionSeleccionadaId() });
+    this.prestaciones.push({ ...prestacion, id: this.arancelService.getPrestacionSeleccionadaId });
     this.prestacionSeleccionada = {}
     console.log(this.prestaciones);
   }

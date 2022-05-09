@@ -16,15 +16,25 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
   public tarjetaSeleccionada!: ICard
 
   public cards: ICard[] = [
-    { prestacion: 'Atención Hospitalaria', name: 'atencionhospitalaria', status: '' , idPrestacion: 1},
-    { prestacion: 'Atención Médica', name: 'atencionmedica', status: 'disabled' , idPrestacion: 2},
-    { prestacion: 'Dentales', name: 'dentista', status: '', idPrestacion: 3 },
-    { prestacion: 'Examenes y Procedimientos', name: 'examenes', status: '' , idPrestacion: 4},
-    { prestacion: 'Medicamentos', name: 'medicamentos', status: '' , idPrestacion: 5},
-    { prestacion: 'Lentes y Monturas', name: 'optica', status: '' , idPrestacion: 6}
+    { prestacion: 'Consulta Médica', name: 'atencionmedica', status: 'disabled', idPrestacion: 1 },
+    { prestacion: 'Atención Hospitalaria', name: 'atencionhospitalaria', status: '', idPrestacion: 2 },
+    { prestacion: 'Marcos y lentes', name: 'optica', status: '', idPrestacion: 3 },
+    { prestacion: 'Atención Dental', name: 'dentista', status: '', idPrestacion: 4 },
+    { prestacion: 'Examenes y Procedimientos', name: 'examenes', status: '', idPrestacion: 5 },
+    { prestacion: 'Compra de medicamentos', name: 'medicamentos', status: '', idPrestacion: 6 },
   ]
   public coldefined: string = 'col-span-4';
 
+
+  public textPregunta = {
+    atencionmedica: '¿Reembolsaste previamente en tu Isapre/Fonasa?',
+    atencionhospitalaria: 'Estimado usuario, le recordamos que se consideran gastos Hospitalarios solo los gastos que tienen al menos un día de Hospitalización ¿Desea Continuar?',
+    examenes: '¿Reembolsaste previamente en tu Isapre/Fonasa?',
+    medicamentos: '',
+    optica: '',
+    dentista: ''
+
+  }
 
   constructor(private arancelService: ArancelService) { }
 
@@ -54,7 +64,7 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
       option: 'prestacionSeleccionada',
       value: tarjeta.prestacion
     }
-    console.log("dataEmit", dataEmit);
+
     this.setStepsStatus(dataEmit);
     this.evaluateStepTwo.emit();
     this.cards.forEach(e => e.status = '');
@@ -62,5 +72,17 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
     this.tarjetaSeleccionada = tarjeta;
     this.arancelService.setTarjetaSeleccionada(tarjeta.name);
     this.arancelService.setPrestacionSeleccionadaId(tarjeta.idPrestacion);
+    this.arancelService.setIdSubject.next(tarjeta.idPrestacion);
+
+
+    if (tarjeta.name != 'atencionmedica' && tarjeta.name != 'atencionhospitalaria') {
+      const datosOpcionales = {
+        step: 'stepTwo_selectOption',
+        option: 'reembolsoPrevioIsapre',
+        value: 'si'
+      }
+      this.setStepsStatus(datosOpcionales);
+      this.evaluateStepTwo.emit();
+    }
   }
 }

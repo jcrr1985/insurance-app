@@ -1,6 +1,6 @@
 import { IArancel } from './../interfaces/arancel';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +12,8 @@ export class ArancelService {
   public esListaActiva!: boolean;
   public tarjetaSeleccionada: any;
   public idprestacionSeleccionada!: number;
+  public setIdSubject: BehaviorSubject<any> = new BehaviorSubject(0)
+  public setIdSubject$ = this.setIdSubject.asObservable();
 
   constructor() {
     for (let i = 0; i < aranceles.length; i++) {
@@ -32,10 +34,12 @@ export class ArancelService {
   } 
 
   public setPrestacionSeleccionadaId(cardId:number) {
+    console.log('seteando idCard en service')
     this.idprestacionSeleccionada  = cardId;
+    console.log('this.idprestacionSeleccionada Seteada', this.idprestacionSeleccionada)
  } 
 
- public getPrestacionSeleccionadaId() {
+ public get getPrestacionSeleccionadaId() {
   return this.idprestacionSeleccionada;
 }   
   /**

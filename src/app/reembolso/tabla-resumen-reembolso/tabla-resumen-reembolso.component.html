@@ -2,8 +2,8 @@
 <div class="grid h-24 grid-cols-12 border-b-2">
     <ds-title class="flex items-center justify-start col-span-12 px-5 text-xl font-bold md:col-span-6" type="t4"
         family="secondary" weight="bold" color="primary">
-        <span slot="text"><span class="titulo-parte-izquierda"> Detalle de reembolso de:</span> <span
-                class="titulo-parte-derecha">NombreEnDuro ApellidoEnDuro</span></span>
+        <span slot="text"><span class="titulo-parte-izquierda"> Detalle de reembolso de:    </span> <span
+                class="titulo-parte-derecha"> Uchicha Itachi</span></span>
     </ds-title>
     <div [routerLink]="['/solicitud']"
         class="flex items-center justify-start col-span-12 px-5 md:col-span-6 md:justify-end">
@@ -117,8 +117,8 @@
                 <span slot="cancel-button-slot">Cancelar</span>
             </ds-button>
             <ds-button id="ds-button-siguiente" (click)="null" [size]="'s2'" variant="primary"
-                slot-name="next-button-slot">
-                <span slot="next-button-slot"> Guardar </span>
+            slot-name="next-button-slot" [routerLink]="['/final']">
+            <span slot="next-button-slot"> Guardar </span>
             </ds-button>
         </div>
     </section>

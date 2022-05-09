@@ -13,19 +13,25 @@
     animation: progreso 5s linear infinite;*/
     border-radius: 10px;
 }
+
 #barra.completed {
     height: 100%;
 }
-#barra, #barra.active, #barra.waiting {
+
+#barra,
+#barra.active,
+#barra.waiting {
     height: 50%;
 }
 
 .completed {
     background: #628e37;
 }
+
 .waiting {
     background: #d2d9df;
 }
+
 .active {
     background: #ef6f00;
 }
@@ -34,6 +40,7 @@
     0% {
         width: 0;
     }
+
     100% {
         width: 100%;
     }
@@ -43,6 +50,7 @@
     0% {
         height: 0;
     }
+
     100% {
         height: 100%;
     }

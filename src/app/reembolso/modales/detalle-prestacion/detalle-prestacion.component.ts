@@ -24,7 +24,7 @@ export class DetallePrestacionComponent
     setTimeout(() => {
       this.inputPredictivoNativo = document.getElementById('busqueda-predictiva')!.querySelector('input');
     }, 100);
-    this.idprestacionSeleccionada = this.arancelService.getPrestacionSeleccionadaId()
+    this.idprestacionSeleccionada = this.arancelService.getPrestacionSeleccionadaId;
   }
 
 

@@ -3,7 +3,8 @@
   </app-custom-stepper>
   <div id="stepperTwoContent" class="w-full">
     <ds-title class="col-span-12 mb-4" type="t4" family="secondary" weight="bold" color="primary">
-      <span class="steps-title two" slot="text">Selecciona tu prestación</span>
+      <span class="steps-title two" slot="text"
+        [ngClass]="{'waitStepperText':this.stepperTwoSource()[0].status == 'waiting'}">Selecciona tu prestación</span>
     </ds-title>
     <div class="grid grid-cols-12 gap-2 pr-5">
       <ng-container *ngIf="getStepsStatus('stepOne_who', 'personaSeleccionada')">
@@ -13,12 +14,20 @@
           </app-card-option>
         </ng-container>
         <!-- Reembolsaste -->
-        <ng-container *ngIf="tarjetaSeleccionada?.name==='atencionmedica'||tarjetaSeleccionada?.name==='examenes'">
-          <ds-paragraph class="col-span-12 mb-5 md:col-span-5" type="p1" family="secondary" weight="semiBold"
-            color="secondary">
-            <span slot="text" class="font-bold">¿Reembolsaste previamente en tu Isapre?</span>
+        <ng-container
+          *ngIf="tarjetaSeleccionada?.name==='atencionmedica'||tarjetaSeleccionada?.name==='atencionhospitalaria' ||tarjetaSeleccionada?.name==='examenes'">
+          <ds-paragraph class="col-span-12 mb-5"
+            [ngClass]="{'md:col-span-5':tarjetaSeleccionada?.name==='atencionmedica','md:col-span-7':tarjetaSeleccionada?.name==='atencionhospitalaria'}"
+            type="p1" family="secondary" weight="semiBold" color="secondary">
+            <span *ngIf="tarjetaSeleccionada?.name==='atencionmedica'" slot="text"
+              class="font-bold">{{textPregunta.atencionmedica}}</span>
+            <span *ngIf="tarjetaSeleccionada?.name==='atencionhospitalaria'" slot="text"
+              class="font-bold">{{textPregunta.atencionhospitalaria}}</span>
+            <span *ngIf="tarjetaSeleccionada?.name==='examenes'" slot="text"
+              class="font-bold">{{textPregunta.examenes}}</span>
           </ds-paragraph>
-          <div class="flex items-center justify-start col-span-12 md:col-span-6 md:-ml-20">
+          <div class="flex items-center justify-start col-span-12"
+            [ngClass]="{'md:col-span-6':tarjetaSeleccionada?.name==='atencionmedica','md:col-span-3':tarjetaSeleccionada?.name==='atencionhospitalaria'}">
             <ds-radio class="mx-5" type="s1" family="primary" label="Si" name="reembolsoIsapre" value="si" (click)="
                 setStepsStatus({
                   step: 'stepTwo_selectOption',

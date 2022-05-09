@@ -144,6 +144,10 @@ ds-icon {
   }
 }
 
+.waitStepperText {
+  color: var(--ter3)
+}
+
 ds-select-v2 ds-icon {
   svg {
     margin-top: 0px; //nmaruco esto era culpa del tailwind/base ... el tener que hacer esto en los SVG. ya no es 
@@ -263,7 +267,7 @@ span.steps-title {
 
 app-solicitar-reembolso {
   .css-jc5uxg {
-    
+
     margin: 0;
   }
 }

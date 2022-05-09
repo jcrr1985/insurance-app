@@ -4,50 +4,71 @@
   <div id="stepperThreeContent" class="w-full">
     <!-- Title -->
     <ds-title class="col-span-12" type="t4" family="secondary" weight="bold" color="primary">
-      <span class="steps-title three" slot="text">Completa los siguientes datos</span>
+      <span class="steps-title three" slot="text"
+        [ngClass]="{'waitStepperText':this.stepperThreeSource()[0].status == 'waiting'}">Completa los siguientes
+        datos</span>
     </ds-title>
     <div class="grid grid-cols-12 gap-4 pr-5">
       <ng-container
         *ngIf="getStepsStatus('stepTwo_selectOption', 'prestacionSeleccionada') && getStepsStatus('stepTwo_selectOption', 'reembolsoPrevioIsapre')">
 
         <!-- First Row Data -->
-        <div class="flex items-center justify-center col-span-12 md:col-span-6 sm:col-span-6">
-          <ds-select class="w-full inputsThirdField" id="isapreFonasaSelect" [initialLabel]="'Isapre/Fonasa'"
-            [state]="'waiting'" [source]="isapreFonasaOptions" [helperMessage]="''">
-          </ds-select>
-          <ds-icon *ngIf="getStepsStatus('stepThree_general', 'agenciaSeleccionada')" color="info5" size="25"
-            icon-name="bi-check-circle-fill"></ds-icon>
-        </div>
-        <div class="flex items-center justify-center col-span-12 md:col-span-6 sm:col-span-6">
-          <ds-input class="w-full inputsThirdField" id="rutInstitucion" [helperMessage]="''"
-            [initialLabel]="'Rut institucion/prestador'" size="s2" labelOrientation="start">
-          </ds-input>
-          <ds-icon *ngIf="getStepsStatus('stepThree_general', 'rutInstitucion')" color="info5" size="25"
-            icon-name="bi-check-circle-fill"></ds-icon>
-        </div>
-        <div class="flex items-center justify-center col-span-12 md:col-span-6 sm:col-span-6">
-          <ds-input class="w-full inputsThirdField" id="boletaFactura" [helperMessage]="''"
-            [initialLabel]="'Nº Boleta/Factura'" size="s2" labelOrientation="start">
-          </ds-input>
-          <ds-icon *ngIf="getStepsStatus('stepThree_general', 'boletaFactura')" color="info5" size="25"
-            icon-name="bi-check-circle-fill"></ds-icon>
-        </div>
-        <div class="flex items-center justify-center col-span-12 md:col-span-6 sm:col-span-6">
-          <ds-datepicker class="w-full inputsThirdField" [type]="'single'" [size]="'s2'" [helperMessage]="''"
-            [initialLabel]="'Fecha de atención'">
-          </ds-datepicker>
-          <ds-icon *ngIf="getStepsStatus('stepThree_general', 'fechaAtencion')" size="25"
-            icon-name="bi-check-circle-fill" color="info5"></ds-icon>
-        </div>
+
+        <!--step datos para hospitalario-->
+        <ng-container *ngIf="idPestacionSeleccionada == 2">
+          <div class="flex items-center justify-center col-span-12">
+            <ds-input class="w-full inputsThirdField" id="montoTotalrHospitalario" [helperMessage]="''"
+              [initialLabel]="'Monto solicitado'" size="s2" labelOrientation="start" (keyup)="setStepsStatus({
+                step: 'stepThree_general',
+                option: 'montoSolicitado',
+                value: true
+              })">
+            </ds-input>
+            <ds-icon *ngIf="getStepsStatus('stepThree_general', 'boletaFactura')" color="info5" size="25"
+              icon-name="bi-check-circle-fill"></ds-icon>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="idPestacionSeleccionada   != 2 ">
+
+          <div class="flex items-center justify-center col-span-12 md:col-span-6 sm:col-span-6">
+            <ds-select class="w-full inputsThirdField" id="isapreFonasaSelect" [initialLabel]="'Isapre/Fonasa'"
+              [state]="'waiting'" [source]="isapreFonasaOptions" [helperMessage]="''">
+            </ds-select>
+            <ds-icon *ngIf="getStepsStatus('stepThree_general', 'agenciaSeleccionada')" color="info5" size="25"
+              icon-name="bi-check-circle-fill"></ds-icon>
+          </div>
+          <div class="flex items-center justify-center col-span-12 md:col-span-6 sm:col-span-6">
+            <ds-input class="w-full inputsThirdField" id="rutInstitucion" [helperMessage]="''"
+              [initialLabel]="'Rut institucion/prestador'" size="s2" labelOrientation="start">
+            </ds-input>
+            <ds-icon *ngIf="getStepsStatus('stepThree_general', 'rutInstitucion')" color="info5" size="25"
+              icon-name="bi-check-circle-fill"></ds-icon>
+          </div>
+          <div class="flex items-center justify-center col-span-12 md:col-span-6 sm:col-span-6">
+            <ds-input class="w-full inputsThirdField" id="boletaFactura" [helperMessage]="''"
+              [initialLabel]="'Nº Boleta/Factura'" size="s2" labelOrientation="start">
+            </ds-input>
+            <ds-icon *ngIf="getStepsStatus('stepThree_general', 'boletaFactura')" color="info5" size="25"
+              icon-name="bi-check-circle-fill"></ds-icon>
+          </div>
+          <div class="flex items-center justify-center col-span-12 md:col-span-6 sm:col-span-6">
+            <ds-datepicker class="w-full inputsThirdField" [type]="'single'" [size]="'s2'" [helperMessage]="''"
+              [initialLabel]="'Fecha de atención'">
+            </ds-datepicker>
+            <ds-icon *ngIf="getStepsStatus('stepThree_general', 'fechaAtencion')" size="25"
+              icon-name="bi-check-circle-fill" color="info5"></ds-icon>
+          </div>
+        </ng-container>
 
         <!-- Second Row data -->
 
         <!-- Reembolsaste -->
         <ds-paragraph class="col-span-12 mb-5 md:col-span-5" type="p1" family="secondary" weight="semiBold"
           color="secondary">
-          <span slot="text" class="font-bold">El monto total de tu copago fue mayor a 15UF?</span>
+          <span slot="text" class="font-bold">{{textPreguntas}}</span>
         </ds-paragraph>
-        <div class="flex items-center justify-start col-span-12 md:col-span-6 md:-ml-20">
+        <div class="flex items-center justify-start col-span-12 md:col-span-6 md:-ml-20"
+          *ngIf="mostrarRadioButtons && idPestacionSeleccionada !=2">
           <ds-radio class="mx-5" type="s1" family="primary" label="Si" name="copagoMayor" value="si" (click)="
             setStepsStatus({
               step: 'stepThree_general',
