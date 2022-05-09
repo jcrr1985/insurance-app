@@ -14,17 +14,17 @@ export class DetallePrestacionComponent
   private inputPredictivoNativo: any;
   public idprestacionSeleccionada!: number;
   @Input() prestacionSeleccionada: any = {};
+  @Input() stepsStatusOn: any;
   @Output() datosNuevaPrestacion: EventEmitter<any> = new EventEmitter<any>();
   @Output() hideModalEvent: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private arancelService: ArancelService) { }
 
   ngOnInit(): void {
-    console.log(this.prestacionSeleccionada)
     setTimeout(() => {
       this.inputPredictivoNativo = document.getElementById('busqueda-predictiva')!.querySelector('input');
     }, 100);
-    this.idprestacionSeleccionada = this.arancelService.getPrestacionSeleccionadaId()
+    this.arancelService.setIdSubject$.subscribe(idPrestacion => this.idprestacionSeleccionada = idPrestacion)
   }
 
 
@@ -40,7 +40,7 @@ export class DetallePrestacionComponent
     this.datosNuevaPrestacion.emit(data);
   }
 
-  setearValorInputPredictivo(textoArancel: string){
+  setearValorInputPredictivo(textoArancel: string) {
     console.log('capturado custom event textoArancel, su data ->', textoArancel)
     this.inputPredictivoNativo.value = textoArancel;
   }

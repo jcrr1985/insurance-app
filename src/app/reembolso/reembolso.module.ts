@@ -1,8 +1,7 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReembolsoComponent } from './reembolso.component';
 import { RouterModule, Routes } from '@angular/router';
-import { TablaHistorialComponent } from './tabla-historial/tabla-historial.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedsModule } from '../shared/shareds.module';
 import { DetallePrestacionComponent } from './modales/detalle-prestacion/detalle-prestacion.component';
@@ -21,16 +20,21 @@ import { MarcosYLentesComponent } from './modales/detalle-prestacion/tipos/marco
 import { AtencionDentalComponent } from './modales/detalle-prestacion/tipos/atencion-dental/atencion-dental.component';
 import { CompraMedicamentosComponent } from './modales/detalle-prestacion/tipos/compra-medicamentos/compra-medicamentos.component';
 import { ExamenesYProcedimientosComponent } from './modales/detalle-prestacion/tipos/examenes-y-procedimientos/examenes-y-procedimientos.component';
+import { TablaHistorialComponent } from './tabla-historial/tabla-historial.component';
+import { TablaResumenReembolsoComponent } from './tabla-resumen-reembolso/tabla-resumen-reembolso.component';
+import { PantallaFinalComponent } from './pantalla-final/pantalla-final.component';
 
 const route: Routes = [
   { path: '', component: TablaHistorialComponent },
   { path: 'historial', component: TablaHistorialComponent },
   { path: 'solicitud', component: SolicitarReembolsoComponent },
+  { path: 'resumen', component: TablaResumenReembolsoComponent },
+  {path: 'final', component: PantallaFinalComponent},
   { path: 'testing', component: TestingComponent }
 ];
 
 @NgModule({
-  declarations: [ReembolsoComponent, TablaHistorialComponent, DetallePrestacionComponent, ModalSolicitudReembolsoCompletadaComponent, ModalRegistrarMedicamentoComponent, SolicitarReembolsoComponent, StepQuienSeAtendioComponent, StepSeleccionaPrestacionComponent, StepDocumentosGeneralesComponent, StepDatosGeneralesComponent, StepDetallePrestacionComponent, ConsultaMedicaComponent, AtencionHospitalariaComponent, MarcosYLentesComponent, AtencionDentalComponent, CompraMedicamentosComponent, ExamenesYProcedimientosComponent],
+  declarations: [ReembolsoComponent, TablaHistorialComponent, DetallePrestacionComponent, ModalSolicitudReembolsoCompletadaComponent, ModalRegistrarMedicamentoComponent, SolicitarReembolsoComponent, StepQuienSeAtendioComponent, StepSeleccionaPrestacionComponent, StepDocumentosGeneralesComponent, StepDatosGeneralesComponent, StepDetallePrestacionComponent, ConsultaMedicaComponent, AtencionHospitalariaComponent, MarcosYLentesComponent, AtencionDentalComponent, CompraMedicamentosComponent, ExamenesYProcedimientosComponent, TablaResumenReembolsoComponent, PantallaFinalComponent],
   imports: [CommonModule, RouterModule.forChild(route), SharedsModule, FormsModule, ReactiveFormsModule],
   exports: [CommonModule, ReembolsoComponent, TablaHistorialComponent, DetallePrestacionComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

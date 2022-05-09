@@ -1,6 +1,6 @@
 import { IArancel } from './../interfaces/arancel';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +12,8 @@ export class ArancelService {
   public esListaActiva!: boolean;
   public tarjetaSeleccionada: any;
   public idprestacionSeleccionada!: number;
+  public setIdSubject: BehaviorSubject<any> = new BehaviorSubject(0)
+  public setIdSubject$ = this.setIdSubject.asObservable();
 
   constructor() {
     for (let i = 0; i < aranceles.length; i++) {
@@ -27,62 +29,46 @@ export class ArancelService {
   }
 
 
-  public setTarjetaSeleccionada(cardName:string) {
-     this.tarjetaSeleccionada = cardName;
-  } 
+  public setTarjetaSeleccionada(cardName: string) {
+    this.tarjetaSeleccionada = cardName;
+  }
 
-  public setPrestacionSeleccionadaId(cardId:number) {
-    this.idprestacionSeleccionada  = cardId;
- } 
+  public setPrestacionSeleccionadaId(cardId: number) {
+    console.log('seteando idCard en service')
+    this.idprestacionSeleccionada = cardId;
+    console.log('this.idprestacionSeleccionada Seteada', this.idprestacionSeleccionada)
+  }
 
- public getPrestacionSeleccionadaId() {
-  return this.idprestacionSeleccionada;
-}   
+  public get getPrestacionSeleccionadaId() {
+    return this.idprestacionSeleccionada;
+  }
   /**
    * @description filtro para resultados basados en
    * si la palabra se encuentra en cualquier parte del
    * nombre del arancel.
-   */ 
+   */
   public filtroAranceles(filtro: string): any[] {
     console.log('tajeta seleccionada name: ', this.tarjetaSeleccionada);
     let filtroPrestacion: string = '';
 
     switch (this.tarjetaSeleccionada) {
       case 'atencionhospitalaria':
-      console.log('this.getPrestacionSeleccionada', this.getPrestacionSeleccionada)
-
         filtroPrestacion = 'CONSULTA'; //TODO ¿Qué chingados irá aqui? estoy seguro que no es 'CONSULTA', consulta va abajo
-        console.log('filtroPrestacion', filtroPrestacion)
         break;
       case 'atencionmedica':
-      console.log('this.getPrestacionSeleccionada', this.getPrestacionSeleccionada)
-
         filtroPrestacion = 'CONSULTA';
-        console.log('filtroPrestacion', filtroPrestacion)
         break;
       case 'dentista':
-      console.log('this.getPrestacionSeleccionada', this.getPrestacionSeleccionada)
-
         filtroPrestacion = 'DENTAL';
-        console.log('filtroPrestacion', filtroPrestacion)
         break;
       case 'examenes':
-      console.log('this.getPrestacionSeleccionada', this.getPrestacionSeleccionada)
-
         filtroPrestacion = 'EXAMENES Y PROCEDIMIENTOS';
-        console.log('filtroPrestacion', filtroPrestacion)
         break;
       case 'medicamentos':
-      console.log('this.getPrestacionSeleccionada', this.getPrestacionSeleccionada)
-
         filtroPrestacion = 'MEDICAMENTO';
-        console.log('filtroPrestacion', filtroPrestacion)
         break;
       case 'optica':
-      console.log('this.getPrestacionSeleccionada', this.getPrestacionSeleccionada)
-
         filtroPrestacion = 'OPTICA';
-        console.log('filtroPrestacion', filtroPrestacion)
         break;
       default:
         console.log('en el default')

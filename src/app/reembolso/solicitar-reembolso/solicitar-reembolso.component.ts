@@ -71,6 +71,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       boletaFactura: false,
       fechaAtencion: false,
       copagoMayor: null,
+      montoSolicitado: false,
     },
     stepFour_general: {
       tipoDocumentoSeleccionado: false,
@@ -162,7 +163,9 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       }
     });
     window.addEventListener('onSelectDate', (event: any) => {
-      if (event.target.innerText == 'Fecha de atención') {
+      console.log(event)
+      const id = event.path[1].id
+      if (id == 'fecha_generales') {
         const value = event.detail.init;
         this.setStepsStatus({
           step: 'stepThree_general',
@@ -225,6 +228,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     const { step, option, value } = data;
     console.log('value', value);
 
+
     this.stepsStatusOn[step][option] = value;
     this.setForm(option, value);
     this.getSizeStepper();
@@ -261,10 +265,27 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
         ? 'completed'
         : 'waiting';
 
-    if (status == 'completed')
+    if (status == 'completed') {
       this.stepperTwoSource = () => [{ label: '', status }];
-    if (status == 'completed')
       this.stepperThreeSource = () => [{ label: '', status: 'active' }];
+      let stepThreeStatus = this.stepperThreeSource()[0].status
+      setTimeout(() => {
+        if (stepThreeStatus == 'active') {
+
+          // Capturando el Width del ds-select
+          let dsSelectPrevision = document.getElementById('isapreFonasaSelect') as HTMLElement;
+          console.log('dsSelectPrevision', dsSelectPrevision)
+          // let dsSelectPrevisionWith = dsSelectPrevision.clientWidth;
+          // seteando el width capturado arriba en el contenedor para las 'options' genera el de-select
+          //  let contenedorOpcionesDsSelect = document.getElementsByClassName('resultSearch');
+          //  console.log('contenedorOpcionesDsSelect', contenedorOpcionesDsSelect)
+          // contenedorOpcionesDsSelect.style.width= dsSelectPrevisionWith
+        } else {
+          console.log('status 2: ', status)
+        }
+
+      }, 100);
+    }
   }
   /**
    * @description Evalúa los requisitos necesarios para el progress del 3er paso - Datos Generales
@@ -290,14 +311,17 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       ? 'completed'
       : 'waiting';
 
+    const statusMontoSolicitado = this.stepsStatusOn.stepThree_general.montoSolicitado
+      ? 'completed'
+      : 'waiting';
+
     let status: string;
     if (
-      statusrutInstitucion == 'completed' &&
-      statusboletaFactura == 'completed' &&
-      statusFechaAtencion == 'completed' &&
-      // statusValorPrestacion == 'completed' &&
-      //statusBonificacion == 'completed' &&
-      statusCopago == 'completed'
+      (statusrutInstitucion == 'completed' &&
+        statusboletaFactura == 'completed' &&
+        statusFechaAtencion == 'completed' &&
+        statusCopago == 'completed') ||
+      statusMontoSolicitado == 'completed'
     ) {
       status = 'completed';
     } else {
@@ -317,20 +341,12 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
    * @description Evalúa los requisitos necesarios para el progress del 4to paso - sube Documentos
    */
   evaluateStepFour() {
-    const statusfileUploaded = this.stepsStatusOn.stepFour_general.fileUploaded
+    console.log("this.stepsStatusOn", this.stepsStatusOn)
+    const statusfileUploaded = (this.stepsStatusOn.stepFour_general.fileUploaded && this.stepsStatusOn.stepFour_general.tipoDocumentoSeleccionado)
       ? 'completed'
       : 'waiting';
-
-    // let status: string;
-
-    // if (
-    //   statusfileUploaded == 'completed') {
-    //   status = 'completed';
-    // } else {
-    //   status = 'waiting';
-    // }
     this.stepperFourSource = () => [{ label: '', status: statusfileUploaded }];
-    this.stepperFiveSource = () => [{ label: '', status: statusfileUploaded }];
+    this.stepperFiveSource = () => [{ label: '', status: statusfileUploaded == 'completed' ? 'active' : 'waiting' }];
     this.getSizeStepper();
   }
   evaluateStepFive() { }

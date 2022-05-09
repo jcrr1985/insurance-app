@@ -1,0 +1,55 @@
+.titulo-parte-izquierda {
+    font-weight: 600 !important;
+    font-size: 22px !important;
+    color: --sec2 !important;
+}
+
+.titulo-parte-derecha {
+    font-weight: 400;
+    font-size: 22px;
+    color: --sec2 !important;
+}
+
+.seccion-agregar-nuevo-reembolso {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 9px!important;
+
+}
+
+.pregunta {
+    font-weight: 600 !important;
+    font-size: 22px !important;
+}
+
+.wrapper-total {
+    background-color: var(--green4) !important;
+
+}
+
+.totalizador-monto-solicitado {
+    font-weight: 600;
+    color: var(--ter0);
+}
+
+.header-tabla-resumen {
+    font-style: 12px !important;
+    font-weight: 600 !important;
+
+}
+
+.sub-totales {
+    background-color: var(--ter5) !important;
+    margin-bottom: 2px !important;
+    margin-top: 2px !important;
+}
+
+ds-table-body-row {
+    margin-bottom: 2px !important;
+}
+
+.seccion-botones {
+    margin-top: 20px;
+    padding-bottom: 1.875rem !important;
+  }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { IArancel } from 'src/app/shared/interfaces/arancel';
 import { Prestacion } from 'src/app/shared/interfaces/interfaces'
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
@@ -10,13 +10,14 @@ import { ArancelService } from 'src/app/shared/services/arancel-service.service'
   templateUrl: './atencion-dental.component.html',
   styleUrls: ['./atencion-dental.component.scss']
 })
-export class AtencionDentalComponent implements OnInit {
+export class AtencionDentalComponent implements OnInit, OnChanges {
   valor: any = 0;
   bonificacion: any = 0;
   montoReembolso: any = 0;
-  sesionRequired: boolean = false;
+  fechaRequired: boolean = false;
+  validDate: boolean = false;
   warningMsg: boolean = false;
-
+  @Input() stepsStatusOn: any;
   @Output() close: EventEmitter<any> = new EventEmitter();
   @Output() dataEvent: EventEmitter<any> = new EventEmitter();
   @Output() textoArancelSeleccionado: EventEmitter<string> = new EventEmitter();
@@ -27,14 +28,27 @@ export class AtencionDentalComponent implements OnInit {
 
 
   constructor(public arancelService: ArancelService) { }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.fechaRequired = this.stepsStatusOn.stepThree_general.copagoMayor == 'si' ? true : false;
+  }
 
   ngOnInit(): void {
+    this.fechaRequired = this.stepsStatusOn.stepThree_general.copagoMayor == 'si' ? true : false;
+    this.eventListener()
+  }
+
+  eventListener() {
+    window.addEventListener('onSelectDate', (event: any) => {
+      console.log(event)
+      const id = event.path[1].id
+      if (id == 'fecha_on_modal_dental') {
+        this.validDate = true;
+      }
+    });
   }
 
 
-
   itemSelected(arancel: IArancel) {
-    this.sesionRequired = arancel.RequiereSesiones === '1' ? true : false;
     this.prestacion.prestacionSeleccionada = arancel.Arancel;
     this.prestacion.tipoPrestacion = arancel.TipoLiquidacion
     this.textoArancel = arancel.Arancel;
@@ -46,7 +60,9 @@ export class AtencionDentalComponent implements OnInit {
   }
 
   calcMontoReembolso() {
-    this.montoReembolso = Number(this.prestacion.valorPrestacion) - Number(this.prestacion.bonificacion);
+    const prestacion = this.prestacion.valorPrestacion ? this.prestacion.valorPrestacion : 0;
+    const bonificacion = this.prestacion.bonificacion ? this.prestacion.bonificacion : 0;
+    this.montoReembolso = Number(prestacion) - Number(bonificacion);
   }
 
   setValue(key: any, value: any) {

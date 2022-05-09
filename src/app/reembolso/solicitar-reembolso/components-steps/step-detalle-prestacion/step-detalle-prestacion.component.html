@@ -3,10 +3,12 @@
   </app-custom-stepper>
   <div id="stepperFiveContent" class="w-full">
     <ds-title class="col-span-12" type="t4" family="secondary" weight="bold" color="primary">
-      <span class="steps-title five" slot="text">Detalle de la prestación</span>
+      <span class="steps-title five" slot="text"
+        [ngClass]="{'waitStepperText':this.stepperFiveSource()[0].status == 'waiting'}">Detalle de la prestación</span>
     </ds-title>
     <div class="grid grid-cols-12 gap-8">
-      <ng-container *ngIf="getStepsStatus('stepFour_general','tipoDocumentoSeleccionado')">
+      <ng-container
+        *ngIf="getStepsStatus('stepFour_general','tipoDocumentoSeleccionado') && getStepsStatus('stepFour_general','fileUploaded')">
         <div class="col-span-9">
           <ds-paragraph type="p1" family="primary" weight="regular" color="secondary">
             <span slot="text">Agrega la información que aparece en tu documento como por ejemplo
@@ -34,7 +36,7 @@
     </div>
 
   </div>
-  <app-detalle-prestacion *ngIf="showModal" [prestacionSeleccionada]="prestacionSeleccionada"
+  <app-detalle-prestacion *ngIf="showModal" [prestacionSeleccionada]="prestacionSeleccionada" [stepsStatusOn]="stepsStatusOn"
     (datosNuevaPrestacion)="nuevaPrestacionDataArray($event)" (hideModalEvent)="hideAddMoreDetailModal()">
   </app-detalle-prestacion>
 </section>

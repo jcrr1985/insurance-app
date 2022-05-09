@@ -1,0 +1,126 @@
+<!-- HEADER -->
+<div class="grid h-24 grid-cols-12 border-b-2">
+    <ds-title class="flex items-center justify-start col-span-12 px-5 text-xl font-bold md:col-span-6" type="t4"
+        family="secondary" weight="bold" color="primary">
+        <span slot="text"><span class="titulo-parte-izquierda"> Detalle de reembolso de:    </span> <span
+                class="titulo-parte-derecha"> Uchicha Itachi</span></span>
+    </ds-title>
+    <div [routerLink]="['/solicitud']"
+        class="flex items-center justify-start col-span-12 px-5 md:col-span-6 md:justify-end">
+        <ds-button variant="complementary" slotName="back-button-slot">
+            <ds-icon color="info6" size="30" icon-name="bi-arrow-left-short" slot="back-button-slot"></ds-icon>
+            <span slot="back-button-slot">volver atrás</span>
+        </ds-button>
+        <br />
+    </div>
+</div>
+
+<div class="p-5 pb-20">
+    <ds-table style="width: 90vw;">
+        <ds-table-header slot="header">
+            <ds-table-header-column slot="column"><span slot="element header-tabla-resumen">Tipo de reembolso</span>
+            </ds-table-header-column>
+            <ds-table-header-column slot="column"><span slot="element header-tabla-resumen">Nº de Sesiones</span>
+            </ds-table-header-column>
+            <ds-table-header-column slot="column"><span slot="element header-tabla-resumen">Fecha de emisión</span>
+            </ds-table-header-column>
+            <ds-table-header-column slot="column"><span slot="element header-tabla-resumen">Valor bonificacion</span>
+            </ds-table-header-column>
+            <ds-table-header-column slot="column"><span slot="element">Monto solicitado</span> </ds-table-header-column>
+            <ds-table-header-column slot="column" type="actions"></ds-table-header-column>
+        </ds-table-header>
+        <ds-table-body slot="body">
+            <ng-container *ngFor="let solicitud of solicitudes">
+                <ds-table-body-row slot="row" class="sub-totales">
+                    <ds-table-body-column slot="column">
+                        <span slot="element">{{solicitud.tipoReembolso}}</span>
+                    </ds-table-body-column>
+                    <ds-table-body-column slot="column">
+                        <span slot="element">{{solicitud.numerosesiones}}</span>
+                    </ds-table-body-column>
+                    <ds-table-body-column slot="column">
+                        <span slot="element">$ {{solicitud.valorPrestacion | number :'0.0-2'}}</span>
+                    </ds-table-body-column>
+                    <ds-table-body-column slot="column">
+                        <span slot="element">$ {{solicitud.bonificacion | number :'0.0-2'}}</span>
+                    </ds-table-body-column>
+                    <ds-table-body-column slot="column">
+                        <span slot="element">$ {{solicitud.valorPrestacion - solicitud.bonificacion | number
+                            :'0.0-2'}}</span>
+                    </ds-table-body-column>
+                </ds-table-body-row>
+            </ng-container>
+
+            <!-- rows of totals -->
+            <!-- Row total reembolsar -->
+            <ds-table-body-row class="row_defined wrapper-total" slot="row">
+                <ds-table-body-column slot="column">
+                    <span slot="element">Monto total solicitado</span>
+                </ds-table-body-column>
+                <ds-table-body-column slot="column">
+                    <span slot="element"></span>
+                </ds-table-body-column>
+                <ds-table-body-column slot="column">
+                    <span slot="element"></span>
+                </ds-table-body-column>
+                <ds-table-body-column slot="column">
+                    <span slot="element"></span>
+                </ds-table-body-column>
+                <ds-table-body-column-actions slot="column">
+                    <span class="totalizador-monto-solicitado" slot="element">$ {{montoTotalSolicitado | number :
+                        '0.0-2'}}</span>
+                </ds-table-body-column-actions>
+            </ds-table-body-row>
+        </ds-table-body>
+    </ds-table>
+
+    <div class="seccion-agregar-nuevo-reembolso">
+        <div class="col-span-10">
+            <ds-paragraph class="pregunta" type="p1" family="primary" weight="bold" color="primary">
+                <span slot="text">¿Quieres agregar un nuevo reembolso a esta solicitud?
+                </span>
+            </ds-paragraph>
+        </div>
+        <div class="flex items-center">
+            <ds-radio class="mx-5" type="s1" family="primary" label="Sí" name="reembolsoIsapre" value="Sí"
+                (click)="nuevoReembolso=true">
+            </ds-radio>
+            <ds-radio class="ml -5" type="s1" family="primary" label="No" name="reembolsoIsapre" value="No"
+                (click)="nuevoReembolso=false">
+            </ds-radio>
+        </div>
+    </div>
+
+    <div class="flex" *ngIf="true">
+        <app-card-option [ngClass]="'col-span-4'" [status]="'off'" [name]="'atencionmedica'"
+            [prestacionName]="'Consulta Médica'" (click)=" null">
+        </app-card-option>
+
+        <app-card-option [ngClass]="'col-span-4'" [status]="'off'" [name]="'optica'"
+            [prestacionName]="'Marcos y Lentes'" (click)=" null">
+        </app-card-option>
+
+        <app-card-option [ngClass]="'col-span-4'" [status]="'off'" [name]="'atencionmedica'"    
+            [prestacionName]="'Consulta Médica'" (click)=" null">
+        </app-card-option>
+
+        <app-card-option [ngClass]="'col-span-4'" [status]="'off'" [name]="'examenes'"
+            [prestacionName]="'Exámenes y Procedimientos'" (click)=" null">
+        </app-card-option>
+    </div>
+
+    <!-- botones-->
+    <section class="grid grid-cols-1 seccion-botones">
+        <div class="flex items-center justify-end w-full gap-3">
+            <ds-button id="ds-button-cancelar" (click)="null" [size]="'s2'" variant="secondary"
+                slot-name="cancel-button-slot">
+                <span slot="cancel-button-slot">Cancelar</span>
+            </ds-button>
+            <ds-button id="ds-button-siguiente" (click)="null" [size]="'s2'" variant="primary"
+            slot-name="next-button-slot" [routerLink]="['/final']">
+            <span slot="next-button-slot"> Guardar </span>
+            </ds-button>
+        </div>
+    </section>
+
+</div>

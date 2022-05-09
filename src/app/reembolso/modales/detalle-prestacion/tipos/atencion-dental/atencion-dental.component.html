@@ -9,22 +9,29 @@
             </div>
             <div class="grid flex-wrap grid-cols-12 gap-3 mb-10 form-wrapper">
                 <!--input nombre prestacion-->
-                <ds-search-v2 class="col-span-12 pr-2" [ngClass]="{'sm:col-span-6':sesionRequired}"
+                <ds-search-v2 class="col-span-12 pr-2" [ngClass]="{'sm:col-span-6':fechaRequired}"
                     label="Tipo de Prestación" (changeEv)="itemSelected($event)">
                 </ds-search-v2>
                 <!--input número de sesiones-->
-                <ds-select-v2 *ngIf="sesionRequired" class="col-span-12 sm:col-span-6"
-                    label="Número de Sesiones" (changeEv)="selectEvent($event)"></ds-select-v2>
+                <!-- <ds-select-v2 *ngIf="fechaRequired" class="col-span-12 sm:col-span-6"
+                    label="Número de Sesiones" (changeEv)="selectEvent($event)"></ds-select-v2> -->
+                <div *ngIf="fechaRequired" class="flex items-center justify-center col-span-12 md:col-span-6 sm:col-span-6">
+                    <ds-datepicker class="w-full inputsThirdField" id="fecha_on_modal_dental" [type]="'single'" [size]="'s2'" [helperMessage]="''"
+                        [initialLabel]="'Fecha de atención'">
+                    </ds-datepicker>
+                    <ds-icon *ngIf="validDate" size="25"
+                        icon-name="bi-check-circle-fill" color="info5"></ds-icon>
+                </div>
 
                 <!--valor-->
-                <ds-input-v2 class="col-span-12 sm:col-span-6" label="Valor" type="number"
+                <ds-input-v2 class="col-span-12 sm:col-span-12" label="Valor" type="number"
                     (keyupEv)="setValue('valor',$event)">
                 </ds-input-v2>
 
                 <!--bonificacion isapre/fonasa-->
-                <ds-input-v2 class="col-span-12 sm:col-span-6" label="Bonificación Isapre/Fonasa" type="number"
+                <!-- <ds-input-v2 class="col-span-12 sm:col-span-6" label="Bonificación Isapre/Fonasa" type="number"
                     (keyupEv)="setValue('bonificacion',$event)">
-                </ds-input-v2>
+                </ds-input-v2> -->
             </div>
             <!-- Mensaje de error -->
             <ds-messaging *ngIf="warningMsg" variant="warning" family="secondary" size="s2"
