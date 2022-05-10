@@ -1,3 +1,4 @@
+import { ArancelService } from 'src/app/shared/services/arancel-service.service';
 import { ReembolsoService } from 'src/app/shared/services/reembolso.service';
 import { ApplicationRef, Component, OnInit } from '@angular/core';
 import { ICard } from 'src/app/shared/interfaces/ICard';
@@ -30,21 +31,28 @@ export class TablaResumenReembolsoComponent implements OnInit {
     },
   ];
 
-  public cards: ICard[] = [
+  public opcionesPrestacionesCLEM: ICard[] = [
     { prestacion: 'Consulta Médica', name: 'atencionmedica', status: 'disabled', idPrestacion: 1 },
-    { prestacion: 'Atención Hospitalaria', name: 'atencionhospitalaria', status: '', idPrestacion: 2 },
     { prestacion: 'Marcos y lentes', name: 'optica', status: '', idPrestacion: 3 },
-    { prestacion: 'Atención Dental', name: 'dentista', status: '', idPrestacion: 4 },
     { prestacion: 'Examenes y Procedimientos', name: 'examenes', status: '', idPrestacion: 5 },
     { prestacion: 'Compra de medicamentos', name: 'medicamentos', status: '', idPrestacion: 6 },
   ];
 
+  public opcionesPrestacionesD: ICard[] = [
+    { prestacion: 'Atención Dental', name: 'dentista', status: '', idPrestacion: 4 },
+  ];
+
+  public opcionesPrestacionesH: ICard[] = [
+    { prestacion: '', name: '', status: '', idPrestacion: 2 },
+  ];
+  
   
 
 
   public continuar: boolean = false;
+  public prestacionSeleccionada: any;
 
-  constructor(private reembolsoService: ReembolsoService, private applicationRef: ApplicationRef) { }
+  constructor(private reembolsoService: ReembolsoService, private arancelService:ArancelService) { }
 
   ngOnInit(): void {
     let total: number = 0;
@@ -54,6 +62,11 @@ export class TablaResumenReembolsoComponent implements OnInit {
     this.montoTotalSolicitado = total;
     console.log('this.montoTotalSolicitado', this.montoTotalSolicitado);
     this.reembolsoService.montoTotalSolicitado = this.montoTotalSolicitado;
+      this.prestacionSeleccionada = this.arancelService.getPrestacionSeleccionadaId;
+      console.log('this.prestacionSeleccionada', this.prestacionSeleccionada);
+      if(this.prestacionSeleccionada == 2){
+        this.nuevoReembolso = 'no';
+      }
   }
 
 
@@ -67,7 +80,6 @@ export class TablaResumenReembolsoComponent implements OnInit {
   setValorRadioButtons(respuesta: string) {
     this.nuevoReembolso = respuesta;
     console.log('this.nuevoReembolso', this.nuevoReembolso);
-    // this.applicationRef.tick()
   }
   returnValorRadioButtons() {
     return this.nuevoReembolso;

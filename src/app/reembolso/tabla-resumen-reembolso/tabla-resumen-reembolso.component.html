@@ -73,7 +73,7 @@
         </ds-table-body>
     </ds-table>
 
-    <div class="seccion-agregar-nuevo-reembolso">
+    <div class="seccion-agregar-nuevo-reembolso"  *ngIf="nuevoReembolso=== 'si'">
         <div>
             <ds-paragraph class="pregunta" type="p1" family="primary" weight="bold" color="primary">
                 <span slot="text">¿Quieres agregar un nuevo reembolso a esta solicitud?
@@ -91,26 +91,23 @@
     </div>
 
     <ng-containter *ngIf="nuevoReembolso=== 'si'">
-        <div class="flex" *ngIf="true">
-            <app-card-option [ngClass]="'col-span-4'" [status]="'off'" [name]="'atencionmedica'"
-                [routerLink]="['/solicitud']" (click)="habilitarSeleccionBeneficiario(false)"
-                [prestacionName]="'Consulta Médica'" (click)="  continuar=true">
-            </app-card-option>
+        <div [ngSwitch]="prestacionSeleccionada">
+            <div *ngSwitchCase="1 || 3 || 5 || 6" class="flex">
+                <app-card-option *ngFor="let x of opcionesPrestacionesCLEM" [ngClass]="'col-span-4'" [status]="'off'"
+                    [name]="x.name" [routerLink]="['/solicitud']" (click)="habilitarSeleccionBeneficiario(false)"
+                    [prestacionName]="x.prestacion" (click)="  continuar=true">
+                </app-card-option>
+            </div>
+            <div *ngSwitchCase="4">
+                <app-card-option *ngFor="let x of opcionesPrestacionesD" [ngClass]="'col-span-4'" [status]="'off'"
+                    [name]="x.name" [routerLink]="['/solicitud']" (click)="habilitarSeleccionBeneficiario(false)"
+                    [prestacionName]="x.prestacion" (click)="  continuar=true">
+                </app-card-option>
+            </div>
+            <div *ngSwitchDefault></div>
+        </div>
+        <div >
 
-            <app-card-option [ngClass]="'col-span-4'" [status]="'off'" [name]="'optica'" [routerLink]="['/solicitud']"
-                (click)="habilitarSeleccionBeneficiario(false)" [prestacionName]="'Marcos y Lentes'"
-                (click)="  continuar=true">
-            </app-card-option>
-
-            <app-card-option [ngClass]="'col-span-4'" [status]="'off'" [name]="'atencionmedica'"
-                [routerLink]="['/solicitud']" (click)="habilitarSeleccionBeneficiario(false)"
-                [prestacionName]="'Consulta Médica'" (click)="  continuar=true">
-            </app-card-option>
-
-            <app-card-option [ngClass]="'col-span-4'" [status]="'off'" [name]="'examenes'" [routerLink]="['/solicitud']"
-                (click)="habilitarSeleccionBeneficiario(false)" [prestacionName]="'Exámenes y Procedimientos'"
-                (click)="  continuar=true">
-            </app-card-option>
         </div>
         <!-- botones-->
         <section class="grid grid-cols-1 seccion-botones">
