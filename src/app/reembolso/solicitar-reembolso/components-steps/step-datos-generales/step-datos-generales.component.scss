@@ -51,8 +51,23 @@ span.step-title {
     ds-title {
         height: 8vh;
         margin: 0;
+        font-size: 22px !important;
+        font-weight: 600 !important;
     }
 
+}
+
+ds-select {
+    padding-top: 4px;
+    box-sizing: border-box;
+    position: relative;
+    height: 40px;
+    width: 100%;
+    .css-1sg2lsz {
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+    }
 }
 
 /* @media(min-width:1080px) {

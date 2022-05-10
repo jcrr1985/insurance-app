@@ -20,7 +20,7 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
     { prestacion: 'Atención Hospitalaria', name: 'atencionhospitalaria', status: '', idPrestacion: 2 },
     { prestacion: 'Marcos y lentes', name: 'optica', status: '', idPrestacion: 3 },
     { prestacion: 'Atención Dental', name: 'dentista', status: '', idPrestacion: 4 },
-    { prestacion: 'Examenes y Procedimientos', name: 'examenes', status: '', idPrestacion: 5 },
+    { prestacion: 'Exámenes y procedimientos', name: 'examenes', status: '', idPrestacion: 5 },
     { prestacion: 'Compra de medicamentos', name: 'medicamentos', status: '', idPrestacion: 6 },
   ]
   public coldefined: string = 'col-span-4';
