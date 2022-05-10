@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Chip, Reembolsos } from '../interfaces/interfaces';
 
@@ -331,6 +332,9 @@ export class ReembolsoService {
             },
       ];
 
+      public habilitarSeleccionBeneficiario: BehaviorSubject<any> = new BehaviorSubject(true);
+      public habilitarSeleccionBeneficiario$ = this.habilitarSeleccionBeneficiario.asObservable();
+
       constructor() { }
 
       getReembolsos(): Reembolsos[] {
@@ -340,4 +344,15 @@ export class ReembolsoService {
       getChipsData(): Chip[] {
             return this.chipsData;
       }
+
+      public montoTotalSolicitado: number = 0;
+
+      setMontoTotalSolicitado(montoTotal: number) {
+            this.montoTotalSolicitado = montoTotal
+      }
+
+      public get getMontoTotalSolicitado() {
+            return this.montoTotalSolicitado;
+      }
+
 }

@@ -2,7 +2,7 @@
 <div class="grid h-24 grid-cols-12 border-b-2">
     <ds-title class="flex items-center justify-start col-span-12 px-5 text-xl font-bold md:col-span-6" type="t4"
         family="secondary" weight="bold" color="primary">
-        <span slot="text"><span class="titulo-parte-izquierda"> Detalle de reembolso de:    </span> <span
+        <span slot="text"><span class="titulo-parte-izquierda"> Detalle de reembolso de: </span> <span
                 class="titulo-parte-derecha"> Uchicha Itachi</span></span>
     </ds-title>
     <div [routerLink]="['/solicitud']"
@@ -27,7 +27,6 @@
             <ds-table-header-column slot="column"><span slot="element header-tabla-resumen">Valor bonificacion</span>
             </ds-table-header-column>
             <ds-table-header-column slot="column"><span slot="element">Monto solicitado</span> </ds-table-header-column>
-            <ds-table-header-column slot="column" type="actions"></ds-table-header-column>
         </ds-table-header>
         <ds-table-body slot="body">
             <ng-container *ngFor="let solicitud of solicitudes">
@@ -53,7 +52,7 @@
 
             <!-- rows of totals -->
             <!-- Row total reembolsar -->
-            <ds-table-body-row class="row_defined wrapper-total" slot="row">
+            <ds-table-body-row class="row_defined wrapper-total row_total" slot="row">
                 <ds-table-body-column slot="column">
                     <span slot="element">Monto total solicitado</span>
                 </ds-table-body-column>
@@ -75,7 +74,7 @@
     </ds-table>
 
     <div class="seccion-agregar-nuevo-reembolso">
-        <div class="col-span-10">
+        <div>
             <ds-paragraph class="pregunta" type="p1" family="primary" weight="bold" color="primary">
                 <span slot="text">¿Quieres agregar un nuevo reembolso a esta solicitud?
                 </span>
@@ -83,44 +82,64 @@
         </div>
         <div class="flex items-center">
             <ds-radio class="mx-5" type="s1" family="primary" label="Sí" name="reembolsoIsapre" value="Sí"
-                (click)="nuevoReembolso=true">
+                (click)="setValorRadioButtons('si')">
             </ds-radio>
             <ds-radio class="ml -5" type="s1" family="primary" label="No" name="reembolsoIsapre" value="No"
-                (click)="nuevoReembolso=false">
+                (click)="setValorRadioButtons('no')">
             </ds-radio>
         </div>
     </div>
 
-    <div class="flex" *ngIf="true">
-        <app-card-option [ngClass]="'col-span-4'" [status]="'off'" [name]="'atencionmedica'"
-            [prestacionName]="'Consulta Médica'" (click)=" null">
-        </app-card-option>
+    <ng-containter *ngIf="nuevoReembolso=== 'si'">
+        <div class="flex" *ngIf="true">
+            <app-card-option [ngClass]="'col-span-4'" [status]="'off'" [name]="'atencionmedica'"
+                [routerLink]="['/solicitud']" (click)="habilitarSeleccionBeneficiario(false)"
+                [prestacionName]="'Consulta Médica'" (click)="  continuar=true">
+            </app-card-option>
 
-        <app-card-option [ngClass]="'col-span-4'" [status]="'off'" [name]="'optica'"
-            [prestacionName]="'Marcos y Lentes'" (click)=" null">
-        </app-card-option>
+            <app-card-option [ngClass]="'col-span-4'" [status]="'off'" [name]="'optica'" [routerLink]="['/solicitud']"
+                (click)="habilitarSeleccionBeneficiario(false)" [prestacionName]="'Marcos y Lentes'"
+                (click)="  continuar=true">
+            </app-card-option>
 
-        <app-card-option [ngClass]="'col-span-4'" [status]="'off'" [name]="'atencionmedica'"    
-            [prestacionName]="'Consulta Médica'" (click)=" null">
-        </app-card-option>
+            <app-card-option [ngClass]="'col-span-4'" [status]="'off'" [name]="'atencionmedica'"
+                [routerLink]="['/solicitud']" (click)="habilitarSeleccionBeneficiario(false)"
+                [prestacionName]="'Consulta Médica'" (click)="  continuar=true">
+            </app-card-option>
 
-        <app-card-option [ngClass]="'col-span-4'" [status]="'off'" [name]="'examenes'"
-            [prestacionName]="'Exámenes y Procedimientos'" (click)=" null">
-        </app-card-option>
-    </div>
-
-    <!-- botones-->
-    <section class="grid grid-cols-1 seccion-botones">
-        <div class="flex items-center justify-end w-full gap-3">
-            <ds-button id="ds-button-cancelar" (click)="null" [size]="'s2'" variant="secondary"
-                slot-name="cancel-button-slot">
-                <span slot="cancel-button-slot">Cancelar</span>
-            </ds-button>
-            <ds-button id="ds-button-siguiente" (click)="null" [size]="'s2'" variant="primary"
-            slot-name="next-button-slot" [routerLink]="['/final']">
-            <span slot="next-button-slot"> Guardar </span>
-            </ds-button>
+            <app-card-option [ngClass]="'col-span-4'" [status]="'off'" [name]="'examenes'" [routerLink]="['/solicitud']"
+                (click)="habilitarSeleccionBeneficiario(false)" [prestacionName]="'Exámenes y Procedimientos'"
+                (click)="  continuar=true">
+            </app-card-option>
         </div>
-    </section>
+        <!-- botones-->
+        <section class="grid grid-cols-1 seccion-botones">
+            <div class="flex items-center justify-end w-full gap-3">
+                <ds-button id="ds-button-cancelar" (click)="cancelar()" [size]="'s2'" variant="secondary"
+                    slot-name="cancel-button-slot">
+                    <span slot="cancel-button-slot">Cancelar</span>
+                </ds-button>
+                <ds-button id="ds-button-siguiente" [disabled]="!continuar" *ngIf="returnValorRadioButtons() == 'si'"
+                    [size]="'s2'" variant="primary" slot-name="next-button-slot" [routerLink]="['/final']">
+                    <span slot="next-button-slot"> Continuar </span>
+                </ds-button>
+            </div>
+        </section>
+    </ng-containter>
+    <ng-containter *ngIf="nuevoReembolso=== 'no'">
+        <!-- botones-->
+        <section class="grid grid-cols-1 seccion-botones">
+            <div class="flex items-center justify-end w-full gap-3">
+                <ds-button id="ds-button-cancelar" (click)="cancelar()" [size]="'s2'" variant="secondary"
+                    slot-name="cancel-button-slot">
+                    <span slot="cancel-button-slot">Cancelar</span>
+                </ds-button>
+                <ds-button id="ds-button-finalizar" [size]="'s2'" variant="primary" slot-name="next-button-slot"
+                    [routerLink]="['/final']">
+                    <span slot="next-button-slot"> Finalizar y Enviar </span>
+                </ds-button>
 
+            </div>
+        </section>
+    </ng-containter>
 </div>

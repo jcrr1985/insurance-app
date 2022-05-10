@@ -20,7 +20,7 @@
     [personSelectOption]="personSelectOption" [stepsStatusOn]="stepsStatusOn" (sendData)="evaluateStepOne()"></app-step-quien-se-atendio>
 
   <!-- SELECCIONA TU PRESTACION -->
-  <app-step-selecciona-prestacion [stepperTwoSource]="stepperTwoSource" [customStepperSize]="customStepperSize"
+  <app-step-selecciona-prestacion *ngIf="habilitarSeleccionBeneficiario" [stepperTwoSource]="stepperTwoSource" [customStepperSize]="customStepperSize"
     [stepsStatusOn]="stepsStatusOn" [chipsData]="chipsData" (sendData)="setStepsStatus($event)"
     (evaluateStepTwo)="evaluateStepTwo()"></app-step-selecciona-prestacion>
 
