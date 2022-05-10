@@ -89,6 +89,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
   public isModalActive: boolean = true;
   public modalSolicitudCompletada: boolean = false;
   public modalRegistrarMedicamento: boolean = false;
+  public habilitarSeleccionBeneficiario!:boolean;
 
   constructor(
     private reembolsoService: ReembolsoService,
@@ -100,6 +101,9 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     this.prestacionSeleccionada = this.arancelService.getPrestacionSeleccionada
     console.log('PrestacionSeleccionada', this.prestacionSeleccionada);
     this.createForm();
+    this.reembolsoService.habilitarSeleccionBeneficiario$.subscribe( val => {
+      this.habilitarSeleccionBeneficiario = val;
+    })
   }
   ngOnDestroy(): void {
     if (window && window.removeAllListeners) {

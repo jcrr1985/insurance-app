@@ -14,7 +14,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 9px!important;
+    margin-top: 9px !important;
+    padding-right: 2%;
 
 }
 
@@ -52,4 +53,12 @@ ds-table-body-row {
 .seccion-botones {
     margin-top: 20px;
     padding-bottom: 1.875rem !important;
-  }
+}
+
+.row_total>ds-table-body-column:nth-child(1) {
+    border-radius: 0px 0px 0px 10px !important;
+}
+
+.row_total>ds-table-body-column-actions {
+    border-radius: 0px 0px 10px 0px !important;
+}

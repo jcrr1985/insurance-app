@@ -1,6 +1,7 @@
 import { IArancel } from './../interfaces/arancel';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { ICard } from '../interfaces/ICard';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +15,7 @@ export class ArancelService {
   public idprestacionSeleccionada!: number;
   public setIdSubject: BehaviorSubject<any> = new BehaviorSubject(0)
   public setIdSubject$ = this.setIdSubject.asObservable();
+
 
   constructor() {
     for (let i = 0; i < aranceles.length; i++) {
@@ -53,7 +55,7 @@ export class ArancelService {
 
     switch (this.tarjetaSeleccionada) {
       case 'atencionhospitalaria':
-        filtroPrestacion = 'CONSULTA'; //TODO ¿Qué chingados irá aqui? estoy seguro que no es 'CONSULTA', consulta va abajo
+        filtroPrestacion = 'CONSULTA'; //TODO ¿Qué va aquí? no es consulta.. 'CONSULTA', consulta va abajo.. los aranceles tienen solo 5 tipos de tipoPrestacion al parecer
         break;
       case 'atencionmedica':
         filtroPrestacion = 'CONSULTA';

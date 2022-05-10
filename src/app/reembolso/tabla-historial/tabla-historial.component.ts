@@ -1,5 +1,5 @@
 import { Reembolsos, PaginationSource } from '../../shared/interfaces/interfaces';
-  import {
+import {
   AfterViewInit,
   Component,
   ElementRef,
@@ -18,8 +18,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./tabla-historial.component.scss'],
 })
 export class TablaHistorialComponent
-  implements OnInit, AfterViewInit, OnDestroy
-{
+  implements OnInit, AfterViewInit, OnDestroy {
   // @ViewChild('dsPageCounter') dsPageCounter: ElementRef<HTMLElement> =
   //   {} as ElementRef;
   @ViewChild('dsPageCounter') dsPageCounter: any;
@@ -32,7 +31,7 @@ export class TablaHistorialComponent
   public dsCounterSelectedOptionValue: number = 10;
   public cantidadDeRegistrosEnTabla!: number;
   public tenByDefault: number = 10;
-  public  initialLabel: string = '10';
+  public initialLabel: string = '10';
   public reembolsos: Reembolsos[];
   public leftAssignmentFromRight: number = 10;
 
