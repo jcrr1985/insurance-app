@@ -54,35 +54,6 @@
           </ds-messaging>
         </div>
       </ng-container>
-      <!-- Atención Hospitalaria -->
-      <ng-container *ngIf="tarjetaSeleccionada?.name==='atencionhospitalaria'">  
-        <div class="contenedor-global flex">
-          <div class="contenedor-pregunta-hospitalario">
-            <ds-paragraph class="md:col-span-5 col-span-12 mb-5" type="p1" family="secondary" weight="Bold" color="secondary">
-              <span slot="text" class="texto">Estimado usuario, le recordamos que se consideran gastos Hospitalarios sólo los gastos que tienen 
-                al menos un día de Hospitalización ¿Desea continuar?</span>
-            </ds-paragraph>
-          </div>
-          <div class="contenedor-radiobuttons flex">
-            <ds-radio class="m-top" type="s1" family="primary" label="Sí" name="atencionhospitalaria" value="si" (click)="
-                setStepsStatus({
-                  step: 'stepTwo_selectOption',
-                  option: 'esAtencionHospitalaria',
-                  value: 'si'
-                })
-              ">
-            </ds-radio>
-            <ds-radio class="m-top ml-2 mx-5" type="s1" family="primary" label="No" name="atencionhospitalaria" value="no" (click)="
-                setStepsStatus({
-                  step: 'stepTwo_selectOption',
-                  option: 'esAtencionHospitalaria',
-                  value: 'no'
-                })
-              ">
-            </ds-radio>
-          </div>
-        </div>
-      </ng-container>  
     </div>
   </div>
 </section>
