@@ -16,6 +16,7 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
 
   @Output() sendData: EventEmitter<any> = new EventEmitter<any>();
   @Output() evaluateStepThree: EventEmitter<any> = new EventEmitter<any>();
+  @Output() mostrarDocumentoAdicional: EventEmitter<any> = new EventEmitter<any>();
 
   public textPreguntas = '';
   public mostrarRadioButtons!: boolean;
@@ -76,6 +77,7 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
     console.log('data', data)
     this.sendData.emit(data);
     this.evaluateStepThree.emit();
+    this.mostrarDocumentoAdicional.emit(data.value)
   }
   /**
    *

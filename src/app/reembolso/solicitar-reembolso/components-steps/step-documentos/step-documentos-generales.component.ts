@@ -14,12 +14,13 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
   @Input() customStepperSize: any;
   @Input() stepsStatusOn: any;
   @Input() isapreFonasaOptions: any;
+  @Input() eliminarDocumentoAdicional: any;
   idPrestacionSeleccionada: number = 1;
 
 
   @Output() sendData: EventEmitter<any> = new EventEmitter<any>();
   @Output() evaluateStepFour: EventEmitter<any> = new EventEmitter<any>();
-  documentsDisplay: any = {
+  public documentsDisplay: any = {
     consultamedica: {
       multi: false,
       nameFiles: [{ name: 'Documento Reembolso', files: [], required: true, valid: false }, { name: 'Documento de diagnóstico', files: [], required: true, valid: false }, { name: 'Documento adicional', files: [], required: false, valid: true }],
@@ -51,14 +52,31 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
       nameFiles: [{ name: 'Documento Reembolso', files: [], required: true, valid: false }, { name: 'Documento de diagnóstico', files: [], required: true, valid: false }, { name: 'Documento adicional', files: [], required: false, valid: true }],
       cols: 'col-span-4'
     },
-
-
-
-
-
   }
-  constructor(private arancelService: ArancelService) { }
-  async ngOnChanges(changes: SimpleChanges) {
+  constructor(private arancelService: ArancelService) {
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('changes', changes)
+    if(this.eliminarDocumentoAdicional == 'no'){
+      console.log('NOOOOOOOOOOOOOOOOOOOOOOOO');
+      for (const key in this.documentsDisplay) {
+        if (Object.prototype.hasOwnProperty.call(this.documentsDisplay, key)) {
+          if( this.documentsDisplay[key].nameFiles[(this.documentsDisplay[key].nameFiles.length - 1)].name == 'Documento adicional'){
+            console.log('this.documentsDisplay[key].nameFiles[(this.documentsDisplay[key].nameFiles.length - 1)].name', this.documentsDisplay[key].nameFiles[(this.documentsDisplay[key].nameFiles.length - 1)].name)
+            this.documentsDisplay[key].nameFiles.pop();
+            console.log('vo')
+
+          }else{
+            console.log('no wa borrar nada pq no existe xD')
+            
+          }
+        }
+      }
+    }else{
+      console.log('YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEES');
+      console.log('no wa borrar nada pq dijiste que si xD')
+
+    }
 
   }
   filesUploaded: any = [];

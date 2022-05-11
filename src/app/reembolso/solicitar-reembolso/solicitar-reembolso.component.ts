@@ -90,6 +90,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
   public modalSolicitudCompletada: boolean = false;
   public modalRegistrarMedicamento: boolean = false;
   public habilitarSeleccionBeneficiario!:boolean;
+  public eliminarDocumentoAdicional!: string;
 
   constructor(
     private reembolsoService: ReembolsoService,
@@ -425,6 +426,11 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       if (event.ctrlKey && event.code == 'KeyQ')
         this.router.navigate(['/testing']);
     });
+  }
+
+  mostrarDocumentoAdicional(respuestaCopago:string){
+    console.log('mostrar documento adicional', respuestaCopago)
+    this.eliminarDocumentoAdicional = respuestaCopago;
   }
 }
 
