@@ -27,6 +27,7 @@ export class ConsultaMedicaComponent implements OnInit {
   public sourceSearch: any;
 
   constructor(public arancelService: ArancelService) { }
+  public sesionesSource = this.arancelService.getSesionesSource;
 
   ngOnInit(): void {
     console.log('prestacioSeleccionada', this.prestacioSeleccionada);

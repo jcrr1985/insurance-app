@@ -51,6 +51,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
 
   public continuar: boolean = false;
   public prestacionSeleccionada: any;
+  public goToMensajeFinal: string = 'no';
 
   constructor(private reembolsoService: ReembolsoService, private arancelService:ArancelService) { }
 
@@ -66,6 +67,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
       console.log('this.prestacionSeleccionada', this.prestacionSeleccionada);
       if(this.prestacionSeleccionada == 2){
         this.nuevoReembolso = 'no';
+        this.goToMensajeFinal = 'sí'
       }
   }
 

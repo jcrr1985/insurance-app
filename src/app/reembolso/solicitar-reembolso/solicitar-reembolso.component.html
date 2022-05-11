@@ -16,15 +16,15 @@
 
 <div class="p-5 pb-20">
   <!-- QUIEN SE ATENDIO -->
-  <app-step-quien-se-atendio [stepperOneSource]="stepperOneSource" [customStepperSize]="customStepperSize"
+  <app-step-quien-se-atendio *ngIf="habilitarSeleccionBeneficiario" [stepperOneSource]="stepperOneSource" [customStepperSize]="customStepperSize"
     [personSelectOption]="personSelectOption" [stepsStatusOn]="stepsStatusOn" (sendData)="evaluateStepOne()"></app-step-quien-se-atendio>
 
   <!-- SELECCIONA TU PRESTACION -->
-  <app-step-selecciona-prestacion *ngIf="habilitarSeleccionBeneficiario" [stepperTwoSource]="stepperTwoSource" [customStepperSize]="customStepperSize"
+  <app-step-selecciona-prestacion  [stepperTwoSource]="stepperTwoSource" [customStepperSize]="customStepperSize"
     [stepsStatusOn]="stepsStatusOn" [chipsData]="chipsData" (sendData)="setStepsStatus($event)"
     (evaluateStepTwo)="evaluateStepTwo()"></app-step-selecciona-prestacion>
 
-
+    
   <!-- COMPLETAR DATOS GENERALES -->
   <app-step-datos-generales [stepperThreeSource]="stepperThreeSource"
     [customStepperSize]="customStepperSize" [stepsStatusOn]="stepsStatusOn" [isapreFonasaOptions]="isapreFonasaOptions"

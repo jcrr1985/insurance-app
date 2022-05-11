@@ -26,6 +26,8 @@ export class AtencionHospitalariaComponent implements OnInit {
 
   constructor(public arancelService: ArancelService) { }
 
+  public sesionesSource = this.arancelService.getSesionesSource;
+
   itemSelected(arancel: IArancel) {
     this.sesionRequired = arancel.RequiereSesiones === '1' ? true : false;
     this.prestacion.prestacionSeleccionada = arancel.Arancel;

@@ -12,6 +12,7 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
   @Input() customStepperSize: any;
   @Input() stepsStatusOn: any;
   @Input() isapreFonasaOptions: any;
+  
 
   @Output() sendData: EventEmitter<any> = new EventEmitter<any>();
   @Output() evaluateStepThree: EventEmitter<any> = new EventEmitter<any>();
@@ -20,15 +21,20 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
   public mostrarRadioButtons!: boolean;
   public idPestacionSeleccionada!: number;
 
-  constructor(private prestacionService: ArancelService) { }
+  public sesionRequired:boolean = false;
+
+  constructor(private prestacionService: ArancelService) { 
+    console.log('skdfhsdkfhskjfslkdhfsdfj')
+  }
   ngOnChanges(changes: SimpleChanges): void {
     this.definirTextoPregunta()
   }
   filesUploaded: any = [];
   ngOnInit(): void {
-
+    
     this.prestacionService.setIdSubject$.subscribe(idPrestacionSeleccionada => {
       this.idPestacionSeleccionada = idPrestacionSeleccionada;
+      console.log('isapreFonasaOptions', this.isapreFonasaOptions)
     });
   }
 
@@ -82,4 +88,12 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
     return this.stepsStatusOn[step][option];
   }
 
+  selecccionarPrevision(ev: any){
+    console.log('ev.label', ev.label)
+  }
+  setValue(text:string, val: any){
+    console.log('text', text)
+    console.log('val', val)
+
+  }
 }

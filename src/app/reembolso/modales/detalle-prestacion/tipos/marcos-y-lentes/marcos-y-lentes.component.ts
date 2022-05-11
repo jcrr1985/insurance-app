@@ -24,6 +24,7 @@ export class MarcosYLentesComponent implements OnInit {
   public textoArancel!: string;
 
   constructor(public arancelService: ArancelService) { }
+  public sesionesSource = this.arancelService.getSesionesSource;
 
   ngOnInit(): void {
     //

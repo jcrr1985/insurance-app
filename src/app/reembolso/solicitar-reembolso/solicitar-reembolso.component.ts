@@ -436,12 +436,12 @@ const beneficiariosArray = [
 ];
 const previsionesArray = [
   { label: 'Seleccione', value: 0, selected: false },
-  { label: 'Fonasa', value: 3, selected: false },
-  { label: 'Colmena', value: 1, selected: false },
-  { label: 'Consalud', value: 2, selected: false },
-  { label: 'Cruz Blanca', value: 3, selected: false },
-  { label: 'Banmédica', value: 0, selected: false },
-  { label: 'Masvida', value: 2, selected: false },
-  { label: 'Vida', value: 1, selected: false },
+  { label: 'Fonasa', value: 1, selected: false },
+  { label: 'Colmena', value: 2, selected: false },
+  { label: 'Consalud', value: 3, selected: false },
+  { label: 'Cruz Blanca', value: 4, selected: false },
+  { label: 'Banmédica', value: 5, selected: false },
+  { label: 'Masvida', value: 6, selected: false },
+  { label: 'Vida', value: 7, selected: false },
 
 ];

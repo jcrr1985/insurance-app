@@ -10,11 +10,12 @@
             <div class="grid flex-wrap grid-cols-12 gap-3 mb-10 form-wrapper">
                 <!--input nombre prestacion-->
                 <ds-search-v2 class="col-span-12 pr-2" [ngClass]="{'sm:col-span-6':fechaRequired}"
-                    label="Tipo de Prestación" (changeEv)="itemSelected($event)">
+                    label="Tipo de Prestación" (changeEv)="itemSelected($event)"
+                   >
                 </ds-search-v2>
                 <!--input número de sesiones-->
                 <!-- <ds-select-v2 *ngIf="fechaRequired" class="col-span-12 sm:col-span-6"
-                    label="Número de Sesiones" (changeEv)="selectEvent($event)"></ds-select-v2> -->
+                    label="Número de Sesiones" (changeEv)="selectEvent($event)"  [source]="sesionesSource"></ds-select-v2> -->
                 <div *ngIf="fechaRequired" class="flex items-center justify-center col-span-12 md:col-span-6 sm:col-span-6">
                     <ds-datepicker class="w-full inputsThirdField" id="fecha_on_modal_dental" [type]="'single'" [size]="'s2'" [helperMessage]="''"
                         [initialLabel]="'Fecha de atención'">

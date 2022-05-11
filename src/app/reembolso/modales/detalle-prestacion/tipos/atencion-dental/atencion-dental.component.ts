@@ -25,12 +25,12 @@ export class AtencionDentalComponent implements OnInit, OnChanges {
   public prestacion: Prestacion = {} as Prestacion;
   public prestacioSeleccionada = this.arancelService.getPrestacionSeleccionada;
   public textoArancel!: string;
-
-
+  
   constructor(public arancelService: ArancelService) { }
   ngOnChanges(changes: SimpleChanges): void {
     this.fechaRequired = this.stepsStatusOn.stepThree_general.copagoMayor == 'si' ? true : false;
   }
+  public sesionesSource = this.arancelService.getSesionesSource;
 
   ngOnInit(): void {
     this.fechaRequired = this.stepsStatusOn.stepThree_general.copagoMayor == 'si' ? true : false;
