@@ -1,3 +1,9 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 .block {
     display: block !important;
 }
@@ -27,13 +33,14 @@
     }
 }
 .container_items {
-    box-sizing: border-box;
+
     position: absolute;
     top: 0;
-    left: 10px;
+    left: 0px;
     z-index: 200;
     min-height: 50px;
-    width: 200px;
+    height: auto;
+    width: 100%;
     display: none;
     //overflow-y: auto;
     flex-flow: column nowrap;
@@ -41,6 +48,7 @@
     font-family: "Titillium Web", sans-serif;
     font-size: 14px;
     border-radius: 8px;
+    overflow: hidden;
     box-shadow: rgb(67 80 94 / 20%) 0px 8px 8px 0px;
     padding-top: 6px;
     div {
@@ -53,6 +61,11 @@
         -webkit-box-align: center;
         align-items: center;
         background-color: white;
+        overflow: hidden;
+           p{
+            line-height: 20px;
+           } 
+        
     }
     div:hover {
         background-color: var(--ter5);
@@ -68,4 +81,18 @@ input:placeholder-shown + label {
 }
 input:focus + label {
     top: -14px;
+}
+
+.input-beneficiario{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.dropdown-open{
+    width: 100%;
+    height: auto;
+    display: flex;
+    border-radius: 8px;
+
 }
