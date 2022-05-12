@@ -1,3 +1,8 @@
+* {
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .texto-normal {
   font-weight: 400;
   font-size: 14px;
@@ -44,4 +49,40 @@ ds-table-header.tabla-header {
   margin-top: 30px;
   height: 100px;
   margin-bottom: 30px;
+}
+
+.textos-card__historial,
+.card-historial__texts {
+  display: flex;
+  flex-direction: column;
+}
+
+.textos-card__historial {
+  gap: 5px;
+}
+
+.textos-card__historial p,
+.card-historial__texts h3 {
+  display: inline-block;
+  margin: 0px;
+}
+
+.card-historial__texts {
+  gap: 15px;
+}
+
+.h3-bold {
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 22px;
+  color: var(--sec2);
+}
+
+.card-historial__container {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  gap: 30px;
+  justify-content: space-between;
+  
 }
