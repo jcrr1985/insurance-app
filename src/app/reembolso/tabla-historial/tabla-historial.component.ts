@@ -10,6 +10,7 @@ import {
 import { ReembolsoService } from 'src/app/shared/services/reembolso.service';
 import '@vs-design-system/ds-pagination';
 import { Router } from '@angular/router';
+import { timer } from 'rxjs';
 
 
 @Component({
@@ -18,29 +19,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./tabla-historial.component.scss'],
 })
 export class TablaHistorialComponent
-  implements OnInit, AfterViewInit, OnDestroy {
+  implements OnInit, OnDestroy {
   // @ViewChild('dsPageCounter') dsPageCounter: ElementRef<HTMLElement> =
   //   {} as ElementRef;
   @ViewChild('dsPageCounter') dsPageCounter: any;
   @ViewChild('theader')
   theader!: ElementRef;
 
-  public totalTableEntriesLabel!: number;
-  public paginationSource: PaginationSource[] = [];
-  public numberOfpaginationSourceObjects: number = this.paginationSource.length;
-  public dsCounterSelectedOptionValue: number = 10;
-  public cantidadDeRegistrosEnTabla!: number;
-  public tenByDefault: number = 10;
-  public initialLabel: string = '10';
-  public reembolsos: Reembolsos[];
-  public leftAssignmentFromRight: number = 10;
+  public reembolsos!: Reembolsos[];
+  showTable: boolean = false;
 
   constructor(
     private reembolsoService: ReembolsoService,
     private router: Router,
-  ) {
-    this.reembolsos = this.reembolsoService.getReembolsos();
-  }
+  ) { }
+
   ngOnDestroy(): void {
     if (window.removeAllListeners) window.removeAllListeners();
   }
@@ -49,74 +42,92 @@ export class TablaHistorialComponent
 
   ngOnInit(): void {
     this.addAccessKey();
-    let numeroDeRegistros = this.reembolsos.length;
-    for (let i = 10; i <= numeroDeRegistros; i += 10) {
-      const paginationCounterProperties = { label: i.toString(), value: i };
-      this.paginationSource.push(paginationCounterProperties);
+    this.aciveTableHistorial();
+
+  }
+
+  resultadosPorPagina: number = 10;
+  pageSelected: number = 1;
+  totalRegistros: number = 0;
+  totalPaginas: number = 1;
+  dataRegistros: any = [];
+  sourcePagination = [{ "label": "0", "value": "0" }];
+
+  async aciveTableHistorial() {
+    this.calTotalRegistros();
+    this.calculatePages();
+    this.getReembolsos();
+    this.createSourcePagination();
+    this.showTable = false;
+    await timer(10);
+    this.showTable = true;
+  }
+  /**
+   * @description calcula el total de registros disponibles
+   */
+  calTotalRegistros() {
+    this.totalRegistros = this.reembolsoService.getReembolsos().length;
+  }
+  /**
+   * @description calcula segun la cantidad de registros las paginas disponibles
+   */
+  calculatePages() {
+    const numeroDisponible = this.totalRegistros / this.resultadosPorPagina;
+    const verificandoAdicional = numeroDisponible - parseInt((numeroDisponible).toString());
+    this.totalPaginas = numeroDisponible + (verificandoAdicional > 0 ? 1 : 0);
+  }
+  /**
+   * @description obtiene los registros segun la posicion seleccionada de la pagina y la cantidad a mostrar
+   */
+  getReembolsos() {
+    const inicio = (this.resultadosPorPagina * this.pageSelected) - this.resultadosPorPagina;
+    const final = inicio + this.resultadosPorPagina;
+    this.dataRegistros = (this.reembolsoService.getReembolsos()).slice(inicio, final);
+  }
+
+  /**
+   * @description crea el seleccionable de registros por pagina
+   */
+  createSourcePagination() {
+    let index = 1;
+    let source = [];
+
+    const numeroDisponible = this.totalRegistros / 10;
+    const verificandoAdicional = numeroDisponible - parseInt((numeroDisponible).toString());
+    const totalCiclos = numeroDisponible + (verificandoAdicional > 0 ? 1 : 0);
+
+    while (index <= totalCiclos) {
+      const valor = 10 * index;
+      source.push({ "label": `${valor}`, "value": `${valor}` })
+      index++;
     }
-    this.totalTableEntriesLabel =
-      this.paginationSource[this.paginationSource.length - 1].value;
-    this.tenEntriesByDefault = this.reembolsos.slice(0, this.tenByDefault);
+    source[source.length - 1].label = `${this.totalRegistros}`;
+    source[source.length - 1].value = `${this.totalRegistros}`;
+    this.sourcePagination = source;
   }
-
-  ngAfterViewInit() {
-    //ultimo numero en el counter de la derecha (cantidad de resultados )
-    console.log('this.dsPageCounter.nativeElement.children[0].children[2]', this.dsPageCounter.nativeElement.children[0].children[2])
-
-    this.dsPageCounter.nativeElement.children[0].children[2].children[0].innerHTML =
-      this.totalTableEntriesLabel;
-    const pagNums = Array.from(document.getElementsByClassName('css-16sfy5f'));
-    const leftPaginationSelected = Array.from(
-      document.getElementsByClassName('css-7mrpfl active')
-    );
-    const selectedAndNot = leftPaginationSelected.concat(pagNums);
-    console.log('selectedAndNot', selectedAndNot);
-
-    // Setea dsCounterSelectedOptionValue (derecha) en funcion del pagination seleccionado (izquierda)
-    selectedAndNot.forEach((leftPag) => {
-      leftPag.addEventListener('click', (leftNum: any) => {
-        this.dsCounterSelectedOptionValue = Number(leftNum.target.textContent) * 10;
-        this.setCantidadResultados();
-        this.initialLabel = this.dsCounterSelectedOptionValue.toString();
-        console.log('this.initialLabel', this.initialLabel)
-      });
-    });
-
-    //seteando pagination: leftside from rightside
-    setTimeout(() => {
-      const counterOptions = Array.from(
-        document.querySelectorAll('.css-1dzmd0k')
-      );
-      for (const counterOption of counterOptions as any) {
-        counterOption.addEventListener('click', (e: any) => {
-          this.dsCounterSelectedOptionValue = Number(e.target.innerHTML);
-          this.leftAssignmentFromRight = this.dsCounterSelectedOptionValue / 10;
-          this.setCantidadResultados();
-
-          //Mirror left side:
-          selectedAndNot.filter((e: any) => {
-            if (Number(e.innerHTML) == this.leftAssignmentFromRight) {
-              console.log('found :', e.innerHTML);
-
-              e.classList.remove('css-16sfy5f');
-              e.classList.add('css-7mrpfl');
-              e.classList.add('active');
-            } else {
-              e.classList.add('css-16sfy5f');
-              e.classList.remove('css-7mrpfl');
-              e.classList.remove('active');
-            }
-          });
-        });
-      }
-    }, 100);
-
-    this.theader.nativeElement.style.backgroundColor = 'rgba(122,72,212,.3)';
+  /**
+   * 
+   * @param event evento de seleccion de pagina
+   * @description recibe el numero de la pagina a visualizar
+   */
+  eventSelectPage(event: any) {
+    if (event.detail) {
+      this.pageSelected = event.detail;
+      this.aciveTableHistorial();
+    }
   }
-
-  setCantidadResultados() {
-    let chunk = this.reembolsos.slice(0, this.dsCounterSelectedOptionValue);
-    this.tenEntriesByDefault = chunk;
+  /**
+   * 
+   * @param event evento de seleccion de numero por pagina
+   * @description recibe el valor de la cantidad de registros permitidos por pagina
+   */
+  eventPaginationSource(event: any) {
+    if (event.detail[0]) {
+      console.log(event.detail[0]);
+      this.resultadosPorPagina = event.detail[0].value;
+      this.pageSelected = 1;
+      this.aciveTableHistorial();
+    }
   }
 
   /**

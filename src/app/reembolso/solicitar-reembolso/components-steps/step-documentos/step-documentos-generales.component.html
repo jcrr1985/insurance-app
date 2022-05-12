@@ -1,4 +1,4 @@
-<section class="flex items-center justify-start my-10">
+<section class="flex items-center justify-start my-10" *ngIf="eliminarDocumentoAdicional">
   <app-custom-stepper [height]="customStepperSize.stepperFour" [status]="stepperFourSource()[0].status">
   </app-custom-stepper>
   <div id="stepperFourContent" class="w-full">
@@ -51,166 +51,177 @@
           " class="mx-5 md:w-max" type="s1" family="primary" label="Boleta / Factura" name="documentType" value="3">
           </ds-radio>
         </div>
-        <ng-container *ngIf="idPrestacionSeleccionada == 1">
-          <ng-container *ngFor="let docs of documentsDisplay.consultamedica.nameFiles;let indexDocName = index">
-            <div [ngClass]="[documentsDisplay.consultamedica.cols]">
-              <h1 class="titleDocs">{{docs.name}}</h1>
-              <ds-file type="default" [attr.id]="'documento'+indexDocName">
-              </ds-file>
-              <ng-container *ngFor="let file of docs.files;let indexFile = index">
-                <div class="relative filesUploaded box">
-                  <div class="relative mt-5 container-file">
-                    <!-- icon -->
-                    <div class="icono-view">
-                      <ds-icon size="30" [iconName]="'bi-eye-fill'"> </ds-icon>
-                    </div>
-                    <!-- name -->
-                    <div class="flex items-center justify-start container-name-file">
-                      <div class="text-no-overflow">{{file.name}} </div>
-                    </div>
-                    <!-- delete -->
-                    <div class="icono-delete" (click)="deleteDocs('consultamedica',indexDocName,file.name)">
-                      <ds-icon size="25" [iconName]="'bi-trash'"> </ds-icon>
+        <!-- Esperando seleccionar tipo documento -->
+        <ng-container *ngIf="getStepsStatus('stepFour_general','tipoDocumentoSeleccionado')">
+          <!-- consulta medica -->
+          <ng-container *ngIf="idPrestacionSeleccionada == 1">
+            <ng-container *ngFor="let docs of documentsDisplay.consultamedica.nameFiles;let indexDocName = index">
+              <div [ngClass]="[documentsDisplay.consultamedica.cols]"
+                *ngIf="docs.required || getStepsStatus('stepThree_general','copagoMayor') == 'si' && !docs.required">
+                <h1 class="titleDocs">{{docs.name}}</h1>
+                <ds-file type="default" [attr.id]="'documento'+indexDocName">
+                </ds-file>
+                <ng-container *ngFor="let file of docs.files;let indexFile = index">
+                  <div class="relative filesUploaded box">
+                    <div class="relative mt-5 container-file">
+                      <!-- icon -->
+                      <div class="icono-view">
+                        <ds-icon size="30" [iconName]="'bi-eye-fill'"> </ds-icon>
+                      </div>
+                      <!-- name -->
+                      <div class="flex items-center justify-start container-name-file">
+                        <div class="text-no-overflow">{{file.name}} </div>
+                      </div>
+                      <!-- delete -->
+                      <div class="icono-delete" (click)="deleteDocs('consultamedica',indexDocName,file.name)">
+                        <ds-icon size="25" [iconName]="'bi-trash'"> </ds-icon>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </ng-container>
-            </div>
+                </ng-container>
+              </div>
+            </ng-container>
           </ng-container>
-        </ng-container>
-        <ng-container *ngIf="idPrestacionSeleccionada == 2">
-          <ng-container *ngFor="let docs of documentsDisplay.hospitalario.nameFiles;let indexDocName = index">
-            <div [ngClass]="[documentsDisplay.hospitalario.cols]">
-              <h1 class="titleDocs">{{docs.name}}</h1>
-              <ds-file type="default" [attr.id]="'documento'+indexDocName">
-              </ds-file>
-              <ng-container *ngFor="let file of docs.files;let indexFile = index">
-                <div class="relative filesUploaded box">
-                  <div class="relative mt-5 container-file">
-                    <!-- icon -->
-                    <div class="icono-view">
-                      <ds-icon size="30" [iconName]="'bi-eye-fill'"> </ds-icon>
-                    </div>
-                    <!-- name -->
-                    <div class="flex items-center justify-start container-name-file">
-                      <div class="text-no-overflow">{{file.name}} </div>
-                    </div>
-                    <!-- delete -->
-                    <div class="icono-delete" (click)="deleteDocs('hospitalario',indexDocName,file.name)">
-                      <ds-icon size="25" [iconName]="'bi-trash'"> </ds-icon>
+          <!-- consulta hospitalaria -->
+          <ng-container *ngIf="idPrestacionSeleccionada == 2">
+            <ng-container *ngFor="let docs of documentsDisplay.hospitalario.nameFiles;let indexDocName = index">
+              <div [ngClass]="[documentsDisplay.hospitalario.cols]">
+                <h1 class="titleDocs">{{docs.name}}</h1>
+                <ds-file type="default" [attr.id]="'documento'+indexDocName">
+                </ds-file>
+                <ng-container *ngFor="let file of docs.files;let indexFile = index">
+                  <div class="relative filesUploaded box">
+                    <div class="relative mt-5 container-file">
+                      <!-- icon -->
+                      <div class="icono-view">
+                        <ds-icon size="30" [iconName]="'bi-eye-fill'"> </ds-icon>
+                      </div>
+                      <!-- name -->
+                      <div class="flex items-center justify-start container-name-file">
+                        <div class="text-no-overflow">{{file.name}} </div>
+                      </div>
+                      <!-- delete -->
+                      <div class="icono-delete" (click)="deleteDocs('hospitalario',indexDocName,file.name)">
+                        <ds-icon size="25" [iconName]="'bi-trash'"> </ds-icon>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </ng-container>
-            </div>
+                </ng-container>
+              </div>
+            </ng-container>
           </ng-container>
-        </ng-container>
-        <ng-container *ngIf="idPrestacionSeleccionada == 3">
-          <ng-container *ngFor="let docs of documentsDisplay.lentes.nameFiles;let indexDocName = index">
-            <div [ngClass]="[documentsDisplay.lentes.cols]">
-              <h1 class="titleDocs">{{docs.name}}</h1>
-              <ds-file type="default" [attr.id]="'documento'+indexDocName">
-              </ds-file>
-              <ng-container *ngFor="let file of docs.files;let indexFile = index">
-                <div class="relative filesUploaded box">
-                  <div class="relative mt-5 container-file">
-                    <!-- icon -->
-                    <div class="icono-view">
-                      <ds-icon size="30" [iconName]="'bi-eye-fill'"> </ds-icon>
-                    </div>
-                    <!-- name -->
-                    <div class="flex items-center justify-start container-name-file">
-                      <div class="text-no-overflow">{{file.name}} </div>
-                    </div>
-                    <!-- delete -->
-                    <div class="icono-delete" (click)="deleteDocs('hospitalario',indexDocName,file.name)">
-                      <ds-icon size="25" [iconName]="'bi-trash'"> </ds-icon>
+          <!-- marcos y lentes -->
+          <ng-container *ngIf="idPrestacionSeleccionada == 3">
+            <ng-container *ngFor="let docs of documentsDisplay.lentes.nameFiles;let indexDocName = index">
+              <div [ngClass]="[documentsDisplay.lentes.cols]">
+                <h1 class="titleDocs">{{docs.name}}</h1>
+                <ds-file type="default" [attr.id]="'documento'+indexDocName">
+                </ds-file>
+                <ng-container *ngFor="let file of docs.files;let indexFile = index">
+                  <div class="relative filesUploaded box">
+                    <div class="relative mt-5 container-file">
+                      <!-- icon -->
+                      <div class="icono-view">
+                        <ds-icon size="30" [iconName]="'bi-eye-fill'"> </ds-icon>
+                      </div>
+                      <!-- name -->
+                      <div class="flex items-center justify-start container-name-file">
+                        <div class="text-no-overflow">{{file.name}} </div>
+                      </div>
+                      <!-- delete -->
+                      <div class="icono-delete" (click)="deleteDocs('hospitalario',indexDocName,file.name)">
+                        <ds-icon size="25" [iconName]="'bi-trash'"> </ds-icon>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </ng-container>
-            </div>
+                </ng-container>
+              </div>
+            </ng-container>
           </ng-container>
-        </ng-container>
-        <ng-container *ngIf="idPrestacionSeleccionada == 4">
-          <ng-container *ngFor="let docs of documentsDisplay.dentales.nameFiles;let indexDocName = index">
-            <div [ngClass]="[documentsDisplay.dentales.cols]">
-              <h1 class="titleDocs">{{docs.name}}</h1>
-              <ds-file type="default" [attr.id]="'documento'+indexDocName">
-              </ds-file>
-              <ng-container *ngFor="let file of docs.files;let indexFile = index">
-                <div class="relative filesUploaded box">
-                  <div class="relative mt-5 container-file">
-                    <!-- icon -->
-                    <div class="icono-view">
-                      <ds-icon size="30" [iconName]="'bi-eye-fill'"> </ds-icon>
-                    </div>
-                    <!-- name -->
-                    <div class="flex items-center justify-start container-name-file">
-                      <div class="text-no-overflow">{{file.name}} </div>
-                    </div>
-                    <!-- delete -->
-                    <div class="icono-delete" (click)="deleteDocs('hospitalario',indexDocName,file.name)">
-                      <ds-icon size="25" [iconName]="'bi-trash'"> </ds-icon>
+          <!-- dentales -->
+          <ng-container *ngIf="idPrestacionSeleccionada == 4">
+            <ng-container *ngFor="let docs of documentsDisplay.dentales.nameFiles;let indexDocName = index">
+              <div [ngClass]="[documentsDisplay.dentales.cols]">
+                <h1 class="titleDocs">{{docs.name}}</h1>
+                <ds-file type="default" [attr.id]="'documento'+indexDocName">
+                </ds-file>
+                <ng-container *ngFor="let file of docs.files;let indexFile = index">
+                  <div class="relative filesUploaded box">
+                    <div class="relative mt-5 container-file">
+                      <!-- icon -->
+                      <div class="icono-view">
+                        <ds-icon size="30" [iconName]="'bi-eye-fill'"> </ds-icon>
+                      </div>
+                      <!-- name -->
+                      <div class="flex items-center justify-start container-name-file">
+                        <div class="text-no-overflow">{{file.name}} </div>
+                      </div>
+                      <!-- delete -->
+                      <div class="icono-delete" (click)="deleteDocs('hospitalario',indexDocName,file.name)">
+                        <ds-icon size="25" [iconName]="'bi-trash'"> </ds-icon>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </ng-container>
-            </div>
+                </ng-container>
+              </div>
+            </ng-container>
           </ng-container>
-        </ng-container>
-        <ng-container *ngIf="idPrestacionSeleccionada == 5">
-          <ng-container *ngFor="let docs of documentsDisplay.examenes.nameFiles;let indexDocName = index">
-            <div [ngClass]="[documentsDisplay.examenes.cols]">
-              <h1 class="titleDocs">{{docs.name}}</h1>
-              <ds-file type="default" [attr.id]="'documento'+indexDocName">
-              </ds-file>
-              <ng-container *ngFor="let file of docs.files;let indexFile = index">
-                <div class="relative filesUploaded box">
-                  <div class="relative mt-5 container-file">
-                    <!-- icon -->
-                    <div class="icono-view">
-                      <ds-icon size="30" [iconName]="'bi-eye-fill'"> </ds-icon>
-                    </div>
-                    <!-- name -->
-                    <div class="flex items-center justify-start container-name-file">
-                      <div class="text-no-overflow">{{file.name}} </div>
-                    </div>
-                    <!-- delete -->
-                    <div class="icono-delete" (click)="deleteDocs('hospitalario',indexDocName,file.name)">
-                      <ds-icon size="25" [iconName]="'bi-trash'"> </ds-icon>
+          <!-- examenes y procedimientos -->
+          <ng-container *ngIf="idPrestacionSeleccionada == 5">
+            <ng-container *ngFor="let docs of documentsDisplay.examenes.nameFiles;let indexDocName = index">
+              <div [ngClass]="[documentsDisplay.examenes.cols]"
+                *ngIf="docs.required || getStepsStatus('stepThree_general','copagoMayor') == 'si' && !docs.required">
+                <h1 class="titleDocs">{{docs.name}}</h1>
+                <ds-file type="default" [attr.id]="'documento'+indexDocName">
+                </ds-file>
+                <ng-container *ngFor="let file of docs.files;let indexFile = index">
+                  <div class="relative filesUploaded box">
+                    <div class="relative mt-5 container-file">
+                      <!-- icon -->
+                      <div class="icono-view">
+                        <ds-icon size="30" [iconName]="'bi-eye-fill'"> </ds-icon>
+                      </div>
+                      <!-- name -->
+                      <div class="flex items-center justify-start container-name-file">
+                        <div class="text-no-overflow">{{file.name}} </div>
+                      </div>
+                      <!-- delete -->
+                      <div class="icono-delete" (click)="deleteDocs('hospitalario',indexDocName,file.name)">
+                        <ds-icon size="25" [iconName]="'bi-trash'"> </ds-icon>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </ng-container>
-            </div>
+                </ng-container>
+              </div>
+            </ng-container>
           </ng-container>
-        </ng-container>
-        <ng-container *ngIf="idPrestacionSeleccionada == 6">
-          <ng-container *ngFor="let docs of documentsDisplay.medicamentos.nameFiles;let indexDocName = index">
-            <div [ngClass]="[documentsDisplay.medicamentos.cols]">
-              <h1 class="titleDocs">{{docs.name}}</h1>
-              <ds-file type="default" [attr.id]="'documento'+indexDocName">
-              </ds-file>
-              <ng-container *ngFor="let file of docs.files;let indexFile = index">
-                <div class="relative filesUploaded box">
-                  <div class="relative mt-5 container-file">
-                    <!-- icon -->
-                    <div class="icono-view">
-                      <ds-icon size="30" [iconName]="'bi-eye-fill'"> </ds-icon>
-                    </div>
-                    <!-- name -->
-                    <div class="flex items-center justify-start container-name-file">
-                      <div class="text-no-overflow">{{file.name}} </div>
-                    </div>
-                    <!-- delete -->
-                    <div class="icono-delete" (click)="deleteDocs('hospitalario',indexDocName,file.name)">
-                      <ds-icon size="25" [iconName]="'bi-trash'"> </ds-icon>
+          <!-- medicamentos -->
+          <ng-container *ngIf="idPrestacionSeleccionada == 6">
+            <ng-container *ngFor="let docs of documentsDisplay.medicamentos.nameFiles;let indexDocName = index">
+              <div [ngClass]="[documentsDisplay.medicamentos.cols]">
+                <h1 class="titleDocs">{{docs.name}}</h1>
+                <ds-file type="default" [attr.id]="'documento'+indexDocName">
+                </ds-file>
+                <ng-container *ngFor="let file of docs.files;let indexFile = index">
+                  <div class="relative filesUploaded box">
+                    <div class="relative mt-5 container-file">
+                      <!-- icon -->
+                      <div class="icono-view">
+                        <ds-icon size="30" [iconName]="'bi-eye-fill'"> </ds-icon>
+                      </div>
+                      <!-- name -->
+                      <div class="flex items-center justify-start container-name-file">
+                        <div class="text-no-overflow">{{file.name}} </div>
+                      </div>
+                      <!-- delete -->
+                      <div class="icono-delete" (click)="deleteDocs('hospitalario',indexDocName,file.name)">
+                        <ds-icon size="25" [iconName]="'bi-trash'"> </ds-icon>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </ng-container>
-            </div>
+                </ng-container>
+              </div>
+            </ng-container>
           </ng-container>
         </ng-container>
       </ng-container>

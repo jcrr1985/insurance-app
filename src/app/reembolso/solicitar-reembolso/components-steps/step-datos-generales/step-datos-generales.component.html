@@ -5,7 +5,8 @@
     <!-- Title -->
     <ds-title class="col-span-12" type="t4" family="secondary" weight="bold" color="primary">
       <span class="steps-title three" slot="text"
-        [ngClass]="{'waitStepperText':this.stepperThreeSource()[0].status == 'waiting'}">Completa los siguientes datos</span>
+        [ngClass]="{'waitStepperText':this.stepperThreeSource()[0].status == 'waiting'}">Completa los siguientes
+        datos</span>
     </ds-title>
     <div class="grid grid-cols-12 gap-4 pr-5">
       <ng-container
@@ -30,7 +31,7 @@
         <!--Datos para cualquier flujo diferente a hospitalario-->
         <ng-container *ngIf="idPestacionSeleccionada   != 2 ">
 
-          <div class="flex items-center justify-center col-span-12 md:col-span-6 sm:col-span-6">
+          <!--  <div class="flex items-center justify-center col-span-12 md:col-span-6 sm:col-span-6">
             <ds-select class="w-full inputsThirdField" id="isapreFonasaSelect" [initialLabel]="'Isapre/Fonasa'"
               [state]="'waiting'" [source]="isapreFonasaOptions" [helperMessage]="''">
             </ds-select>
@@ -51,14 +52,32 @@
             <ds-icon *ngIf="getStepsStatus('stepThree_general', 'boletaFactura')" color="info5" size="25"
               icon-name="bi-check-circle-fill"></ds-icon>
           </div>
+           -->
+          <!-- Isapre/Fonasa -->
+          <ds-select-v2 class="col-span-12 md:col-span-6 sm:col-span-6" label="Isapre/Fonasa"
+            [source]="isapreFonasaOptions" (changeEv)="revisarSelectevent($event)" helpText="">
+          </ds-select-v2>
+          <!-- RUT -->
+          <ds-input-v2 class="col-span-12 md:col-span-6 sm:col-span-6" label="Rut institucion/prestador"
+            helpText="ingresa cualquier tipo" type="text" helpText=""
+            (changeEv)="setStepsStatus({step: 'stepThree_general',option: 'rutInstitucion', value: $event })">
+          </ds-input-v2>
+          <!-- Numero Boleta -->
+          <ds-input-v2 class="col-span-12 md:col-span-6 sm:col-span-6" label="Nº Boleta/Factura"
+            helpText="ingresa cualquier tipo" type="text" helpText=""
+            (changeEv)="setStepsStatus({step: 'stepThree_general',option: 'boletaFactura', value: $event })">
+          </ds-input-v2>
+          <!-- Fecha Atencion -->
           <div class="flex items-center justify-center col-span-12 md:col-span-6 sm:col-span-6">
-            <ds-datepicker class="w-full inputsThirdField" id="fecha_generales" [type]="'single'" [size]="'s2'" [helperMessage]="''"
-              [initialLabel]="'Fecha de atención'">
+            <ds-datepicker class="w-full inputsThirdField" id="fecha_on_generales" [type]="'single'" [size]="'s2'"
+              [helperMessage]="''" [initialLabel]="'Fecha de atención'">
             </ds-datepicker>
-            <ds-icon *ngIf="getStepsStatus('stepThree_general', 'fechaAtencion')" size="25"
-              icon-name="bi-check-circle-fill" color="info5"></ds-icon>
+            <ds-icon *ngIf="validDate" size="25" icon-name="bi-check-circle-fill" color="info5"></ds-icon>
           </div>
         </ng-container>
+        <!-- example source by inputs
+        
+        -->
 
         <!-- Second Row data -->
 

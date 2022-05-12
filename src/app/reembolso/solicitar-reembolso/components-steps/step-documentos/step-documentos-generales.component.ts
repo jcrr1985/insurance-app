@@ -14,12 +14,13 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
   @Input() customStepperSize: any;
   @Input() stepsStatusOn: any;
   @Input() isapreFonasaOptions: any;
+  @Input() eliminarDocumentoAdicional: any;
   idPrestacionSeleccionada: number = 1;
 
 
   @Output() sendData: EventEmitter<any> = new EventEmitter<any>();
   @Output() evaluateStepFour: EventEmitter<any> = new EventEmitter<any>();
-  documentsDisplay: any = {
+  public documentsDisplay: any = {
     consultamedica: {
       multi: false,
       nameFiles: [{ name: 'Documento Reembolso', files: [], required: true, valid: false }, { name: 'Documento de diagnóstico', files: [], required: true, valid: false }, { name: 'Documento adicional', files: [], required: false, valid: true }],
@@ -51,14 +52,34 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
       nameFiles: [{ name: 'Documento Reembolso', files: [], required: true, valid: false }, { name: 'Documento de diagnóstico', files: [], required: true, valid: false }, { name: 'Documento adicional', files: [], required: false, valid: true }],
       cols: 'col-span-4'
     },
-
-
-
-
-
   }
-  constructor(private arancelService: ArancelService) { }
-  async ngOnChanges(changes: SimpleChanges) {
+  constructor(private arancelService: ArancelService) {
+  }
+  ngOnChanges(changes: SimpleChanges) {
+
+
+
+    /*  console.log('changes', changes)
+     if(this.eliminarDocumentoAdicional == 'no'){
+       console.log('NOOOOOOOOOOOOOOOOOOOOOOOO');
+       for (const key in this.documentsDisplay) {
+         if (Object.prototype.hasOwnProperty.call(this.documentsDisplay, key)) {
+           if( this.documentsDisplay[key].nameFiles[(this.documentsDisplay[key].nameFiles.length - 1)].name == 'Documento adicional'){
+             console.log('this.documentsDisplay[key].nameFiles[(this.documentsDisplay[key].nameFiles.length - 1)].name', this.documentsDisplay[key].nameFiles[(this.documentsDisplay[key].nameFiles.length - 1)].name)
+             this.documentsDisplay[key].nameFiles.pop();
+             console.log('vo')
+ 
+           }else{
+             console.log('no wa borrar nada pq no existe xD')
+             
+           }
+         }
+       }
+     }else{
+       console.log('YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEES');
+       console.log('no wa borrar nada pq dijiste que si xD')
+ 
+     } */
 
   }
   filesUploaded: any = [];
@@ -72,34 +93,41 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
   addEventListener() {
     document.addEventListener('dsFileSendFiles', (evt: any) => {
       const index = parseInt(evt.target.id.replace('documento', ''));
+      let fileEvnt
       switch (this.idPrestacionSeleccionada) {
         case 1:
-          this.documentsDisplay.consultamedica.nameFiles[index].files = evt.detail;
+          fileEvnt = evt.detail;
+          this.documentsDisplay.consultamedica.nameFiles[index].files.push(...fileEvnt)
           this.validateFileState('consultamedica', index);
           this.emitirCambioArchivo()
           break;
         case 2:
-          this.documentsDisplay.hospitalario.nameFiles[index].files = evt.detail;
+          fileEvnt = evt.detail;
+          this.documentsDisplay.hospitalario.nameFiles[index].files.push(...fileEvnt)
           this.validateFileState('hospitalario', index);
           this.emitirCambioArchivo()
           break;
         case 3:
-          this.documentsDisplay.lentes.nameFiles[index].files = evt.detail;
+          fileEvnt = evt.detail;
+          this.documentsDisplay.lentes.nameFiles[index].files.push(...fileEvnt)
           this.validateFileState('lentes', index);
           this.emitirCambioArchivo()
           break;
         case 4:
-          this.documentsDisplay.dentales.nameFiles[index].files = evt.detail;
+          fileEvnt = evt.detail;
+          this.documentsDisplay.dentales.nameFiles[index].files.push(...fileEvnt)
           this.validateFileState('dentales', index);
           this.emitirCambioArchivo()
           break;
         case 5:
-          this.documentsDisplay.examenes.nameFiles[index].files = evt.detail;
+          fileEvnt = evt.detail;
+          this.documentsDisplay.examenes.nameFiles[index].files.push(...fileEvnt)
           this.validateFileState('examenes', index);
           this.emitirCambioArchivo()
           break;
         case 6:
-          this.documentsDisplay.medicamentos.nameFiles[index].files = evt.detail;
+          fileEvnt = evt.detail;
+          this.documentsDisplay.medicamentos.nameFiles[index].files.push(...fileEvnt)
           this.validateFileState('medicamentos', index);
           this.emitirCambioArchivo()
           break;
@@ -107,6 +135,7 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
         default:
           break;
       }
+      (document.querySelector(`#${evt.target.id} > div > div > input`) as any).value = null;
       this.evaluateStepFour.emit()
     })
     document.addEventListener('dsFileDeleteFile', (evt: any) => {

@@ -1,4 +1,4 @@
-<div class="grid grid-cols-12">
+<!-- <div class="grid grid-cols-12">
   <ng-container *ngFor="let x of availables">
     <app-input-custom-ds class="col-span-4" controlName="select_chulo 1" type="select" helpMsg="Mamalo1"
       (emitChange)="receivedChangesOnInput($event)"></app-input-custom-ds>
@@ -13,7 +13,7 @@
   <button (click)="eliminar()">Eliminar</button>
 </div>
 
-<div class="mt-20 grid grid-cols-12">
+<div class="grid grid-cols-12 mt-20">
   <ds-input-v2 class="col-span-3" label="Input tipo numero" helpText="ingresa solo numeros" type="number"
     (changeEv)="changeEvent($event)" (keyupEv)="keypressEvent($event)">
   </ds-input-v2>
@@ -27,9 +27,9 @@
     (changeEv)="selectEvent($event)"></ds-select-v2>
 </div>
 
-<div class="grid grid-cols-12 w-full">
+<div class="grid w-full grid-cols-12">
   <ng-container *ngFor="let x of cards;let i = index">
     <app-card-option [ngClass]="[coldefined]" [status]="x.status" [name]="x.name" [prestacionName]="x.prestacion" (click)="setCard(i)">
     </app-card-option>
   </ng-container>
-</div>
+</div> -->

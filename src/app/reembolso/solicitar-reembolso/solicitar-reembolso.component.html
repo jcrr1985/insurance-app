@@ -26,12 +26,13 @@
 
     
   <!-- COMPLETAR DATOS GENERALES -->
-  <app-step-datos-generales [stepperThreeSource]="stepperThreeSource"
+  <app-step-datos-generales (mostrarDocumentoAdicional)="mostrarDocumentoAdicional($event)"
+   [stepperThreeSource]="stepperThreeSource"
     [customStepperSize]="customStepperSize" [stepsStatusOn]="stepsStatusOn" [isapreFonasaOptions]="isapreFonasaOptions"
     (sendData)="setStepsStatus($event)" (evaluateStepThree)="evaluateStepThree()"></app-step-datos-generales>
 
   <!-- CARGA DE DOCUMENTOS -->
-  <app-step-documentos-generales [montoReelbolso]="montoReelbolso" [stepperFourSource]="stepperFourSource"
+  <app-step-documentos-generales [eliminarDocumentoAdicional]="eliminarDocumentoAdicional" [montoReelbolso]="montoReelbolso" [stepperFourSource]="stepperFourSource"
     [customStepperSize]="customStepperSize" [stepsStatusOn]="stepsStatusOn" [isapreFonasaOptions]="isapreFonasaOptions"
     (sendData)="setStepsStatus($event)" (evaluateStepFour)="evaluateStepFour()"></app-step-documentos-generales>
   <!-- DETALLE PRESTACION -->

@@ -9,7 +9,7 @@
     <div class="grid grid-cols-12 gap-2 pr-5">
       <ng-container *ngIf="getStepsStatus('stepOne_who', 'personaSeleccionada')">
         <ng-container *ngFor="let card of cards;let i = index">
-          <app-card-option [ngClass]="[coldefined]" [status]="card.status" [name]="card.name"
+          <app-card-option  [ngClass]="[coldefined]" [status]="card.status" [name]="card.name"
             [prestacionName]="card.prestacion" (click)="setCard(card)">
           </app-card-option>
         </ng-container>
