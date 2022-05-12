@@ -89,7 +89,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
   public isModalActive: boolean = true;
   public modalSolicitudCompletada: boolean = false;
   public modalRegistrarMedicamento: boolean = false;
-  public habilitarSeleccionBeneficiario!:boolean;
+  public habilitarSeleccionBeneficiario!: boolean;
   public eliminarDocumentoAdicional!: string;
 
   constructor(
@@ -102,8 +102,9 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     this.prestacionSeleccionada = this.arancelService.getPrestacionSeleccionada
     console.log('PrestacionSeleccionada', this.prestacionSeleccionada);
     this.createForm();
-    this.reembolsoService.habilitarSeleccionBeneficiario$.subscribe( val => {
+    this.reembolsoService.habilitarSeleccionBeneficiario$.subscribe(val => {
       this.habilitarSeleccionBeneficiario = val;
+      console.log('this.habilitarSeleccionBeneficiario', this.habilitarSeleccionBeneficiario)
     })
   }
   ngOnDestroy(): void {
@@ -337,10 +338,6 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       );
     }
     this.stepperThreeSource = () => [{ label: '', status }];
-    /*  this.formReembolso.valueChanges.subscribe((val) => {
-       console.log('val changed', val);
-       //if (status == 'completed') this.stepperThreeSource = () => [{ label: '', status }];
-     }); */
   }
   /**
    * @description Evalúa los requisitos necesarios para el progress del 4to paso - sube Documentos
@@ -428,8 +425,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     });
   }
 
-  mostrarDocumentoAdicional(respuestaCopago:string){
-    console.log('mostrar documento adicional', respuestaCopago)
+  mostrarDocumentoAdicional(respuestaCopago: string) {
     this.eliminarDocumentoAdicional = respuestaCopago;
   }
 }
@@ -441,7 +437,6 @@ const beneficiariosArray = [
   { label: 'Camilo Salgado', value: 3, selected: false },
 ];
 const previsionesArray = [
-  { label: 'Seleccione', value: 0, selected: false },
   { label: 'Fonasa', value: 1, selected: false },
   { label: 'Colmena', value: 2, selected: false },
   { label: 'Consalud', value: 3, selected: false },

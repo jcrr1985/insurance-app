@@ -10,12 +10,13 @@
             <div class="grid flex-wrap grid-cols-12 gap-3 mb-10 form-wrapper">
                 <!--input nombre prestacion-->
                 <ds-search-v2 class="col-span-12 pr-2" [ngClass]="{'sm:col-span-6':sesionRequired}"
-                    label="Tipo de Prestación"  (changeEv)="itemSelected($event)">
+                    label="Tipo de Prestación" (changeEv)="itemSelected($event)">
                 </ds-search-v2>
+
                 <!--input número de sesiones-->
-                <!-- TODO modificar esta alteracion del select para las opciones -->
-                <!--                 <ds-select-v2 *ngIf="sesionRequired" class="col-span-12 sm:col-span-6" [source]="sourceSelect"
-                    label="Número de Sesiones" (changeEv)="selectEvent($event)"></ds-select-v2> -->
+                <ds-select-v2 *ngIf="sesionRequired" class="col-span-12 sm:col-span-6" [source]="sesionesSource"
+                    label="Número de Sesiones" (changeEv)="selectEvent($event)"></ds-select-v2>
+
                 <!--valor-->
                 <ds-input-v2 class="col-span-12 sm:col-span-6" label="Valor" type="number"
                     (keyupEv)="setValue('valor',$event)">
@@ -26,6 +27,7 @@
                     (keyupEv)="setValue('bonificacion',$event)">
                 </ds-input-v2>
             </div>
+            
             <!-- Mensaje de error -->
             <ds-messaging *ngIf="warningMsg" variant="warning" family="secondary" size="s2"
                 title="El monto que ingresaste es diferente a los registrados para esta prestación ([monto histórico]).'

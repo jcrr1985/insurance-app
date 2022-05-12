@@ -1,21 +1,14 @@
 <!-- QUIEN SE ATENDIO -->
 <section class="flex items-center justify-start my-10 md:w-1/3">
-  <app-custom-stepper [height]="customStepperSize.stepperOne" [status]="stepperOneSource()[0].status">
+  <app-custom-stepper [status]="stepperOneSource()[0].status">
   </app-custom-stepper>
-  <!--  <div id="stepperOneContent" class="grid grid-cols-12 gap-8">
-    <ds-title class="col-span-12" type="t4" family="secondary" weight="bold" color="primary">
-      <span class="steps-title" slot="text">¿Quien se atendió?</span>
-    </ds-title>
-    <div class="col-span-12">
-      <app-select-parentesco (changeEv)="setStatusOn($event)"></app-select-parentesco>
-    </div>
-  </div> -->
-  <div id="stepperOneContent">
+
+  <div id="stepperOneContent" >
     <ds-title class="" type="t4" family="secondary" weight="bold" color="primary">
       <span class="steps-title" slot="text">¿Quién se atendió?</span>
     </ds-title>
-    <div class="">
-      <app-select-parentesco (changeEv)="setStatusOn($event)"></app-select-parentesco>
+    <div class="col-span-12 wrapper-select-parentesco sm:col-span-6">
+      <app-select-parentesco  (changeEv)="setStatusOn($event)"></app-select-parentesco>
     </div>
   </div>
 </section>

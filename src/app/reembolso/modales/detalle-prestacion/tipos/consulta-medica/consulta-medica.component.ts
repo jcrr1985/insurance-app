@@ -25,9 +25,9 @@ export class ConsultaMedicaComponent implements OnInit {
   public prestacioSeleccionada = this.arancelService.getPrestacionSeleccionada;
   public textoArancel!: string;
   public sourceSearch: any;
+  public sesionesSource = this.arancelService.getSesionesSource;
 
   constructor(public arancelService: ArancelService) { }
-  public sesionesSource = this.arancelService.getSesionesSource;
 
   ngOnInit(): void {
     console.log('prestacioSeleccionada', this.prestacioSeleccionada);
@@ -76,3 +76,16 @@ export class ConsultaMedicaComponent implements OnInit {
   }
 
 }
+
+const previsionesArray = [
+  { label: 'Seleccione', value: 0, selected: false },
+  { label: 'Fonasa', value: 1, selected: false },
+  { label: 'Colmena', value: 2, selected: false },
+  { label: 'Consalud', value: 3, selected: false },
+  { label: 'Cruz Blanca', value: 4, selected: false },
+  { label: 'Banmédica', value: 5, selected: false },
+  { label: 'Masvida', value: 6, selected: false },
+  { label: 'Vida', value: 7, selected: false },
+
+];
+

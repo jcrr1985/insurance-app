@@ -1,43 +1,47 @@
 .texto-normal {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 16px;
-    color:var(--color-font-paragraph-secondary);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--color-font-paragraph-secondary);
 }
 
 .texto-especial {
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 14px;
-    color: var(--color-font-paragraph-quaternary);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  color: var(--color-font-paragraph-quaternary);
 }
 
 ds-table-header.tabla-header {
-    background-color: var(--sec2)!important;
-  }
-
+  background-color: var(--sec2) !important;
+}
 
 .css-1vyubn8.css-2z0lnu {
-    padding: 10px 25px !important;
+  padding: 10px 25px !important;
 }
 
-
-.bold1{
-  font-size: 18px!important;
-  font-weight: bold!important;
+.bold1 {
+  font-size: 18px !important;
+  font-weight: bold !important;
 }
 
-.bold2{
-  font-weight: bold!important;
+.bold2 {
+  font-weight: bold !important;
 }
 
-.text-2xl{
+.text-2xl {
   color: var(--sec2);
   font-weight: bolder;
   font-size: 1.625rem;
   line-height: 1.625rem;
-} 
+}
 
 .first-section {
-  border: 1px solid var(--ter4)
+  border: 1px solid var(--ter4);
+}
+
+.h-20 {
+  margin-top: 30px;
+  height: 100px;
+  margin-bottom: 30px;
 }
