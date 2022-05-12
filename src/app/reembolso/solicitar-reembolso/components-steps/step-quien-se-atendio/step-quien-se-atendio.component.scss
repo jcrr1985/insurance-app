@@ -1,23 +1,35 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+app-custom-stepper{
+    height: 100%;
+}
+
 ds-title {
     transform: translateY(-50%) !important;
+}
+
+h3{
+    height: auto;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 22px;
+    color: #424893;
 }
 
 #stepperOneContent {
     padding: 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    align-items: flex-start;
-    align-content: center;
-    height: 15vh;
-
-    ds-title {
-        height: 12vh !important;
-        font-size: 22px !important;
-        font-weight: 600 !important;
-    }
+    justify-content: flex-start;
+    gap: 20px;
+    height: auto;
 
     div {
-        width: 23vw!important;
+        width: 320px;
     }
 }

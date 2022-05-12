@@ -14,7 +14,8 @@
   </div>
 </div>
 
-<div class="p-5 pb-20">
+  <!--<div class="p-5 pb-20">-->
+<div class="page__container">
   <!-- QUIEN SE ATENDIO -->
   <app-step-quien-se-atendio *ngIf="habilitarSeleccionBeneficiario" [stepperOneSource]="stepperOneSource" [customStepperSize]="customStepperSize"
     [personSelectOption]="personSelectOption" [stepsStatusOn]="stepsStatusOn" (sendData)="evaluateStepOne()"></app-step-quien-se-atendio>
@@ -23,7 +24,6 @@
   <app-step-selecciona-prestacion  [stepperTwoSource]="stepperTwoSource" [customStepperSize]="customStepperSize"
     [stepsStatusOn]="stepsStatusOn" [chipsData]="chipsData" (sendData)="setStepsStatus($event)"
     (evaluateStepTwo)="evaluateStepTwo()"></app-step-selecciona-prestacion>
-
     
   <!-- COMPLETAR DATOS GENERALES -->
   <app-step-datos-generales (mostrarDocumentoAdicional)="mostrarDocumentoAdicional($event)"
@@ -35,6 +35,7 @@
   <app-step-documentos-generales [eliminarDocumentoAdicional]="eliminarDocumentoAdicional" [montoReelbolso]="montoReelbolso" [stepperFourSource]="stepperFourSource"
     [customStepperSize]="customStepperSize" [stepsStatusOn]="stepsStatusOn" [isapreFonasaOptions]="isapreFonasaOptions"
     (sendData)="setStepsStatus($event)" (evaluateStepFour)="evaluateStepFour()"></app-step-documentos-generales>
+    
   <!-- DETALLE PRESTACION -->
   <app-step-detalle-prestacion [customStepperSize]="customStepperSize" [stepperFiveSource]="stepperFiveSource"
     [montoReelbolso]="montoReelbolso" [stepsStatusOn]="stepsStatusOn"

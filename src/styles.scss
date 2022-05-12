@@ -7,6 +7,9 @@
 
 * {
   font-family: "Titillium Web" !important;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 // active card with border
@@ -72,6 +75,8 @@
 }
 
 app-custom-stepper {
+ 
+
   span.success_icon {
     ds-icon {
       svg {
@@ -289,4 +294,12 @@ app-solicitar-reembolso {
   position: relative;
   height: 40px;
   width: 100%;
+}
+
+
+.steps__container{
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  height: auto;
 }

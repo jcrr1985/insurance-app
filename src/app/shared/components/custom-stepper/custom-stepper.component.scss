@@ -21,7 +21,7 @@
 #barra,
 #barra.active,
 #barra.waiting {
-    height: 50%;
+    height: 20%;
 }
 
 .completed {
@@ -57,5 +57,7 @@
 }
 
 .stepper-margin {
-    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
