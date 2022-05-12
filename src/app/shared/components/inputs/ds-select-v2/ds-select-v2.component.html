@@ -1,4 +1,4 @@
-<div class="ds-select-container relative">
+<div class="relative ds-select-container">
     <div class="flex items-center justify-center">
         <div class="select_container">
             <div class="input_container">
@@ -12,7 +12,7 @@
             </div>
             <p>{{helpText}}</p>
         </div>
-        <div *ngIf="isValid" class="mx-2 flex items-center justify-center">
+        <div *ngIf="isValid" class="flex items-center justify-center mx-2">
             <ds-icon class="input-select" color="info5" [iconName]="'bi-check-circle-fill'" size="24">
             </ds-icon>
         </div>
@@ -22,7 +22,6 @@
         <div class="container_items" [ngClass]="{'block':display}">
             <ng-container *ngFor="let element of source">
                 <div  class="css-xigtd7" (click)="selectValue(element)">{{element.key}}</div>
-                <div class="css-xigtd7" (click)="selectValue(element)">{{element.label}}</div>
             </ng-container>
         </div>
     </div>
