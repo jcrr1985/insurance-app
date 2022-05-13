@@ -57,7 +57,7 @@
           <ng-container *ngIf="idPrestacionSeleccionada == 1">
             <ng-container *ngFor="let docs of documentsDisplay.consultamedica.nameFiles;let indexDocName = index">
               <div [ngClass]="[documentsDisplay.consultamedica.cols]"
-                *ngIf="docs.required || getStepsStatus('stepThree_general','copagoMayor') == 'si' && !docs.required">
+                *ngIf="!(getStepsStatus('stepThree_general','copagoMayor') == 'no' && docs.esDiagnostico)">
                 <h1 class="titleDocs">{{docs.name}}</h1>
                 <ds-file type="default" [attr.id]="'documento'+indexDocName">
                 </ds-file>
@@ -73,7 +73,8 @@
                         <div class="text-no-overflow">{{file.name}} </div>
                       </div>
                       <!-- delete -->
-                      <div class="icono-delete" (click)="deleteDocs('consultamedica',indexDocName,file.name)">
+                      <div class="icono-delete"
+                        (click)="validateFileState('consultamedica',indexDocName);deleteDocs('consultamedica',indexDocName,file.name)">
                         <ds-icon size="25" [iconName]="'bi-trash'"> </ds-icon>
                       </div>
                     </div>

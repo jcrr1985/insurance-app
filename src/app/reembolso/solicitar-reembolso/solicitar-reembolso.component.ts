@@ -99,8 +99,9 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     private cdref: ChangeDetectorRef
   ) {
     this.chipsData = this.reembolsoService.getChipsData();
-    this.prestacionSeleccionada = this.arancelService.getPrestacionSeleccionada
-    console.log('PrestacionSeleccionada', this.prestacionSeleccionada);
+    this.arancelService.setIdSubject$.subscribe(e => {
+      this.prestacionSeleccionada = e;
+    })
     this.createForm();
     this.reembolsoService.habilitarSeleccionBeneficiario$.subscribe(val => {
       this.habilitarSeleccionBeneficiario = val;
@@ -275,22 +276,6 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       this.stepperTwoSource = () => [{ label: '', status }];
       this.stepperThreeSource = () => [{ label: '', status: 'active' }];
       let stepThreeStatus = this.stepperThreeSource()[0].status
-      setTimeout(() => {
-        if (stepThreeStatus == 'active') {
-
-          // Capturando el Width del ds-select
-          let dsSelectPrevision = document.getElementById('isapreFonasaSelect') as HTMLElement;
-          console.log('dsSelectPrevision', dsSelectPrevision)
-          // let dsSelectPrevisionWith = dsSelectPrevision.clientWidth;
-          // seteando el width capturado arriba en el contenedor para las 'options' genera el de-select
-          //  let contenedorOpcionesDsSelect = document.getElementsByClassName('resultSearch');
-          //  console.log('contenedorOpcionesDsSelect', contenedorOpcionesDsSelect)
-          // contenedorOpcionesDsSelect.style.width= dsSelectPrevisionWith
-        } else {
-          console.log('status 2: ', status)
-        }
-
-      }, 100);
     }
   }
   /**
@@ -322,22 +307,32 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       : 'waiting';
 
     let status: string;
-    if (
-      (statusrutInstitucion == 'completed' &&
-        statusboletaFactura == 'completed' &&
-        statusFechaAtencion == 'completed' &&
-        statusCopago == 'completed') ||
-      statusMontoSolicitado == 'completed'
-    ) {
-      status = 'completed';
+
+    if (this.prestacionSeleccionada != 2) {
+      console.log('entre en el if de distinto de 2', this.prestacionSeleccionada)
+      if
+        ((statusrutInstitucion == 'completed' &&
+          statusboletaFactura == 'completed' &&
+          statusFechaAtencion == 'completed' &&
+          statusCopago == 'completed'
+        )) {
+        status = 'completed';
+        this.stepperFourSource = () => [{ label: '', status: 'active' }];
+        this.stepperThreeSource = () => [{ label: '', status }];
+        console.log('el status esta : ', status);
+      }
     } else {
-      status = 'waiting';
-      console.log(
-        'status inputs "faltan llenar datos en el 3rd step >_<',
-        status
-      );
+      console.log('entre en el if de idPrestacionSeleccionada (hospitlario) === 2', this.prestacionSeleccionada)
+
+      if (statusMontoSolicitado == 'completed') {
+        status = 'completed';
+      } else {
+        status = 'waiting';
+      }
     }
-    this.stepperThreeSource = () => [{ label: '', status }];
+
+
+
   }
   /**
    * @description Evalúa los requisitos necesarios para el progress del 4to paso - sube Documentos
@@ -346,7 +341,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     console.log("this.stepsStatusOn", this.stepsStatusOn)
     const statusfileUploaded = (this.stepsStatusOn.stepFour_general.fileUploaded && this.stepsStatusOn.stepFour_general.tipoDocumentoSeleccionado)
       ? 'completed'
-      : 'waiting';
+      : 'active';
     this.stepperFourSource = () => [{ label: '', status: statusfileUploaded }];
     this.stepperFiveSource = () => [{ label: '', status: statusfileUploaded == 'completed' ? 'active' : 'waiting' }];
     this.getSizeStepper();

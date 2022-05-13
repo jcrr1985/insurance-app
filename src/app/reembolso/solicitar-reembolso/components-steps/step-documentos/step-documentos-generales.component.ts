@@ -23,7 +23,7 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
   public documentsDisplay: any = {
     consultamedica: {
       multi: false,
-      nameFiles: [{ name: 'Documento Reembolso', files: [], required: true, valid: false }, { name: 'Documento de diagnóstico', files: [], required: true, valid: false }, { name: 'Documento adicional', files: [], required: false, valid: true }],
+      nameFiles: [{ name: 'Documento Reembolso', files: [], required: true, valid: false, esDiagnostico: false }, { name: 'Documento de diagnóstico', files: [], required: true, valid: false, esDiagnostico: true }, { name: 'Documento adicional', files: [], required: false, valid: true, esDiagnostico: false }],
       cols: 'col-span-4'
     },
     hospitalario: {
@@ -55,33 +55,7 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
   }
   constructor(private arancelService: ArancelService) {
   }
-  ngOnChanges(changes: SimpleChanges) {
-
-
-
-    /*  console.log('changes', changes)
-     if(this.eliminarDocumentoAdicional == 'no'){
-       console.log('NOOOOOOOOOOOOOOOOOOOOOOOO');
-       for (const key in this.documentsDisplay) {
-         if (Object.prototype.hasOwnProperty.call(this.documentsDisplay, key)) {
-           if( this.documentsDisplay[key].nameFiles[(this.documentsDisplay[key].nameFiles.length - 1)].name == 'Documento adicional'){
-             console.log('this.documentsDisplay[key].nameFiles[(this.documentsDisplay[key].nameFiles.length - 1)].name', this.documentsDisplay[key].nameFiles[(this.documentsDisplay[key].nameFiles.length - 1)].name)
-             this.documentsDisplay[key].nameFiles.pop();
-             console.log('vo')
- 
-           }else{
-             console.log('no wa borrar nada pq no existe xD')
-             
-           }
-         }
-       }
-     }else{
-       console.log('YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEES');
-       console.log('no wa borrar nada pq dijiste que si xD')
- 
-     } */
-
-  }
+  ngOnChanges(changes: SimpleChanges) { }
   filesUploaded: any = [];
   ngOnInit(): void {
     this.arancelService.setIdSubject$.subscribe(prestacionId => {
@@ -188,6 +162,7 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
   }
   async emitirCambioArchivo() {
     const archivosSubidosCorrectamente = this.validarCargaDeArchivos();
+    console.log("archivosSubidosCorrectamente", archivosSubidosCorrectamente)
     const data = { step: 'stepFour_general', option: 'fileUploaded', value: archivosSubidosCorrectamente }
     await timer(100).toPromise();
     this.sendData.emit(data)
@@ -199,6 +174,8 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
       if (x.name != nameFile) newFiles.push(x);
     }
     this.documentsDisplay[prestacion]['nameFiles'][indexNameFiles]['files'] = newFiles;
+    this.validateFileState(prestacion, indexNameFiles);
+    this.emitirCambioArchivo();
   }
 
   setStepsStatus(data: any) {
