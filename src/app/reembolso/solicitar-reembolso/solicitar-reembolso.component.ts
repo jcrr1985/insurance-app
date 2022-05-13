@@ -322,7 +322,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
         console.log('el status esta : ', status);
       }
     } else {
-      console.log('entre en el if de === 2', this.prestacionSeleccionada)
+      console.log('entre en el if de idPrestacionSeleccionada (hospitlario) === 2', this.prestacionSeleccionada)
 
       if (statusMontoSolicitado == 'completed') {
         status = 'completed';
@@ -341,7 +341,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     console.log("this.stepsStatusOn", this.stepsStatusOn)
     const statusfileUploaded = (this.stepsStatusOn.stepFour_general.fileUploaded && this.stepsStatusOn.stepFour_general.tipoDocumentoSeleccionado)
       ? 'completed'
-      : 'waiting';
+      : 'active';
     this.stepperFourSource = () => [{ label: '', status: statusfileUploaded }];
     this.stepperFiveSource = () => [{ label: '', status: statusfileUploaded == 'completed' ? 'active' : 'waiting' }];
     this.getSizeStepper();
