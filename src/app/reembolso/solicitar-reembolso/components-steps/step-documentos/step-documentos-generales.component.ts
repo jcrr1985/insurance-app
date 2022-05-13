@@ -70,33 +70,33 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
     this.documentsDisplay = {
       consultamedica: {
         multi: false,
-        nameFiles: [{ name: 'Documento Reembolso', files: [], required: true, valid: false, esDiagnostico: false }, { name: 'Documento de diagnóstico', files: [], required: true, valid: false, esDiagnostico: true }, { name: 'Documento adicional', files: [], required: false, valid: true, esDiagnostico: false }],
+        nameFiles: [{ name: 'Documento de reembolso', files: [], required: true, valid: false, esDiagnostico: false }, { name: 'Documento de diagnóstico', files: [], required: true, valid: false, esDiagnostico: true }, { name: 'Documento adicional', files: [], required: false, valid: true, esDiagnostico: false }],
         cols: 'col-span-4'
       },
       hospitalario: {
         multi: false,
-        nameFiles: [{ name: 'Documento Hospitalario', files: [], required: true, valid: false }],
+        nameFiles: [{ name: 'Documentos hospitalario', files: [], required: true, valid: false }],
         filesUploades: [[], [], []],
         cols: 'col-span-12',
       },
       lentes: {
         multi: false,
-        nameFiles: [{ name: 'Documento Reembolso', files: [], required: true, valid: false }, { name: 'Receta Óptica', files: [], required: true, valid: false }, { name: 'Documento adicional', files: [], required: false, valid: true }],
+        nameFiles: [{ name: 'Documento de reembolso', files: [], required: true, valid: false }, { name: 'Receta óptica', files: [], required: true, valid: false }, { name: 'Documento adicional', files: [], required: false, valid: true }],
         cols: 'col-span-4'
       },
       dentales: {
         multi: false,
-        nameFiles: [{ name: 'Documento Reembolso', files: [], required: true, valid: false }, { name: 'Formulario Dental', files: [], required: true, valid: false }, { name: 'Presupuesto Dental', files: [], required: true, valid: false }, { name: 'Documento adicional', files: [], required: false, valid: true }],
+        nameFiles: [{ name: 'Documento de reembolso', files: [], required: true, valid: false }, { name: 'Formulario dental', files: [], required: true, valid: false }, { name: 'Presupuesto dental', files: [], required: true, valid: false }, { name: 'Documento adicional', files: [], required: false, valid: true }],
         cols: 'col-span-3'
       },
       examenes: {
         multi: false,
-        nameFiles: [{ name: 'Documento Reembolso', files: [], required: true, valid: false }, { name: 'Documento de diagnóstico', files: [], required: true, valid: false }, { name: 'Documento adicional', files: [], required: false, valid: true }],
+        nameFiles: [{ name: 'Documento de reembolso', files: [], required: true, valid: false }, { name: 'Documento de diagnóstico', files: [], required: true, valid: false }, { name: 'Documento adicional', files: [], required: false, valid: true }],
         cols: 'col-span-4'
       },
       medicamentos: {
         multi: false,
-        nameFiles: [{ name: 'Documento Reembolso', files: [], required: true, valid: false }, { name: 'Documento de diagnóstico', files: [], required: true, valid: false }, { name: 'Documento adicional', files: [], required: false, valid: true }],
+        nameFiles: [{ name: 'Boleta', files: [], required: true, valid: false }, { name: 'Receta medica', files: [], required: true, valid: false }, { name: 'Documento adicional', files: [], required: false, valid: true }],
         cols: 'col-span-4'
       },
     }
