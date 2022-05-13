@@ -46,14 +46,9 @@ span.step-title {
     flex-direction: column;
     justify-content: flex-start;
     align-items: stretch;
-    min-height: 22vh;
+    height: auto;
+    gap: 20px;
 
-    ds-title {
-        height: 8vh;
-        margin: 0;
-        font-size: 22px !important;
-        font-weight: 600 !important;
-    }
 
 }
 
@@ -79,3 +74,5 @@ ds-select {
         grid-column: span 3 / span 3;
     }
 } */
+
+

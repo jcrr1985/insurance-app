@@ -43,9 +43,9 @@
   margin-left: 10px !important;
 }
 
-.css-8h3l1g {
-  margin-top: 10px !important;
-}
+// .css-8h3l1g {
+//   margin-top: 10px !important;
+// }
 
 .vertical-progressbar {
   margin-top: 40px !important;
@@ -302,4 +302,52 @@ app-solicitar-reembolso {
   align-items: flex-start;
   gap: 20px;
   height: auto;
+}
+
+.steps-content__container{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 20px;
+  height: auto;
+  width: 100%;
+}
+
+.css-2z5p18{
+  margin-bottom: 0px !important;
+  padding-left: 25px !important;
+}
+
+.question__container{
+  display: flex;
+  min-width: 520px;
+  width: auto;
+  height: auto;
+  align-items: baseline;
+  justify-content: space-between;
+
+
+  ds-paragraph span{
+      width: 100%;
+      align-items: center;
+      font-size: 18px;
+
+  }
+
+  .question-options{
+      display: flex;
+      width: auto;
+      justify-content: flex-end;
+      gap: 10px;
+      align-items: center;
+      
+  }
+}
+
+ds-title {
+  height: auto;
+  margin: 0 !important;
+  font-size: 22px !important;
+  font-weight: 600 !important;
 }

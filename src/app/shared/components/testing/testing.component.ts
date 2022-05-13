@@ -31,7 +31,7 @@ export class TestingComponent implements OnInit, OnDestroy {
     this.cards[index].status = 'active';
   }
 
-  coldefined = 'col-span-3';
+  coldefined = 'col-span-4';
 
   constructor(private router: Router) {
   }
