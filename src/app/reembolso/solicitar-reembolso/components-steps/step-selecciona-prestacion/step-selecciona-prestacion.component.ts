@@ -75,7 +75,7 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
     this.arancelService.setIdSubject.next(tarjeta.idPrestacion);
 
 
-    if (tarjeta.name != 'atencionmedica' && tarjeta.name != 'atencionhospitalaria') {
+    if (tarjeta.name != 'atencionmedica' && tarjeta.name != 'atencionhospitalaria' && tarjeta.name != 'examenes') {
       const datosOpcionales = {
         step: 'stepTwo_selectOption',
         option: 'reembolsoPrevioIsapre',

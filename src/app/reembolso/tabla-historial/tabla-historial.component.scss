@@ -1,5 +1,6 @@
 * {
   padding: 0;
+  margin: 0;
   box-sizing: border-box;
 }
 
@@ -85,4 +86,10 @@ ds-table-header.tabla-header {
   gap: 30px;
   justify-content: space-between;
   
+}
+
+.historial-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }

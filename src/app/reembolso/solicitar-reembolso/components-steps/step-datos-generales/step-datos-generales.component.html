@@ -8,7 +8,7 @@
         [ngClass]="{'waitStepperText':this.stepperThreeSource()[0].status == 'waiting'}">Completa los siguientes
         datos</span>
     </ds-title>
-    <div class="grid grid-cols-12 gap-4 pr-5">
+    <div class="grid grid-cols-12 gap-4">
       <ng-container
         *ngIf="getStepsStatus('stepTwo_selectOption', 'prestacionSeleccionada') && getStepsStatus('stepTwo_selectOption', 'reembolsoPrevioIsapre')">
 
@@ -56,28 +56,31 @@
         <!-- Second Row data -->
 
         <!-- Reembolsaste -->
-        <ds-paragraph class="col-span-12 mb-5 md:col-span-5" type="p1" family="secondary" weight="semiBold"
+        <div class="question__container">
+          <ds-paragraph class="question-style" type="p1" family="secondary" weight="semiBold"
           color="secondary">
-          <span slot="text" class="font-bold">{{textPreguntas}}</span>
-        </ds-paragraph>
-        <div class="flex items-center justify-start col-span-12 md:col-span-6 md:-ml-20"
-          *ngIf="mostrarRadioButtons && idPestacionSeleccionada !=2">
-          <ds-radio class="mx-5" type="s1" family="primary" label="Si" name="copagoMayor" value="si" (click)="
-            setStepsStatus({
-              step: 'stepThree_general',
-              option: 'copagoMayor',
-              value: 'si'
-            })
-          ">
-          </ds-radio>
-          <ds-radio class="mx-5" type="s1" family="primary" label="No" name="copagoMayor" value="no" (click)="
-            setStepsStatus({
-              step: 'stepThree_general',
-              option: 'copagoMayor',
-              value: 'no'
-            })
-          ">
-          </ds-radio>
+            <span slot="text" class="font-bold">{{textPreguntas}}</span>
+          </ds-paragraph>
+
+          <div class="question-options"
+            *ngIf="mostrarRadioButtons && idPestacionSeleccionada !=2">
+            <ds-radio type="s1" family="primary" label="Si" name="copagoMayor" value="si" (click)="
+              setStepsStatus({
+                step: 'stepThree_general',
+                option: 'copagoMayor',
+                value: 'si'
+              })
+            ">
+            </ds-radio>
+            <ds-radio type="s1" family="primary" label="No" name="copagoMayor" value="no" (click)="
+              setStepsStatus({
+                step: 'stepThree_general',
+                option: 'copagoMayor',
+                value: 'no'
+              })
+            ">
+            </ds-radio>
+          </div>
         </div>
       </ng-container>
     </div>
