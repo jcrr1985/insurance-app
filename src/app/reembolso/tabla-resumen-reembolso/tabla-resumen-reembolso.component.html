@@ -93,31 +93,35 @@
     <ng-containter *ngIf="nuevoReembolso=== 'si'">
         <div [ngSwitch]="prestacionSeleccionada">
             <div *ngSwitchCase="1 || 3 || 5 || 6" class="flex">
-                <app-card-option *ngFor="let x of opcionesPrestacionesCLEM" [ngClass]="'col-span-4'" [status]="'off'"
-                    [name]="x.name" [routerLink]="['/solicitud']" (click)="habilitarSeleccionBeneficiario(false)"
-                    [prestacionName]="x.prestacion" (click)="  continuar=true">
+                <!-- D: :( no negro que va -->
+                <app-card-option *ngFor="let x of opcionesPrestacionesCLEM;let id = index" [ngClass]="'col-span-4'"
+                    [status]="'off'" [name]="x.name" [routerLink]="['/solicitud']"
+                    (click)="habilitarSeleccionBeneficiario(false);" [prestacionName]="x.prestacion"
+                    (click)="  continuar=true">
                 </app-card-option>
             </div>
             <div *ngSwitchCase="4">
-                <app-card-option *ngFor="let x of opcionesPrestacionesD" [ngClass]="'col-span-4'" [status]="'off'"
-                    [name]="x.name" [routerLink]="['/solicitud']" (click)="habilitarSeleccionBeneficiario(false)"
-                    [prestacionName]="x.prestacion" (click)="  continuar=true">
+                <app-card-option *ngFor="let x of opcionesPrestacionesD;let id =index" [ngClass]="'col-span-4'"
+                    [status]="'off'" [name]="x.name" [routerLink]="['/solicitud']"
+                    (click)="habilitarSeleccionBeneficiario(false);" [prestacionName]=" x.prestacion"
+                    (click)="  continuar=true">
                 </app-card-option>
             </div>
             <div *ngSwitchDefault></div>
         </div>
-        <div >
+        <div>
 
         </div>
         <!-- botones-->
         <section class="grid grid-cols-1 seccion-botones">
             <div class="flex items-center justify-end w-full gap-3">
-                <ds-button id="ds-button-cancelar" (click)="cancelar()" [size]="'s2'" variant="secondary"
-                    slot-name="cancel-button-slot">
+                <ds-button id="ds-button-cancelar" (click)="habilitarSeleccionBeneficiario(true);cancelar()"
+                    [size]="'s2'" variant="secondary" slot-name="cancel-button-slot">
                     <span slot="cancel-button-slot">Cancelar</span>
                 </ds-button>
-                <ds-button id="ds-button-siguiente" [disabled]="!continuar" *ngIf="returnValorRadioButtons() == 'si'"
-                    [size]="'s2'" variant="primary" slot-name="next-button-slot" [routerLink]="['/final']">
+                <ds-button id="ds-button-siguiente" (click)="habilitarSeleccionBeneficiario(true)"
+                    [disabled]="!continuar" *ngIf="returnValorRadioButtons() == 'si'" [size]="'s2'" variant="primary"
+                    slot-name="next-button-slot" [routerLink]="['/final']">
                     <span slot="next-button-slot"> Continuar </span>
                 </ds-button>
             </div>

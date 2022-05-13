@@ -58,7 +58,6 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
   }
 
   setCard(tarjeta: ICard) {
-    console.log('tarjeta', tarjeta)
     const dataEmit = {
       step: 'stepTwo_selectOption',
       option: 'prestacionSeleccionada',

@@ -27,14 +27,11 @@ export class DsSearchV2Component implements OnInit {
 
   search(keySearch: string) {
     this.keySearch = keySearch;
-    console.log("to search", this.keySearch);
     const val = this.keySearch && this.keySearch.trim().toLowerCase();
     this.filterResult = this.arancelService.busquedaAranceles(keySearch)
-    console.log('filterResult', this.filterResult)
   }
   selectValue(element: any) {
-    console.log('selectValue param', element)
-    console.log("1")
+
     this.value = element.Arancel;
     this.elementSelected = element;
     this.keySearch = '';
@@ -43,7 +40,6 @@ export class DsSearchV2Component implements OnInit {
   }
 
   emitChange() {
-    console.log("2")
     this.isValid = this.elementSelected ? true : false;
     if (this.isValid) this.changeEv.emit(this.elementSelected);
   }

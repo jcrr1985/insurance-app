@@ -58,22 +58,68 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) { }
   filesUploaded: any = [];
   ngOnInit(): void {
+    this.idPrestacionSeleccionada = this.arancelService.idprestacionSeleccionada;
     this.arancelService.setIdSubject$.subscribe(prestacionId => {
       this.idPrestacionSeleccionada = prestacionId;
     });
     this.addEventListener();
+    this.restoreDocs(); 
+  }
+
+  restoreDocs() {
+    this.documentsDisplay = {
+      consultamedica: {
+        multi: false,
+        nameFiles: [{ name: 'Documento Reembolso', files: [], required: true, valid: false, esDiagnostico: false }, { name: 'Documento de diagnóstico', files: [], required: true, valid: false, esDiagnostico: true }, { name: 'Documento adicional', files: [], required: false, valid: true, esDiagnostico: false }],
+        cols: 'col-span-4'
+      },
+      hospitalario: {
+        multi: false,
+        nameFiles: [{ name: 'Documento Hospitalario', files: [], required: true, valid: false }],
+        filesUploades: [[], [], []],
+        cols: 'col-span-12',
+      },
+      lentes: {
+        multi: false,
+        nameFiles: [{ name: 'Documento Reembolso', files: [], required: true, valid: false }, { name: 'Receta Óptica', files: [], required: true, valid: false }, { name: 'Documento adicional', files: [], required: false, valid: true }],
+        cols: 'col-span-4'
+      },
+      dentales: {
+        multi: false,
+        nameFiles: [{ name: 'Documento Reembolso', files: [], required: true, valid: false }, { name: 'Formulario Dental', files: [], required: true, valid: false }, { name: 'Presupuesto Dental', files: [], required: true, valid: false }, { name: 'Documento adicional', files: [], required: false, valid: true }],
+        cols: 'col-span-3'
+      },
+      examenes: {
+        multi: false,
+        nameFiles: [{ name: 'Documento Reembolso', files: [], required: true, valid: false }, { name: 'Documento de diagnóstico', files: [], required: true, valid: false }, { name: 'Documento adicional', files: [], required: false, valid: true }],
+        cols: 'col-span-4'
+      },
+      medicamentos: {
+        multi: false,
+        nameFiles: [{ name: 'Documento Reembolso', files: [], required: true, valid: false }, { name: 'Documento de diagnóstico', files: [], required: true, valid: false }, { name: 'Documento adicional', files: [], required: false, valid: true }],
+        cols: 'col-span-4'
+      },
+    }
   }
 
   addEventListener() {
-    document.addEventListener('dsFileSendFiles', (evt: any) => {
+    const listener: any = document.eventListeners ? document.eventListeners() : null;
+    if (!listener.length) document.addEventListener('dsFileSendFiles', (evt: any) => {
+      console.log("intentando recibir", evt);
       const index = parseInt(evt.target.id.replace('documento', ''));
+      console.log("añadiento a esta prestacion ", this.idPrestacionSeleccionada)
+      console.log("index", index)
       let fileEvnt
       switch (this.idPrestacionSeleccionada) {
         case 1:
+          console.log("actual ->", this.documentsDisplay.consultamedica.nameFiles[index].files)
+          console.log("recibido", evt.detail);
           fileEvnt = evt.detail;
           this.documentsDisplay.consultamedica.nameFiles[index].files.push(...fileEvnt)
           this.validateFileState('consultamedica', index);
           this.emitirCambioArchivo()
+          console.log("final ->", this.documentsDisplay.consultamedica.nameFiles[index].files)
+
           break;
         case 2:
           fileEvnt = evt.detail;
@@ -109,17 +155,17 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
         default:
           break;
       }
-      (document.querySelector(`#${evt.target.id} > div > div > input`) as any).value = null;
+      // (document.querySelector(`#${evt.target.id} > div > div > input`) as any).value = null;
       this.evaluateStepFour.emit()
     })
-    document.addEventListener('dsFileDeleteFile', (evt: any) => {
+    /* document.addEventListener('dsFileDeleteFile', (evt: any) => {
       const index = parseInt(evt.target.id.replace('documento', ''));
       console.log(evt.detail)
     })
     document.addEventListener('dsFileClick', (evt: any) => {
       const index = parseInt(evt.target.id.replace('documento', ''));
       console.log(evt.detail)
-    })
+    }) */
   }
 
   validateFileState(nombrePrestacion: string, index: number) {
