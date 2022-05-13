@@ -45,15 +45,15 @@ export class TablaResumenReembolsoComponent implements OnInit {
   public opcionesPrestacionesH: ICard[] = [
     { prestacion: '', name: '', status: '', idPrestacion: 2 },
   ];
-  
-  
+
+
 
 
   public continuar: boolean = false;
   public prestacionSeleccionada: any;
   public goToMensajeFinal: string = 'no';
 
-  constructor(private reembolsoService: ReembolsoService, private arancelService:ArancelService) { }
+  constructor(private reembolsoService: ReembolsoService, private arancelService: ArancelService) { }
 
   ngOnInit(): void {
     let total: number = 0;
@@ -61,23 +61,23 @@ export class TablaResumenReembolsoComponent implements OnInit {
       total += (solicitud.valorPrestacion - solicitud.bonificacion);
     });
     this.montoTotalSolicitado = total;
-    console.log('this.montoTotalSolicitado', this.montoTotalSolicitado);
     this.reembolsoService.montoTotalSolicitado = this.montoTotalSolicitado;
-      this.prestacionSeleccionada = this.arancelService.getPrestacionSeleccionadaId;
-      console.log('this.prestacionSeleccionada', this.prestacionSeleccionada);
-      if(this.prestacionSeleccionada == 2){
-        this.nuevoReembolso = 'no';
-        this.goToMensajeFinal = 'sí'
-      }
+    this.prestacionSeleccionada = this.arancelService.getPrestacionSeleccionadaId ? this.arancelService.getPrestacionSeleccionadaId : 1;
+    if (this.prestacionSeleccionada == 2) {
+      this.nuevoReembolso = 'no';
+      this.goToMensajeFinal = 'sí'
+    }
   }
 
-
+  setPrestacion(id: number) {
+    this.arancelService.idprestacionSeleccionada = id;
+  }
   cancelar() {
     console.log('cancelando');
   }
 
   habilitarSeleccionBeneficiario(valor: boolean) {
-    this.reembolsoService.habilitarSeleccionBeneficiario.next(valor);
+    this.reembolsoService.setHabilitarStepone(valor);
   }
   setValorRadioButtons(respuesta: string) {
     this.nuevoReembolso = respuesta;

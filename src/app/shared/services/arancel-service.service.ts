@@ -16,16 +16,16 @@ export class ArancelService {
   public setIdSubject: BehaviorSubject<any> = new BehaviorSubject(0)
   public setIdSubject$ = this.setIdSubject.asObservable();
   public sesionesSource = [
-    {key:'1 sesión', value: 1},
-    {key:'2 sesiónes', value: 2},
-    {key:'3 sesiónes', value: 3},
-    {key:'4 sesiónes', value: 4},
-    {key:'5 sesiónes', value: 5},
-    {key:'6 sesiónes', value: 6},
-    {key:'7 sesiónes', value: 7},
-    {key:'8 sesiónes', value: 8},
-    {key:'9 sesiónes', value: 9},
-    {key:'10 sesiónes', value: 10},
+    { key: '1 sesión', value: 1 },
+    { key: '2 sesiónes', value: 2 },
+    { key: '3 sesiónes', value: 3 },
+    { key: '4 sesiónes', value: 4 },
+    { key: '5 sesiónes', value: 5 },
+    { key: '6 sesiónes', value: 6 },
+    { key: '7 sesiónes', value: 7 },
+    { key: '8 sesiónes', value: 8 },
+    { key: '9 sesiónes', value: 9 },
+    { key: '10 sesiónes', value: 10 },
 
   ];
 
@@ -38,7 +38,7 @@ export class ArancelService {
     }
   }
 
-  public get getSesionesSource(){
+  public get getSesionesSource() {
     return this.sesionesSource
   }
   public get getPrestacionSeleccionada() {
@@ -55,6 +55,7 @@ export class ArancelService {
     this.idprestacionSeleccionada = cardId;
     console.log('this.idprestacionSeleccionada Seteada', this.idprestacionSeleccionada)
   }
+
 
   public get getPrestacionSeleccionadaId() {
     return this.idprestacionSeleccionada;
@@ -88,7 +89,6 @@ export class ArancelService {
         filtroPrestacion = 'OPTICA';
         break;
       default:
-        console.log('en el default')
         break;
     }
 

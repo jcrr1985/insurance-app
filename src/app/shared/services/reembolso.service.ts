@@ -334,9 +334,15 @@ export class ReembolsoService {
 
       public habilitarSeleccionBeneficiario: BehaviorSubject<any> = new BehaviorSubject(true);
       public habilitarSeleccionBeneficiario$ = this.habilitarSeleccionBeneficiario.asObservable();
+      public habilitarPaso1: boolean = true;
+      public idprestacion: number = 1;
 
       constructor() { }
+      setHabilitarStepone(value: boolean) {
+            this.habilitarPaso1 = value;
+            this.habilitarSeleccionBeneficiario.next(value);
 
+      }
       getReembolsos(): Reembolsos[] {
             return this.reembolsos;
       }

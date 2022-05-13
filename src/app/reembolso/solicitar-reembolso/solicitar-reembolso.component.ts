@@ -16,7 +16,7 @@ import {
   FilesUploaded,
 } from '../../shared/interfaces/interfaces';
 import { ReembolsoService } from '../../shared/services/reembolso.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IstepsStatusOn } from 'src/app/shared/interfaces/IStepsStatusOn';
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
@@ -99,14 +99,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     private cdref: ChangeDetectorRef
   ) {
     this.chipsData = this.reembolsoService.getChipsData();
-    this.arancelService.setIdSubject$.subscribe(e => {
-      this.prestacionSeleccionada = e;
-    })
     this.createForm();
-    this.reembolsoService.habilitarSeleccionBeneficiario$.subscribe(val => {
-      this.habilitarSeleccionBeneficiario = val;
-      console.log('this.habilitarSeleccionBeneficiario', this.habilitarSeleccionBeneficiario)
-    })
   }
   ngOnDestroy(): void {
     if (window && window.removeAllListeners) {
@@ -116,12 +109,37 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
 
   ngOnInit(): void {
     this.subscribeChangesOnInput();
+    this.subscripcionDatos();
     this.addAccessKey();
     this.getSizeStepper();
+    this.validarPaso1Required();
   }
 
   ngAfterContentChecked() {
     this.cdref.detectChanges();
+  }
+
+  /**
+   * @description se subscribe a los observables correspondientes y necesarios para el correcto funcionamiento
+   */
+  subscripcionDatos() {
+    this.arancelService.setIdSubject$.subscribe(e => {
+      this.prestacionSeleccionada = e;
+    })
+
+    this.reembolsoService.habilitarSeleccionBeneficiario$.subscribe(val => {
+      this.habilitarSeleccionBeneficiario = val;
+    })
+  }
+  /**
+   * @description valida que el paso 1 sea inputado  o no
+   */
+  validarPaso1Required() {
+    const habilitar = this.reembolsoService.habilitarPaso1;
+    if (!habilitar) {
+      this.setStepsStatus({ step: 'stepOne_who', option: 'personaSeleccionada', value: true });
+      this.prestacionSeleccionada = this.reembolsoService.idprestacion;
+    };
   }
 
   /**
@@ -139,7 +157,6 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
         this.evaluateStepOne();
       }
       if (event.target.id == 'isapreFonasaSelect') {
-        console.log('event', event);
         let idAgencia;
         if (event.detail[0]?.value) {
           idAgencia = event.detail[0]?.value;
@@ -233,9 +250,6 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
    */
   setStepsStatus(data: any) {
     const { step, option, value } = data;
-    console.log('value', value);
-
-
     this.stepsStatusOn[step][option] = value;
     this.setForm(option, value);
     this.getSizeStepper();
@@ -309,7 +323,6 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     let status: string;
 
     if (this.prestacionSeleccionada != 2) {
-      console.log('entre en el if de distinto de 2', this.prestacionSeleccionada)
       if
         ((statusrutInstitucion == 'completed' &&
           statusboletaFactura == 'completed' &&
@@ -322,8 +335,6 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
         console.log('el status esta : ', status);
       }
     } else {
-      console.log('entre en el if de idPrestacionSeleccionada (hospitlario) === 2', this.prestacionSeleccionada)
-
       if (statusMontoSolicitado == 'completed') {
         status = 'completed';
       } else {
@@ -338,7 +349,6 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
    * @description Evalúa los requisitos necesarios para el progress del 4to paso - sube Documentos
    */
   evaluateStepFour() {
-    console.log("this.stepsStatusOn", this.stepsStatusOn)
     const statusfileUploaded = (this.stepsStatusOn.stepFour_general.fileUploaded && this.stepsStatusOn.stepFour_general.tipoDocumentoSeleccionado)
       ? 'completed'
       : 'active';

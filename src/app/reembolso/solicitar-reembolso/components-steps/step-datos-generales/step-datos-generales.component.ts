@@ -26,7 +26,6 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
   validDate: boolean = false;
 
   constructor(private prestacionService: ArancelService) {
-    console.log('skdfhsdkfhskjfslkdhfsdfj')
   }
   ngOnChanges(changes: SimpleChanges): void {
     this.definirTextoPregunta()
@@ -42,12 +41,10 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
 
   agregarAgenteEscucha() {
     window.addEventListener('onSelectDate', (event: any) => {
-      console.log(event)
       const id = event.path[1].id
       if (id == 'fecha_on_generales') {
         this.validDate = true;
         const data = { step: 'stepThree_general', option: 'fechaAtencion', value: event.detail.init };
-        console.log(data)
         this.setStepsStatus(data);
       }
     });
@@ -96,7 +93,6 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
   }
 
   setStepsStatus(data: any) {
-    console.log('data', data)
     this.sendData.emit(data);
     this.evaluateStepThree.emit();
     this.mostrarDocumentoAdicional.emit(data.value)
@@ -115,9 +111,6 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
     return this.stepsStatusOn[step][option];
   }
 
-  selecccionarPrevision(ev: any) {
-    console.log('ev.label', ev.label)
-  }
   setValue(text: string, val: any) {
     console.log('text', text)
     console.log('val', val)
