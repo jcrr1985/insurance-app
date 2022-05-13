@@ -30,29 +30,6 @@
         </ng-container>
         <!--Datos para cualquier flujo diferente a hospitalario-->
         <ng-container *ngIf="idPestacionSeleccionada   != 2 ">
-
-          <!--  <div class="flex items-center justify-center col-span-12 md:col-span-6 sm:col-span-6">
-            <ds-select class="w-full inputsThirdField" id="isapreFonasaSelect" [initialLabel]="'Isapre/Fonasa'"
-              [state]="'waiting'" [source]="isapreFonasaOptions" [helperMessage]="''">
-            </ds-select>
-            <ds-icon *ngIf="getStepsStatus('stepThree_general', 'agenciaSeleccionada')" color="info5" size="25"
-              icon-name="bi-check-circle-fill"></ds-icon>
-          </div>
-          <div class="flex items-center justify-center col-span-12 md:col-span-6 sm:col-span-6">
-            <ds-input class="w-full inputsThirdField" id="rutInstitucion" [helperMessage]="''"
-              [initialLabel]="'Rut institucion/prestador'" size="s2" labelOrientation="start">
-            </ds-input>
-            <ds-icon *ngIf="getStepsStatus('stepThree_general', 'rutInstitucion')" color="info5" size="25"
-              icon-name="bi-check-circle-fill"></ds-icon>
-          </div>
-          <div class="flex items-center justify-center col-span-12 md:col-span-6 sm:col-span-6">
-            <ds-input class="w-full inputsThirdField" id="boletaFactura" [helperMessage]="''"
-              [initialLabel]="'Nº Boleta/Factura'" size="s2" labelOrientation="start">
-            </ds-input>
-            <ds-icon *ngIf="getStepsStatus('stepThree_general', 'boletaFactura')" color="info5" size="25"
-              icon-name="bi-check-circle-fill"></ds-icon>
-          </div>
-           -->
           <!-- Isapre/Fonasa -->
           <ds-select-v2 class="col-span-12 md:col-span-6 sm:col-span-6" label="Isapre/Fonasa"
             [source]="isapreFonasaOptions" (changeEv)="revisarSelectevent($event)" helpText="">
@@ -75,9 +52,6 @@
             <ds-icon *ngIf="validDate" size="25" icon-name="bi-check-circle-fill" color="info5"></ds-icon>
           </div>
         </ng-container>
-        <!-- example source by inputs
-        
-        -->
 
         <!-- Second Row data -->
 
