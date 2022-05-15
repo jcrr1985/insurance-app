@@ -20,10 +20,12 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
 
   @Output() sendData: EventEmitter<any> = new EventEmitter<any>();
   @Output() evaluateStepFour: EventEmitter<any> = new EventEmitter<any>();
+  
+  public subtituloPrimerDocumento: string = '';
   public documentsDisplay: any = {
     consultamedica: {
       multi: false,
-      nameFiles: [{ name: 'Documento Reembolso', files: [], required: true, valid: false, esDiagnostico: false }, { name: 'Documento de diagnóstico', files: [], required: true, valid: false, esDiagnostico: true }, { name: 'Documento adicional', files: [], required: false, valid: true, esDiagnostico: false }],
+      nameFiles: [{ name: `${this.subtituloPrimerDocumento}`, files: [], required: true, valid: false, esDiagnostico: false }, { name: 'Documento de diagnóstico', files: [], required: true, valid: false, esDiagnostico: true }, { name: 'Documento adicional', files: [], required: false, valid: true, esDiagnostico: false }],
       cols: 'col-span-4'
     },
     hospitalario: {
@@ -55,6 +57,7 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
   }
   constructor(private arancelService: ArancelService) {
   }
+
   ngOnChanges(changes: SimpleChanges) { }
   filesUploaded: any = [];
   ngOnInit(): void {
@@ -63,14 +66,14 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
       this.idPrestacionSeleccionada = prestacionId;
     });
     this.addEventListener();
-    this.restoreDocs(); 
+    this.restoreDocs();
   }
 
   restoreDocs() {
     this.documentsDisplay = {
       consultamedica: {
         multi: false,
-        nameFiles: [{ name: 'Documento de reembolso', files: [], required: true, valid: false, esDiagnostico: false }, { name: 'Documento de diagnóstico', files: [], required: true, valid: false, esDiagnostico: true }, { name: 'Documento adicional', files: [], required: false, valid: true, esDiagnostico: false }],
+        nameFiles: [{ name: `${this.subtituloPrimerDocumento}`, files: [], required: true, valid: false, esDiagnostico: false }, { name: 'Documento de diagnóstico', files: [], required: true, valid: false, esDiagnostico: true }, { name: 'Documento adicional', files: [], required: false, valid: true, esDiagnostico: false }],
         cols: 'col-span-4'
       },
       hospitalario: {
@@ -158,14 +161,6 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
       // (document.querySelector(`#${evt.target.id} > div > div > input`) as any).value = null;
       this.evaluateStepFour.emit()
     })
-    /* document.addEventListener('dsFileDeleteFile', (evt: any) => {
-      const index = parseInt(evt.target.id.replace('documento', ''));
-      console.log(evt.detail)
-    })
-    document.addEventListener('dsFileClick', (evt: any) => {
-      const index = parseInt(evt.target.id.replace('documento', ''));
-      console.log(evt.detail)
-    }) */
   }
 
   validateFileState(nombrePrestacion: string, index: number) {
@@ -227,6 +222,24 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
   setStepsStatus(data: any) {
     this.sendData.emit(data)
     this.evaluateStepFour.emit();
+    switch (data.value) {
+      
+      case 1:
+        this.subtituloPrimerDocumento = 'Documento de reembolso';
+        this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de reembolso';
+        break;
+      case 2:
+        this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de Bono atencion';
+        this.subtituloPrimerDocumento = 'Documento de Bono atencion';
+        break;
+      case 3:
+        this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de Boleta o Factura';
+        this.subtituloPrimerDocumento = 'Documento de Boleta o Factura';
+        break;
+
+      default:
+        break;
+    }
   }
   /**
   *
