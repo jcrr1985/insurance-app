@@ -20,7 +20,7 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
 
   @Output() sendData: EventEmitter<any> = new EventEmitter<any>();
   @Output() evaluateStepFour: EventEmitter<any> = new EventEmitter<any>();
-  
+
   public subtituloPrimerDocumento: string = '';
   public documentsDisplay: any = {
     consultamedica: {
@@ -108,20 +108,15 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
   addEventListener() {
     const listener: any = document.eventListeners ? document.eventListeners() : null;
     if (!listener.length) document.addEventListener('dsFileSendFiles', (evt: any) => {
-      console.log("intentando recibir", evt);
       const index = parseInt(evt.target.id.replace('documento', ''));
-      console.log("añadiento a esta prestacion ", this.idPrestacionSeleccionada)
-      console.log("index", index)
+
       let fileEvnt
       switch (this.idPrestacionSeleccionada) {
         case 1:
-          console.log("actual ->", this.documentsDisplay.consultamedica.nameFiles[index].files)
-          console.log("recibido", evt.detail);
           fileEvnt = evt.detail;
           this.documentsDisplay.consultamedica.nameFiles[index].files.push(...fileEvnt)
           this.validateFileState('consultamedica', index);
           this.emitirCambioArchivo()
-          console.log("final ->", this.documentsDisplay.consultamedica.nameFiles[index].files)
 
           break;
         case 2:
@@ -203,7 +198,6 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
   }
   async emitirCambioArchivo() {
     const archivosSubidosCorrectamente = this.validarCargaDeArchivos();
-    console.log("archivosSubidosCorrectamente", archivosSubidosCorrectamente)
     const data = { step: 'stepFour_general', option: 'fileUploaded', value: archivosSubidosCorrectamente }
     await timer(100).toPromise();
     this.sendData.emit(data)
@@ -223,18 +217,15 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
     this.sendData.emit(data)
     this.evaluateStepFour.emit();
     switch (data.value) {
-      
+
       case 1:
-        this.subtituloPrimerDocumento = 'Documento de reembolso';
         this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de reembolso';
         break;
       case 2:
         this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de Bono atencion';
-        this.subtituloPrimerDocumento = 'Documento de Bono atencion';
         break;
       case 3:
         this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de Boleta o Factura';
-        this.subtituloPrimerDocumento = 'Documento de Boleta o Factura';
         break;
 
       default:

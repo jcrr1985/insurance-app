@@ -18,12 +18,9 @@ export class DsSelectV2Component implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log('label', this.label)
-    console.log('source', this.source)
-
   }
   selectValue(element: sourceDsSelect | any) {
-    element.key ? this.valueDisplay  = element.key : this.valueDisplay = element.label;
+    element.key ? this.valueDisplay = element.key : this.valueDisplay = element.label;
     this.elementSelected = element;
     this.isValid = true;
     this.display = false;

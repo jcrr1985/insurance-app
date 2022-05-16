@@ -123,7 +123,6 @@ export class TablaHistorialComponent
    */
   eventPaginationSource(event: any) {
     if (event.detail[0]) {
-      console.log(event.detail[0]);
       this.resultadosPorPagina = event.detail[0].value;
       this.pageSelected = 1;
       this.aciveTableHistorial();

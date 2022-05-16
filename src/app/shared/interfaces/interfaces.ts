@@ -42,6 +42,7 @@ export interface Prestacion {
   tipoPrestacion: string;
   prestacionSeleccionada: string;
   numerosesiones: String;
+  sesiones: number;
   valorPrestacion: number;
   bonificacion: number;
 }

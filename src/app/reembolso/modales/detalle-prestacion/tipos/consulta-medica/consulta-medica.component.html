@@ -19,19 +19,18 @@
 
                 <!--valor-->
                 <ds-input-v2 class="col-span-12 sm:col-span-6" label="Valor" type="number"
-                    (keyupEv)="setValue('valor',$event)">
+                    (keyupEv)="setValue('valor',$event)" (changeEv)="validarMensajeWarning()">
                 </ds-input-v2>
 
                 <!--bonificacion isapre/fonasa-->
                 <ds-input-v2 class="col-span-12 sm:col-span-6" label="Bonificación Isapre/Fonasa" type="number"
-                    (keyupEv)="setValue('bonificacion',$event)">
+                    (keyupEv)="setValue('bonificacion',$event)" (changeEv)="validarMensajeWarning()">
                 </ds-input-v2>
             </div>
-            
+
             <!-- Mensaje de error -->
-            <ds-messaging *ngIf="warningMsg" variant="warning" family="secondary" size="s2"
-                title="El monto que ingresaste es diferente a los registrados para esta prestación ([monto histórico]).'
-                Recuerda que el monto a ingresar debe corresponder al valor de ([sesiones]), si ingresas más de una sesión, debes indicar esa cantidad en el campo “número de sesiones">
+            <ds-messaging *ngIf="warningMsg" variant="warning" family="secondary" size="s2" title="El valor que ingresaste es diferente a los registrados que has ingresado anteriormente: {{montoReferencia}} por sesión.
+                Recuerda que debes indicar la cantidad de sesiones que equivalen al valor que estás ingresando.">
             </ds-messaging>
 
             <!--Fin mensaje de error-->

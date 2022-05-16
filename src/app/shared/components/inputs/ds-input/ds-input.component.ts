@@ -18,7 +18,10 @@ export class DsInputComponent implements OnInit {
   @Output() keyupEv: EventEmitter<any> = new EventEmitter();
   @Input() iconActive: boolean = true;
   @Input() statusActive: boolean = true;
+  @Input() formatoMoneda: boolean = false;
   isValid: boolean = false;
+  public formatter = new Intl.NumberFormat('es-CL');
+
 
   ngOnInit(): void {
   }
@@ -29,7 +32,17 @@ export class DsInputComponent implements OnInit {
     this.changeEv.emit(this.value);
   }
   emitKeyup() {
+    if (this.formatoMoneda) this.value = this.format(this.value);
     this.keyupEv.emit(this.value);
   }
-
+  // TODO corregir para decimales
+  format(valor: string | number) {
+    const reg = /[^0-9,0-9]/g
+    // limpiamos el valor en caso que el usuario haya separado con , los separadores de mil o insertado alguna letra
+    const valorSinLetras = valor.toString().replace(reg, '');
+    const valorParaParsear = valorSinLetras.replace(',', '.');
+    const valorParseado = Number(valorParaParsear);
+    // parseamos el valor una vez se ha validado que es un numero
+    return '$ ' + this.formatter.format(valorParseado);
+  }
 }

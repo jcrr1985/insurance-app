@@ -51,9 +51,9 @@ export class ArancelService {
   }
 
   public setPrestacionSeleccionadaId(cardId: number) {
-    console.log('seteando idCard en service')
+    
     this.idprestacionSeleccionada = cardId;
-    console.log('this.idprestacionSeleccionada Seteada', this.idprestacionSeleccionada)
+    
   }
 
 
@@ -66,7 +66,7 @@ export class ArancelService {
    * nombre del arancel.
    */
   public filtroAranceles(filtro: string): any[] {
-    console.log('tajeta seleccionada name: ', this.tarjetaSeleccionada);
+    
     let filtroPrestacion: string = '';
 
     switch (this.tarjetaSeleccionada) {
@@ -93,14 +93,12 @@ export class ArancelService {
     }
 
     if (filtro) {
-      console.log('letras ingresadas', filtro)
       const resultados = this.aranceles.filter((arancel) => {
         return (
           arancel.Arancel.toLowerCase().search(filtro) >= 0 &&
           arancel.TipoLiquidacion === filtroPrestacion
         );
       });
-      console.log('resultados', resultados);
       return resultados;
     } else {
       return [undefined];

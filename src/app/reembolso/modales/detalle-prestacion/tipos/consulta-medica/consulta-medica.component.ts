@@ -1,3 +1,4 @@
+import { timer } from 'rxjs';
 import { IArancel } from './../../../../../shared/interfaces/arancel';
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
@@ -27,10 +28,11 @@ export class ConsultaMedicaComponent implements OnInit {
   public sourceSearch: any;
   public sesionesSource = this.arancelService.getSesionesSource;
 
+  public montoReferencia = 50000;
+
   constructor(public arancelService: ArancelService) { }
 
   ngOnInit(): void {
-    console.log('prestacioSeleccionada', this.prestacioSeleccionada);
   }
 
   itemSelected(arancel: IArancel) {
@@ -44,6 +46,8 @@ export class ConsultaMedicaComponent implements OnInit {
 
   selectEvent(item: any) {
     this.prestacion.numerosesiones = item.key;
+    this.prestacion.sesiones = item.value;
+    this.validarMensajeWarning();
   }
 
   calcMontoReembolso() {
@@ -73,6 +77,17 @@ export class ConsultaMedicaComponent implements OnInit {
 
   closeModal() {
     this.close.emit();
+  }
+
+  validarMensajeWarning() {
+    if (this.prestacion.bonificacion && this.prestacion.valorPrestacion) {
+      const prestacion = this.prestacion.valorPrestacion ? this.prestacion.valorPrestacion : 0;
+      const bonificacion = this.prestacion.bonificacion ? this.prestacion.bonificacion : 0;
+      const sesiones = this.prestacion.sesiones ? this.prestacion.sesiones : 1;
+      const monto = (Number(prestacion) - Number(bonificacion)) / sesiones;
+      const result = (this.montoReferencia == monto && monto != 0) ? false : true;
+      this.warningMsg = result;
+    }
   }
 
 }

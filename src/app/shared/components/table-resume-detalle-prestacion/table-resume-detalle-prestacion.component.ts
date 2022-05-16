@@ -28,13 +28,11 @@ export class TableResumeDetallePrestacionComponent implements OnInit, OnDestroy 
   }
   edit(prestacion: any) {
     this.prestacionSeleccionada = prestacion;
-    console.log("edit", this.prestacionSeleccionada)
     this.editEv.emit(this.prestacionSeleccionada);
   }
 
   delete(prestacion: any) {
     this.prestacionSeleccionada = prestacion
-    console.log("delete", this.prestacionSeleccionada)
     this.deleteEv.emit(this.prestacionSeleccionada);
   }
 
