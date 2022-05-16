@@ -47,7 +47,6 @@ export class TestingComponent implements OnInit, OnDestroy {
   }
 
   receivedChangesOnInput(data: any) {
-    console.log(data);
   }
   agregar() {
     this.availables.push(this.availables.length + 1);

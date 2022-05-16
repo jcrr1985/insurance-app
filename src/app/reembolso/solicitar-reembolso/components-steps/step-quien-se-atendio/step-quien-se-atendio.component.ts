@@ -19,8 +19,7 @@ export class StepQuienSeAtendioComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.stepperOneSource);
-    console.log(this.stepsStatusOn);
+
   }
 
   setStatusOn(data: any) {

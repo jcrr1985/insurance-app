@@ -27,12 +27,12 @@
                     (keyupEv)="setValue('bonificacion',$event)">
                 </ds-input-v2>
             </div>
+
             <!-- Mensaje de error -->
             <ds-messaging *ngIf="warningMsg" variant="warning" family="secondary" size="s2"
                 title="El monto que ingresaste es diferente a los registrados para esta prestación ([monto histórico]).'
                 Recuerda que el monto a ingresar debe corresponder al valor de ([sesiones]), si ingresas más de una sesión, debes indicar esa cantidad en el campo “número de sesiones">
             </ds-messaging>
-
             <!--Fin mensaje de error-->
 
             <!--Monto a rembolsar-->

@@ -41,7 +41,6 @@ export class DetallePrestacionComponent
   }
 
   setearValorInputPredictivo(textoArancel: string) {
-    console.log('capturado custom event textoArancel, su data ->', textoArancel)
     this.inputPredictivoNativo.value = textoArancel;
   }
 

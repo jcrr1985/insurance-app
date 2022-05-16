@@ -25,7 +25,7 @@ export class AtencionDentalComponent implements OnInit, OnChanges {
   public prestacion: Prestacion = {} as Prestacion;
   public prestacioSeleccionada = this.arancelService.getPrestacionSeleccionada;
   public textoArancel!: string;
-  
+
   constructor(public arancelService: ArancelService) { }
   ngOnChanges(changes: SimpleChanges): void {
     this.fechaRequired = this.stepsStatusOn.stepThree_general.copagoMayor == 'si' ? true : false;
@@ -39,7 +39,6 @@ export class AtencionDentalComponent implements OnInit, OnChanges {
 
   eventListener() {
     window.addEventListener('onSelectDate', (event: any) => {
-      console.log(event)
       const id = event.path[1].id
       if (id == 'fecha_on_modal_dental') {
         this.validDate = true;

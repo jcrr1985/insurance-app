@@ -25,6 +25,8 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
   public sesionRequired: boolean = false;
   validDate: boolean = false;
 
+  public formatter = new Intl.NumberFormat('es-CL');
+
   constructor(private prestacionService: ArancelService) {
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -35,7 +37,6 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
     this.agregarAgenteEscucha();
     this.prestacionService.setIdSubject$.subscribe(idPrestacionSeleccionada => {
       this.idPestacionSeleccionada = idPrestacionSeleccionada;
-      console.log('isapreFonasaOptions', this.isapreFonasaOptions)
     });
   }
 
@@ -96,9 +97,9 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
     this.sendData.emit(data);
     this.evaluateStepThree.emit();
     this.mostrarDocumentoAdicional.emit(data.value)
+
   }
   revisarSelectevent(dataEvt: any) {
-    console.log(dataEvt)
   }
   /**
    *
@@ -112,8 +113,9 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
   }
 
   setValue(text: string, val: any) {
-    console.log('text', text)
-    console.log('val', val)
 
+  }
+  formateoValor(valor: number) {
+    return '$' + this.formatter.format(valor);
   }
 }

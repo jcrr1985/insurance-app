@@ -26,8 +26,6 @@ export class InputCustomDsComponent implements OnInit, OnDestroy {
     this.enabledEvents();
   }
   ngOnDestroy() {
-    console.log(this.elementOnDocument);
-    //if (this.elementOnDocument.removeAllListeners) this.elementOnDocument.removeAllListeners();
   }
 
   enabledEvents() {

@@ -187,7 +187,6 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       }
     });
     window.addEventListener('onSelectDate', (event: any) => {
-      console.log(event)
       const id = event.path[1].id
       if (id == 'fecha_generales') {
         const value = event.detail.init;
@@ -214,6 +213,8 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       fechaAtencion: new FormControl(''),
     });
   }
+  public formatter = new Intl.NumberFormat('es-CL');
+
   /**
    *
    * @param formControlName nombre del formControlName en el formulario
@@ -222,7 +223,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
    */
   setForm(formControlName: string, value: any) {
     try {
-      this.formReembolso.get(formControlName)?.patchValue(value);
+      this.formReembolso.get(formControlName)?.patchValue(this.formatter.format(value));
     } catch (error) {
       console.log('error setting field', formControlName);
     }
@@ -332,7 +333,6 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
         status = 'completed';
         this.stepperFourSource = () => [{ label: '', status: 'active' }];
         this.stepperThreeSource = () => [{ label: '', status }];
-        console.log('el status esta : ', status);
       }
     } else {
       if (statusMontoSolicitado == 'completed') {
@@ -395,7 +395,6 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       this.customStepperSize.stepperFive =
         five <= 110 ? five + 50 + 'px' : five - 35 + 'px';
     }, 10);
-    console.log("this.customStepperSize", this.customStepperSize)
   }
 
   /* Modal Agregar detalle adicional */

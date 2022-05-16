@@ -26,6 +26,7 @@
   <ds-select-v2 class="col-span-3" [source]="sourceSelect" helpText="Selecciona un elemento para continuar"
     (changeEv)="selectEvent($event)"></ds-select-v2>
 </div>
+formatoMoneda
 
 <div class="grid w-full grid-cols-12">
   <ng-container *ngFor="let x of cards;let i = index">
@@ -33,3 +34,6 @@
     </app-card-option>
   </ng-container>
 </div> -->
+
+<ds-input-v2 class="col-span-3" label="Input tipo texto" helpText="ingresa cualquier tipo" type="text" [formatoMoneda]="true"
+    (changeEv)="changeEvent($event)" (keyupEv)="keypressEvent($event)">

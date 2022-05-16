@@ -15,6 +15,7 @@ export class ExamenesYProcedimientosComponent implements OnInit {
   sesionRequired: boolean = false;
   public prestacion: Prestacion = {} as Prestacion;
   warningMsg: boolean = false;
+  public montoReferencia = 50000;
 
   @Output() close: EventEmitter<any> = new EventEmitter();
   @Output() dataEvent: EventEmitter<any> = new EventEmitter();
@@ -69,6 +70,17 @@ export class ExamenesYProcedimientosComponent implements OnInit {
 
   closeModal() {
     this.close.emit();
+  }
+
+  validarMensajeWarning() {
+    if (this.prestacion.bonificacion && this.prestacion.valorPrestacion) {
+      const prestacion = this.prestacion.valorPrestacion ? this.prestacion.valorPrestacion : 0;
+      const bonificacion = this.prestacion.bonificacion ? this.prestacion.bonificacion : 0;
+      const sesiones = this.prestacion.sesiones ? this.prestacion.sesiones : 1;
+      const monto = (Number(prestacion) - Number(bonificacion)) / sesiones;
+      const result = (this.montoReferencia == monto && monto != 0) ? false : true;
+      this.warningMsg = result;
+    }
   }
 
 }

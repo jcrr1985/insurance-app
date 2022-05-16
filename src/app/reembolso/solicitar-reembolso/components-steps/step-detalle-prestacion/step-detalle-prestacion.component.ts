@@ -23,19 +23,16 @@ export class StepDetallePrestacionComponent implements OnInit {
   }
   edit(prestacion: any) {
     this.prestacionSeleccionada = prestacion;
-    console.log("edit", this.prestacionSeleccionada);
     this.showModal = true;
   }
   delete(prestacion: any) {
     this.prestacionSeleccionada = prestacion;
     this.prestaciones = this.prestaciones.filter(e => e.id != prestacion.id)
-    console.log(this.prestaciones)
   }
   nuevaPrestacionDataArray(prestacion: any) {
     //this.prestaciones.push({ ...prestacion, id: this.arancelService.getPrestacionSeleccionadaId });
     this.prestaciones.push({ ...prestacion, id: this.prestaciones.length + 1 });
     this.prestacionSeleccionada = {}
-    console.log(this.prestaciones);
   }
   hideAddMoreDetailModal() {
     this.showModal = false;

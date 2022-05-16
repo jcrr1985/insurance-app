@@ -73,7 +73,6 @@ export class TablaResumenReembolsoComponent implements OnInit {
     this.arancelService.idprestacionSeleccionada = id;
   }
   cancelar() {
-    console.log('cancelando');
   }
 
   habilitarSeleccionBeneficiario(valor: boolean) {
@@ -81,7 +80,6 @@ export class TablaResumenReembolsoComponent implements OnInit {
   }
   setValorRadioButtons(respuesta: string) {
     this.nuevoReembolso = respuesta;
-    console.log('this.nuevoReembolso', this.nuevoReembolso);
   }
   returnValorRadioButtons() {
     return this.nuevoReembolso;
