@@ -4,11 +4,6 @@
     box-sizing: border-box;
 }
 
-
-app-custom-stepper{
-    height: 100%;
-}
-
 ds-title {
     transform: translateY(-50%) !important;
 }
@@ -29,7 +24,8 @@ h3{
     gap: 20px;
     height: auto;
 
-    div {
+    .wrapper-select-parentesco{
         width: 320px;
     }
 }
+

@@ -1,4 +1,5 @@
-<div class="card-content grid grid-cols-12 mx-2" [ngClass]="[status]">
+<div class="card-content" [ngClass]="[status]">
+    <div class="card-sidebar"></div>
     <div class="col-span-2 flex items-center justify-center">
         <img *ngIf="name != ''" class="icon" [ngClass]="[status]" [src]="getRouteImg(name)" alt="">
     </div>

@@ -76,6 +76,7 @@
 
 app-custom-stepper {
  
+  
 
   span.success_icon {
     ds-icon {
@@ -266,10 +267,6 @@ ds-select-v2 ds-icon {
 
 }
 
-.card-content {
-  box-shadow: none !important;
-  border: 1px solid var(--color-font-tertiary) !important;
-}
 
 span.steps-title {
   font-weight: 600 !important;
@@ -321,17 +318,18 @@ app-solicitar-reembolso {
 
 .question__container{
   display: flex;
-  min-width: 520px;
-  width: auto;
+  gap: 15px;
+  min-width: 40vw;
+  max-width: 80vw;
   height: auto;
   align-items: baseline;
   justify-content: space-between;
 
 
   ds-paragraph span{
-      width: 100%;
-      align-items: center;
-      font-size: 18px;
+    width: max-content;
+    align-items: center;
+    font-size: 18px;
 
   }
 
@@ -339,7 +337,7 @@ app-solicitar-reembolso {
       display: flex;
       width: auto;
       justify-content: flex-end;
-      gap: 10px;
+      gap: 20px;
       align-items: center;
       
   }
@@ -350,4 +348,12 @@ ds-title {
   margin: 0 !important;
   font-size: 22px !important;
   font-weight: 600 !important;
+}
+
+.grid, .col-span-12{
+  width: 100% !important;
+}
+
+.ds-select-container{
+
 }
