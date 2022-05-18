@@ -41,6 +41,7 @@
     }
 }
 
+<<<<<<< Updated upstream
 .card-content:hover {
     box-sizing: border-box !important;
     width: auto !important;
@@ -55,6 +56,12 @@
 
     .text-card {
         color: #ef6f00;
+=======
+.card-content:hover{
+    .card-sidebar{
+        background-color: #ef6f00;
+        
+>>>>>>> Stashed changes
     }
 }
 
@@ -66,7 +73,7 @@
     box-shadow: rgb(67 80 94 / 20%) 0px 4px 4px 0px;
     border-style: solid;
     border-width: 0px 0px 0px 0px;
-    cursor: not-allowed;
+    /*cursor: not-allowed;*/
     color: rgb(177, 177, 177);
 }
 

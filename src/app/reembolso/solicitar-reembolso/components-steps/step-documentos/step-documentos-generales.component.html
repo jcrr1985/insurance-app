@@ -1,80 +1,89 @@
 <section class="steps__container" *ngIf="eliminarDocumentoAdicional">
   <app-custom-stepper [height]="customStepperSize.stepperFour" [status]="stepperFourSource()[0].status">
   </app-custom-stepper>
-  <div id="stepperFourContent" class="w-full">
+  <div id="stepperFourContent" class="steps-content__container">
     <!-- Title -->
     <ds-title class="col-span-12" type="t4" family="secondary" weight="bold" color="primary">
       <span class="steps-title four" slot="text"
         [ngClass]="{'waitStepperText':this.stepperFourSource()[0].status == 'waiting'}">Sube tus documentos</span>
     </ds-title>
-    <div class="grid grid-cols-12 gap-4 pr-5">
+    <!-- Fin Title -->
+    <div>
       <ng-container *ngIf="getStepsStatus('stepThree_general', 'copagoMayor') 
       || getStepsStatus('stepThree_general', 'montoSolicitado')">
-        <!-- documento -->
-        <ds-paragraph class="col-span-12 mb-2 md:col-span-6" type="p1" family="primary" weight="regular"
-          color="secondary">
-          <span slot="text" class="font-bold">Selecciona uno de los siguientes documentos
+        <!--pregunta tipo documento -->
+        <div class="upload-documents__container">
+          <ds-paragraph type="p1" family="primary" weight="regular" color="secondary">
             <ds-tooltip family="primary" content="Documentos disponibles">
-              <ds-icon slot="tooltip" color="info4" size="28" icon-name="bi-question-circle-fill">
+              <ds-icon slot="tooltip" size="28" icon-name="bi-question-circle-fill">
               </ds-icon>
             </ds-tooltip>
-          </span>
-        </ds-paragraph>
-        <!--Radio Buttons "Selecciona uno de los siguientes documentos"-->
-        <div class="items-center justify-start block md:col-span-12 md:flex">
-          <ds-radio *ngIf="
-            getStepsStatus('stepTwo_selectOption', 'reembolsoPrevioIsapre') == 'si'
-          " (click)="
-            setStepsStatus({
-              step: 'stepFour_general',
-              option: 'tipoDocumentoSeleccionado',
-              value: 1
-            })
-          " class="mx-5 md:w-max" type="s1" family="primary" label="Documento reembolso isapre o fonasa"
-            name="documentType" value="1">
-          </ds-radio>
-          <ds-radio *ngIf="
-            getStepsStatus('stepTwo_selectOption', 'reembolsoPrevioIsapre') == 'si'
-          " (click)="
-            setStepsStatus({
-              step: 'stepFour_general',
-              option: 'tipoDocumentoSeleccionado',
-              value: 2
-            })
-          " class="mx-5 md:w-max" type="s1" family="primary" label="Bono" name="documentType" value="2">
-          </ds-radio>
-          <ds-radio (click)="
-            setStepsStatus({
-              step: 'stepFour_general',
-              option: 'tipoDocumentoSeleccionado',
-              value: 3
-            })
-          " class="mx-5 md:w-max" type="s1" family="primary" label="Boleta / Factura" name="documentType" value="3">
-          </ds-radio>
+            <span slot="text" class="font-bold">Selecciona uno de los siguientes documentos</span>
+          </ds-paragraph> 
+          <!--Radio Buttons "Selecciona uno de los siguientes documentos"-->
+          <div class="documents__options">
+            <ds-radio *ngIf="
+              getStepsStatus('stepTwo_selectOption', 'reembolsoPrevioIsapre') == 'si'
+            " (click)="
+              setStepsStatus({
+                step: 'stepFour_general',
+                option: 'tipoDocumentoSeleccionado',
+                value: 1
+              })
+            " class="mx-5 md:w-max" type="s1" family="primary" label="Documento reembolso isapre o fonasa"
+              name="documentType" value="1">
+            </ds-radio>
+            <ds-radio *ngIf="
+              getStepsStatus('stepTwo_selectOption', 'reembolsoPrevioIsapre') == 'si'
+            " (click)="
+              setStepsStatus({
+                step: 'stepFour_general',
+                option: 'tipoDocumentoSeleccionado',
+                value: 2
+              })
+            " class="md:w-max" type="s1" family="primary" label="Bono" name="documentType" value="2">
+            </ds-radio>
+            <ds-radio (click)="
+              setStepsStatus({
+                step: 'stepFour_general',
+                option: 'tipoDocumentoSeleccionado',
+                value: 3
+              })
+            " class=" md:w-max" type="s1" family="primary" label="Boleta / Factura" name="documentType" value="3">
+            </ds-radio>
+          </div>
         </div>
-        <!-- Esperando seleccionar tipo documento -->
-        <ng-container *ngIf="getStepsStatus('stepFour_general','tipoDocumentoSeleccionado')">
+        <!-- Finpregunta tipo documento -->
+        
+      </ng-container>
+    </div>
+    
+    <!-- Esperando seleccionar tipo documento -->
+    <ng-container *ngIf="getStepsStatus('stepFour_general','tipoDocumentoSeleccionado')">
+      <ng-container *ngFor="let docs of documentsDisplay.consultamedica.nameFiles;let indexDocName = index">
+        <div [ngClass]="[documentsDisplay.consultamedica.cols]">
+
+        </div>
+      </ng-container>
+
+      <!-- Cards documentos -->
+      <div class="cards-document__container">
+        <!-- consulta medica -->
+        <ng-container *ngIf="idPrestacionSeleccionada == 1">
           <ng-container *ngFor="let docs of documentsDisplay.consultamedica.nameFiles;let indexDocName = index">
-            <div [ngClass]="[documentsDisplay.consultamedica.cols]">
-
-            </div>
-          </ng-container>
-
-
-          <!-- consulta medica -->
-          <ng-container *ngIf="idPrestacionSeleccionada == 1">
-            <ng-container *ngFor="let docs of documentsDisplay.consultamedica.nameFiles;let indexDocName = index">
-              <div [ngClass]="[documentsDisplay.consultamedica.cols]"
-                *ngIf="!(getStepsStatus('stepThree_general','copagoMayor') == 'no' && docs.esDiagnostico)">
-                <h1 class="titleDocs">{{docs.name}}</h1>
-                <ds-file type="default" [attr.id]="'documento'+indexDocName">
-                </ds-file>
-                <ng-container *ngFor="let file of docs.files;let indexFile = index">
-                  <div class="relative filesUploaded box">
-                    <div class="relative mt-5 container-file">
+            <div [ngClass]="[documentsDisplay.consultamedica.cols]"
+              *ngIf="!(getStepsStatus('stepThree_general','copagoMayor') == 'no' && docs.esDiagnostico)">
+              <h1 class="titleDocs">{{docs.name}}</h1>
+              <ds-file type="default" [attr.id]="'documento'+indexDocName">
+              </ds-file>
+              <ng-container *ngFor="let file of docs.files;let indexFile = index">
+                <!-- Card documento adjunto -->
+                <div class="archivos-adjuntos__container">
+                  <p>Archivos adjuntos</p>
+                  <div class="filesUploaded">
                       <!-- icon -->
                       <div class="icono-view">
-                        <ds-icon size="30" [iconName]="'bi-eye-fill'"> </ds-icon>
+                        <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                       </div>
                       <!-- name -->
                       <div class="flex items-center justify-start container-name-file">
@@ -83,158 +92,178 @@
                       <!-- delete -->
                       <div class="icono-delete"
                         (click)="validateFileState('consultamedica',indexDocName);deleteDocs('consultamedica',indexDocName,file.name)">
-                        <ds-icon size="25" [iconName]="'bi-trash'"> </ds-icon>
+                        <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                       </div>
-                    </div>
-                  </div>
-                </ng-container>
-              </div>
-            </ng-container>
+                  </div><!--Fin  Card documento adjunto -->
+                </div><!--Fin Card documento adjunto -->
+              </ng-container>
+            </div>
           </ng-container>
-          <!-- consulta hospitalaria -->
-          <ng-container *ngIf="idPrestacionSeleccionada == 2">
-            <ng-container *ngFor="let docs of documentsDisplay.hospitalario.nameFiles;let indexDocName = index">
-              <div [ngClass]="[documentsDisplay.hospitalario.cols]">
-                <h1 class="titleDocs">{{docs.name}}</h1>
-                <ds-file type="default" [attr.id]="'documento'+indexDocName">
-                </ds-file>
-                <ng-container *ngFor="let file of docs.files;let indexFile = index">
-                  <div class="relative filesUploaded box">
-                    <div class="relative mt-5 container-file">
+        </ng-container> <!--Fin consulta medica --> 
+        <!-- consulta hospitalaria -->
+        <ng-container *ngIf="idPrestacionSeleccionada == 2">
+          <ng-container *ngFor="let docs of documentsDisplay.hospitalario.nameFiles;let indexDocName = index">
+            <div [ngClass]="[documentsDisplay.hospitalario.cols]">
+              <h1 class="titleDocs">{{docs.name}}</h1>
+              <ds-file type="default" [attr.id]="'documento'+indexDocName">
+              </ds-file>
+              <ng-container *ngFor="let file of docs.files;let indexFile = index">
+                <!-- Card documento adjunto -->
+                <div class="archivos-adjuntos__container">
+                  <p>Archivos adjuntos</p>
+                  <div class="filesUploaded">
                       <!-- icon -->
                       <div class="icono-view">
-                        <ds-icon size="30" [iconName]="'bi-eye-fill'"> </ds-icon>
+                        <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                       </div>
                       <!-- name -->
                       <div class="flex items-center justify-start container-name-file">
                         <div class="text-no-overflow">{{file.name}} </div>
                       </div>
                       <!-- delete -->
-                      <div class="icono-delete" (click)="deleteDocs('hospitalario',indexDocName,file.name)">
-                        <ds-icon size="25" [iconName]="'bi-trash'"> </ds-icon>
+                      <div class="icono-delete"
+                        (click)="validateFileState('consultamedica',indexDocName);deleteDocs('consultamedica',indexDocName,file.name)">
+                        <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                       </div>
-                    </div>
-                  </div>
-                </ng-container>
-              </div>
-            </ng-container>
+                  </div><!--Fin  Card documento adjunto -->
+                </div><!--Fin Card documento adjunto -->
+              </ng-container>
+            </div>
           </ng-container>
-          <!-- marcos y lentes -->
-          <ng-container *ngIf="idPrestacionSeleccionada == 3">
-            <ng-container *ngFor="let docs of documentsDisplay.lentes.nameFiles;let indexDocName = index">
-              <div [ngClass]="[documentsDisplay.lentes.cols]">
-                <h1 class="titleDocs">{{docs.name}}</h1>
-                <ds-file type="default" [attr.id]="'documento'+indexDocName">
-                </ds-file>
-                <ng-container *ngFor="let file of docs.files;let indexFile = index">
-                  <div class="relative filesUploaded box">
-                    <div class="relative mt-5 container-file">
+        </ng-container> <!--Fin consulta hospitalaria -->
+
+        <!-- marcos y lentes -->
+        <ng-container *ngIf="idPrestacionSeleccionada == 3">
+          <ng-container *ngFor="let docs of documentsDisplay.lentes.nameFiles;let indexDocName = index">
+            <div [ngClass]="[documentsDisplay.lentes.cols]">
+              <h1 class="titleDocs">{{docs.name}}</h1>
+              <ds-file type="default" [attr.id]="'documento'+indexDocName">
+              </ds-file>
+              <ng-container *ngFor="let file of docs.files;let indexFile = index">
+                <!-- Card documento adjunto -->
+                <div class="archivos-adjuntos__container">
+                  <p>Archivos adjuntos</p>
+                  <div class="filesUploaded">
                       <!-- icon -->
                       <div class="icono-view">
-                        <ds-icon size="30" [iconName]="'bi-eye-fill'"> </ds-icon>
+                        <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                       </div>
                       <!-- name -->
                       <div class="flex items-center justify-start container-name-file">
                         <div class="text-no-overflow">{{file.name}} </div>
                       </div>
                       <!-- delete -->
-                      <div class="icono-delete" (click)="deleteDocs('hospitalario',indexDocName,file.name)">
-                        <ds-icon size="25" [iconName]="'bi-trash'"> </ds-icon>
+                      <div class="icono-delete"
+                        (click)="validateFileState('consultamedica',indexDocName);deleteDocs('consultamedica',indexDocName,file.name)">
+                        <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                       </div>
-                    </div>
-                  </div>
-                </ng-container>
-              </div>
-            </ng-container>
+                  </div><!--Fin  Card documento adjunto -->
+                </div><!--Fin Card documento adjunto -->
+              </ng-container>
+            </div>
           </ng-container>
-          <!-- dentales -->
-          <ng-container *ngIf="idPrestacionSeleccionada == 4">
-            <ng-container *ngFor="let docs of documentsDisplay.dentales.nameFiles;let indexDocName = index">
-              <div [ngClass]="[documentsDisplay.dentales.cols]">
-                <h1 class="titleDocs">{{docs.name}}</h1>
-                <ds-file type="default" [attr.id]="'documento'+indexDocName">
-                </ds-file>
-                <ng-container *ngFor="let file of docs.files;let indexFile = index">
-                  <div class="relative filesUploaded box">
-                    <div class="relative mt-5 container-file">
+        </ng-container> <!--Fin marcos y lentes -->
+
+        <!-- dentales -->
+        <ng-container *ngIf="idPrestacionSeleccionada == 4">
+          <ng-container *ngFor="let docs of documentsDisplay.dentales.nameFiles;let indexDocName = index">
+            <div [ngClass]="[documentsDisplay.dentales.cols]">
+              <h1 class="titleDocs">{{docs.name}}</h1>
+              <ds-file type="default" [attr.id]="'documento'+indexDocName">
+              </ds-file>
+              <ng-container *ngFor="let file of docs.files;let indexFile = index">
+                <!-- Card documento adjunto -->
+                <div class="archivos-adjuntos__container">
+                  <p>Archivos adjuntos</p>
+                  <div class="filesUploaded">
                       <!-- icon -->
                       <div class="icono-view">
-                        <ds-icon size="30" [iconName]="'bi-eye-fill'"> </ds-icon>
+                        <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                       </div>
                       <!-- name -->
                       <div class="flex items-center justify-start container-name-file">
                         <div class="text-no-overflow">{{file.name}} </div>
                       </div>
                       <!-- delete -->
-                      <div class="icono-delete" (click)="deleteDocs('hospitalario',indexDocName,file.name)">
-                        <ds-icon size="25" [iconName]="'bi-trash'"> </ds-icon>
+                      <div class="icono-delete"
+                        (click)="validateFileState('consultamedica',indexDocName);deleteDocs('consultamedica',indexDocName,file.name)">
+                        <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                       </div>
-                    </div>
-                  </div>
-                </ng-container>
-              </div>
-            </ng-container>
+                  </div><!--Fin  Card documento adjunto -->
+                </div><!--Fin Card documento adjunto -->
+              </ng-container>
+            </div>
           </ng-container>
-          <!-- examenes y procedimientos -->
-          <ng-container *ngIf="idPrestacionSeleccionada == 5">
-            <ng-container *ngFor="let docs of documentsDisplay.examenes.nameFiles;let indexDocName = index">
-              <div [ngClass]="[documentsDisplay.examenes.cols]"
-                *ngIf="docs.required || getStepsStatus('stepThree_general','copagoMayor') == 'si' && !docs.required">
-                <h1 class="titleDocs">{{docs.name}}</h1>
-                <ds-file type="default" [attr.id]="'documento'+indexDocName">
-                </ds-file>
-                <ng-container *ngFor="let file of docs.files;let indexFile = index">
-                  <div class="relative filesUploaded box">
-                    <div class="relative mt-5 container-file">
+        </ng-container> <!-- Fin dentales -->
+
+         <!-- examenes y procedimientos -->
+        <ng-container *ngIf="idPrestacionSeleccionada == 5">
+          <ng-container *ngFor="let docs of documentsDisplay.examenes.nameFiles;let indexDocName = index">
+            <div [ngClass]="[documentsDisplay.examenes.cols]"
+              *ngIf="docs.required || getStepsStatus('stepThree_general','copagoMayor') == 'si' && !docs.required">
+              <h1 class="titleDocs">{{docs.name}}</h1>
+              <ds-file type="default" [attr.id]="'documento'+indexDocName">
+              </ds-file>
+              <ng-container *ngFor="let file of docs.files;let indexFile = index">
+                <!-- Card documento adjunto -->
+                <div class="archivos-adjuntos__container">
+                  <p>Archivos adjuntos</p>
+                  <div class="filesUploaded">
                       <!-- icon -->
                       <div class="icono-view">
-                        <ds-icon size="30" [iconName]="'bi-eye-fill'"> </ds-icon>
+                        <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                       </div>
                       <!-- name -->
                       <div class="flex items-center justify-start container-name-file">
                         <div class="text-no-overflow">{{file.name}} </div>
                       </div>
                       <!-- delete -->
-                      <div class="icono-delete" (click)="deleteDocs('hospitalario',indexDocName,file.name)">
-                        <ds-icon size="25" [iconName]="'bi-trash'"> </ds-icon>
+                      <div class="icono-delete"
+                        (click)="validateFileState('consultamedica',indexDocName);deleteDocs('consultamedica',indexDocName,file.name)">
+                        <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                       </div>
-                    </div>
-                  </div>
-                </ng-container>
-              </div>
-            </ng-container>
+                  </div><!--Fin  Card documento adjunto -->
+                </div><!--Fin Card documento adjunto -->
+              </ng-container>
+            </div>
           </ng-container>
-          <!-- medicamentos -->
-          <ng-container *ngIf="idPrestacionSeleccionada == 6">
-            <ng-container *ngFor="let docs of documentsDisplay.medicamentos.nameFiles;let indexDocName = index">
-              <div [ngClass]="[documentsDisplay.medicamentos.cols]">
-                <h1 class="titleDocs">{{docs.name}}</h1>
-                <ds-file type="default" [attr.id]="'documento'+indexDocName">
-                </ds-file>
-                <ng-container *ngFor="let file of docs.files;let indexFile = index">
-                  <div class="relative filesUploaded box">
-                    <div class="relative mt-5 container-file">
+        </ng-container>  <!--Fin examenes y procedimientos -->
+        
+        <!-- medicamentos -->
+        <ng-container *ngIf="idPrestacionSeleccionada == 6">
+          <ng-container *ngFor="let docs of documentsDisplay.medicamentos.nameFiles;let indexDocName = index">
+            <div [ngClass]="[documentsDisplay.medicamentos.cols]">
+              <h1 class="titleDocs">{{docs.name}}</h1>
+              <ds-file type="default" [attr.id]="'documento'+indexDocName">
+              </ds-file>
+              <ng-container *ngFor="let file of docs.files;let indexFile = index">
+                <!-- Card documento adjunto -->
+                <div class="archivos-adjuntos__container">
+                  <p>Archivos adjuntos</p>
+                  <div class="filesUploaded">
                       <!-- icon -->
                       <div class="icono-view">
-                        <ds-icon size="30" [iconName]="'bi-eye-fill'"> </ds-icon>
+                        <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                       </div>
                       <!-- name -->
                       <div class="flex items-center justify-start container-name-file">
                         <div class="text-no-overflow">{{file.name}} </div>
                       </div>
                       <!-- delete -->
-                      <div class="icono-delete" (click)="deleteDocs('hospitalario',indexDocName,file.name)">
-                        <ds-icon size="25" [iconName]="'bi-trash'"> </ds-icon>
+                      <div class="icono-delete"
+                        (click)="validateFileState('consultamedica',indexDocName);deleteDocs('consultamedica',indexDocName,file.name)">
+                        <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                       </div>
-                    </div>
-                  </div>
-                </ng-container>
-              </div>
-            </ng-container>
+                  </div><!--Fin  Card documento adjunto -->
+                </div><!--Fin Card documento adjunto -->
+              </ng-container>
+            </div>
           </ng-container>
-        </ng-container>
-      </ng-container>
-    </div>
+        </ng-container> <!--Fin medicamentos -->
+
+      </div> <!-- Fin Cards documentos -->
+      
+    </ng-container><!--Fin Esperando seleccionar tipo documento -->
 
   </div>
 </section>

@@ -1,21 +1,21 @@
-<!-- HEADER -->
-<div class="grid h-24 grid-cols-12 border-b-2">
-  <ds-title class="flex items-center justify-start col-span-12 px-5 text-xl font-bold md:col-span-6" type="t4"
-    family="secondary" weight="bold" color="primary">
-    <span slot="text">Solicitud de Reembolso</span>
-  </ds-title>
-  <div [routerLink]="['/historial']"
-    class="flex items-center justify-start col-span-12 px-5 md:col-span-6 md:justify-end">
-    <ds-button variant="complementary" slotName="back-button-slot">
-      <ds-icon color="info6" size="30" icon-name="bi-arrow-left-short" slot="back-button-slot"></ds-icon>
-      <span slot="back-button-slot">volver atrás</span>
-    </ds-button>
-    <br />
-  </div>
-</div>
 
-  <!--<div class="p-5 pb-20">-->
+
+
 <div class="page__container">
+
+  <!-- HEADER -->
+  <div class="page-title__container">
+    <ds-title type="t4" family="secondary" weight="bold" color="primary">
+      <span slot="text">Solicitud de Reembolso</span>
+    </ds-title>
+    <div [routerLink]="['/historial']">
+      <ds-button variant="complementary" slotName="back-button-slot">
+        <ds-icon color="info6" size="30" icon-name="bi-arrow-left-short" slot="back-button-slot"></ds-icon>
+        <span slot="back-button-slot">volver atrás</span>
+      </ds-button>
+    </div>
+  </div>
+
   <!-- QUIEN SE ATENDIO -->
   <app-step-quien-se-atendio *ngIf="habilitarSeleccionBeneficiario" [stepperOneSource]="stepperOneSource" [customStepperSize]="customStepperSize"
     [personSelectOption]="personSelectOption" [stepsStatusOn]="stepsStatusOn" (sendData)="evaluateStepOne()"></app-step-quien-se-atendio>
@@ -39,17 +39,17 @@
   <!-- DETALLE PRESTACION -->
   <app-step-detalle-prestacion [customStepperSize]="customStepperSize" [stepperFiveSource]="stepperFiveSource"
     [montoReelbolso]="montoReelbolso" [stepsStatusOn]="stepsStatusOn"
-    (mostrarAgregarDetallesModal)="mostrarAgregarDetallesModal()"></app-step-detalle-prestacion>
-  <!-- Button siguiente -->
-  <section class="grid grid-cols-12 my-10">
-    <div class="flex items-center justify-around md:col-start-9 md:col-span-4 sm:col-span-12">
+    (mostrarAgregarDetallesModal)="mostrarAgregarDetallesModal()">
+  </app-step-detalle-prestacion>
+  
+    <!-- Button siguiente -->
+  <section class="reembolso__botones--container">
       <ds-button [size]="'s2'" variant="secondary" slot-name="cancel-button-slot">
         <span slot="cancel-button-slot">Cancelar</span>
       </ds-button>
       <ds-button [size]="'s2'" variant="primary" slot-name="next-button-slot" [routerLink]="['/resumen']">
         <span slot="next-button-slot"> Siguiente </span>
       </ds-button>
-    </div>
   </section>
 </div>
 

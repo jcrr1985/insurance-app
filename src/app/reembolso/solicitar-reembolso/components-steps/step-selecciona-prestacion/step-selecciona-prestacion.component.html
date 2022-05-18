@@ -2,9 +2,10 @@
   <app-custom-stepper [height]="customStepperSize.stepperTwo" [status]="stepperTwoSource()[0].status">
   </app-custom-stepper>
   <div id="stepperTwoContent" class="steps-content__container">
-    <ds-title class="col-span-12 mb-4" type="t4" family="secondary" weight="bold" color="primary">
-      <span class="steps-title two" slot="text"
-        [ngClass]="{'waitStepperText':this.stepperTwoSource()[0].status == 'waiting'}">Selecciona tu prestación</span>
+    <ds-title type="t4" family="secondary" weight="bold" color="primary">
+      <span  class="steps-title two" slot="text"
+        [ngClass]="{'waitStepperText':this.stepperTwoSource()[0].status == 'waiting'}">Selecciona tu prestación
+      </span>
     </ds-title>
     <div class="grid w-full grid-cols-12 gap-2">
       <ng-container *ngIf="getStepsStatus('stepOne_who', 'personaSeleccionada')">

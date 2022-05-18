@@ -13,17 +13,12 @@
     right: 10px;
 }
 
-.dropdown__container{
-    display: flex;
-    align-items: baseline;
-    gap: 5px;
-  }
 
 .select_container {
     padding-top: 4px;
     box-sizing: border-box;
     position: relative;
-    height: 40px;
+    height: 45px;
     width: 100%;
     .input_container {
         display: flex;
