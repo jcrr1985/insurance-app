@@ -8,7 +8,7 @@
         [ngClass]="{'waitStepperText':this.stepperFourSource()[0].status == 'waiting'}">Sube tus documentos</span>
     </ds-title>
     <div class="grid grid-cols-12 gap-4 pr-5">
-      <ng-container *ngIf="getStepsStatus('stepThree_general', 'copagoMayor') 
+      <ng-container *ngIf="(getStepsStatus('stepThree_general', 'agenciaSeleccionada') && getStepsStatus('stepThree_general', 'rutInstitucion') && getStepsStatus('stepThree_general', 'boletaFactura') && getStepsStatus('stepThree_general', 'fechaAtencion') && getStepsStatus('stepThree_general', 'copagoMayor')) 
       || getStepsStatus('stepThree_general', 'montoSolicitado')">
         <!-- documento -->
         <ds-paragraph class="col-span-12 mb-2 md:col-span-6" type="p1" family="primary" weight="regular"
@@ -43,8 +43,7 @@
             })
           " class="mx-5 md:w-max" type="s1" family="primary" label="Bono" name="documentType" value="2">
           </ds-radio>
-          <ds-radio (click)="
-            setStepsStatus({
+          <ds-radio (click)="setStepsStatus({
               step: 'stepFour_general',
               option: 'tipoDocumentoSeleccionado',
               value: 3

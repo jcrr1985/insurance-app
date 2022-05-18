@@ -29,14 +29,12 @@
           </ds-button>
         </div>
         <div class="flex col-span-12" *ngIf="prestaciones.length">
-          <app-table-resume-detalle-prestacion [prestaciones]="prestaciones" (editEv)="edit($event)"
-            (deleteEv)="delete($event)"></app-table-resume-detalle-prestacion>
+          <app-table-resume-detalle-prestacion></app-table-resume-detalle-prestacion>
         </div>
       </ng-container>
     </div>
 
   </div>
-  <app-detalle-prestacion *ngIf="showModal" [prestacionSeleccionada]="prestacionSeleccionada" [stepsStatusOn]="stepsStatusOn"
-    (datosNuevaPrestacion)="nuevaPrestacionDataArray($event)" (hideModalEvent)="hideAddMoreDetailModal()">
+  <app-detalle-prestacion *ngIf="showModal" (hideModalEvent)="hideAddMoreDetailModal()">
   </app-detalle-prestacion>
 </section>

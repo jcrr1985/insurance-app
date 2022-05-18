@@ -1,11 +1,12 @@
-<div class="ds-select-container relative">
+<div class="relative ds-select-container">
     <div class="input-beneficiario">
 
         <div class="dropdown__container">
             <div class="select_container">
                 <div class="input_container">
-                    <input id="first" class="w-full" [ngClass]="{'success':isValid}" (focus)="showElements()" (blur)="hideElements()"
-                        type="text" placeholder="{{label}}" autocomplete="off" [(ngModel)]="valueDisplay" readonly="true">
+                    <input id="first" class="w-full" [ngClass]="{'success':isValid}" (focus)="showElements()"
+                        (blur)="hideElements()" type="text" placeholder="{{label}}" autocomplete="off"
+                        [(ngModel)]="valueDisplay" readonly="true">
                     <label for="first">{{label}}</label>
                     <ds-icon *ngIf="!display" id="chevron" icon-name="bi-chevron-down" size="16" class="css-7kp13n">
                     </ds-icon>
@@ -14,7 +15,7 @@
                 </div>
                 <p>{{helpText}}</p>
             </div>
-            <div *ngIf="isValid" class="mx-2 flex items-center justify-center">
+            <div *ngIf="isValid" class="flex items-center justify-center mx-2">
                 <ds-icon class="input-select" color="info5" [iconName]="'bi-check-circle-fill'" size="24">
                 </ds-icon>
             </div>
@@ -24,12 +25,14 @@
             <div class="container_items" [ngClass]="{'block':display}">
                 <div class="dropdown__title-container">
                     <div class="dropdown__title">
-                        <p>Titulo con variable</p>
+                        <p>Selecciona una persona</p>
                     </div>
                     <div class="line-divider"></div>
                 </div>
                 <ng-container *ngFor="let element of source">
-                    <div  class="css-xigtd7" (click)="selectValue(element)"><p>{{element.key}}</p></div>
+                    <div class="css-xigtd7" (click)="selectValue(element)">
+                        <p>{{element.key}}</p>
+                    </div>
                 </ng-container>
             </div>
         </div>
