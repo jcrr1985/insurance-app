@@ -5,7 +5,7 @@
         <label *ngIf="label"> {{label}} </label>
         <p *ngIf="helpText">{{helpText}}</p>
     </div>
-    <div *ngIf="isValid && iconActive" class="mx-2 flex items-center justify-center">
+    <div *ngIf="isValid && iconActive" class="flex items-center justify-center mx-2">
         <ds-icon color="info5" [iconName]="'bi-check-circle-fill'" size="24">
         </ds-icon>
     </div>

@@ -9,12 +9,12 @@ import { ArancelService } from 'src/app/shared/services/arancel-service.service'
   styleUrls: ['./examenes-y-procedimientos.component.scss']
 })
 export class ExamenesYProcedimientosComponent implements OnInit {
-  valor: any = 0;
-  bonificacion: any = 0;
-  montoReembolso: any = 0;
-  sesionRequired: boolean = false;
+  public valor: any = 0;
+  public bonificacion: any = 0;
+  public montoReembolso: any = 0;
+  public sesionRequired: boolean = false;
   public prestacion: Prestacion = {} as Prestacion;
-  warningMsg: boolean = false;
+  public warningMsg: boolean = false;
   public montoReferencia = 50000;
 
   @Output() close: EventEmitter<any> = new EventEmitter();
@@ -41,6 +41,8 @@ export class ExamenesYProcedimientosComponent implements OnInit {
 
   selectEvent(item: any) {
     this.prestacion.numerosesiones = item.key;
+    this.prestacion.sesiones = item.value;
+    this.validarMensajeWarning();
   }
 
   calcMontoReembolso() {

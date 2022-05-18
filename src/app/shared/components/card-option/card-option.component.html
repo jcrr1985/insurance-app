@@ -1,9 +1,9 @@
 <div class="card-content" [ngClass]="[status]">
     <div class="card-sidebar"></div>
-    <div class="col-span-2 flex items-center justify-center">
+    <div class="flex items-center justify-center col-span-2">
         <img *ngIf="name != ''" class="icon" [ngClass]="[status]" [src]="getRouteImg(name)" alt="">
     </div>
-    <div class="col-span-10 flex items-center justify-start cursor-pointer">
+    <div class="flex items-center justify-start col-span-10 cursor-pointer">
         <span class="text-card" [ngClass]="[status]">{{prestacionName}}</span>
     </div>
 </div>

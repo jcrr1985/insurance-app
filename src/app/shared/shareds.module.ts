@@ -1,3 +1,4 @@
+import { DataStorageService } from './services/data-storage.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { HeaderComponent } from "./components/header/header.component";
@@ -42,20 +43,21 @@ import { PillComponent } from "./components/pill/pill.component";
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   exports: [
     TestingComponent,
-    HeaderComponent, 
-    SidebarComponent, 
-    HeaderComponent, 
-    ChipsComponent, 
-    CustomStepperComponent, 
-    TableResumeDetallePrestacionComponent, 
-    DsInputComponent, 
-    DsSelectV2Component, 
-    DsSearchV2Component, 
+    HeaderComponent,
+    SidebarComponent,
+    HeaderComponent,
+    ChipsComponent,
+    CustomStepperComponent,
+    TableResumeDetallePrestacionComponent,
+    DsInputComponent,
+    DsSelectV2Component,
+    DsSearchV2Component,
     CardOptionComponent,
     SelectParentescoComponent,
     PillComponent,
     ColDocLiqComponent
   ],
+  providers: [DataStorageService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SharedsModule { }
