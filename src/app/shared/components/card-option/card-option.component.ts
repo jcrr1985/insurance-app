@@ -9,6 +9,7 @@ export class CardOptionComponent implements OnInit {
   @Input() status: string = '';
   @Input() name: string = '';
   @Input() prestacionName: string = '';
+  temporalActive = false;
 
   constructor() { }
   svgAvailables: any = {
@@ -21,7 +22,7 @@ export class CardOptionComponent implements OnInit {
   }
   getRouteImg(nameItem: string) {
     try {
-      return this.status == 'active' ? this.svgAvailables[nameItem] + 'Activa.svg' : this.svgAvailables[nameItem] + '.svg';
+      return this.status == 'active' || this.temporalActive ? this.svgAvailables[nameItem] + 'Activa.svg' : this.svgAvailables[nameItem] + '.svg';
     } catch (error) {
       return '';
     }

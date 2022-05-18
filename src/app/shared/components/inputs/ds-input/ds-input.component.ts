@@ -28,21 +28,32 @@ export class DsInputComponent implements OnInit {
   async emitChange() {
     // delay necesario para que el buscador pueda compartir el input
     await timer(100).toPromise();
+    //if (this.formatoMoneda) this.value = this.format(this.value);
+    const emit = this.formatoMoneda ? this.limpiarMonto(this.value) : this.value;
+    this.changeEv.emit(emit);
     this.isValid = this.value && this.value.toString().trim() != '' ? true : false;
-    this.changeEv.emit(this.value);
   }
   emitKeyup() {
     if (this.formatoMoneda) this.value = this.format(this.value);
-    this.keyupEv.emit(this.value);
+    const emit = this.formatoMoneda ? this.limpiarMonto(this.value) : this.value;
+    this.keyupEv.emit(emit);
   }
   // TODO corregir para decimales
   format(valor: string | number) {
     const reg = /[^0-9,0-9]/g
+    const incluyedecimal: boolean = valor.toString().includes(',');
     // limpiamos el valor en caso que el usuario haya separado con , los separadores de mil o insertado alguna letra
     const valorSinLetras = valor.toString().replace(reg, '');
     const valorParaParsear = valorSinLetras.replace(',', '.');
     const valorParseado = Number(valorParaParsear);
+    const format = this.formatter.format(valorParseado);
+    const incluyedecimal2 = format.includes(',');
     // parseamos el valor una vez se ha validado que es un numero
-    return '$ ' + this.formatter.format(valorParseado);
+    return '$ ' + format + `${incluyedecimal && !incluyedecimal2 ? ',' : ''}`;
   }
+  limpiarMonto(value: string | number) {
+    const regexp = /[^0-9,]/g
+    return parseFloat(value.toString().replace(regexp, '').replace(',', '.'));
+  }
+
 }
