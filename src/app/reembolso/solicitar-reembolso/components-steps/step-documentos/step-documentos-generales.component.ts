@@ -1,3 +1,4 @@
+import { DataStorageService } from './../../../../shared/services/data-storage.service';
 import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
 import '@vs-design-system/ds-file';
 import { timer } from 'rxjs';
@@ -12,9 +13,9 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
   @Input() montoReelbolso: any;
   @Input() stepperFourSource: any;
   @Input() customStepperSize: any;
-  @Input() stepsStatusOn: any;
-  @Input() isapreFonasaOptions: any;
   @Input() eliminarDocumentoAdicional: any;
+  stepsStatusOn: any;
+  isapreFonasaOptions: any = previsionesArray;
   idPrestacionSeleccionada: number = 1;
 
 
@@ -55,16 +56,19 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
       cols: 'col-span-4'
     },
   }
-  constructor(private arancelService: ArancelService) {
+  constructor(private dataStorageService: DataStorageService, private arancelService: ArancelService) {
   }
 
   ngOnChanges(changes: SimpleChanges) { }
   filesUploaded: any = [];
   ngOnInit(): void {
-    this.idPrestacionSeleccionada = this.arancelService.idprestacionSeleccionada;
-    this.arancelService.setIdSubject$.subscribe(prestacionId => {
-      this.idPrestacionSeleccionada = prestacionId;
-    });
+    this.dataStorageService.getFormReemboslo().subscribe(statusOn => this.stepsStatusOn = statusOn);
+    this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.idPrestacionSeleccionada = id)
+    // this.idPrestacionSeleccionada = this.arancelService.idprestacionSeleccionada;
+    // this.arancelService.setIdSubject$.subscribe(prestacionId => {
+    //  this.idPrestacionSeleccionada = prestacionId;
+    //}); 
+
     this.addEventListener();
     this.restoreDocs();
   }
@@ -198,10 +202,8 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
   }
   async emitirCambioArchivo() {
     const archivosSubidosCorrectamente = this.validarCargaDeArchivos();
-    const data = { step: 'stepFour_general', option: 'fileUploaded', value: archivosSubidosCorrectamente }
     await timer(100).toPromise();
-    this.sendData.emit(data)
-    this.evaluateStepFour.emit();
+    this.dataStorageService.setFormReembolso('stepFour_general', 'fileUploaded', archivosSubidosCorrectamente)
   }
   deleteDocs(prestacion: string, indexNameFiles: number, nameFile: string) {
     let newFiles = [];
@@ -214,8 +216,10 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
   }
 
   setStepsStatus(data: any) {
-    this.sendData.emit(data)
-    this.evaluateStepFour.emit();
+    // this.sendData.emit(data)
+    // this.evaluateStepFour.emit();
+    this.dataStorageService.setFormReembolso(data.step, data.option, data.value);
+
     switch (data.value) {
 
       case 1:
@@ -243,3 +247,14 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
     return this.stepsStatusOn[step][option];
   }
 }
+
+const previsionesArray = [
+  { key: 'Fonasa', value: 1, selected: false },
+  { key: 'Colmena', value: 2, selected: false },
+  { key: 'Consalud', value: 3, selected: false },
+  { key: 'Cruz Blanca', value: 4, selected: false },
+  { key: 'Banmédica', value: 5, selected: false },
+  { key: 'Masvida', value: 6, selected: false },
+  { key: 'Vida', value: 7, selected: false },
+
+];

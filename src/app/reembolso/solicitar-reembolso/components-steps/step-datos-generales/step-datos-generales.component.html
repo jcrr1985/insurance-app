@@ -16,7 +16,11 @@
 
         <!--step datos para hospitalario-->
         <ng-container *ngIf="idPestacionSeleccionada == 2">
-          <div class="flex items-center justify-center col-span-12">
+          <!-- Monto Hospitalario -->
+          <ds-input-v2 class="col-span-12" label="Monto solicitado" helpText="" type="number" helpText=""
+            (changeEv)="setStepsStatus({step: 'stepThree_general',option: 'montoSolicitado', value: $event })">
+          </ds-input-v2>
+          <!-- <div class="flex items-center justify-center col-span-12">
             <ds-input class="w-full inputsThirdField" id="montoTotalrHospitalario" [helperMessage]="''"
               [initialLabel]="'Monto solicitado'" size="s2" labelOrientation="start" (keyup)="setStepsStatus({
                 step: 'stepThree_general',
@@ -26,13 +30,15 @@
             </ds-input>
             <ds-icon *ngIf="getStepsStatus('stepThree_general', 'boletaFactura')" color="info5" size="25"
               icon-name="bi-check-circle-fill"></ds-icon>
-          </div>
+          </div> -->
         </ng-container>
         <!--Datos para cualquier flujo diferente a hospitalario-->
         <ng-container *ngIf="idPestacionSeleccionada   != 2 ">
           <!-- Isapre/Fonasa -->
           <ds-select-v2 class="col-span-12 md:col-span-6 sm:col-span-6" label="Isapre/Fonasa"
-            [source]="isapreFonasaOptions" (changeEv)="revisarSelectevent($event)" helpText="">
+            [source]="isapreFonasaOptions"
+            (changeEv)="setStepsStatus({step:'stepThree_general',option:'agenciaSeleccionada',value:true})"
+            helpText="">
           </ds-select-v2>
           <!-- RUT -->
           <ds-input-v2 class="col-span-12 md:col-span-6 sm:col-span-6" label="Rut institucion/prestador"
@@ -57,13 +63,11 @@
 
         <!-- Reembolsaste -->
         <div class="question__container">
-          <ds-paragraph class="question-style" type="p1" family="secondary" weight="semiBold"
-          color="secondary">
+          <ds-paragraph class="question-style" type="p1" family="secondary" weight="semiBold" color="secondary">
             <span slot="text" class="font-bold">{{textPreguntas}}</span>
           </ds-paragraph>
 
-          <div class="question-options"
-            *ngIf="mostrarRadioButtons && idPestacionSeleccionada !=2">
+          <div class="question-options" *ngIf="mostrarRadioButtons && idPestacionSeleccionada !=2">
             <ds-radio type="s1" family="primary" label="Si" name="copagoMayor" value="si" (click)="
               setStepsStatus({
                 step: 'stepThree_general',

@@ -9,6 +9,8 @@ import {
 } from '@angular/core';
 import { ReembolsoService } from 'src/app/shared/services/reembolso.service';
 import '@vs-design-system/ds-pagination';
+import '@vs-design-system/ds-collapsible'
+
 import { Router } from '@angular/router';
 import { timer } from 'rxjs';
 

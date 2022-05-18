@@ -1,6 +1,3 @@
-
-
-
 <div class="page__container">
 
   <!-- HEADER -->
@@ -17,25 +14,22 @@
   </div>
 
   <!-- QUIEN SE ATENDIO -->
-  <app-step-quien-se-atendio *ngIf="habilitarSeleccionBeneficiario" [stepperOneSource]="stepperOneSource" [customStepperSize]="customStepperSize"
-    [personSelectOption]="personSelectOption" [stepsStatusOn]="stepsStatusOn" (sendData)="evaluateStepOne()"></app-step-quien-se-atendio>
+  <app-step-quien-se-atendio *ngIf="habilitarSeleccionBeneficiario" [stepperOneSource]="stepperOneSource"
+    [customStepperSize]="customStepperSize"></app-step-quien-se-atendio>
 
   <!-- SELECCIONA TU PRESTACION -->
-  <app-step-selecciona-prestacion  [stepperTwoSource]="stepperTwoSource" [customStepperSize]="customStepperSize"
-    [stepsStatusOn]="stepsStatusOn" [chipsData]="chipsData" (sendData)="setStepsStatus($event)"
-    (evaluateStepTwo)="evaluateStepTwo()"></app-step-selecciona-prestacion>
-    
+  <app-step-selecciona-prestacion [stepperTwoSource]="stepperTwoSource" [customStepperSize]="customStepperSize"
+    [chipsData]="chipsData"></app-step-selecciona-prestacion>
+
   <!-- COMPLETAR DATOS GENERALES -->
   <app-step-datos-generales (mostrarDocumentoAdicional)="mostrarDocumentoAdicional($event)"
-   [stepperThreeSource]="stepperThreeSource"
-    [customStepperSize]="customStepperSize" [stepsStatusOn]="stepsStatusOn" [isapreFonasaOptions]="isapreFonasaOptions"
-    (sendData)="setStepsStatus($event)" (evaluateStepThree)="evaluateStepThree()"></app-step-datos-generales>
+    [stepperThreeSource]="stepperThreeSource" [customStepperSize]="customStepperSize"></app-step-datos-generales>
 
   <!-- CARGA DE DOCUMENTOS -->
-  <app-step-documentos-generales [eliminarDocumentoAdicional]="eliminarDocumentoAdicional" [montoReelbolso]="montoReelbolso" [stepperFourSource]="stepperFourSource"
-    [customStepperSize]="customStepperSize" [stepsStatusOn]="stepsStatusOn" [isapreFonasaOptions]="isapreFonasaOptions"
-    (sendData)="setStepsStatus($event)" (evaluateStepFour)="evaluateStepFour()"></app-step-documentos-generales>
-    
+  <app-step-documentos-generales [eliminarDocumentoAdicional]="eliminarDocumentoAdicional"
+    [montoReelbolso]="montoReelbolso" [stepperFourSource]="stepperFourSource" [customStepperSize]="customStepperSize">
+  </app-step-documentos-generales>
+
   <!-- DETALLE PRESTACION -->
   <app-step-detalle-prestacion [customStepperSize]="customStepperSize" [stepperFiveSource]="stepperFiveSource"
     [montoReelbolso]="montoReelbolso" [stepsStatusOn]="stepsStatusOn"
@@ -47,7 +41,7 @@
       <ds-button [size]="'s2'" variant="secondary" slot-name="cancel-button-slot">
         <span slot="cancel-button-slot">Cancelar</span>
       </ds-button>
-      <ds-button [size]="'s2'" variant="primary" slot-name="next-button-slot" [routerLink]="['/resumen']">
+      <ds-button [size]="'s2'" variant="primary" slot-name="next-button-slot" (click)="botonSiguiente()">
         <span slot="next-button-slot"> Siguiente </span>
       </ds-button>
   </section>

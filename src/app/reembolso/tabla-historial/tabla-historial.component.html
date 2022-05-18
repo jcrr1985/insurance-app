@@ -40,57 +40,65 @@
         <!--TABLE BODY-->
         <ds-table-body slot="body">
           <!--Row Start-->
-          <ds-table-body-row *ngFor="let registro of dataRegistros" slot="row">
-            <ds-table-body-column slot="column">
-              <span class="texto-normal" slot="element">{{
-                registro.nombre
-                }}</span>
-              <span class="texto-especial" slot="element">{{
-                registro.parentesco
-                }}</span>
-            </ds-table-body-column>
-            <ds-table-body-column slot="column">
-              <span class="texto-normal" slot="element">{{
-                registro.numSolicitud
-                }}</span>
-            </ds-table-body-column>
-            <ds-table-body-column slot="column">
-              <span class="texto-normal" slot="element">{{
-                registro.montoSolicitado
-                }}</span>
-            </ds-table-body-column>
-            <ds-table-body-column slot="column">
-              <span class="texto-normal" slot="element">{{
-                registro.fechaPago | date: "shortDate"
-                }}</span>
-            </ds-table-body-column>
-            <ds-table-body-column slot="column">
-              <app-pill [texto]="registro.estado"></app-pill>
-            </ds-table-body-column>
-            <ds-table-body-column slot="column">
-              <app-col-doc-liq></app-col-doc-liq>
-            </ds-table-body-column>
-          </ds-table-body-row>
+          <ng-container *ngFor="let registro of dataRegistros; let i = index">
+            <ds-table-body-row slot="row">
+              <ds-table-body-column slot="column">
+                <span class="texto-normal" slot="element">{{
+                  registro.nombre
+                  }}</span>
+                <span class="texto-especial" slot="element">{{
+                  registro.parentesco
+                  }}</span>
+              </ds-table-body-column>
+              <ds-table-body-column slot="column">
+                <span class="texto-normal" slot="element">{{
+                  registro.numSolicitud
+                  }}</span>
+              </ds-table-body-column>
+              <ds-table-body-column slot="column">
+                <span class="texto-normal" slot="element">{{
+                  registro.montoSolicitado
+                  }}</span>
+              </ds-table-body-column>
+              <ds-table-body-column slot="column">
+                <span class="texto-normal" slot="element">{{
+                  registro.fechaPago | date: "shortDate"
+                  }}</span>
+              </ds-table-body-column>
+              <ds-table-body-column slot="column">
+                <app-pill [texto]="registro.estado"></app-pill>
+              </ds-table-body-column>
+              <ds-table-body-column slot="column">
+                <app-col-doc-liq></app-col-doc-liq>
+              </ds-table-body-column>
+            </ds-table-body-row>
+          <!--En las ds-table-body-row vacias que se generan abajo se cambiara la condicionm del ngif por un true o false
+          si el usuario presiono la flechita ds-open para desplegar el detalle del reembolso en particular-->
+
+            <ds-table-body-row *ngIf="false">
+              <!--aqui dibujare el detalle con la data interpolada-->
+
+              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minima amet odio quidem repellendus veritatis vel placeat nulla officia, sequi sit laboriosam, labore natus ut quisquam laudantium perspiciatis dicta voluptate numquam.</p>
+            </ds-table-body-row>
+          </ng-container>
           <!--End Row-->
         </ds-table-body>
       </ds-table>
     </div>
     <div class="flex items-start justify-between w-full h-20">
       <div class="pagination-wrapper">
-        <ds-pagination [initialPage]="pageSelected" [totalPages]="totalPaginas" (onchange)="eventSelectPage($event)">
-        </ds-pagination>
+        <div class="css-1r2g4su">
+          <ds-icon class="css-1h5x3dy" size="16" icon-name="bi-chevron-left"></ds-icon>
+          <ds-pagination [initialPage]="pageSelected" [totalPages]="totalPaginas" (onchange)="eventSelectPage($event)">
+          </ds-pagination>
+          <ds-icon class="css-1h5x3dy" size="16" icon-name="bi-chevron-right"></ds-icon>
+        </div>
       </div>
       <div class="">
         <ds-pagecounter (onchange)="eventPaginationSource($event)" [initialLabel]="'10'" [source]="sourcePagination">
         </ds-pagecounter>
       </div>
-      <!--   <div>
-      <ds-pagination [totalPages]="paginationSource.length"></ds-pagination>
-    </div>
-    <div class="">
-      <ds-pagecounter class="pageCounter" #dsPageCounter [initialLabel]="initialLabel" [source]="paginationSource">
-      </ds-pagecounter>
-    </div> -->
+
     </div>
   </ng-container>
 

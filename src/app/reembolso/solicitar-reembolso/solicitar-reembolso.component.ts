@@ -1,3 +1,4 @@
+import { DataStorageService } from './../../shared/services/data-storage.service';
 import { AfterContentChecked, Component, OnDestroy, OnInit } from '@angular/core';
 import '@vs-design-system/ds-input';
 import '@vs-design-system/ds-datepicker';
@@ -37,9 +38,6 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
   public stepperFourSource = () => [{ label: '', status: 'waiting' }];
   public stepperFiveSource = () => [{ label: '', status: 'waiting' }];
 
-  public personSelectOption = beneficiariosArray;
-  public isapreFonasaOptions = previsionesArray;
-
   public filesUploaded: FilesUploaded[] = [];
   public montoReelbolso: number = 0;
   public prestacionSeleccionada: any = null;
@@ -58,31 +56,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     stepperFive: '104px',
   };
 
-  public stepsStatusOn: any = {
-    stepOne_who: {
-      personaSeleccionada: false,
-    },
-    stepTwo_selectOption: {
-      prestacionSeleccionada: false,
-      reembolsoPrevioIsapre: null,
-    },
-    stepThree_general: {
-      rutInstitucion: false,
-      boletaFactura: false,
-      fechaAtencion: false,
-      copagoMayor: null,
-      montoSolicitado: false,
-    },
-    stepFour_general: {
-      tipoDocumentoSeleccionado: false,
-      fileUploaded: false,
-      agenciaSeleccionada: false,
-    },
-
-    stepFive_Details: {
-      reembolsoCalculation: false,
-    },
-  };
+  public stepsStatusOn: any;
 
   private nuevaPrestacionData!: string[];
   public totalHistorico!: number;
@@ -93,6 +67,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
   public eliminarDocumentoAdicional!: string;
 
   constructor(
+    private dataStorageService: DataStorageService,
     private reembolsoService: ReembolsoService,
     private router: Router,
     private arancelService: ArancelService,
@@ -108,6 +83,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
   }
 
   ngOnInit(): void {
+    this.dataStorageService.getFormReemboslo().subscribe(statusOn => this.stepsStatusOn = statusOn);
     this.subscribeChangesOnInput();
     this.subscripcionDatos();
     this.addAccessKey();
@@ -123,10 +99,10 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
    * @description se subscribe a los observables correspondientes y necesarios para el correcto funcionamiento
    */
   subscripcionDatos() {
-    this.arancelService.setIdSubject$.subscribe(e => {
-      this.prestacionSeleccionada = e;
-    })
-
+    /*  this.arancelService.setIdSubject$.subscribe(e => {
+       this.prestacionSeleccionada = e;
+     }) */
+    this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.prestacionSeleccionada = id)
     this.reembolsoService.habilitarSeleccionBeneficiario$.subscribe(val => {
       this.habilitarSeleccionBeneficiario = val;
     })
@@ -146,57 +122,66 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
    * @description observa los eventos generados por el DS para setear los valores al form
    */
   subscribeChangesOnInput() {
-    window.addEventListener('onchangeSelect', (event: any) => {
-      if (event.target.id == 'personaSeleccionada') {
-        const idPersonSelected = event.detail[0].value;
-        this.setStepsStatus({
-          step: 'stepOne_who',
-          option: 'personaSeleccionada',
-          value: idPersonSelected,
+    this.dataStorageService.getFormReemboslo().subscribe(statusOn => {
+      this.stepsStatusOn = statusOn;
+      console.log("en el formulario ->", statusOn);
+      this.evaluateStepOne();
+      this.evaluateStepTwo();
+      this.evaluateStepThree();
+      this.evaluateStepFour();
+      this.evaluateStepFive();
+    })
+    /*     window.addEventListener('onchangeSelect', (event: any) => {
+          if (event.target.id == 'personaSeleccionada') {
+            const idPersonSelected = event.detail[0].value;
+            this.setStepsStatus({
+              step: 'stepOne_who',
+              option: 'personaSeleccionada',
+              value: idPersonSelected,
+            });
+            this.evaluateStepOne();
+          }
+          if (event.target.id == 'isapreFonasaSelect') {
+            let idAgencia;
+            if (event.detail[0]?.value) {
+              idAgencia = event.detail[0]?.value;
+              this.setStepsStatus({
+                step: 'stepThree_general',
+                option: 'agenciaSeleccionada',
+                value: idAgencia,
+              });
+            }
+          }
         });
-        this.evaluateStepOne();
-      }
-      if (event.target.id == 'isapreFonasaSelect') {
-        let idAgencia;
-        if (event.detail[0]?.value) {
-          idAgencia = event.detail[0]?.value;
-          this.setStepsStatus({
-            step: 'stepThree_general',
-            option: 'agenciaSeleccionada',
-            value: idAgencia,
-          });
-        }
-      }
-    });
-    window.addEventListener('oninput', (event: any) => {
-      if (event.target.id == 'rutInstitucion') {
-        const value = event.detail;
-        this.setStepsStatus({
-          step: 'stepThree_general',
-          option: 'rutInstitucion',
-          value,
+        window.addEventListener('oninput', (event: any) => {
+          if (event.target.id == 'rutInstitucion') {
+            const value = event.detail;
+            this.setStepsStatus({
+              step: 'stepThree_general',
+              option: 'rutInstitucion',
+              value,
+            });
+          }
+          if (event.target.id == 'boletaFactura') {
+            const value = event.detail;
+            this.setStepsStatus({
+              step: 'stepThree_general',
+              option: 'boletaFactura',
+              value,
+            });
+          }
         });
-      }
-      if (event.target.id == 'boletaFactura') {
-        const value = event.detail;
-        this.setStepsStatus({
-          step: 'stepThree_general',
-          option: 'boletaFactura',
-          value,
-        });
-      }
-    });
-    window.addEventListener('onSelectDate', (event: any) => {
-      const id = event.path[1].id
-      if (id == 'fecha_generales') {
-        const value = event.detail.init;
-        this.setStepsStatus({
-          step: 'stepThree_general',
-          option: 'fechaAtencion',
-          value,
-        });
-      }
-    });
+        window.addEventListener('onSelectDate', (event: any) => {
+          const id = event.path[1].id
+          if (id == 'fecha_generales') {
+            const value = event.detail.init;
+            this.setStepsStatus({
+              step: 'stepThree_general',
+              option: 'fechaAtencion',
+              value,
+            });
+          }
+        }); */
   }
   /**
    * @description construye el formulario para guardar los valores
@@ -212,6 +197,14 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       boletaFactura: new FormControl(''),
       fechaAtencion: new FormControl(''),
     });
+  }
+  botonSiguiente() {
+    this.dataStorageService.getPrestaciones().subscribe(prestaciones => {
+      const prestacionesCargadas = prestaciones;
+      this.dataStorageService.agregarPrestacionResumen({ prestaciones: prestacionesCargadas, idprestacionSeleccionada: this.prestacionSeleccionada });
+      this.router.navigate(['/resumen']);
+    })
+
   }
   public formatter = new Intl.NumberFormat('es-CL');
 
@@ -274,7 +267,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       ? 'completed'
       : 'waiting';
     this.stepperOneSource = () => [{ label: '', status }];
-    this.stepperTwoSource = () => [{ label: '', status: 'active' }];
+    if (status == 'completed') this.stepperTwoSource = () => [{ label: '', status: 'active' }];
     this.getSizeStepper();
   }
   /**
@@ -297,7 +290,11 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
    * @description Evalúa los requisitos necesarios para el progress del 3er paso - Datos Generales
    */
   evaluateStepThree() {
-    const stepThree_generalObject = this.stepsStatusOn.stepThree_general;
+
+    const agenciaSeleccionada = this.stepsStatusOn.stepThree_general
+      .agenciaSeleccionada
+      ? 'completed'
+      : 'waiting';
 
     const statusrutInstitucion = this.stepsStatusOn.stepThree_general
       .rutInstitucion
@@ -324,19 +321,15 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     let status: string;
 
     if (this.prestacionSeleccionada != 2) {
-      if
-        ((statusrutInstitucion == 'completed' &&
-          statusboletaFactura == 'completed' &&
-          statusFechaAtencion == 'completed' &&
-          statusCopago == 'completed'
-        )) {
+      if (agenciaSeleccionada == 'completed' && statusrutInstitucion == 'completed' && statusboletaFactura == 'completed' && statusFechaAtencion == 'completed' && statusCopago == 'completed') {
         status = 'completed';
-        this.stepperFourSource = () => [{ label: '', status: 'active' }];
         this.stepperThreeSource = () => [{ label: '', status }];
+        if (status == 'completed') this.stepperFourSource = () => [{ label: '', status: 'active' }];
       }
     } else {
       if (statusMontoSolicitado == 'completed') {
         status = 'completed';
+        if (status == 'completed') this.stepperFourSource = () => [{ label: '', status: 'active' }];
       } else {
         status = 'waiting';
       }
@@ -352,7 +345,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     const statusfileUploaded = (this.stepsStatusOn.stepFour_general.fileUploaded && this.stepsStatusOn.stepFour_general.tipoDocumentoSeleccionado)
       ? 'completed'
       : 'active';
-    this.stepperFourSource = () => [{ label: '', status: statusfileUploaded }];
+    if (statusfileUploaded == 'completed') this.stepperFourSource = () => [{ label: '', status: statusfileUploaded }];
     this.stepperFiveSource = () => [{ label: '', status: statusfileUploaded == 'completed' ? 'active' : 'waiting' }];
     this.getSizeStepper();
   }
@@ -433,20 +426,3 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     this.eliminarDocumentoAdicional = respuestaCopago;
   }
 }
-
-const beneficiariosArray = [
-  { label: 'Seleccione', value: 0, selected: false },
-  { label: 'Alejandro Salgado', value: 1, selected: false },
-  { label: 'Maria Salgado', value: 2, selected: false },
-  { label: 'Camilo Salgado', value: 3, selected: false },
-];
-const previsionesArray = [
-  { key: 'Fonasa', value: 1, selected: false },
-  { key: 'Colmena', value: 2, selected: false },
-  { key: 'Consalud', value: 3, selected: false },
-  { key: 'Cruz Blanca', value: 4, selected: false },
-  { key: 'Banmédica', value: 5, selected: false },
-  { key: 'Masvida', value: 6, selected: false },
-  { key: 'Vida', value: 7, selected: false },
-
-];
