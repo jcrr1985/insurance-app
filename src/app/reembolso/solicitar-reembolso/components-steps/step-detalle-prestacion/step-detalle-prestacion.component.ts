@@ -1,3 +1,4 @@
+import { DataStorageService } from './../../../../shared/services/data-storage.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
 
@@ -9,17 +10,23 @@ import { ArancelService } from 'src/app/shared/services/arancel-service.service'
 export class StepDetallePrestacionComponent implements OnInit {
   @Input() customStepperSize: any;
   @Input() stepperFiveSource: any;
-  @Input() stepsStatusOn: any;
   @Output() mostrarAgregarDetallesModal: EventEmitter<any> = new EventEmitter<any>();
+  stepsStatusOn: any;
   showModal: boolean = false;
   prestaciones: any[] = [];
-  constructor(private arancelService: ArancelService) { }
-  prestacionSeleccionada: any = this.arancelService.getPrestacionSeleccionada
+  prestacionSeleccionada: any;
+  //prestacionSeleccionada: any = this.arancelService.getPrestacionSeleccionada
+
+  constructor(private dataStorageService: DataStorageService, private arancelService: ArancelService) { }
+
 
   ngOnInit(): void {
-    this.arancelService.setIdSubject.subscribe(e => {
+    this.dataStorageService.getFormReemboslo().subscribe(statusOn => this.stepsStatusOn = statusOn);
+    this.dataStorageService.getPrestaciones().subscribe(prestaciones => this.prestaciones = prestaciones);
+    this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.prestacionSeleccionada = id)
+    /* this.arancelService.setIdSubject.subscribe(e => {
       this.prestacionSeleccionada = e;
-    })
+    }) */
   }
   edit(prestacion: any) {
     this.prestacionSeleccionada = prestacion;
@@ -31,7 +38,8 @@ export class StepDetallePrestacionComponent implements OnInit {
   }
   nuevaPrestacionDataArray(prestacion: any) {
     //this.prestaciones.push({ ...prestacion, id: this.arancelService.getPrestacionSeleccionadaId });
-    this.prestaciones.push({ ...prestacion, id: this.prestaciones.length + 1 });
+    const dataPrestacion = { ...prestacion, id: this.prestaciones.length + 1 };
+    this.prestaciones.push(dataPrestacion);
     this.prestacionSeleccionada = {}
   }
   hideAddMoreDetailModal() {

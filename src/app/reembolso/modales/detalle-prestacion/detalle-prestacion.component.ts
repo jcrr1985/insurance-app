@@ -1,3 +1,4 @@
+import { DataStorageService } from './../../../shared/services/data-storage.service';
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
 import { Component, OnInit, AfterViewInit, EventEmitter, Output, OnChanges, SimpleChanges, Input } from '@angular/core';
 
@@ -13,31 +14,29 @@ export class DetallePrestacionComponent
   public modalData: Array<any> = [];
   private inputPredictivoNativo: any;
   public idprestacionSeleccionada!: number;
-  @Input() prestacionSeleccionada: any = {};
-  @Input() stepsStatusOn: any;
-  @Output() datosNuevaPrestacion: EventEmitter<any> = new EventEmitter<any>();
+  public stepsStatusOn: any;
+  public prestacionSeleccionada: any = {};
   @Output() hideModalEvent: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private arancelService: ArancelService) { }
+  constructor(private dataStorageService: DataStorageService, private arancelService: ArancelService) { }
 
   ngOnInit(): void {
+    this.dataStorageService.getFormReemboslo().subscribe(statusOn => this.stepsStatusOn = statusOn);
+    this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.prestacionSeleccionada = id);
+
     setTimeout(() => {
       this.inputPredictivoNativo = document.getElementById('busqueda-predictiva')!.querySelector('input');
     }, 100);
-    this.arancelService.setIdSubject$.subscribe(idPrestacion => this.idprestacionSeleccionada = idPrestacion)
-  }
-
-
-  enviarDetalleModalData() {
-    this.datosNuevaPrestacion.emit([...this.modalData]);
-    this.closeModal();
+    // this.arancelService.setIdSubject$.subscribe(idPrestacion => this.idprestacionSeleccionada = idPrestacion)
+    this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.idprestacionSeleccionada = id)
   }
 
   closeModal(): void {
     this.hideModalEvent.emit(false);
   }
+
   receivedModalData(data: any) {
-    this.datosNuevaPrestacion.emit(data);
+    this.dataStorageService.agregarPrestacion(data);
   }
 
   setearValorInputPredictivo(textoArancel: string) {
