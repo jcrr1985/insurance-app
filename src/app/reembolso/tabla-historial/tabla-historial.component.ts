@@ -11,6 +11,9 @@ import { ReembolsoService } from 'src/app/shared/services/reembolso.service';
 import '@vs-design-system/ds-pagination';
 import { Router } from '@angular/router';
 import { timer } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { DataUsuarioService } from 'src/app/shared/services/data-usuario/data-usuario.service';
+import { IUsuario } from 'src/app/shared/interfaces/usuario-api';
 
 
 @Component({
@@ -20,6 +23,9 @@ import { timer } from 'rxjs';
 })
 export class TablaHistorialComponent
   implements OnInit, OnDestroy {
+    /* const dataSource!: IUsuario; */
+    isLoading = true;
+    dataSubscription = new Subscription();
   // @ViewChild('dsPageCounter') dsPageCounter: ElementRef<HTMLElement> =
   //   {} as ElementRef;
   @ViewChild('dsPageCounter') dsPageCounter: any;
@@ -32,6 +38,7 @@ export class TablaHistorialComponent
   constructor(
     private reembolsoService: ReembolsoService,
     private router: Router,
+    private service: DataUsuarioService
   ) { }
 
   ngOnDestroy(): void {
@@ -136,6 +143,16 @@ export class TablaHistorialComponent
     window.addEventListener('keydown', (event) => {
       if (event.ctrlKey && event.code == 'KeyQ')
         this.router.navigate(['/testing']);
+    });
+  }
+
+  buscarDatos() {
+    console.log('busco los datos');
+    this.isLoading = true;
+    this.dataSubscription = this.service.buscarData().subscribe((response) => {
+      console.log(response);
+      this.isLoading = false;
+      /* this.dataSource = response.data.data; */
     });
   }
 }
