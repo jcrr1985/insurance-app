@@ -1,5 +1,5 @@
-<div class="grid grid-cols-12 mx-2 card-content " [ngClass]="[status]" (mouseover)="temporalActive=true"
-    (mouseleave)="temporalActive=false">
+<div class="card-content" [ngClass]="[status]">
+    <div class="card-sidebar"></div>
     <div class="flex items-center justify-center col-span-2">
         <img *ngIf="name != ''" class="icon" [ngClass]="[status]" [src]="getRouteImg(name)" alt="">
     </div>

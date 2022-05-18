@@ -1,28 +1,44 @@
 .card-content {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
+    box-shadow: none !important;
+    
+
     box-sizing: border-box;
     width: auto;
     height: 70px !important;
     border-radius: 8px;
     background: rgb(255, 255, 255);
-    box-shadow: rgb(67 80 94 / 20%) 0px 4px 4px 0px;
+    border: 1px solid var(--color-font-tertiary) !important;
     border-style: solid;
     border-width: 0px 0px 0px 0px;
-    padding-left: 7px;
-    margin: 0 !important;
+    // padding-left: 7px;
+    // margin: 0 !important;
     cursor: pointer;
+
+    .card-sidebar{
+        width: 8px;
+        height: 100%;
+        background-color: #fff;
+
+    }
 }
 
 .card-content.active {
-    box-sizing: border-box !important;
-    width: auto !important;
-    border-radius: 8px !important;
-    background: rgb(255, 255, 255) !important;
-    box-shadow: rgb(67 80 94 / 20%) 0px 4px 4px 0px !important;
-    border-color: #ef6f00 !important;
-    border-style: solid !important;
-    border-width: 0px 0px 0px 8px !important;
-    padding-left: 0px !important;
-    cursor: auto !important;
+    box-shadow: rgb(67 80 94 / 20%) 0px 4px 4px 0px;
+    border-color: #ef6f00;
+    border-style: solid;
+    border-width: 0px 0px 0px 8px;
+    padding-left: 0px;
+    cursor: auto;
+
+    .card-sidebar{
+        background-color: #ef6f00;
+        
+    }
 }
 
 .card-content:hover {
