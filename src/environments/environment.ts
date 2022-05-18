@@ -1,17 +1,10 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-
 export const environment = {
   production: false,
-  urlbase: ''
+  SSO_OPENID_URL : 'https://des-sso.security.cl:8543',
+  URL_BFF_BASE: 'https://vs-as-appsalud-back-des.azurewebsites.net',
+  CLIENT_ID: 'vs-app-salud',
+  SSO_RESET_CRED_URL : 'https://des-sso.security.cl:8543/auth/realms/VS-Clients/login-actions/reset-credentials',
+  APPINSIGHTS_INSTRUMENTATIONKEY: "dab91500-bdd6-4d64-a758-5b83eb0a39b1",
+  X_IBM_CLIENT_ID: "879d5be8-4998-451c-9226-638b97a8596c",
+  env: 'dev',
 };
-
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
