@@ -85,11 +85,20 @@ ds-table-header.tabla-header {
   padding: 20px;
   gap: 30px;
   justify-content: space-between;
-  
+
 }
 
 .historial-wrapper {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+.css-9uz96q {
+  width: 100%;
+  border-color: none !important;
+  border-style: none !important;
+  border-width: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
