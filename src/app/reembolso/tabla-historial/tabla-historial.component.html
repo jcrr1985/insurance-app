@@ -77,20 +77,19 @@
     </div>
     <div class="flex items-start justify-between w-full h-20">
       <div class="pagination-wrapper">
-        <ds-pagination [initialPage]="pageSelected" [totalPages]="totalPaginas" (onchange)="eventSelectPage($event)">
-        </ds-pagination>
+        <div class="css-1r2g4su">
+          <ds-icon class="css-1h5x3dy" size="16" icon-name="bi-chevron-left"></ds-icon>
+          <ds-pagination [initialPage]="pageSelected" [totalPages]="totalPaginas" (onchange)="eventSelectPage($event)">
+          </ds-pagination>
+          <ds-icon class="css-1h5x3dy" size="16" icon-name="bi-chevron-right"></ds-icon>
+
+        </div>
       </div>
       <div class="">
         <ds-pagecounter (onchange)="eventPaginationSource($event)" [initialLabel]="'10'" [source]="sourcePagination">
         </ds-pagecounter>
       </div>
-      <!--   <div>
-      <ds-pagination [totalPages]="paginationSource.length"></ds-pagination>
-    </div>
-    <div class="">
-      <ds-pagecounter class="pageCounter" #dsPageCounter [initialLabel]="initialLabel" [source]="paginationSource">
-      </ds-pagecounter>
-    </div> -->
+
     </div>
   </ng-container>
 
