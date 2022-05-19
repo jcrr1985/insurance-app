@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReembolsoModule } from './reembolso/reembolso.module';
 import { SharedsModule } from './shared/shareds.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -19,6 +20,8 @@ import { SharedsModule } from './shared/shareds.module';
     FormsModule, ReactiveFormsModule,
     ReembolsoModule,
     SharedsModule,
+    HttpClientModule
+    
 
   ],
   exports: [
