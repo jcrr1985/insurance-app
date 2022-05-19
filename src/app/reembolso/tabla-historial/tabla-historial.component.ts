@@ -14,20 +14,20 @@ import '@vs-design-system/ds-collapsible'
 import { Router } from '@angular/router';
 import { timer } from 'rxjs';
 
-
 @Component({
   selector: 'app-tabla-historial',
   templateUrl: './tabla-historial.component.html',
   styleUrls: ['./tabla-historial.component.scss'],
 })
 export class TablaHistorialComponent
-  implements OnInit, OnDestroy {
+implements OnInit, OnDestroy {
   // @ViewChild('dsPageCounter') dsPageCounter: ElementRef<HTMLElement> =
   //   {} as ElementRef;
   @ViewChild('dsPageCounter') dsPageCounter: any;
   @ViewChild('theader')
   theader!: ElementRef;
-
+  
+  public indiceSeleccionado!: any;
   public reembolsos!: Reembolsos[];
   showTable: boolean = false;
 
@@ -45,7 +45,6 @@ export class TablaHistorialComponent
   ngOnInit(): void {
     this.addAccessKey();
     this.aciveTableHistorial();
-
   }
 
   resultadosPorPagina: number = 10;
@@ -139,5 +138,10 @@ export class TablaHistorialComponent
       if (event.ctrlKey && event.code == 'KeyQ')
         this.router.navigate(['/testing']);
     });
+  }
+
+  abrirColapsable(registroNo: any){
+    console.log('registroNo', registroNo);
+    this.indiceSeleccionado = registroNo;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import '@vs-design-system/ds-input';
 
 @Component({
@@ -7,9 +7,18 @@ import '@vs-design-system/ds-input';
   styleUrls: ['./col-doc-liq.component.scss']
 })
 export class ColDocLiqComponent implements OnInit {
-
+  @Input() indice: any;
+  @Output() indiceEmitter: EventEmitter<any> = new EventEmitter();
+  
   constructor() { }
+  
+  ngOnInit(): void {
+    console.log('indice', this.indice)
 
-  ngOnInit(): void { }
+   }
 
+   desplegar(){
+    console.log('desplegado indice', this.indice);
+    this.indiceEmitter.emit(this.indice);
+   }
 }

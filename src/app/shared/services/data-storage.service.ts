@@ -131,8 +131,33 @@ export class DataStorageService {
    * @description restura el formulario de reembolso a su estado original y actualiza  todos los componentes subscritos
    */
   resturarFormularioReembolso() {
-    this.reembolsoForm = formReembolso;
-    this.reembolsoFormBehavior.next(formReembolso);
+    this.reembolsoForm = {
+      stepOne_who: {
+        personaSeleccionada: false,
+      },
+      stepTwo_selectOption: {
+        prestacionSeleccionada: false,
+        reembolsoPrevioIsapre: null,
+      },
+      stepThree_general: {
+        agenciaSeleccionada: false,
+        rutInstitucion: false,
+        boletaFactura: false,
+        fechaAtencion: false,
+        copagoMayor: null,
+        montoSolicitado: false,
+      },
+      stepFour_general: {
+        tipoDocumentoSeleccionado: false,
+        fileUploaded: false,
+        agenciaSeleccionada: false,
+      },
+
+      stepFive_Details: {
+        reembolsoCalculation: false,
+      },
+    };
+    this.reembolsoFormBehavior.next(this.reembolsoForm);
   }
 
   // ---------------------------------------------------------------------
@@ -157,10 +182,10 @@ export class DataStorageService {
     return this.detallerPrestaciones$;
   }
   /**
-   * @description restaura las prestaciones y actualiza los subscritos con el valor por defecto
+   * @description restaura las prestaciones que han sido cargadas desde el boton agregar detalle prestacion y actualiza los subscritos con el valor por defecto
    */
   restaurarDetallePrestaciones() {
-    this.detallePrestaciones = prestaciones;
+    this.detallePrestaciones = [];
     this.detallePrestacionesBehavior.next(this.detallePrestaciones);
   }
   /**
@@ -186,7 +211,7 @@ export class DataStorageService {
   agregarPrestacionResumen(prestacion: any) {
     const id = this.prestacionesCargadas.length;
     this.prestacionesCargadas.push({ ...prestacion, id });
-    this.prestacionesCargadasBehavior.next(this.detallePrestaciones);
+    this.prestacionesCargadasBehavior.next(this.prestacionesCargadas);
   }
   /**
    * @description retorna un observable de las prestaciones cargadas para el resumen
@@ -196,10 +221,10 @@ export class DataStorageService {
     return this.prestacionesCargadas$;
   }
   /**
-   * @description restaura las prestaciones y actualiza los subscritos con el valor por defecto
+   * @description restaura las prestaciones que estan ya disponibles en el resumen y actualiza los subscritos con el valor por defecto
    */
   restaurarPrestacionesResumen() {
-    this.prestacionesCargadas = resumePrestaciones;
+    this.prestacionesCargadas = [];
     this.prestacionesCargadasBehavior.next(this.prestacionesCargadas);
   }
 

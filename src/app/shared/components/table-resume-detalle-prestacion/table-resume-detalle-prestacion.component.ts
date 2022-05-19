@@ -26,11 +26,6 @@ export class TableResumeDetallePrestacionComponent implements OnInit, OnDestroy 
       console.log("recibiendo prestaciones", prestaciones);
       this.calcMounts();
     });
-
-    /* 
-        this.interval = setInterval(() => {
-          this.calcMounts();
-        }, 1000) */
   }
 
   ngOnDestroy(): void {

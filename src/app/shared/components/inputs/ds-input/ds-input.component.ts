@@ -38,7 +38,6 @@ export class DsInputComponent implements OnInit {
     const emit = this.formatoMoneda ? this.limpiarMonto(this.value) : this.value;
     this.keyupEv.emit(emit);
   }
-  // TODO corregir para decimales
   format(valor: string | number) {
     const reg = /[^0-9,0-9]/g
     const incluyedecimal: boolean = valor.toString().includes(',');

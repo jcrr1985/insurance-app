@@ -29,7 +29,7 @@ const route: Routes = [
   { path: 'historial', component: TablaHistorialComponent },
   { path: 'solicitud', component: SolicitarReembolsoComponent },
   { path: 'resumen', component: TablaResumenReembolsoComponent },
-  {path: 'final', component: PantallaFinalComponent},
+  { path: 'final', component: PantallaFinalComponent },
   { path: 'testing', component: TestingComponent }
 ];
 

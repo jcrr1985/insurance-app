@@ -65,6 +65,8 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
   public modalRegistrarMedicamento: boolean = false;
   public habilitarSeleccionBeneficiario!: boolean;
   public eliminarDocumentoAdicional!: string;
+  public prestacionesCargadas: any;
+  public formularioActual: any;
 
   constructor(
     private dataStorageService: DataStorageService,
@@ -83,7 +85,6 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
   }
 
   ngOnInit(): void {
-    this.dataStorageService.getFormReemboslo().subscribe(statusOn => this.stepsStatusOn = statusOn);
     this.subscribeChangesOnInput();
     this.subscripcionDatos();
     this.addAccessKey();
@@ -199,12 +200,11 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     });
   }
   botonSiguiente() {
-    this.dataStorageService.getPrestaciones().subscribe(prestaciones => {
-      const prestacionesCargadas = prestaciones;
-      this.dataStorageService.agregarPrestacionResumen({ prestaciones: prestacionesCargadas, idprestacionSeleccionada: this.prestacionSeleccionada });
-      this.router.navigate(['/resumen']);
-    })
-
+    this.dataStorageService.getPrestaciones().subscribe(prestaciones => this.prestacionesCargadas = prestaciones);
+    this.dataStorageService.getFormReemboslo().subscribe(form => this.formularioActual = form);
+    this.dataStorageService.agregarPrestacionResumen({ prestaciones: this.prestacionesCargadas, idprestacionSeleccionada: this.prestacionSeleccionada, formValues: this.formularioActual });
+    this.dataStorageService.restaurarDetallePrestaciones();
+    this.router.navigate(['/resumen']);
   }
   public formatter = new Intl.NumberFormat('es-CL');
 
@@ -215,6 +215,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
    * @description setea un valor dentro del formulario
    */
   setForm(formControlName: string, value: any) {
+    console.log('setForm: ', this.setForm)
     try {
       this.formReembolso.get(formControlName)?.patchValue(this.formatter.format(value));
     } catch (error) {

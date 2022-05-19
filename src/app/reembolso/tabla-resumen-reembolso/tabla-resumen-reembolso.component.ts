@@ -1,3 +1,4 @@
+import { DataStorageService } from './../../shared/services/data-storage.service';
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
 import { ReembolsoService } from 'src/app/shared/services/reembolso.service';
 import { ApplicationRef, Component, OnInit } from '@angular/core';
@@ -53,7 +54,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
   public prestacionSeleccionada: any;
   public goToMensajeFinal: string = 'no';
 
-  constructor(private reembolsoService: ReembolsoService, private arancelService: ArancelService) { }
+  constructor(private dataStorageService: DataStorageService, private reembolsoService: ReembolsoService, private arancelService: ArancelService) { }
 
   ngOnInit(): void {
     let total: number = 0;
@@ -62,7 +63,9 @@ export class TablaResumenReembolsoComponent implements OnInit {
     });
     this.montoTotalSolicitado = total;
     this.reembolsoService.montoTotalSolicitado = this.montoTotalSolicitado;
-    this.prestacionSeleccionada = this.arancelService.getPrestacionSeleccionadaId ? this.arancelService.getPrestacionSeleccionadaId : 1;
+    //this.prestacionSeleccionada = this.arancelService.getPrestacionSeleccionadaId ? this.arancelService.getPrestacionSeleccionadaId : 1;
+    this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.prestacionSeleccionada = id);
+    this.dataStorageService.getPrestacionesResumen().subscribe(prestaciones => console.log("has cargado esto", prestaciones))
     if (this.prestacionSeleccionada == 2) {
       this.nuevoReembolso = 'no';
       this.goToMensajeFinal = 'sí'
@@ -70,13 +73,16 @@ export class TablaResumenReembolsoComponent implements OnInit {
   }
 
   setPrestacion(id: number) {
+    this.dataStorageService.setIdPrestacion(id);
     this.arancelService.idprestacionSeleccionada = id;
   }
   cancelar() {
+    this.restaurarFormulario();
   }
 
   habilitarSeleccionBeneficiario(valor: boolean) {
     this.reembolsoService.setHabilitarStepone(valor);
+    this.restaurarFormulario();
   }
   setValorRadioButtons(respuesta: string) {
     this.nuevoReembolso = respuesta;
@@ -84,4 +90,10 @@ export class TablaResumenReembolsoComponent implements OnInit {
   returnValorRadioButtons() {
     return this.nuevoReembolso;
   }
+  restaurarFormulario() {
+    this.dataStorageService.resturarFormularioReembolso();
+    this.dataStorageService.restaurarDetallePrestaciones();
+  }
 }
+
+// negro esta media confusa tu logica en este lado...xd

@@ -25,34 +25,28 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
   public subtituloPrimerDocumento: string = '';
   public documentsDisplay: any = {
     consultamedica: {
-      multi: false,
-      nameFiles: [{ name: `${this.subtituloPrimerDocumento}`, files: [], required: true, valid: false, esDiagnostico: false }, { name: 'Documento de diagnóstico', files: [], required: true, valid: false, esDiagnostico: true }, { name: 'Documento adicional', files: [], required: false, valid: true, esDiagnostico: false }],
+      nameFiles: [{ name: `${this.subtituloPrimerDocumento}`, files: [], multi: false, required: true, valid: false, esDiagnostico: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, valid: false, esDiagnostico: true }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true, esDiagnostico: false }],
       cols: 'col-span-4'
     },
     hospitalario: {
-      multi: false,
-      nameFiles: [{ name: 'Documento Hospitalario', files: [], required: true, valid: false }],
+      nameFiles: [{ name: 'Documento Hospitalario', files: [], multi: false, required: true, valid: false }],
       filesUploades: [[], [], []],
       cols: 'col-span-12',
     },
     lentes: {
-      multi: false,
-      nameFiles: [{ name: 'Documento Reembolso', files: [], required: true, valid: false }, { name: 'Receta Óptica', files: [], required: true, valid: false }, { name: 'Documento adicional', files: [], required: false, valid: true }],
+      nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Receta Óptica', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true }],
       cols: 'col-span-4'
     },
     dentales: {
-      multi: false,
-      nameFiles: [{ name: 'Documento Reembolso', files: [], required: true, valid: false }, { name: 'Formulario Dental', files: [], required: true, valid: false }, { name: 'Presupuesto Dental', files: [], required: true, valid: false }, { name: 'Documento adicional', files: [], required: false, valid: true }],
+      nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Formulario Dental', files: [], multi: true, required: true, valid: false }, { name: 'Presupuesto Dental', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true }],
       cols: 'col-span-3'
     },
     examenes: {
-      multi: false,
-      nameFiles: [{ name: 'Documento Reembolso', files: [], required: true, valid: false }, { name: 'Documento de diagnóstico', files: [], required: true, valid: false }, { name: 'Documento adicional', files: [], required: false, valid: true }],
+      nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true }],
       cols: 'col-span-4'
     },
     medicamentos: {
-      multi: false,
-      nameFiles: [{ name: 'Documento Reembolso', files: [], required: true, valid: false }, { name: 'Documento de diagnóstico', files: [], required: true, valid: false }, { name: 'Documento adicional', files: [], required: false, valid: true }],
+      nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true }],
       cols: 'col-span-4'
     },
   }
@@ -64,11 +58,6 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.dataStorageService.getFormReemboslo().subscribe(statusOn => this.stepsStatusOn = statusOn);
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.idPrestacionSeleccionada = id)
-    // this.idPrestacionSeleccionada = this.arancelService.idprestacionSeleccionada;
-    // this.arancelService.setIdSubject$.subscribe(prestacionId => {
-    //  this.idPrestacionSeleccionada = prestacionId;
-    //}); 
-
     this.addEventListener();
     this.restoreDocs();
   }
@@ -76,80 +65,78 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
   restoreDocs() {
     this.documentsDisplay = {
       consultamedica: {
-        multi: false,
-        nameFiles: [{ name: `${this.subtituloPrimerDocumento}`, files: [], required: true, valid: false, esDiagnostico: false }, { name: 'Documento de diagnóstico', files: [], required: true, valid: false, esDiagnostico: true }, { name: 'Documento adicional', files: [], required: false, valid: true, esDiagnostico: false }],
+        nameFiles: [{ name: `${this.subtituloPrimerDocumento}`, files: [], multi: false, required: true, valid: false, esDiagnostico: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, valid: false, esDiagnostico: true }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true, esDiagnostico: false }],
         cols: 'col-span-4'
       },
       hospitalario: {
-        multi: false,
-        nameFiles: [{ name: 'Documentos hospitalario', files: [], required: true, valid: false }],
+        nameFiles: [{ name: 'Documento Hospitalario', files: [], multi: false, required: true, valid: false }],
         filesUploades: [[], [], []],
         cols: 'col-span-12',
       },
       lentes: {
-        multi: false,
-        nameFiles: [{ name: 'Documento de reembolso', files: [], required: true, valid: false }, { name: 'Receta óptica', files: [], required: true, valid: false }, { name: 'Documento adicional', files: [], required: false, valid: true }],
+        nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Receta Óptica', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true }],
         cols: 'col-span-4'
       },
       dentales: {
-        multi: false,
-        nameFiles: [{ name: 'Documento de reembolso', files: [], required: true, valid: false }, { name: 'Formulario dental', files: [], required: true, valid: false }, { name: 'Presupuesto dental', files: [], required: true, valid: false }, { name: 'Documento adicional', files: [], required: false, valid: true }],
+        nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Formulario Dental', files: [], multi: true, required: true, valid: false }, { name: 'Presupuesto Dental', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true }],
         cols: 'col-span-3'
       },
       examenes: {
-        multi: false,
-        nameFiles: [{ name: 'Documento de reembolso', files: [], required: true, valid: false }, { name: 'Documento de diagnóstico', files: [], required: true, valid: false }, { name: 'Documento adicional', files: [], required: false, valid: true }],
+        nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true }],
         cols: 'col-span-4'
       },
       medicamentos: {
-        multi: false,
-        nameFiles: [{ name: 'Boleta', files: [], required: true, valid: false }, { name: 'Receta medica', files: [], required: true, valid: false }, { name: 'Documento adicional', files: [], required: false, valid: true }],
+        nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true }],
         cols: 'col-span-4'
       },
     }
   }
 
   addEventListener() {
-    const listener: any = document.eventListeners ? document.eventListeners() : null;
-    if (!listener.length) document.addEventListener('dsFileSendFiles', (evt: any) => {
+    document.addEventListener('dsFileSendFiles', (evt: any) => {
       const index = parseInt(evt.target.id.replace('documento', ''));
-
-      let fileEvnt
+      let fileEvnt = [];
+      let multi = false;
       switch (this.idPrestacionSeleccionada) {
         case 1:
           fileEvnt = evt.detail;
-          this.documentsDisplay.consultamedica.nameFiles[index].files.push(...fileEvnt)
+          multi = this.documentsDisplay.consultamedica.nameFiles[index]['multi'];
+          multi ? this.documentsDisplay.consultamedica.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.consultamedica.nameFiles[index].files = fileEvnt
           this.validateFileState('consultamedica', index);
           this.emitirCambioArchivo()
-
           break;
         case 2:
           fileEvnt = evt.detail;
-          this.documentsDisplay.hospitalario.nameFiles[index].files.push(...fileEvnt)
+          multi = this.documentsDisplay.hospitalario.nameFiles[index]['multi'];
+          multi ? this.documentsDisplay.hospitalario.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.hospitalario.nameFiles[index].files = fileEvnt;
           this.validateFileState('hospitalario', index);
           this.emitirCambioArchivo()
           break;
         case 3:
           fileEvnt = evt.detail;
-          this.documentsDisplay.lentes.nameFiles[index].files.push(...fileEvnt)
+          multi = this.documentsDisplay.lentes.nameFiles[index]['multi'];
+          multi ? this.documentsDisplay.lentes.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.lentes.nameFiles[index].files = fileEvnt
           this.validateFileState('lentes', index);
           this.emitirCambioArchivo()
           break;
         case 4:
           fileEvnt = evt.detail;
-          this.documentsDisplay.dentales.nameFiles[index].files.push(...fileEvnt)
+          multi = this.documentsDisplay.dentales.nameFiles[index]['multi'];
+          multi ? this.documentsDisplay.dentales.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.dentales.nameFiles[index].files = fileEvnt;
           this.validateFileState('dentales', index);
           this.emitirCambioArchivo()
           break;
         case 5:
           fileEvnt = evt.detail;
-          this.documentsDisplay.examenes.nameFiles[index].files.push(...fileEvnt)
+          multi = this.documentsDisplay.examenes.nameFiles[index]['multi'];
+          multi ? this.documentsDisplay.examenes.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.examenes.nameFiles[index].files = fileEvnt;
           this.validateFileState('examenes', index);
           this.emitirCambioArchivo()
           break;
         case 6:
           fileEvnt = evt.detail;
-          this.documentsDisplay.medicamentos.nameFiles[index].files.push(...fileEvnt)
+          multi = this.documentsDisplay.medicamentos.nameFiles[index]['multi'];
+          multi ? this.documentsDisplay.medicamentos.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.medicamentos.nameFiles[index].files = fileEvnt;
           this.validateFileState('medicamentos', index);
           this.emitirCambioArchivo()
           break;
@@ -157,7 +144,7 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
         default:
           break;
       }
-      // (document.querySelector(`#${evt.target.id} > div > div > input`) as any).value = null;
+      //(document.querySelector(`#${evt.target.id} > div > div > input`) as any).value = null;
       this.evaluateStepFour.emit()
     })
   }
