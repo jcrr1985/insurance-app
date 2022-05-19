@@ -104,7 +104,7 @@ ds-file{
 
   .css-ivir7d {
     width: 100% !important;
-    gap: 15px !important ;
+    gap: 20px !important ;
     height: auto;
     padding: 30px !important;
 
@@ -147,7 +147,10 @@ ds-file{
 /* Personalizando ds-input */
 
 .waitStepperText {
-  color: var(--ter3)
+  color: var(--ter3);
+  font-weight: 400 !important;
+  font-size: 16px !important;
+  line-height: 16px !important;
 }
 
 
@@ -262,7 +265,7 @@ ds-file{
 
 span.steps-title {
   font-weight: 600 !important;
-  font-size: 22px !important;
+  font-size: 22px;
 }
 
 app-solicitar-reembolso {
@@ -463,14 +466,28 @@ ds-button {
 
   .css-2vxw4u{
       min-width: 160px;
+      width: auto;
       height: 40px !important;
       padding: 10px 10px 10px 20px !important;
       gap: 10px !important;
 
+      ds-icon{
+        width: auto;
+        height: auto;
+      }
+
       span{
+          display: flex !important;
           margin: 0 !important;
           text-align: center;
+          height: auto;
       }
+
+      .back-button__text{
+        width: auto;
+        font-size: 16px !important;
+    }
+    
   }
 }
 
@@ -525,4 +542,27 @@ ds-title{
   h4{
     line-height: 26px !important;
   }
+}
+
+.page-title__container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+  ds-title{
+      width: fit-content;
+  }
+
+  div{
+      height: fit-content !important;
+  }
+}
+
+.css-1mpi4ja{
+  box-shadow: none !important;
+}
+
+.css-1el2sgw{
+  margin: 0 !important;
 }

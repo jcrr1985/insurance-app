@@ -1,21 +1,100 @@
-.titulo-parte-izquierda {
-    font-weight: 600 !important;
-    font-size: 22px !important;
-    color: --sec2 !important;
+.page--resumen__container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px !important;
+    gap: 30px;
+    width: 100%;
+    height: auto;
+
+    .group-table{
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+    }
+
+    ds-title{
+        .titulo-parte-izquierda {
+            font-weight: 600 !important;
+            font-size: 22px !important;
+            color: --sec2 !important;
+            width: auto !important;
+        }
+    
+        .titulo-parte-derecha {
+            margin-left: 10px;
+            font-weight: 400;
+            font-size: 22px;
+            color: --sec2 !important;
+        }
+    }
+   
+
+    .table__container{
+        width: 100%;
+
+        ds-table{
+            width: 100%;
+        }
+    }
+
+    .otro-reembolso__container{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 15px;
+
+        .reembolso__row{
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            gap: 15px;
+
+            app-card-option{
+                width: 100%;
+            }
+        }
+
+        
+    }
+
 }
 
-.titulo-parte-derecha {
-    font-weight: 400;
-    font-size: 22px;
-    color: --sec2 !important;
+.botones__row{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    gap: 15px;
+
 }
+
+
+
+
+.page-resumen--title__container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  
+    ds-title{
+        width: 100%;
+    }
+  
+    div{
+        height: fit-content !important;
+    }
+  }
+  
+
+
+
 
 .seccion-agregar-nuevo-reembolso {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-top: 9px !important;
-    padding-right: 2%;
+    width: 100%;
 
 }
 
@@ -62,3 +141,4 @@ ds-table-body-row {
 .row_total>ds-table-body-column-actions {
     border-radius: 0px 0px 10px 0px !important;
 }
+

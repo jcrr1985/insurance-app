@@ -29,21 +29,7 @@ ds-icon {
     display: flex;
     flex-direction: column;
     gap: 40px;
-}
-
-.page-title__container{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    ds-title{
-        width: fit-content;
-    }
-
-    div{
-        height: fit-content !important;
-    }
-}
+  }
 
 .reembolso__botones--container{
     display: flex;

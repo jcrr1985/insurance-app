@@ -1,78 +1,73 @@
 <!-- HEADER -->
-<div class="grid h-24 grid-cols-12 border-b-2">
-    <ds-title class="flex items-center justify-start col-span-12 px-5 text-xl font-bold md:col-span-6" type="t4"
-        family="secondary" weight="bold" color="primary">
-        <span slot="text"><span class="titulo-parte-izquierda"> Detalle de reembolso de: </span> <span
-                class="titulo-parte-derecha"> Uchicha Itachi</span></span>
-    </ds-title>
-    <div [routerLink]="['/solicitud']"
-        class="flex items-center justify-start col-span-12 px-5 md:col-span-6 md:justify-end">
-        <ds-button variant="complementary" slotName="back-button-slot">
-            <ds-icon color="info6" size="30" icon-name="bi-arrow-left-short" slot="back-button-slot"></ds-icon>
-            <span slot="back-button-slot">volver atrás</span>
-        </ds-button>
-        <br />
+<div class="page--resumen__container">
+    <div class="group-table">
+        <div class="page-resumen--title__container">
+            <ds-title type="t4"
+                family="secondary" weight="bold" color="primary">
+                <span class="titulo-parte-izquierda">Detalle de reembolso de: </span>
+                <span class="titulo-parte-derecha">Nombre beneficiario</span>
+            </ds-title>
+            <div [routerLink]="['/solicitud']">
+                <ds-button variant="complementary" slotName="back-button-slot">
+                    <ds-icon class="css-1h5x3dy" size="16" color="info6" icon-name="bi-chevron-left" slot="back-button-slot"></ds-icon>
+                    <span class="back-button__text" slot="back-button-slot">volver atrás</span>
+                </ds-button>
+            </div>
+        </div>
+    
+        <div class="table__container">
+            <ds-table>
+                <ds-table-header slot="header">
+                    <ds-table-header-column slot="column"><span slot="element header-tabla-resumen">Tipo de reembolso</span>
+                    </ds-table-header-column>
+                    <ds-table-header-column slot="column"><span slot="element header-tabla-resumen">Fecha de emisión</span>
+                    </ds-table-header-column>
+                    <ds-table-header-column slot="column"><span slot="element header-tabla-resumen">Valor prestaciones</span>
+                    </ds-table-header-column>
+                    <ds-table-header-column slot="column"><span slot="element">Monto solicitado</span> </ds-table-header-column>
+                </ds-table-header>
+                <ds-table-body slot="body">
+                    <ng-container *ngFor="let solicitud of solicitudes">
+                        <ds-table-body-row slot="row" class="sub-totales">
+                            <ds-table-body-column slot="column">
+                                <span slot="element">{{solicitud.tipoReembolso}}</span>
+                            </ds-table-body-column>
+                            <ds-table-body-column slot="column">
+                                <span slot="element">$ {{solicitud.valorPrestacion | number :'0.0-2'}}</span>
+                            </ds-table-body-column>
+                            <ds-table-body-column slot="column">
+                                <span slot="element">$ {{solicitud.bonificacion | number :'0.0-2'}}</span>
+                            </ds-table-body-column>
+                            <ds-table-body-column slot="column">
+                                <span slot="element">$ {{solicitud.valorPrestacion - solicitud.bonificacion | number
+                                    :'0.0-2'}}</span>
+                            </ds-table-body-column>
+                        </ds-table-body-row>
+                    </ng-container>
+        
+                    <!-- rows of totals -->
+                    <!-- Row total reembolsar -->
+                    <ds-table-body-row class="row_defined wrapper-total row_total" slot="row">
+                        <ds-table-body-column slot="column">
+                            <span slot="element">Monto total solicitado</span>
+                        </ds-table-body-column>
+                        <ds-table-body-column slot="column">
+                            <span slot="element"></span>
+                        </ds-table-body-column>
+                        <ds-table-body-column slot="column">
+                            <span slot="element"></span>
+                        </ds-table-body-column>
+                        <ds-table-body-column-actions slot="column">
+                            <span class="totalizador-monto-solicitado" slot="element">$ {{montoTotalSolicitado | number :
+                                '0.0-2'}}</span>
+                        </ds-table-body-column-actions>
+                    </ds-table-body-row>
+                </ds-table-body>
+            </ds-table>  <!-- Fin ds-table -->
+            
+        </div>
     </div>
-</div>
-
-<div class="p-5 pb-20">
-    <ds-table style="width: 90vw;">
-        <ds-table-header slot="header">
-            <ds-table-header-column slot="column"><span slot="element header-tabla-resumen">Tipo de reembolso</span>
-            </ds-table-header-column>
-            <ds-table-header-column slot="column"><span slot="element header-tabla-resumen">Nº de Sesiones</span>
-            </ds-table-header-column>
-            <ds-table-header-column slot="column"><span slot="element header-tabla-resumen">Fecha de emisión</span>
-            </ds-table-header-column>
-            <ds-table-header-column slot="column"><span slot="element header-tabla-resumen">Valor bonificacion</span>
-            </ds-table-header-column>
-            <ds-table-header-column slot="column"><span slot="element">Monto solicitado</span> </ds-table-header-column>
-        </ds-table-header>
-        <ds-table-body slot="body">
-            <ng-container *ngFor="let solicitud of solicitudes">
-                <ds-table-body-row slot="row" class="sub-totales">
-                    <ds-table-body-column slot="column">
-                        <span slot="element">{{solicitud.tipoReembolso}}</span>
-                    </ds-table-body-column>
-                    <ds-table-body-column slot="column">
-                        <span slot="element">{{solicitud.numerosesiones}}</span>
-                    </ds-table-body-column>
-                    <ds-table-body-column slot="column">
-                        <span slot="element">$ {{solicitud.valorPrestacion | number :'0.0-2'}}</span>
-                    </ds-table-body-column>
-                    <ds-table-body-column slot="column">
-                        <span slot="element">$ {{solicitud.bonificacion | number :'0.0-2'}}</span>
-                    </ds-table-body-column>
-                    <ds-table-body-column slot="column">
-                        <span slot="element">$ {{solicitud.valorPrestacion - solicitud.bonificacion | number
-                            :'0.0-2'}}</span>
-                    </ds-table-body-column>
-                </ds-table-body-row>
-            </ng-container>
-
-            <!-- rows of totals -->
-            <!-- Row total reembolsar -->
-            <ds-table-body-row class="row_defined wrapper-total row_total" slot="row">
-                <ds-table-body-column slot="column">
-                    <span slot="element">Monto total solicitado</span>
-                </ds-table-body-column>
-                <ds-table-body-column slot="column">
-                    <span slot="element"></span>
-                </ds-table-body-column>
-                <ds-table-body-column slot="column">
-                    <span slot="element"></span>
-                </ds-table-body-column>
-                <ds-table-body-column slot="column">
-                    <span slot="element"></span>
-                </ds-table-body-column>
-                <ds-table-body-column-actions slot="column">
-                    <span class="totalizador-monto-solicitado" slot="element">$ {{montoTotalSolicitado | number :
-                        '0.0-2'}}</span>
-                </ds-table-body-column-actions>
-            </ds-table-body-row>
-        </ds-table-body>
-    </ds-table>
-
+    <!-- Nuevo reembolso -->
     <div class="seccion-agregar-nuevo-reembolso">
         <div>
             <ds-paragraph class="pregunta" type="p1" family="primary" weight="bold" color="primary">
@@ -88,20 +83,21 @@
                 (click)="setValorRadioButtons('no')">
             </ds-radio>
         </div>
-    </div>
+    </div> <!-- Fin Nuevo reembolso -->
 
-    <ng-containter *ngIf="nuevoReembolso=== 'si'">
-        <div [ngSwitch]="prestacionSeleccionada">
-            <div *ngSwitchCase="1 || 3 || 5 || 6" class="flex">
-                <app-card-option *ngFor="let x of opcionesPrestacionesCLEM;let id = index" [ngClass]="'col-span-4'"
+    <ng-containter class="otro-reembolso__container" *ngIf="nuevoReembolso=== 'si'">
+        <div class="reembolso__row" [ngSwitch]="prestacionSeleccionada">
+            <div *ngSwitchCase="1 || 3 || 5 || 6" class="reembolso__row" >
+                <!-- D: :( no negro que va -->
+                <app-card-option *ngFor="let x of opcionesPrestacionesCLEM;let id = index"
                     [status]="'off'" [name]="x.name" [routerLink]="['/solicitud']"
                     (click)="habilitarSeleccionBeneficiario(false);" [prestacionName]="x.prestacion"
                     (click)="  continuar=true">
                 </app-card-option>
             </div>
             <div *ngSwitchCase="4">
-                <app-card-option *ngFor="let x of opcionesPrestacionesD;let id =index" [ngClass]="'col-span-4'"
-                    [status]="'off'" [name]="x.name" [routerLink]="['/solicitud']" ,
+                <app-card-option *ngFor="let x of opcionesPrestacionesD;let id =index" 
+                    [status]="'off'" [name]="x.name" [routerLink]="['/solicitud']"
                     (click)="habilitarSeleccionBeneficiario(false);" [prestacionName]=" x.prestacion"
                     (click)="  continuar=true">
                 </app-card-option>
@@ -112,8 +108,8 @@
 
         </div>
         <!-- botones-->
-        <section class="grid grid-cols-1 seccion-botones">
-            <div class="flex items-center justify-end w-full gap-3">
+        <section>
+            <div class="botones__row">
                 <ds-button id="ds-button-cancelar" (click)="habilitarSeleccionBeneficiario(true);cancelar()"
                     [size]="'s2'" variant="secondary" slot-name="cancel-button-slot">
                     <span slot="cancel-button-slot">Cancelar</span>
@@ -126,10 +122,10 @@
             </div>
         </section>
     </ng-containter>
-    <ng-containter *ngIf="nuevoReembolso === 'no'">
+    <ng-containter  class="otro-reembolso__container" *ngIf="nuevoReembolso === 'no'">
         <!-- botones-->
-        <section class="grid grid-cols-1 seccion-botones">
-            <div class="flex items-center justify-end w-full gap-3">
+        <section>
+            <div class="botones__row">
                 <ds-button id="ds-button-cancelar" (click)="cancelar()" [size]="'s2'" variant="secondary"
                     slot-name="cancel-button-slot">
                     <span slot="cancel-button-slot">Cancelar</span>
