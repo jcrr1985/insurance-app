@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import '@vs-design-system/ds-input';
 import '@vs-design-system/ds-datepicker';
 import '@vs-design-system/ds-select';
@@ -9,14 +9,8 @@ import '@vs-design-system/ds-messaging';
 import '@vs-design-system/ds-tooltip';
 import '@vs-design-system/ds-button';
 import '@vs-design-system/ds-file';
-
-import {
-  Chip,
-  CustomStepperSize,
-  FilesUploaded,
-} from '../shared/interfaces/interfaces';
 import { ReembolsoService } from '../shared/services/reembolso.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-reembolso',
@@ -25,10 +19,20 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class ReembolsoComponent implements OnInit {
 
-  constructor(private reembolsoService: ReembolsoService) {
+  constructor(
+    private route : ActivatedRoute,
+    private reembolsoService: ReembolsoService) {
 
   }
   ngOnInit(): void {
+    console.log("Inicializacion Web Salud")
+    const fragment = this.route.snapshot.fragment;
+    if(fragment != null && fragment != '')
+    {
+      const parts = fragment.split('&')[1];
+      const code = parts.split('=')[1];
+      this.reembolsoService.recuperarToken(code);
+    }
   }
 
 }

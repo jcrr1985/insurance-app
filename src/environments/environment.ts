@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  urlbase: ''
+  urlbase: '',
+  URL_SSO: 'https://des-sso.security.cl:8543/auth/realms/VS-Clients/protocol/openid-connect'
 };
 
 /*
