@@ -16,7 +16,6 @@ import { timer } from 'rxjs';
 import { Token, TokenData } from 'src/app/shared/interfaces/sso';
 import * as JWT from 'jwt-decode';
 
-
 @Component({
   selector: 'app-tabla-historial',
   templateUrl: './tabla-historial.component.html',

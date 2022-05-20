@@ -18,7 +18,7 @@
                 </ds-select-v2>
 
                 <!--valor-->
-                <ds-input-v2 class="col-span-12 sm:col-span-6" label="Valor" type="number" 
+                <ds-input-v2 class="col-span-12 sm:col-span-6" label="Valor" type="text" [formatoMoneda]="true"
                     (keyupEv)="setValue('valor',$event)">
                 </ds-input-v2>
 

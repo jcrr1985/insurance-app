@@ -22,7 +22,7 @@
 
                 <div class="modal--row">
                     <!--valor-->
-                    <ds-input-v2 label="Valor" type="number"
+                    <ds-input-v2 label="Valor" type="text" [formatoMoneda]="true"
                     (keyupEv)="setValue('valor',$event)" (changeEv)="validarMensajeWarning()">
                     </ds-input-v2>
 
