@@ -11,11 +11,7 @@ export class ReembolsoService {
       public datosReembolsosRepetido: Reembolsos[] = [];
 
 
-      constructor(
-        private _authService: AuthenticationService,
-        private injector: Injector,
-        private router : Router,
-      ) { }
+      constructor() { }
 
       public reembolsos: Reembolsos[] = [
             {
@@ -368,22 +364,4 @@ export class ReembolsoService {
       public get getMontoTotalSolicitado() {
             return this.montoTotalSolicitado;
       }
-
-      private get ssoSecurityService(): AuthenticationService {
-        if (!this._authService) {
-          this._authService = this.injector.get(AuthenticationService);
-        }
-        return this._authService;
-      }
-
-  recuperarToken(code: string)
-    {
-      this.ssoSecurityService.identify(code).subscribe(
-        (response) => {
-          console.log(response);
-          localStorage.setItem("Token", JSON.stringify(response));
-          this.router.navigateByUrl('');
-      });
-    }
-
 }
