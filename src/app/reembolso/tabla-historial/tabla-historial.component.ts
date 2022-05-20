@@ -13,7 +13,8 @@ import { Router } from '@angular/router';
 import { timer } from 'rxjs';
 import { Subscription } from 'rxjs';
 import { DataUsuarioService } from 'src/app/shared/services/data-usuario/data-usuario.service';
-import { IUsuario } from 'src/app/shared/interfaces/usuario-api';
+import { environment } from 'src/environments/environment';
+import { Inject } from '@angular/core';
 
 
 @Component({
@@ -23,9 +24,10 @@ import { IUsuario } from 'src/app/shared/interfaces/usuario-api';
 })
 export class TablaHistorialComponent
   implements OnInit, OnDestroy {
-    /* const dataSource!: IUsuario; */
     isLoading = true;
     dataSubscription = new Subscription();
+    /* const dataSource!: IUsuario; */
+  
   // @ViewChild('dsPageCounter') dsPageCounter: ElementRef<HTMLElement> =
   //   {} as ElementRef;
   @ViewChild('dsPageCounter') dsPageCounter: any;
@@ -36,6 +38,8 @@ export class TablaHistorialComponent
   showTable: boolean = false;
 
   constructor(
+    /* @Inject(TablaHistorialComponent) public data: string, */
+     @Inject(TablaHistorialComponent) public data: any,
     private reembolsoService: ReembolsoService,
     private router: Router,
     private service: DataUsuarioService
@@ -50,6 +54,7 @@ export class TablaHistorialComponent
   ngOnInit(): void {
     this.addAccessKey();
     this.aciveTableHistorial();
+    this.buscarDatos();
 
   }
 
@@ -66,8 +71,9 @@ export class TablaHistorialComponent
     this.getReembolsos();
     this.createSourcePagination();
     this.showTable = false;
-    await timer(10);
+    timer(10);
     this.showTable = true;
+   
   }
   /**
    * @description calcula el total de registros disponibles
@@ -148,11 +154,15 @@ export class TablaHistorialComponent
 
   buscarDatos() {
     console.log('busco los datos');
+    localStorage.setItem("ssoToken",environment.DEV_TOKEN_TEST);
+
     this.isLoading = true;
-    this.dataSubscription = this.service.buscarData().subscribe((response) => {
+    this.dataSubscription = this.service.buscarData("17793573").subscribe((response) => {
       console.log(response);
       this.isLoading = false;
       /* this.dataSource = response.data.data; */
     });
+
   }
 }
+
