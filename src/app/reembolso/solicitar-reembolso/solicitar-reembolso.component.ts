@@ -41,6 +41,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
   public filesUploaded: FilesUploaded[] = [];
   public montoReelbolso: number = 0;
   public prestacionSeleccionada: any = null;
+  public habilitarBotones: boolean = false;
 
   public historicoSesiones = [
     { prestacion: "consulta psicologica", valor: 50000 },
@@ -79,8 +80,8 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     this.createForm();
   }
   ngOnDestroy(): void {
-    if (window && window.removeAllListeners) {
-      window.removeAllListeners();
+    if (window && (window as any).removeAllListeners) {
+      (window as any).removeAllListeners();
     }
   }
 
@@ -100,9 +101,6 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
    * @description se subscribe a los observables correspondientes y necesarios para el correcto funcionamiento
    */
   subscripcionDatos() {
-    /*  this.arancelService.setIdSubject$.subscribe(e => {
-       this.prestacionSeleccionada = e;
-     }) */
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.prestacionSeleccionada = id)
     this.reembolsoService.habilitarSeleccionBeneficiario$.subscribe(val => {
       this.habilitarSeleccionBeneficiario = val;
@@ -198,6 +196,13 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       boletaFactura: new FormControl(''),
       fechaAtencion: new FormControl(''),
     });
+  }
+  botonCancelar() {
+    this.dataStorageService.restaurarDetallePrestaciones();
+    this.dataStorageService.resturarFormularioReembolso();
+    this.dataStorageService.restaurarId();
+    this.dataStorageService.restaurarPrestacionesResumen();
+    this.router.navigate(['/']);
   }
   botonSiguiente() {
     this.dataStorageService.getPrestaciones().subscribe(prestaciones => this.prestacionesCargadas = prestaciones);
@@ -330,9 +335,8 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     } else {
       if (statusMontoSolicitado == 'completed') {
         status = 'completed';
+        this.stepperThreeSource = () => [{ label: '', status: status }];
         if (status == 'completed') this.stepperFourSource = () => [{ label: '', status: 'active' }];
-      } else {
-        status = 'waiting';
       }
     }
 
@@ -343,14 +347,41 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
    * @description Evalúa los requisitos necesarios para el progress del 4to paso - sube Documentos
    */
   evaluateStepFour() {
-    const statusfileUploaded = (this.stepsStatusOn.stepFour_general.fileUploaded && this.stepsStatusOn.stepFour_general.tipoDocumentoSeleccionado)
+    const statusfileUploaded = (this.stepsStatusOn.stepFour_general.fileUploaded && this.stepsStatusOn.stepFour_general.tipoDocumentoSeleccionado) || (this.prestacionSeleccionada == 2 && this.stepsStatusOn.stepFour_general.fileUploaded)
       ? 'completed'
       : 'active';
+
     if (statusfileUploaded == 'completed') this.stepperFourSource = () => [{ label: '', status: statusfileUploaded }];
     this.stepperFiveSource = () => [{ label: '', status: statusfileUploaded == 'completed' ? 'active' : 'waiting' }];
     this.getSizeStepper();
+
+    // verificando activacion de botones
+
+    this.validarActivacionBotonesSiguiente();
   }
-  evaluateStepFive() { }
+  evaluateStepFive() {
+    const statusfileUploaded = (this.stepsStatusOn.stepFour_general.fileUploaded && this.stepsStatusOn.stepFour_general.tipoDocumentoSeleccionado) || (this.prestacionSeleccionada == 2 && this.stepsStatusOn.stepFour_general.fileUploaded)
+    if (statusfileUploaded) {
+      this.dataStorageService.getPrestaciones().subscribe(prestaciones => {
+        this.stepperFiveSource = () => [{ label: '', status: statusfileUploaded && prestaciones.length ? 'completed' : 'active' }];
+      })
+      // validando habilitar botones
+      this.validarActivacionBotonesSiguiente();
+    }
+
+  }
+
+  validarActivacionBotonesSiguiente() {
+    if (this.prestacionSeleccionada == 2 && this.stepsStatusOn.stepFour_general.fileUploaded) {
+      this.habilitarBotones = true;
+    }
+    else {
+      this.dataStorageService.getPrestaciones().subscribe(prestaciones => {
+        prestaciones.length ? this.habilitarBotones = true : this.habilitarBotones = false;
+      })
+    }
+  }
+
   /**
    * @description calcula el monto total disponible para reembolsar
    */
