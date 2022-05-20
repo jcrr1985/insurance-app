@@ -145,100 +145,140 @@
 <section class="modal-pantalla-final" *ngIf="mostrarModalFinal">
 
     <div class="wrapper-final">
-        <div class="grid h-24 grid-cols-12 border-b-2">
-            <ds-title class="flex items-center justify-start col-span-12 px-5 text-xl font-bold" type="t4"
-                family="secondary" weight="bold" color="primary">
-                <span slot="text"><span class="titulo-parte-izquierda">
-                        <img src="./../../../assets/svg/final-header-icon.svg" alt="">
-                    </span> <span class="titulo-parte-derecha"> Recibimos con éxito tu solicitud de reembolso
-                    </span></span>
-            </ds-title>
-        </div>
-        <div class="linea-division"></div>
-        <div class="ml-5">
-            <section>
-                <p class="divider">Consulta médica y compra de medicamentos a favor de Alejandro Salgado</p>
-
-            </section>
-            <div class="flex datos">
-                <section class="izquierda">
-                    <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
-                        <span slot="text" class="text-base text-left ">
-                            N° Siniestro:</span>
-                    </ds-paragraph>
-                    <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
-                        <span slot="text" class="text-base text-left ">
-                            Fecha emisión:</span>
-                    </ds-paragraph>
-
-                    <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
-                        <span slot="text" class="text-base text-left ">
-                            Monto solicitado:</span>
-                    </ds-paragraph>
-                    <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
-                        <span slot="text" class="text-base subtitulo-key">
-                            Tu reembolso se depositará en la siguiente cuenta bancaria:</span>
-                    </ds-paragraph>
-
-                    <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
-                        <span slot="text" class="text-base text-left ">
-                            Banco</span>
-                    </ds-paragraph>
-                    <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
-                        <span slot="text" class="text-base text-left ">
-                            Cuenta</span>
-                    </ds-paragraph>
-                    <ds-paragraph type="p1" family="secondary" color="primary">
-                        <span slot="text" class="text-base subtitulo-key">
-                            &nbsp;
-                        </span>
-                    </ds-paragraph>
-                    <ds-paragraph type="p1" family="secondary" color="secondary">
-                        <span slot="text" class="text-base text-left subtitulo-key">
-                            Pronto recibirás en tu correo el resultado de tu solicitud. <br>
-                            Ante cualquier consulta escríbenos a <a
-                                href="mailto:contactovida@vidasecurity.cl">contactovida@vidasecurity.cl</a>
-                        </span>
-                    </ds-paragraph>
-                </section>
-                <section class="derecha">
-                    <ds-paragraph type="p1" family="secondary" color="primary">
-                        <span slot="text" class="text-base">
-                            0000-86544-87</span>
-                    </ds-paragraph>
-                    <ds-paragraph type="p1" family="secondary" color="primary">
-                        <span slot="text" class="text-base">
-                            {{construirFechaActual()}}</span>
-                    </ds-paragraph>
-
-                    <ds-paragraph type="p1" family="secondary" color="primary">
-                        <span slot="text" class="text-base">
-                            $40.000</span>
-                    </ds-paragraph>
-                    <ds-paragraph type="p1" family="secondary" color="primary">
-                        <span slot="text" class="text-base subtitulo-key">
-                            &nbsp;
-                        </span>
-                    </ds-paragraph>
-
-                    <ds-paragraph type="p1" family="secondary" color="primary">
-                        <span slot="text" class="text-base">
-                            Banco de Crédito en Inversiones</span>
-                    </ds-paragraph>
-                    <ds-paragraph type="p1" family="secondary" color="primary">
-                        <span slot="text" class="text-base">
-                            00000-0456-5678-0</span>
-                    </ds-paragraph>
-                </section>
+        <div class="modal--container">
+            <div class="icon">
+                <img src="./../../../assets/svg/final-header-icon.svg" alt="">
             </div>
+            <div class="content">
+                <div class="title">
+                    <ds-title type="t4"
+                        family="secondary" weight="bold" color="primary">
+                        <span slot="text">
+                            <span> Recibimos con éxito tu solicitud de reembolso
+                            </span>
+                        </span>
+                    </ds-title>
+                    <p>Consulta médica y compra de medicamentos a favor de Alejandro Salgado</p>
+                    <div class="linea-division"></div>
+                </div>
+                
+
+                <div class="info">
+                    <!-- Detalles  -->
+                    <div class="detalles">
+                        <!--Detalles izquierda  -->
+                        <div class="detalles--column">
+                            <div class="info-row">
+                                <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
+                                    <span slot="text" class="text--bold">
+                                        Rut Prestador:</span>
+                                </ds-paragraph>
+                                <ds-paragraph type="p1" family="secondary" color="primary">
+                                    <span slot="text" class="text-normal">
+                                        11.356.172-6</span>
+                                </ds-paragraph>
+                            </div>
+                            <div class="info-row">
+                                <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
+                                    <span slot="text" class="text--bold">
+                                        Documento:</span>
+                                </ds-paragraph>
+                                <ds-paragraph type="p1" family="secondary" color="primary">
+                                    <span slot="text" class="text-normal">
+                                        Boleta</span>
+                                </ds-paragraph>
+                            </div>
+                            <div class="info-row">
+                                <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
+                                    <span slot="text" class="text--bold">
+                                        N° Siniestro:</span>
+                                </ds-paragraph>
+                                <ds-paragraph type="p1" family="secondary" color="primary">
+                                    <span slot="text" class="text-normal">
+                                        0000-86544-87</span>
+                                </ds-paragraph>
+                            </div>
+                        </div> <!--Fin Detalles izquierda  -->
+                        <!--Detalles derecha  -->
+                        <div class="detalles--column">
+                            <div class="info-row">
+                                <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
+                                    <span slot="text" class="text--bold">
+                                        Fecha emisión:</span>
+                                </ds-paragraph>
+                                <ds-paragraph type="p1" family="secondary" color="primary">
+                                    <span slot="text" class="text-normal">
+                                        {{construirFechaActual()}}</span>
+                                </ds-paragraph>
+                            </div>
+                            <div class="info-row">
+                                <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
+                                    <span slot="text" class="text--bold">
+                                        Monto solicitado:</span>
+                                </ds-paragraph>
+                                <ds-paragraph type="p1" family="secondary" color="primary">
+                                    <span slot="text" class="text-normal">
+                                        $40.000</span>
+                                </ds-paragraph>
+                            </div>
+                        </div> <!--Fin Detalles derecha  -->
+                    </div> <!--Fin Detalles  -->
+
+                    <!-- Datos bancarios  -->
+                    <div class="data-bank">
+                        <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
+                            <span slot="text" class="bank-title">
+                                Tu reembolso se depositará en la siguiente cuenta bancaria:</span>
+                        </ds-paragraph>
+                        <div class="detalles--column">
+                            <div class="info-row">
+                                <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
+                                    <span slot="text" class="text--bold">
+                                        Banco</span>
+                                </ds-paragraph>
+                                <ds-paragraph type="p1" family="secondary" color="primary">
+                                    <span slot="text" class="text-normal">
+                                        Banco de Crédito en Inversiones</span>
+                                </ds-paragraph>
+                            </div>
+                            <div class="info-row">
+                                <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
+                                    <span slot="text" class="text--bold">
+                                        Cuenta</span>
+                                </ds-paragraph>
+                                <ds-paragraph type="p1" family="secondary" color="primary">
+                                    <span slot="text" class="text-normal">
+                                        00000-0456-5678-0</span>
+                                </ds-paragraph>
+                            </div>
+                        </div>
+
+                    </div><!-- Fin Datos bancarios  -->
+
+                    <div class="mail">
+                        <ds-paragraph type="p1" family="secondary" color="secondary">
+                            <span slot="text" class="text-normal--mail">
+                                Pronto recibirás en tu correo el resultado de tu solicitud. <br>
+                                Ante cualquier consulta escríbenos a <a
+                                    href="mailto:contactovida@vidasecurity.cl">contactovida@vidasecurity.cl</a>
+                            </span>
+                        </ds-paragraph>
+                    </div>
+                </div>
+
+                <!-- botón final-->
+                <section class="reembolso__botones--container">
+                    <ds-button id="ds-button-siguiente" [routerLink]="['/historial']" [size]="'s2'" variant="primary"
+                        slot-name="next-button-slot">
+                        <span slot="next-button-slot"> Volver al inicio </span>
+                    </ds-button>
+                </section>
+            </div> <!-- fin content -->
         </div>
-        <!-- botón final-->
-        <section class="flex items-center justify-end wrapper-boton-final">
-            <ds-button id="ds-button-siguiente" [routerLink]="['/historial']" [size]="'s2'" variant="primary"
-                slot-name="next-button-slot">
-                <span slot="next-button-slot"> Volver al inicio </span>
-            </ds-button>
-        </section>
+        
+        
+        
+        
     </div>
 
 </section>
