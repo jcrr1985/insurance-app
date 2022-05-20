@@ -12,7 +12,7 @@ export class CardOptionComponent implements OnInit {
   temporalActive = false;
 
   constructor() { }
-  svgAvailables: any = {
+  svgavailable: any = {
     "atencionhospitalaria": "../../../../assets/svg/atencionhospitalaria",
     "atencionmedica": "../../../../assets/svg/atencionmedica",
     "dentista": "../../../../assets/svg/dentista",
@@ -22,7 +22,7 @@ export class CardOptionComponent implements OnInit {
   }
   getRouteImg(nameItem: string) {
     try {
-      return this.status == 'active' || this.temporalActive ? this.svgAvailables[nameItem] + 'Activa.svg' : this.svgAvailables[nameItem] + '.svg';
+      return this.status == 'active' || this.temporalActive ? this.svgavailable[nameItem] + 'Activa.svg' : this.svgavailable[nameItem] + '.svg';
     } catch (error) {
       return '';
     }

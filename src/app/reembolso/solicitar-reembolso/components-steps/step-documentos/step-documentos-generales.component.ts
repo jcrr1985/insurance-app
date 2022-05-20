@@ -93,48 +93,48 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
   }
 
   addEventListener() {
-    document.addEventListener('dsFileSendFiles', (evt: any) => {
+    document.addEventListener('dsFileSendFiles', async (evt: any) => {
       const index = parseInt(evt.target.id.replace('documento', ''));
       let fileEvnt = [];
       let multi = false;
       switch (this.idPrestacionSeleccionada) {
         case 1:
-          fileEvnt = evt.detail;
+          fileEvnt = [...evt.detail];
           multi = this.documentsDisplay.consultamedica.nameFiles[index]['multi'];
           multi ? this.documentsDisplay.consultamedica.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.consultamedica.nameFiles[index].files = fileEvnt
           this.validateFileState('consultamedica', index);
           this.emitirCambioArchivo()
           break;
         case 2:
-          fileEvnt = evt.detail;
+          fileEvnt = [...evt.detail];
           multi = this.documentsDisplay.hospitalario.nameFiles[index]['multi'];
           multi ? this.documentsDisplay.hospitalario.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.hospitalario.nameFiles[index].files = fileEvnt;
           this.validateFileState('hospitalario', index);
           this.emitirCambioArchivo()
           break;
         case 3:
-          fileEvnt = evt.detail;
+          fileEvnt = [...evt.detail];
           multi = this.documentsDisplay.lentes.nameFiles[index]['multi'];
           multi ? this.documentsDisplay.lentes.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.lentes.nameFiles[index].files = fileEvnt
           this.validateFileState('lentes', index);
           this.emitirCambioArchivo()
           break;
         case 4:
-          fileEvnt = evt.detail;
+          fileEvnt = [...evt.detail];
           multi = this.documentsDisplay.dentales.nameFiles[index]['multi'];
           multi ? this.documentsDisplay.dentales.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.dentales.nameFiles[index].files = fileEvnt;
           this.validateFileState('dentales', index);
           this.emitirCambioArchivo()
           break;
         case 5:
-          fileEvnt = evt.detail;
+          fileEvnt = [...evt.detail];
           multi = this.documentsDisplay.examenes.nameFiles[index]['multi'];
           multi ? this.documentsDisplay.examenes.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.examenes.nameFiles[index].files = fileEvnt;
           this.validateFileState('examenes', index);
           this.emitirCambioArchivo()
           break;
         case 6:
-          fileEvnt = evt.detail;
+          fileEvnt = [...evt.detail];
           multi = this.documentsDisplay.medicamentos.nameFiles[index]['multi'];
           multi ? this.documentsDisplay.medicamentos.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.medicamentos.nameFiles[index].files = fileEvnt;
           this.validateFileState('medicamentos', index);
@@ -144,7 +144,8 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
         default:
           break;
       }
-      //(document.querySelector(`#${evt.target.id} > div > div > input`) as any).value = null;
+      await timer(1000);
+      (document.querySelector(`#${evt.target.id} > div > div > input`) as any).value = null;
       this.evaluateStepFour.emit()
     })
   }

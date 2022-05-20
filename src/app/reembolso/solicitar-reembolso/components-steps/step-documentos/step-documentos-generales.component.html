@@ -12,7 +12,7 @@
       <ng-container *ngIf="(getStepsStatus('stepThree_general', 'agenciaSeleccionada') && getStepsStatus('stepThree_general', 'rutInstitucion') && getStepsStatus('stepThree_general', 'boletaFactura') && getStepsStatus('stepThree_general', 'fechaAtencion') && getStepsStatus('stepThree_general', 'copagoMayor')) 
       || getStepsStatus('stepThree_general', 'montoSolicitado')">
         <!--pregunta tipo documento -->
-        <div class="upload-documents__container">
+        <div *ngIf="idPrestacionSeleccionada != 2" class="upload-documents__container">
           <ds-paragraph type="p1" family="primary" weight="regular" color="secondary">
             <ds-tooltip family="primary" content="Documentos disponibles">
               <ds-icon slot="tooltip" size="28" icon-name="bi-question-circle-fill">
@@ -58,8 +58,8 @@
     </div>
 
     <!-- Esperando seleccionar tipo documento -->
-    <ng-container *ngIf="getStepsStatus('stepFour_general','tipoDocumentoSeleccionado')">
-       <!--<ng-container *ngFor="let docs of documentsDisplay.consultamedica.nameFiles;let indexDocName = index">
+    <ng-container *ngIf="getStepsStatus('stepFour_general','tipoDocumentoSeleccionado') || idPrestacionSeleccionada == 2">
+      <!--<ng-container *ngFor="let docs of documentsDisplay.consultamedica.nameFiles;let indexDocName = index">
         <div [ngClass]="[documentsDisplay.consultamedica.cols]">
 
         </div>
@@ -124,7 +124,7 @@
                     </div>
                     <!-- delete -->
                     <div class="icono-delete"
-                      (click)="validateFileState('consultamedica',indexDocName);deleteDocs('consultamedica',indexDocName,file.name)">
+                      (click)="validateFileState('hospitalario',indexDocName);deleteDocs('hospitalario',indexDocName,file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
                   </div>
@@ -159,7 +159,7 @@
                     </div>
                     <!-- delete -->
                     <div class="icono-delete"
-                      (click)="validateFileState('consultamedica',indexDocName);deleteDocs('consultamedica',indexDocName,file.name)">
+                      (click)="validateFileState('lentes',indexDocName);deleteDocs('lentes',indexDocName,file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
                   </div>
@@ -194,7 +194,7 @@
                     </div>
                     <!-- delete -->
                     <div class="icono-delete"
-                      (click)="validateFileState('consultamedica',indexDocName);deleteDocs('consultamedica',indexDocName,file.name)">
+                      (click)="validateFileState('dentales',indexDocName);deleteDocs('dentales',indexDocName,file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
                   </div>
@@ -229,7 +229,7 @@
                     </div>
                     <!-- delete -->
                     <div class="icono-delete"
-                      (click)="validateFileState('consultamedica',indexDocName);deleteDocs('consultamedica',indexDocName,file.name)">
+                      (click)="validateFileState('examenes',indexDocName);deleteDocs('examenes',indexDocName,file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
                   </div>
@@ -264,7 +264,7 @@
                     </div>
                     <!-- delete -->
                     <div class="icono-delete"
-                      (click)="validateFileState('consultamedica',indexDocName);deleteDocs('consultamedica',indexDocName,file.name)">
+                      (click)="validateFileState('medicamentos',indexDocName);deleteDocs('medicamentos',indexDocName,file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
                   </div>

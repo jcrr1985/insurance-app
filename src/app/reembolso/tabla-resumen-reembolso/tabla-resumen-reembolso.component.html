@@ -37,10 +37,10 @@
                                 <span slot="element">{{solicitud.tipoReembolso}}</span>
                             </ds-table-body-column>
                             <ds-table-body-column slot="column">
-                                <span slot="element">$ {{solicitud.valorPrestacion | number :'0.0-2'}}</span>
+                                <span slot="element">{{solicitud.fecha}}</span>
                             </ds-table-body-column>
                             <ds-table-body-column slot="column">
-                                <span slot="element">$ {{solicitud.bonificacion | number :'0.0-2'}}</span>
+                                <span slot="element">$ {{solicitud.valorPrestacion | number :'0.0-2'}}</span>
                             </ds-table-body-column>
                             <ds-table-body-column slot="column">
                                 <span slot="element">$ {{solicitud.valorPrestacion - solicitud.bonificacion | number
@@ -53,7 +53,7 @@
                     <!-- Row total reembolsar -->
                     <ds-table-body-row class="row_defined wrapper-total row_total" slot="row">
                         <ds-table-body-column slot="column">
-                            <span slot="element">Monto total solicitado</span>
+                            <span slot="element"><strong>Monto total solicitado</strong></span>
                         </ds-table-body-column>
                         <ds-table-body-column slot="column">
                             <span slot="element"></span>
@@ -142,7 +142,7 @@
     </ng-containter>
 </div>
 
-<section class="modal-pantalla-final">
+<section class="modal-pantalla-final" *ngIf="mostrarModalFinal">
 
     <div class="wrapper-final">
         <div class="grid h-24 grid-cols-12 border-b-2">

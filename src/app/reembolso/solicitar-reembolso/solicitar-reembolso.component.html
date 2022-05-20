@@ -31,19 +31,19 @@
   </app-step-documentos-generales>
 
   <!-- DETALLE PRESTACION -->
-  <app-step-detalle-prestacion [customStepperSize]="customStepperSize" [stepperFiveSource]="stepperFiveSource"
-    [montoReelbolso]="montoReelbolso" [stepsStatusOn]="stepsStatusOn"
+  <app-step-detalle-prestacion *ngIf="prestacionSeleccionada != 2" [customStepperSize]="customStepperSize"
+    [stepperFiveSource]="stepperFiveSource" [montoReelbolso]="montoReelbolso" [stepsStatusOn]="stepsStatusOn"
     (mostrarAgregarDetallesModal)="mostrarAgregarDetallesModal()">
   </app-step-detalle-prestacion>
-  
-    <!-- Button siguiente -->
-  <section class="reembolso__botones--container">
-      <ds-button [size]="'s2'" variant="secondary" slot-name="cancel-button-slot">
-        <span slot="cancel-button-slot">Cancelar</span>
-      </ds-button>
-      <ds-button [size]="'s2'" variant="primary" slot-name="next-button-slot" (click)="botonSiguiente()">
-        <span slot="next-button-slot"> Siguiente </span>
-      </ds-button>
+
+  <!-- Button siguiente -->
+  <section *ngIf="habilitarBotones" class="reembolso__botones--container">
+    <ds-button [size]="'s2'" variant="secondary" slot-name="cancel-button-slot">
+      <span slot="cancel-button-slot" (click)="botonCancelar()">Cancelar</span>
+    </ds-button>
+    <ds-button [size]="'s2'" variant="primary" slot-name="next-button-slot" (click)="botonSiguiente()">
+      <span slot="next-button-slot"> Siguiente </span>
+    </ds-button>
   </section>
 </div>
 

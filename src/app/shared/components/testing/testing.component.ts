@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./testing.component.scss']
 })
 export class TestingComponent implements OnInit, OnDestroy {
-  availables = [1];
+  available = [1];
   sourceSelect = [
     { key: 'item 1', value: 1 },
     { key: 'item 2', value: 2 },
@@ -49,10 +49,10 @@ export class TestingComponent implements OnInit, OnDestroy {
   receivedChangesOnInput(data: any) {
   }
   agregar() {
-    this.availables.push(this.availables.length + 1);
+    this.available.push(this.available.length + 1);
   }
   eliminar() {
-    this.availables.pop();
+    this.available.pop();
   }
   changeEvent(data: any) {
     console.log("from change", data)
