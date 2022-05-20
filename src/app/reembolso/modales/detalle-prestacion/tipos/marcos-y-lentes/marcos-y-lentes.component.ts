@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IArancel } from 'src/app/shared/interfaces/arancel';
 import { Prestacion } from 'src/app/shared/interfaces/interfaces'
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
@@ -18,14 +18,16 @@ export class MarcosYLentesComponent implements OnInit {
   @Output() close: EventEmitter<any> = new EventEmitter();
   @Output() dataEvent: EventEmitter<any> = new EventEmitter();
   @Output() textoArancelSeleccionado: EventEmitter<string> = new EventEmitter();
+  @Input() formatoMoneda!:boolean;
 
-  public prestacion: Prestacion = {} as Prestacion;
+  public prestacion: Prestacion = {} as Prestacion; // quien le da valor a esta variable?
   public prestacioSeleccionada = this.arancelService.getPrestacionSeleccionada;
   public textoArancel!: string;
-
+  
   constructor(public arancelService: ArancelService) { }
   public sesionesSource = this.arancelService.getSesionesSource;
-
+  public formatter = new Intl.NumberFormat('es-CL');
+  
   ngOnInit(): void {
     //
   }
@@ -45,7 +47,7 @@ export class MarcosYLentesComponent implements OnInit {
   calcMontoReembolso() {
     const prestacion = this.prestacion.valorPrestacion ? this.prestacion.valorPrestacion : 0;
     const bonificacion = this.prestacion.bonificacion ? this.prestacion.bonificacion : 0;
-    this.montoReembolso = Number(prestacion) - Number(bonificacion);
+    this.montoReembolso = this.format(Number(prestacion) - Number(bonificacion));
   }
 
   setValue(key: any, value: any) {
@@ -69,6 +71,20 @@ export class MarcosYLentesComponent implements OnInit {
 
   closeModal() {
     this.close.emit();
+  }
+
+
+  format(valor: any) {
+    const reg = /[^0-9,0-9]/g
+    const incluyedecimal: boolean = valor.toString().includes(',');
+    // limpiamos el valor en caso que el usuario haya separado con , los separadores de mil o insertado alguna letra
+    const valorSinLetras = valor.toString().replace(reg, '');
+    const valorParaParsear = valorSinLetras.replace(',', '.');
+    const valorParseado = Number(valorParaParsear);
+    const format = this.formatter.format(valorParseado);
+    const incluyedecimal2 = format.includes(',');
+    // parseamos el valor una vez se ha validado que es un numero
+    return '$ ' + format + `${incluyedecimal && !incluyedecimal2 ? ',' : ''}`;
   }
 
 }

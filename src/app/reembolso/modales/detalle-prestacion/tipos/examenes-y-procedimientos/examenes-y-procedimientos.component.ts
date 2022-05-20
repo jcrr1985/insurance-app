@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IArancel } from 'src/app/shared/interfaces/arancel';
 import { Prestacion } from 'src/app/shared/interfaces/interfaces'
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
@@ -16,10 +16,11 @@ export class ExamenesYProcedimientosComponent implements OnInit {
   public prestacion: Prestacion = {} as Prestacion;
   public warningMsg: boolean = false;
   public montoReferencia = 50000;
-
+  
   @Output() close: EventEmitter<any> = new EventEmitter();
   @Output() dataEvent: EventEmitter<any> = new EventEmitter();
   @Output() textoArancelSeleccionado: EventEmitter<string> = new EventEmitter();
+  @Input() formatoMoneda!:boolean;
 
   public prestacioSeleccionada = this.arancelService.getPrestacionSeleccionada;
   public textoArancel!: string;

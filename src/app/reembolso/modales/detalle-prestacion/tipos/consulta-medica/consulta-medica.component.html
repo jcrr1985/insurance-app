@@ -17,17 +17,17 @@
                     <!--input número de sesiones-->
                     <ds-select-v2 *ngIf="sesionRequired" [source]="sesionesSource"
                         label="Número de Sesiones" (changeEv)="selectEvent($event)">
-                    </ds-select-v2>
+                    </ds-select-v2> 
                 </div>
 
                 <div class="modal--row">
                     <!--valor-->
-                    <ds-input-v2 label="Valor" type="number"
+                    <ds-input-v2 label="Valor" type="text" [formatoMoneda]="true"
                     (keyupEv)="setValue('valor',$event)" (changeEv)="validarMensajeWarning()">
                     </ds-input-v2>
 
                     <!--bonificacion isapre/fonasa-->
-                    <ds-input-v2 label="Bonificación Isapre/Fonasa" type="number"
+                    <ds-input-v2 label="Bonificación Isapre/Fonasa" type="text" [formatoMoneda]="true"
                         (keyupEv)="setValue('bonificacion',$event)" (changeEv)="validarMensajeWarning()">
                     </ds-input-v2>
                 </div>

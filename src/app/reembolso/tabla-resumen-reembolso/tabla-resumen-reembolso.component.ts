@@ -55,7 +55,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
   public continuar: boolean = false;
   public prestacionSeleccionada: any;
   public goToMensajeFinal: string = 'no';
-  public mostrarModalFinal: boolean = false;
+  public mostrarModalFinal: boolean = true;
 
   constructor(private dataStorageService: DataStorageService, private reembolsoService: ReembolsoService, private arancelService: ArancelService) { }
 

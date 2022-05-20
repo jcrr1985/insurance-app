@@ -18,12 +18,12 @@
                 </ds-select-v2>
 
                 <!--valor-->
-                <ds-input-v2 class="col-span-12 sm:col-span-6" label="Valor" type="number" 
+                <ds-input-v2 class="col-span-12 sm:col-span-6" label="Valor" type="text" [formatoMoneda]="true"
                     (keyupEv)="setValue('valor',$event)">
                 </ds-input-v2>
 
                 <!--bonificacion isapre/fonasa-->
-                <ds-input-v2 class="col-span-12 sm:col-span-6" label="Bonificación Isapre/Fonasa" type="number"
+                <ds-input-v2 class="col-span-12 sm:col-span-6" label="Bonificación Isapre/Fonasa" type="text" [formatoMoneda]="true"
                     (keyupEv)="setValue('bonificacion',$event)">
                 </ds-input-v2>
             </div>
@@ -39,8 +39,7 @@
             <div class="monto-reembolso">
                 <div class="px-4 mb-8 bg-indigo-900 rounded-lg indigo-wrapper">
                     <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
-                        <span slot="text" class="py-3 text-base text-left text-white bg-indigo-900">Monto a
-                            reembolsar</span>
+                        <span slot="text" class="py-3 text-base text-left text-white bg-indigo-900">Monto solicitado</span>
                     </ds-paragraph>
                     <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
                         <span slot="text" class="py-3 text-base text-left text-white bg-indigo-900">$
