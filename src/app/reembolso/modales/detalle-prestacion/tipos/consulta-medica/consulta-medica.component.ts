@@ -1,7 +1,7 @@
 import { timer } from 'rxjs';
 import { IArancel } from './../../../../../shared/interfaces/arancel';
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Prestacion } from 'src/app/shared/interfaces/interfaces'
 
 
@@ -16,6 +16,7 @@ export class ConsultaMedicaComponent implements OnInit {
   @Output() close: EventEmitter<any> = new EventEmitter();
   @Output() dataEvent: EventEmitter<any> = new EventEmitter();
   @Output() textoArancelSeleccionado: EventEmitter<string> = new EventEmitter();
+  @Input() formatoMoneda!:boolean;
 
   public valor: any = 0;
   public bonificacion: any = 0;

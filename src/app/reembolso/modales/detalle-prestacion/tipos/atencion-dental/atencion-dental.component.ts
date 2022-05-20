@@ -18,6 +18,7 @@ export class AtencionDentalComponent implements OnInit, OnChanges {
   validDate: boolean = false;
   warningMsg: boolean = false;
   @Input() stepsStatusOn: any;
+  @Input() formatoMoneda!:boolean;
   @Output() close: EventEmitter<any> = new EventEmitter();
   @Output() dataEvent: EventEmitter<any> = new EventEmitter();
   @Output() textoArancelSeleccionado: EventEmitter<string> = new EventEmitter();
