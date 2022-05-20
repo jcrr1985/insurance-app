@@ -13,6 +13,9 @@ import '@vs-design-system/ds-collapsible'
 
 import { Router } from '@angular/router';
 import { timer } from 'rxjs';
+import { Token, TokenData } from 'src/app/shared/interfaces/sso';
+import * as JWT from 'jwt-decode';
+
 
 @Component({
   selector: 'app-tabla-historial',
@@ -21,8 +24,6 @@ import { timer } from 'rxjs';
 })
 export class TablaHistorialComponent
 implements OnInit, OnDestroy {
-  // @ViewChild('dsPageCounter') dsPageCounter: ElementRef<HTMLElement> =
-  //   {} as ElementRef;
   @ViewChild('dsPageCounter') dsPageCounter: any;
   @ViewChild('theader')
   theader!: ElementRef;
@@ -33,8 +34,9 @@ implements OnInit, OnDestroy {
 
   constructor(
     private reembolsoService: ReembolsoService,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {
+  }
 
   ngOnDestroy(): void {
     if (window.removeAllListeners) window.removeAllListeners();
@@ -45,6 +47,8 @@ implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.addAccessKey();
     this.aciveTableHistorial();
+    var tokenData : Token = JSON.parse(localStorage.getItem("Token")!);
+    var UserInfo : TokenData = JWT(tokenData.access_token);
   }
 
   resultadosPorPagina: number = 10;
@@ -107,7 +111,7 @@ implements OnInit, OnDestroy {
     this.sourcePagination = source;
   }
   /**
-   * 
+   *
    * @param event evento de seleccion de pagina
    * @description recibe el numero de la pagina a visualizar
    */
@@ -118,7 +122,7 @@ implements OnInit, OnDestroy {
     }
   }
   /**
-   * 
+   *
    * @param event evento de seleccion de numero por pagina
    * @description recibe el valor de la cantidad de registros permitidos por pagina
    */
