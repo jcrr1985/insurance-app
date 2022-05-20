@@ -14,10 +14,31 @@ export class DsSelectV2Component implements OnInit {
   @Input() label!: string;
   @Input() helpText: string = '';
   @Output() changeEv: EventEmitter<any> = new EventEmitter();
+  public tituloSelectInput!: string;
 
   constructor() { }
 
   ngOnInit(): void {
+    // if(this.source[0].key == '1 sesión') {
+    //   console.log('si esto es el select de agergar prestacion')
+    // }else if(this.source[0].parentesco == 'Yo'){
+    //   console.log('BAKUHATSU!!!!!!  quien se atendio')  
+    // }
+
+    switch (this.label) {
+      case 'Isapre/Fonasa':
+    this.tituloSelectInput = 'Isapre/Fonasa'
+        break;
+        case 'Seleccione una persona':
+    this.tituloSelectInput = 'Elige una persona'
+          break;
+          case 'Número de Sesiones':
+    this.tituloSelectInput = 'Número de sesiones'
+            break;
+    
+      default:
+        break;
+    }
   }
   selectValue(element: sourceDsSelect | any) {
     element.key ? this.valueDisplay = element.key : this.valueDisplay = element.label;
