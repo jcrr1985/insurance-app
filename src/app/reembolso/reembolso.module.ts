@@ -25,7 +25,8 @@ import { TablaResumenReembolsoComponent } from './tabla-resumen-reembolso/tabla-
 import { PantallaFinalComponent } from './pantalla-final/pantalla-final.component';
 
 const route: Routes = [
-  { path: '', component: TablaHistorialComponent },
+  { path: '', component: ReembolsoComponent },
+  { path: 'home', component: TablaHistorialComponent },
   { path: 'reembolso', component : ReembolsoComponent},
   { path: 'historial', component: TablaHistorialComponent },
   { path: 'solicitud', component: SolicitarReembolsoComponent },
