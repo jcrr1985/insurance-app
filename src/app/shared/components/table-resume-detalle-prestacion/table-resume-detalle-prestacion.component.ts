@@ -24,6 +24,7 @@ export class TableResumeDetallePrestacionComponent implements OnInit, OnDestroy 
     this.dataStorageService.getPrestaciones().subscribe(prestaciones => {
       this.prestaciones = prestaciones;
       console.log("recibiendo prestaciones", prestaciones);
+      this.dataStorageService.montoTotalSolicitadoSubject.next(this.prestaciones)
       this.calcMounts();
     });
   }

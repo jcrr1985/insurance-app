@@ -48,7 +48,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
   ];
 
 
-
+  public montoAndStuff: any;
 
   public continuar: boolean = false;
   public prestacionSeleccionada: any;
@@ -57,6 +57,8 @@ export class TablaResumenReembolsoComponent implements OnInit {
   constructor(private dataStorageService: DataStorageService, private reembolsoService: ReembolsoService, private arancelService: ArancelService) { }
 
   ngOnInit(): void {
+    this.montoAndStuff = this.dataStorageService.getmontoAndStuff;
+    console.log('this.montoAndStuff', this.montoAndStuff)
     let total: number = 0;
     this.solicitudes.forEach(solicitud => {
       total += (solicitud.valorPrestacion - solicitud.bonificacion);
@@ -94,6 +96,12 @@ export class TablaResumenReembolsoComponent implements OnInit {
     this.dataStorageService.resturarFormularioReembolso();
     this.dataStorageService.restaurarDetallePrestaciones();
   }
+  construirFechaActual() {
+    const fecha = new Date();
+    const dia = fecha.getDate() < 10 ? `0${fecha.getDate()}` : fecha.getDate();
+    const mes =
+      fecha.getMonth() < 10 ? `0${fecha.getMonth() + 1}` : fecha.getMonth() + 1;
+    const anno = fecha.getFullYear();
+    return `${dia}/${mes}/${anno}`;
+  }
 }
-
-// negro esta media confusa tu logica en este lado...xd

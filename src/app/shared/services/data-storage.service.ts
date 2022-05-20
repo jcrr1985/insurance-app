@@ -1,4 +1,4 @@
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -33,15 +33,15 @@ export class DataStorageService {
   /**
    * @description Behavior Subject del detalle de prestaciones cargadas para la solicitud de reembolso
    */
-  private detallePrestacionesBehavior: BehaviorSubject<any>;
+  public detallePrestacionesBehavior: BehaviorSubject<any>;
   /**
    * @description Observable de las prestaciones disponibles que han sido cargadas en el formulario de solicitar reembolso
    */
-  private detallerPrestaciones$: Observable<any>;
+  public detallerPrestaciones$: Observable<any>;
   /**
    * @description Arreglo de las prestaciones que han sido cargadads en el detalle
    */
-  private detallePrestaciones: any[];
+  public detallePrestaciones: any[];
 
   //#######################################################################
   //################## Para prestaciones en resumen #######################
@@ -79,7 +79,25 @@ export class DataStorageService {
    */
   private idprestacionSeleccionada: number;
 
+  public montoTotalSolicitadoSubject: Subject<any> = new Subject();
+  public montoTotalSolicitado$ = this.montoTotalSolicitadoSubject.asObservable();
+
+  public montoAndStuff: any;
+
+  setmontoAndStuff() {
+    this.montoTotalSolicitado$.subscribe(montoAndStuff => { 
+      console.log('dentro de setMontoAndStuff en el servicio')
+      this.montoAndStuff = montoAndStuff 
+      console.log('this.montoAndStuff', this.montoAndStuff)
+    })
+  }
+
+  get getmontoAndStuff() {
+    return this.montoAndStuff;
+  }
+
   constructor() {
+    this.setmontoAndStuff()
     // _____________________________________________________________
     // _______________ Para Formulario Reembolso ___________________
     // _____________________________________________________________
