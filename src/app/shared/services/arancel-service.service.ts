@@ -54,9 +54,9 @@ export class ArancelService {
   }
 
   public setPrestacionSeleccionadaId(cardId: number) {
-    
+
     this.idprestacionSeleccionada = cardId;
-    
+
   }
 
 
@@ -69,8 +69,9 @@ export class ArancelService {
    * nombre del arancel.
    */
   public filtroAranceles(filtro: string): any[] {
-    
+
     let filtroPrestacion: string = '';
+    const keySearch = filtro.toString().trim().toLowerCase();
 
     switch (this.tarjetaSeleccionada) {
       case 'atencionhospitalaria':
@@ -98,7 +99,7 @@ export class ArancelService {
     if (filtro) {
       const resultados = this.aranceles.filter((arancel) => {
         return (
-          arancel.Arancel.toLowerCase().search(filtro) >= 0 &&
+          arancel.Arancel.toString().trim().toLowerCase().search(keySearch) >= 0 &&
           arancel.TipoLiquidacion === filtroPrestacion
         );
       });
@@ -175,7 +176,7 @@ export class ArancelService {
   //         `${ENV.URL_BFF_BASE}/BFF/Reimbursement/validate/session/insured/${rut}?TotalAmount=${montoIngresado}&NumberSessions=${cantidadSesiones}&BenefitCode=${codigoArancel}&RuleName=Sessions`,
   //         { headers: headers }).toPromise()
   //     );
-      
+
   //     if (infoSesiones.httpCode === 404) {
   //       return false;
   //     } else if (infoSesiones.session !== undefined) {

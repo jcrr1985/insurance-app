@@ -37,6 +37,8 @@ export class DetallePrestacionComponent
 
   receivedModalData(data: any) {
     this.dataStorageService.agregarPrestacion(data);
+    this.dataStorageService.setFormReembolso('stepFive_Details', 'reembolsoCalculation', true);
+
   }
 
   setearValorInputPredictivo(textoArancel: string) {

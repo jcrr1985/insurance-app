@@ -23,7 +23,7 @@ export class TestingComponent implements OnInit, OnDestroy {
     { prestacion: 'Lentes y Monturas', name: 'optica', status: '' }
   ]
 
-
+  disabledButton: boolean = false;
 
 
   setCard(index: number) {
@@ -40,6 +40,10 @@ export class TestingComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    setInterval(() => {
+      this.disabledButton = !this.disabledButton;
+    }, 10000)
+
     window.addEventListener('keydown', event => {
       if (event.ctrlKey && event.code == 'KeyQ') this.router.navigate(['/']);
     })

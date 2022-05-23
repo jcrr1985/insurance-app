@@ -18,16 +18,16 @@ export class MarcosYLentesComponent implements OnInit {
   @Output() close: EventEmitter<any> = new EventEmitter();
   @Output() dataEvent: EventEmitter<any> = new EventEmitter();
   @Output() textoArancelSeleccionado: EventEmitter<string> = new EventEmitter();
-  @Input() formatoMoneda!:boolean;
+  @Input() formatoMoneda!: boolean;
 
   public prestacion: Prestacion = {} as Prestacion; // quien le da valor a esta variable?
   public prestacioSeleccionada = this.arancelService.getPrestacionSeleccionada;
   public textoArancel!: string;
-  
+
   constructor(public arancelService: ArancelService) { }
   public sesionesSource = this.arancelService.getSesionesSource;
   public formatter = new Intl.NumberFormat('es-CL');
-  
+
   ngOnInit(): void {
     //
   }
@@ -65,8 +65,10 @@ export class MarcosYLentesComponent implements OnInit {
   }
 
   sendData() {
-    this.dataEvent.emit(this.prestacion);
-    this.closeModal();
+    if (!this.prestacionInvalid()) {
+      this.dataEvent.emit(this.prestacion);
+      this.closeModal();
+    }
   }
 
   closeModal() {
@@ -85,6 +87,20 @@ export class MarcosYLentesComponent implements OnInit {
     const incluyedecimal2 = format.includes(',');
     // parseamos el valor una vez se ha validado que es un numero
     return '$ ' + format + `${incluyedecimal && !incluyedecimal2 ? ',' : ''}`;
+  }
+
+  /**
+   * @description valida si la prestacion es invalida
+   * @returns {boolean} true | false
+   */
+  prestacionInvalid() {
+    if (this.sesionRequired) {
+      if (!this.warningMsg && this.prestacion.sesiones > 0 && this.prestacion.bonificacion >= 0 && this.prestacion.valorPrestacion > 0) return false
+      else return true;
+    } else {
+      if (!this.warningMsg && this.prestacion.bonificacion >= 0 && this.prestacion.valorPrestacion > 0) return false
+      else return true;
+    }
   }
 
 }
