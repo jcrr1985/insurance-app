@@ -17,8 +17,10 @@ export class AtencionDentalComponent implements OnInit, OnChanges {
   fechaRequired: boolean = false;
   validDate: boolean = false;
   warningMsg: boolean = false;
+  montoReferencia: number = 50000;
+
   @Input() stepsStatusOn: any;
-  @Input() formatoMoneda!:boolean;
+  @Input() formatoMoneda!: boolean;
   @Output() close: EventEmitter<any> = new EventEmitter();
   @Output() dataEvent: EventEmitter<any> = new EventEmitter();
   @Output() textoArancelSeleccionado: EventEmitter<string> = new EventEmitter();
@@ -80,12 +82,23 @@ export class AtencionDentalComponent implements OnInit, OnChanges {
   }
 
   sendData() {
-    this.dataEvent.emit(this.prestacion);
-    this.closeModal();
+    if (!this.prestacionInvalid()) {
+      this.dataEvent.emit(this.prestacion);
+      this.closeModal();
+    }
   }
 
   closeModal() {
     this.close.emit();
+  }
+
+  /**
+  * @description valida si la prestacion es invalida
+  * @returns {boolean} true | false
+  */
+  prestacionInvalid() {
+    if (!this.warningMsg && this.prestacion.valorPrestacion > 0) return false
+    else return true;
   }
 
 }

@@ -16,7 +16,7 @@ export class ConsultaMedicaComponent implements OnInit {
   @Output() close: EventEmitter<any> = new EventEmitter();
   @Output() dataEvent: EventEmitter<any> = new EventEmitter();
   @Output() textoArancelSeleccionado: EventEmitter<string> = new EventEmitter();
-  @Input() formatoMoneda!:boolean;
+  @Input() formatoMoneda!: boolean;
 
   public valor: any = 0;
   public bonificacion: any = 0;
@@ -72,8 +72,10 @@ export class ConsultaMedicaComponent implements OnInit {
   }
 
   sendData() {
-    this.dataEvent.emit(this.prestacion);
-    this.closeModal();
+    if (!this.prestacionInvalid()) {
+      this.dataEvent.emit(this.prestacion);
+      this.closeModal();
+    }
   }
 
   closeModal() {
@@ -88,6 +90,19 @@ export class ConsultaMedicaComponent implements OnInit {
       const monto = (Number(prestacion) - Number(bonificacion)) / sesiones;
       const result = (this.montoReferencia == monto && monto != 0) ? false : true;
       this.warningMsg = result;
+    }
+  }
+  /**
+   * @description valida si la prestacion es invalida
+   * @returns {boolean} true | false
+   */
+  prestacionInvalid() {
+    if (this.sesionRequired) {
+      if (!this.warningMsg && this.prestacion.sesiones > 0 && this.prestacion.bonificacion >= 0 && this.prestacion.valorPrestacion > 0) return false
+      else return true;
+    } else {
+      if (!this.warningMsg && this.prestacion.bonificacion >= 0 && this.prestacion.valorPrestacion > 0) return false
+      else return true;
     }
   }
 

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { IArancel } from 'src/app/shared/interfaces/arancel';
 import { Prestacion } from 'src/app/shared/interfaces/interfaces'
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
@@ -15,20 +16,27 @@ export class CompraMedicamentosComponent implements OnInit {
   montoReembolso: any = 0;
   sesionRequired: boolean = false;
   warningMsg: boolean = false;
+  montoReferencia: number = 50000;
 
   @Output() close: EventEmitter<any> = new EventEmitter();
   @Output() dataEvent: EventEmitter<any> = new EventEmitter();
   @Output() textoArancelSeleccionado: EventEmitter<string> = new EventEmitter();
-  @Input() formatoMoneda!:boolean;
+  @Input() formatoMoneda!: boolean;
   public prestacion: Prestacion = {} as Prestacion;
   public prestacioSeleccionada = this.arancelService.getPrestacionSeleccionada;
   public textoArancel!: string;
 
-  constructor(public arancelService: ArancelService) { }
+  constructor(public arancelService: ArancelService, public fb: FormBuilder) { }
   public sesionesSource = this.arancelService.getSesionesSource;
+  public forma!: FormGroup;
 
   ngOnInit(): void {
-    //
+    this.forma = this.fb.group({
+      pres: [''],
+      ses: [''],
+      val: [''],
+      bon: ['']
+    })
   }
 
   itemSelected(arancel: IArancel) {
@@ -65,12 +73,27 @@ export class CompraMedicamentosComponent implements OnInit {
   }
 
   sendData() {
-    this.dataEvent.emit(this.prestacion);
-    this.closeModal();
+    if (!this.prestacionInvalid()) {
+      this.dataEvent.emit(this.prestacion);
+      this.closeModal();
+    }
+
   }
 
   closeModal() {
     this.close.emit();
   }
-
+  /**
+     * @description valida si la prestacion es invalida
+     * @returns {boolean} true | false
+     */
+  prestacionInvalid() {
+    if (this.sesionRequired) {
+      if (!this.warningMsg && this.prestacion.sesiones > 0 && this.prestacion.bonificacion >= 0 && this.prestacion.valorPrestacion > 0) return false
+      else return true;
+    } else {
+      if (!this.warningMsg && this.prestacion.bonificacion >= 0 && this.prestacion.valorPrestacion > 0) return false
+      else return true;
+    }
+  }
 }

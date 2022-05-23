@@ -1,6 +1,5 @@
 <div class="modal-container">
     <div class="modal-wrapper">
-
         <div class="titulo-modal-detalle">
             <ds-paragraph family="primary" weight="semiBold">
                 <span slot="text">Ingresa el detalle de la
@@ -15,15 +14,15 @@
                     </ds-search-v2>
 
                     <!--input número de sesiones-->
-                    <ds-select-v2 *ngIf="sesionRequired" [source]="sesionesSource"
-                        label="Número de Sesiones" (changeEv)="selectEvent($event)">
-                    </ds-select-v2> 
+                    <ds-select-v2 *ngIf="sesionRequired" [source]="sesionesSource" label="Número de Sesiones"
+                        (changeEv)="selectEvent($event)">
+                    </ds-select-v2>
                 </div>
 
                 <div class="modal--row">
                     <!--valor-->
-                    <ds-input-v2 label="Valor" type="text" [formatoMoneda]="true"
-                    (keyupEv)="setValue('valor',$event)" (changeEv)="validarMensajeWarning()">
+                    <ds-input-v2 label="Valor" type="text" [formatoMoneda]="true" (keyupEv)="setValue('valor',$event)"
+                        (changeEv)="validarMensajeWarning()">
                     </ds-input-v2>
 
                     <!--bonificacion isapre/fonasa-->
@@ -32,10 +31,10 @@
                     </ds-input-v2>
                 </div>
             </div>
-                <!--Monto a rembolsar-->
-            <div class="form--total__container">
+            <!--Monto a rembolsar-->
+            <div class="form--total__container" [ngClass]="{'disabled' : montoReembolso == 0}">
                 <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
-                    <span slot="text" >Monto a
+                    <span slot="text">Monto a
                         reembolsar</span>
                 </ds-paragraph>
                 <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
@@ -45,21 +44,20 @@
             </div>
 
         </div>
-
         <!-- Mensaje de error -->
         <ds-messaging *ngIf="warningMsg" variant="warning" family="secondary" size="s2" title="El valor que ingresaste es diferente a los registrados que has ingresado anteriormente: {{montoReferencia}} por sesión.
             Recuerda que debes indicar la cantidad de sesiones que equivalen al valor que estás ingresando.">
         </ds-messaging>
         <!--Fin mensaje de error-->
-        
+
         <!-- botones-->
         <section class="reembolso__botones--container">
             <ds-button id="ds-button-cancelar" (click)="closeModal()" [size]="'s2'" variant="secondary"
                 slot-name="cancel-button-slot">
                 <span slot="cancel-button-slot">Cancelar</span>
             </ds-button>
-            <ds-button id="ds-button-siguiente" (click)="sendData()" [size]="'s2'" variant="primary"
-                slot-name="next-button-slot">
+            <ds-button id="ds-button-siguiente" [disabled]="prestacionInvalid()" (click)="sendData()"
+                [size]="'s2'" variant="primary" slot-name="next-button-slot">
                 <span slot="next-button-slot"> Guardar </span>
             </ds-button>
         </section>

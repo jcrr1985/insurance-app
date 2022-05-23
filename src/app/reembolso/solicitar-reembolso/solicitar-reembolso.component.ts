@@ -368,6 +368,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       // validando habilitar botones
       this.validarActivacionBotonesSiguiente();
     }
+    this.getSizeStepper();
 
   }
 
@@ -419,7 +420,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
         four <= 110 ? four + 50 + 'px' : four - 35 + 'px';
       this.customStepperSize.stepperFive =
         five <= 110 ? five + 50 + 'px' : five - 35 + 'px';
-    }, 10);
+    }, 100);
   }
 
   /* Modal Agregar detalle adicional */
