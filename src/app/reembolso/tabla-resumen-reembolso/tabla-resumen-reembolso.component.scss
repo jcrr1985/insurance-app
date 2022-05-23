@@ -144,6 +144,8 @@ ds-table-body-row {
 }
 
 
+// MODAL
+
 .modal-pantalla-final {
     position: fixed;
     top: 0;
@@ -151,41 +153,152 @@ ds-table-body-row {
     bottom: 0;
     left: 0;
     background-color: #111111bd;
-    display: flex !important;
+    display: grid;
+    place-content: center;
     
     .wrapper-final {
         border-radius: 8px !important;
         width: 760px;
-        height: 545px;
+        height: auto;
         background-color: #fff;
-        margin: auto;
-        opacity: 1;
-    }
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 30px 30px;
+        gap: 10px;
 
-    p,
-    span {
+        .modal--container{
+            display: flex;
+            align-items: flex-start;
+            padding: 0px 60px 0px 0px;
+            gap: 10px;
+            width: 100%;
+
+            .icon{
+                padding-top: 5px;
+                width: auto;
+                height: 100%;
+                img{
+                    width: 50px;
+                }
+            }
+
+            .content{
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+
+                .title{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 10px;
+                    width: 100%;
+
+                    span{
+                        font-weight: 700;
+                        font-size: 26px;
+                        line-height: 26px;
+                        color: #424893;
+                    }
+                    p{
+                        font-weight: 400;
+                        font-size: 16px;
+                        line-height: 18px;
+                        color: #242C35;
+                    }
+                }
+
+                .linea-division{
+                    background-color: #8F9EAD;
+                    width: 100%;
+                    height: 1px;
+                    margin-top: 10px;
+                }
+
+                .info{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 40px;
+                    width: 100%;
+
+                    .detalles{
+                        display: flex;
+                        align-items: flex-start;
+                        gap: 40px;
+                        width: 100%;
+                       
+                    }
+
+                    .text-normal--mail{
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 16px;
+                        display: flex;
+                        align-items: left;
+                        color: #242C35;
+                    }
+
+                    .detalles--column, .data-bank{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        gap: 20px;
+                        width: 100%;
+
+                        .info-row{
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            width: 100%;
+                            height: 16px;
+
+                            .text--bold{
+                                font-weight: 600;
+                                font-size: 15px;
+                                line-height: 16px;
+                                text-align: left;
+                                color: #43505E;
+                            }
+                            .text-normal{
+                                font-weight: 400;
+                                font-size: 15px;
+                                line-height: 16px;
+                                text-align: right;
+                                color: #43505E;
+                            }
+                        }
+
+                        .bank-title{
+                            font-weight: 600;
+                            font-size: 16px;
+                            line-height: 18px;
+                            text-align: center;
+                            color: #424893;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+    
+
+
+}
+
+.ds-button-siguiente{
+    span{
         font-style: normal;
         font-weight: 600;
         font-size: 14px;
         line-height: 16px;
-        color: #43505E;
-    }
-
-    .titulo-parte-derecha {
-        font-weight: 400;
-        color: --sec2 !important;
-        font-style: normal;
-        font-weight: 700;
-        font-size: 26px;
-        line-height: 26px;
-        color: #424893;
-
-    }
-
-    .linea-division {
-        border-bottom: 1px solid #8F9EAD;
-        width: 580px;
-        margin: auto;
-        margin-bottom: 30px;
+        color: #fff !important;
     }
 }
+
+// FIN MODAL 
