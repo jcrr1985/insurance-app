@@ -43,14 +43,6 @@
   margin-left: 10px !important;
 }
 
-// .css-8h3l1g {
-//   margin-top: 10px !important;
-// }
-
-.vertical-progressbar {
-  margin-top: 40px !important;
-  //corrigiendo stepper
-}
 
 .css-upkcef {
   width: min-content;
@@ -68,16 +60,9 @@
   font-family: "Titilium";
 }
 
-.css-ou2yfm {
-  ds-icon {
-    top: 7px !important;
-  }
-}
 
 app-custom-stepper {
  
-  
-
   span.success_icon {
     ds-icon {
       svg {
@@ -112,29 +97,32 @@ app-custom-stepper {
 }
 
 // ancho file uploadDocs
-.css-ivir7d {
-  width: 100% !important;
+
+ds-file{
+  min-width: 200px !important;
+  height: auto;
+
+  .css-ivir7d {
+    width: 100% !important;
+    gap: 20px !important ;
+    height: auto;
+    padding: 30px !important;
+
+   .css-hav5i4{
+     display: none;
+   }
+  }
+
 }
 
-.text-no-overflow {
+
+/*.text-no-overflow {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   padding-right: 5px;
-}
+}*/
 
-.modal-container {
-  width: 100vw;
-  height: 100vh;
-  margin: 0px;
-  padding: 0px;
-  background-color: rgba(0, 0, 0, 0.72);
-  position: fixed !important;
-  top: 0px;
-  right: 0px;
-  z-index: 100;
-  overflow: hidden;
-}
 
 .icon-check.success {
   ds-icon {
@@ -145,21 +133,14 @@ app-custom-stepper {
 }
 
 /* Personalizando ds-input */
-ds-icon {
-  svg {
-    margin-top: 5px;
-  }
-}
 
 .waitStepperText {
-  color: var(--ter3)
+  color: var(--ter3);
+  font-weight: 400 !important;
+  font-size: 16px !important;
+  line-height: 16px !important;
 }
 
-ds-select-v2 ds-icon {
-  svg {
-    margin-top: 0px; //nmaruco esto era culpa del tailwind/base ... el tener que hacer esto en los SVG. ya no es 
-  }
-}
 
 .css-qndpii {
   overflow-y: unset !important;
@@ -167,10 +148,12 @@ ds-select-v2 ds-icon {
 }
 
 .input_container {
-  box-sizing: border-box;
+  display: flex;
   position: relative;
   height: 40px;
   width: 100%;
+
+  
 
   input.success {
     outline: none;
@@ -243,14 +226,14 @@ ds-select-v2 ds-icon {
   }
 
   label {
-    display: block;
+    display: block; 
     font-family: "Titillium Web", sans-serif;
     font-size: 12px;
     color: rgb(96, 110, 125);
     background-color: rgb(255, 255, 255);
     pointer-events: none;
     position: absolute;
-    top: -14px;
+    top: -13px;
     padding: 4px;
     left: 12px;
     transition: top 0.4s ease 0s, left 0.4s ease 0s, font-size 0.4s ease 0s;
@@ -270,7 +253,7 @@ ds-select-v2 ds-icon {
 
 span.steps-title {
   font-weight: 600 !important;
-  font-size: 22px !important;
+  font-size: 22px;
 }
 
 app-solicitar-reembolso {
@@ -354,6 +337,328 @@ ds-title {
   width: 100% !important;
 }
 
-.ds-select-container{
+
+.css-2g1v7x{
+  display: flex !important;
+  flex-direction: column;
+  height: auto;
+}
+
+.inputs__container{
+  display: flex;
+  align-items: center;
+  height: 45px;
+  gap: 5px;
+
+  ds-icon{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 40px;
+
+      span{
+          display: flex !important;
+          flex-direction: column;
+          width: 24px;
+          height: auto;
+
+      }
+  }
 
 }
+
+.gap-datepicker{
+  gap: 5px;
+}
+
+
+.upload-documents__container{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+
+  ds-paragraph{
+    display: flex !important;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 10px;
+    height: 22px;
+
+    .css-na3qa4{
+      height: auto;
+    }
+
+    svg{
+      width: 20px;
+      height: 20px;
+      color: #ef6f00 !important;
+    
+    }
+
+    .css-1ssdf2w{
+      width: 100% !important;
+
+      span{
+        width: auto !important;
+      }
+    }
+  }
+
+  .documents__options{
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+
+    .mx-5{
+      margin: 0 !important;
+    }
+  }
+
+}
+
+ds-icon{
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  height: auto;
+  margin: 0 !important;
+
+  .css-7kp13n{
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    height: auto !important;
+  
+        span{
+            display: flex !important;
+            flex-direction: column;
+            width: 100%;
+            height: auto;
+  
+        }
+  }
+
+  .css-1r20hg{
+      display: flex !important;
+      flex-direction: column;
+      justify-content: center;
+      height: 20px;
+  }
+}
+
+ds-button {
+  display: flex !important;
+  width: auto !important;
+  height: auto !important;
+
+  .css-2vxw4u{
+      min-width: 160px;
+      width: auto;
+      height: 40px !important;
+      padding: 10px 10px 10px 20px !important;
+      gap: 10px !important;
+
+      ds-icon{
+        width: auto;
+        height: auto;
+      }
+
+      span{
+          display: flex !important;
+          margin: 0 !important;
+          text-align: center;
+          height: auto;
+      }
+
+      .back-button__text{
+        width: auto;
+        font-size: 16px !important;
+    }
+    
+  }
+}
+
+app-table-resume-detalle-prestacion{
+  width: 100% !important;
+
+  ds-table{
+    width: 100% !important;
+
+    ds-table-body-row{
+      height: 40px !important;
+      background: #F1F3F5 !important;
+      
+    }
+
+    ds-table-body-row:hover{
+      background: #F1F3F5 !important;
+    }
+
+    .row_total{
+      background-color: #bcdeb1 !important;
+
+      span{
+        font-weight: 600 !important;
+      }
+    }
+
+    .row_total:hover{
+      background-color: #bcdeb1 !important;
+    }
+    
+  }
+}
+
+.css-lirlie{
+  border: 1px solid #6B77B3 !important;
+  box-shadow: 0px 4px 12px rgba(67, 80, 94, 0.1) !important;
+}
+
+ds-title{
+  display: flex !important;
+  align-items: flex-start;
+  width: 100%;
+  padding-top: 2px !important;
+  
+  height: auto !important;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 22px;
+  color: #424893;
+
+  h4{
+    line-height: 26px !important;
+  }
+}
+
+.page-title__container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+  ds-title{
+      width: fit-content;
+  }
+
+  div{
+      height: fit-content !important;
+  }
+}
+
+.css-1mpi4ja{
+  box-shadow: none !important;
+}
+
+.css-1el2sgw{
+  margin: 0 !important;
+}
+
+
+.modal-container {
+  width: 100vw;
+  height: 100vh;
+  margin: 0px;
+  padding: 0px;
+  background-color: rgba(0, 0, 0, 0.72);
+  position: fixed !important;
+  top: 0px;
+  right: 0px;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  overflow: hidden;
+
+  .modal-wrapper {
+    z-index: 101;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 30px 30px;
+    gap: 30px;
+
+    position: relative;
+    width: 760px;
+    height: auto;
+
+    background: #FFFFFF !important;
+    border: 1px solid #D2D9DF;
+
+    box-shadow: 0px 4px 8px rgba(67, 80, 94, 0.2);
+    border-radius: 8px;
+
+    .titulo-modal-detalle {
+      font-weight: 600 !important;
+      font-weight: 600 !important;
+      width: 100%;
+      height: auto;
+      padding: 0 !important;
+
+      span {
+        color: var(--sec2) !important;
+        font-size: 1.35rem !important;
+        text-align: left;
+      }
+    }
+
+    .modal--form__container{
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 20px;
+
+      .modal--form{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        .modal--row{
+          display: flex;
+          width: 100%;
+          gap: 10px;
+  
+          ds-search-v2, ds-select-v2, ds-input-v2{
+            width: 100% !important;
+          }
+        }
+      }
+
+      .form--total__container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        width: 100%;
+        height: 40px;
+
+        background: #424893;
+        border: 1px solid #232272;
+        border-radius: 8px; 
+
+        span{
+          font-style: normal;
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 18px;
+          color: #FFFFFF;
+        }
+      }
+    }
+
+  }
+
+}
+
+.reembolso__botones--container{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  
+  
+}
+

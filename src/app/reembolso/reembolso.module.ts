@@ -25,16 +25,37 @@ import { TablaResumenReembolsoComponent } from './tabla-resumen-reembolso/tabla-
 import { PantallaFinalComponent } from './pantalla-final/pantalla-final.component';
 
 const route: Routes = [
-  { path: '', component: TablaHistorialComponent },
+  { path: '', component: ReembolsoComponent },
+  { path: 'home', component: TablaHistorialComponent },
+  { path: 'reembolso', component : ReembolsoComponent},
   { path: 'historial', component: TablaHistorialComponent },
   { path: 'solicitud', component: SolicitarReembolsoComponent },
   { path: 'resumen', component: TablaResumenReembolsoComponent },
-  {path: 'final', component: PantallaFinalComponent},
+  { path: 'final', component: PantallaFinalComponent },
   { path: 'testing', component: TestingComponent }
 ];
 
 @NgModule({
-  declarations: [ReembolsoComponent, TablaHistorialComponent, DetallePrestacionComponent, ModalSolicitudReembolsoCompletadaComponent, ModalRegistrarMedicamentoComponent, SolicitarReembolsoComponent, StepQuienSeAtendioComponent, StepSeleccionaPrestacionComponent, StepDocumentosGeneralesComponent, StepDatosGeneralesComponent, StepDetallePrestacionComponent, ConsultaMedicaComponent, AtencionHospitalariaComponent, MarcosYLentesComponent, AtencionDentalComponent, CompraMedicamentosComponent, ExamenesYProcedimientosComponent, TablaResumenReembolsoComponent, PantallaFinalComponent],
+  declarations: [ReembolsoComponent,
+    TablaHistorialComponent,
+    DetallePrestacionComponent,
+    ModalSolicitudReembolsoCompletadaComponent,
+    ModalRegistrarMedicamentoComponent,
+    SolicitarReembolsoComponent,
+    StepQuienSeAtendioComponent,
+    StepSeleccionaPrestacionComponent,
+    StepDocumentosGeneralesComponent,
+    StepDatosGeneralesComponent,
+    StepDetallePrestacionComponent,
+    ConsultaMedicaComponent,
+    AtencionHospitalariaComponent,
+    MarcosYLentesComponent,
+    AtencionDentalComponent,
+    CompraMedicamentosComponent,
+    ExamenesYProcedimientosComponent,
+    TablaResumenReembolsoComponent,
+    PantallaFinalComponent
+  ],
   imports: [CommonModule, RouterModule.forChild(route), SharedsModule, FormsModule, ReactiveFormsModule],
   exports: [CommonModule, ReembolsoComponent, TablaHistorialComponent, DetallePrestacionComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

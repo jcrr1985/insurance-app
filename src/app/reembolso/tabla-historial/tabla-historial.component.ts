@@ -9,12 +9,12 @@ import {
 } from '@angular/core';
 import { ReembolsoService } from 'src/app/shared/services/reembolso.service';
 import '@vs-design-system/ds-pagination';
+import '@vs-design-system/ds-collapsible'
+
 import { Router } from '@angular/router';
 import { timer } from 'rxjs';
-import { Subscription } from 'rxjs';
-import { DataUsuarioService } from 'src/app/shared/services/data-usuario/data-usuario.service';
-import { environment } from 'src/environments/environment';
-import { Inject } from '@angular/core';
+import { Token, TokenData } from 'src/app/shared/interfaces/sso';
+import * as JWT from 'jwt-decode';
 
 
 @Component({
@@ -23,27 +23,20 @@ import { Inject } from '@angular/core';
   styleUrls: ['./tabla-historial.component.scss'],
 })
 export class TablaHistorialComponent
-  implements OnInit, OnDestroy {
-    isLoading = true;
-    dataSubscription = new Subscription();
-    /* const dataSource!: IUsuario; */
-  
-  // @ViewChild('dsPageCounter') dsPageCounter: ElementRef<HTMLElement> =
-  //   {} as ElementRef;
+implements OnInit, OnDestroy {
   @ViewChild('dsPageCounter') dsPageCounter: any;
   @ViewChild('theader')
   theader!: ElementRef;
-
+  
+  public indiceSeleccionado!: any;
   public reembolsos!: Reembolsos[];
   showTable: boolean = false;
 
   constructor(
-    /* @Inject(TablaHistorialComponent) public data: string, */
-     @Inject(TablaHistorialComponent) public data: any,
     private reembolsoService: ReembolsoService,
-    private router: Router,
-    private service: DataUsuarioService
-  ) { }
+    private router: Router
+  ) {
+  }
 
   ngOnDestroy(): void {
     if (window.removeAllListeners) window.removeAllListeners();
@@ -54,8 +47,8 @@ export class TablaHistorialComponent
   ngOnInit(): void {
     this.addAccessKey();
     this.aciveTableHistorial();
-    this.buscarDatos();
-
+    var tokenData : Token = JSON.parse(localStorage.getItem("Token")!);
+    var UserInfo : TokenData = JWT(tokenData.access_token);
   }
 
   resultadosPorPagina: number = 10;
@@ -119,7 +112,7 @@ export class TablaHistorialComponent
     this.sourcePagination = source;
   }
   /**
-   * 
+   *
    * @param event evento de seleccion de pagina
    * @description recibe el numero de la pagina a visualizar
    */
@@ -130,7 +123,7 @@ export class TablaHistorialComponent
     }
   }
   /**
-   * 
+   *
    * @param event evento de seleccion de numero por pagina
    * @description recibe el valor de la cantidad de registros permitidos por pagina
    */
@@ -152,17 +145,9 @@ export class TablaHistorialComponent
     });
   }
 
-  buscarDatos() {
-    console.log('busco los datos');
-    localStorage.setItem("ssoToken",environment.DEV_TOKEN_TEST);
-
-    this.isLoading = true;
-    this.dataSubscription = this.service.buscarData("17793573").subscribe((response) => {
-      console.log(response);
-      this.isLoading = false;
-      /* this.dataSource = response.data.data; */
-    });
-
+  abrirColapsable(registroNo: any){
+    console.log('registroNo', registroNo);
+    this.indiceSeleccionado = registroNo;
   }
 }
 

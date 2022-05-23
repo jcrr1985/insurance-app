@@ -1,12 +1,12 @@
 <section class="steps__container">
   <app-custom-stepper [height]="customStepperSize.stepperFive" [status]="stepperFiveSource()[0].status">
   </app-custom-stepper>
-  <div id="stepperFiveContent" class="w-full">
+  <div id="stepperFiveContent" class="steps-content__container">
     <ds-title class="col-span-12" type="t4" family="secondary" weight="bold" color="primary">
       <span class="steps-title five" slot="text"
         [ngClass]="{'waitStepperText':this.stepperFiveSource()[0].status == 'waiting'}">Detalles de la prestación</span>
     </ds-title>
-    <div class="grid grid-cols-12 gap-8">
+    <div class="mensaje__container">
       <ng-container
         *ngIf="getStepsStatus('stepFour_general','tipoDocumentoSeleccionado') && getStepsStatus('stepFour_general','fileUploaded')">
         <div class="col-span-9">
@@ -17,26 +17,24 @@
             </span>
           </ds-paragraph>
         </div>
-        <div class="col-span-9" *ngIf="!prestaciones.length">
-          <ds-button (click)="showModal = true" class="mt-10" variant="secondary" slot-name="text2">
+        <div *ngIf="!prestaciones.length">
+          <ds-button (click)="showModal = true" variant="secondary" slot-name="text2">
             <span slot="text2">Agregar detalle</span>
           </ds-button>
         </div>
-        <div class="col-span-3" *ngIf="prestaciones.length">
-          <ds-button variant="complementary" slot-name="text2" (click)="showModal = true">
+        <div *ngIf="prestaciones.length">
+          <ds-button variant="secondary" slot-name="text2" (click)="showModal = true">
             <span slot="text2">Agregar otro detalle</span>
             <ds-icon color="info2" size="24" icon-name="bi-plus-circle" slot="text2"></ds-icon>
           </ds-button>
         </div>
         <div class="flex col-span-12" *ngIf="prestaciones.length">
-          <app-table-resume-detalle-prestacion [prestaciones]="prestaciones" (editEv)="edit($event)"
-            (deleteEv)="delete($event)"></app-table-resume-detalle-prestacion>
+          <app-table-resume-detalle-prestacion></app-table-resume-detalle-prestacion>
         </div>
       </ng-container>
     </div>
 
   </div>
-  <app-detalle-prestacion *ngIf="showModal" [prestacionSeleccionada]="prestacionSeleccionada" [stepsStatusOn]="stepsStatusOn"
-    (datosNuevaPrestacion)="nuevaPrestacionDataArray($event)" (hideModalEvent)="hideAddMoreDetailModal()">
+  <app-detalle-prestacion *ngIf="showModal" (hideModalEvent)="hideAddMoreDetailModal()">
   </app-detalle-prestacion>
 </section>

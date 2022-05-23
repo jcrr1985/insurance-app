@@ -1,3 +1,4 @@
+import { DataStorageService } from 'src/app/shared/services/data-storage.service';
 import { Prestacion } from 'src/app/shared/interfaces/interfaces';
 import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
@@ -10,8 +11,8 @@ import { ArancelService } from 'src/app/shared/services/arancel-service.service'
 export class StepDatosGeneralesComponent implements OnInit, OnChanges {
   @Input() stepperThreeSource: any;
   @Input() customStepperSize: any;
-  @Input() stepsStatusOn: any;
-  @Input() isapreFonasaOptions: any;
+  stepsStatusOn: any;
+  isapreFonasaOptions: any = previsionesArray;
 
 
   @Output() sendData: EventEmitter<any> = new EventEmitter<any>();
@@ -27,17 +28,17 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
 
   public formatter = new Intl.NumberFormat('es-CL');
 
-  constructor(private prestacionService: ArancelService) {
+  constructor(private dataStorageService: DataStorageService, private prestacionService: ArancelService) {
   }
   ngOnChanges(changes: SimpleChanges): void {
     this.definirTextoPregunta()
   }
   filesUploaded: any = [];
   ngOnInit(): void {
+    this.dataStorageService.getFormReemboslo().subscribe(statusOn => this.stepsStatusOn = statusOn);
     this.agregarAgenteEscucha();
-    this.prestacionService.setIdSubject$.subscribe(idPrestacionSeleccionada => {
-      this.idPestacionSeleccionada = idPrestacionSeleccionada;
-    });
+    // this.prestacionService.setIdSubject$.subscribe(idPrestacionSeleccionada => { this.idPestacionSeleccionada = idPrestacionSeleccionada; });
+    this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => (this.idPestacionSeleccionada = id, console.log(id)))
   }
 
   agregarAgenteEscucha() {
@@ -50,8 +51,6 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
       }
     });
   }
-
-
 
   definirTextoPregunta() {
 
@@ -94,12 +93,12 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
   }
 
   setStepsStatus(data: any) {
-    this.sendData.emit(data);
-    this.evaluateStepThree.emit();
+    this.dataStorageService.setFormReembolso(data.step, data.option, data.value);
     this.mostrarDocumentoAdicional.emit(data.value)
 
   }
   revisarSelectevent(dataEvt: any) {
+    console.log(dataEvt);
   }
   /**
    *
@@ -109,13 +108,28 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
    * @description retorna el valor del archivo de stepsStatusOn
    */
   getStepsStatus(step: string, option: string) {
-    return this.stepsStatusOn[step][option];
+    try {
+      return this.stepsStatusOn[step][option];
+    } catch (error) {
+      console.log("______________________")
+      console.log("error obteniendo value")
+      console.log("step", step)
+      console.log("option", option)
+      console.log("statusOn", this.stepsStatusOn)
+      console.log("______________________")
+      console.log("______________________")
+    }
   }
 
-  setValue(text: string, val: any) {
-
-  }
-  formateoValor(valor: number) {
-    return '$' + this.formatter.format(valor);
-  }
 }
+
+const previsionesArray = [
+  { key: 'Fonasa', value: 1, selected: false },
+  { key: 'Colmena', value: 2, selected: false },
+  { key: 'Consalud', value: 3, selected: false },
+  { key: 'Cruz Blanca', value: 4, selected: false },
+  { key: 'Banmédica', value: 5, selected: false },
+  { key: 'Masvida', value: 6, selected: false },
+  { key: 'Vida', value: 7, selected: false },
+
+];

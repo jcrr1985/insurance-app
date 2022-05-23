@@ -1,23 +1,17 @@
-ds-button {
-    margin-top: 10px;
-}
+
 
 span.steps-title{
     font-style: normal!important;
     font-weight: 600!important;
-    font-size: 22px!important;
+    font-size: 22px;
     line-height: 22px!important;
 }
-#stepperFiveContent {
+
+
+
+.mensaje__container{
     display: flex;
+    width: 100%;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: stretch;
-    min-height: 22vh;
-
-    ds-title {
-        height: 8vh;
-        margin: 0;
-    }
-
+    gap: 15px;
 }

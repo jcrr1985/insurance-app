@@ -2,6 +2,9 @@ import { IArancel } from './../interfaces/arancel';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { ICard } from '../interfaces/ICard';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ISessions } from '../interfaces/ISessions';
+import { environment as ENV } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +32,7 @@ export class ArancelService {
 
   ];
 
-  constructor() {
+  constructor(private http: HttpClient) {
     for (let i = 0; i < aranceles.length; i++) {
       aranceles[i].Arancel = aranceles[i].Arancel.toLowerCase();
       aranceles[i].Arancel =
@@ -138,6 +141,53 @@ export class ArancelService {
     }
   }
 
+  /**
+   * @description Valida el monto histórico de un arancel basado
+   * en su código, sesión y monto ingresado por el usuario contra
+   * el servicio.
+   * @returns Retorna FALSE cuando encuentra algún problema al intentar
+   * realizar la solicitud, de lo contrario, si se devuelve un histórico,
+   * retorna un array con el monto histórico y un booleano que define si
+   * existe desviación o no.
+   * FALSE => Hay desviación >+21%.
+   * TRUE => No existe desviación.
+   */
+
+  //comentado temporalmente para realizar el build sin que arroje error
+  // public async validarSesiones(
+  //   codigoArancel: string,
+  //   rut: string,
+  //   montoIngresado: number,
+  //   cantidadSesiones: number
+  // ): Promise<boolean | [number, boolean]> {
+  //   try {
+  //     const token = localStorage.getItem('ssoToken');
+  //     if (!token) throw new Error('No existe token guardado.');
+
+  //     const headers = new HttpHeaders()
+  //       .set('Authorization', token)
+  //       .set('x-ibm-client-id', ENV.X_IBM_CLIENT_ID)
+  //       .set('x-application', ENV.CLIENT_ID)
+  //       .set('x-transaction_id', '12345'); /* Por confirmar. */
+
+  //     const infoSesiones: ISessions = (
+  //       await this.http.get<ISessions>(
+  //         `${ENV.URL_BFF_BASE}/BFF/Reimbursement/validate/session/insured/${rut}?TotalAmount=${montoIngresado}&NumberSessions=${cantidadSesiones}&BenefitCode=${codigoArancel}&RuleName=Sessions`,
+  //         { headers: headers }).toPromise()
+  //     );
+      
+  //     if (infoSesiones.httpCode === 404) {
+  //       return false;
+  //     } else if (infoSesiones.session !== undefined) {
+  //       return [infoSesiones.session?.amount, infoSesiones.session?.validate];
+  //     } else {
+  //       throw new Error('Ocurrió un error al intentar procesar su solicitud.')
+  //     }
+  //   } catch (error) {
+  //     console.warn(error);
+  //     return false;
+  //   }
+  // }
 }
 
 

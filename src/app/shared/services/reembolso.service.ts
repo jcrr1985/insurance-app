@@ -1,12 +1,17 @@
 import { BehaviorSubject } from 'rxjs';
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { Chip, Reembolsos } from '../interfaces/interfaces';
+import { AuthenticationService } from './authentication.service';
+import { Router } from '@angular/router';
 
 @Injectable({
       providedIn: 'root',
 })
 export class ReembolsoService {
       public datosReembolsosRepetido: Reembolsos[] = [];
+
+
+      constructor() { }
 
       public reembolsos: Reembolsos[] = [
             {
@@ -337,7 +342,6 @@ export class ReembolsoService {
       public habilitarPaso1: boolean = true;
       public idprestacion: number = 1;
 
-      constructor() { }
       setHabilitarStepone(value: boolean) {
             this.habilitarPaso1 = value;
             this.habilitarSeleccionBeneficiario.next(value);
@@ -360,5 +364,4 @@ export class ReembolsoService {
       public get getMontoTotalSolicitado() {
             return this.montoTotalSolicitado;
       }
-
 }

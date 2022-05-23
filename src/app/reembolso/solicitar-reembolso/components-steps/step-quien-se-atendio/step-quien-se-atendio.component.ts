@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import '@vs-design-system/ds-select';
 import '@vs-design-system/ds-title';
 import '@vs-design-system/ds-icon';
+import { DataStorageService } from 'src/app/shared/services/data-storage.service';
 
 @Component({
   selector: 'app-step-quien-se-atendio',
@@ -10,30 +11,26 @@ import '@vs-design-system/ds-icon';
 })
 export class StepQuienSeAtendioComponent implements OnInit {
   @Input() stepperOneSource: any;
-  @Input() stepsStatusOn: any;
   @Input() customStepperSize: any;
-  @Input() personSelectOption: any;
+  personSelectOption: any = beneficiariosArray;
 
   @Output() sendData: EventEmitter<any> = new EventEmitter();
 
-  constructor() { }
+  constructor(private dataStorageService: DataStorageService) { }
 
   ngOnInit(): void {
 
   }
 
   setStatusOn(data: any) {
-    this.stepsStatusOn.stepOne_who.personaSeleccionada = data.value;
-    this.sendData.emit(data);
+    this.dataStorageService.setFormReembolso('stepOne_who', 'personaSeleccionada', data.value)
   }
-  /**
-    *
-    * @param step property
-    * @param option property
-    * @returns {boolean | string | null}
-    * @description retorna el valor del archivo de stepsStatusOn
-    */
-  getStepsStatus(step: string, option: string) {
-    return this.stepsStatusOn[step][option];
-  }
+
 }
+
+const beneficiariosArray = [
+  { label: 'Seleccione', value: 0, selected: false },
+  { label: 'Alejandro Salgado', value: 1, selected: false },
+  { label: 'Maria Salgado', value: 2, selected: false },
+  { label: 'Camilo Salgado', value: 3, selected: false },
+];

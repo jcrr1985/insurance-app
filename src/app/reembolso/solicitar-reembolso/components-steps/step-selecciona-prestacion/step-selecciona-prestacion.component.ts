@@ -1,3 +1,4 @@
+import { DataStorageService } from 'src/app/shared/services/data-storage.service';
 import { ICard } from './../../../../shared/interfaces/ICard';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
@@ -9,10 +10,10 @@ import { ArancelService } from 'src/app/shared/services/arancel-service.service'
 export class StepSeleccionaPrestacionComponent implements OnInit {
   @Input() stepperTwoSource: any;
   @Input() customStepperSize: any;
-  @Input() stepsStatusOn: any;
   @Output() sendData: EventEmitter<any> = new EventEmitter<any>();
   @Output() evaluateStepTwo: EventEmitter<any> = new EventEmitter<any>();
 
+  stepsStatusOn: any;
   public tarjetaSeleccionada!: ICard
 
   public cards: ICard[] = [
@@ -36,10 +37,10 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
 
   }
 
-  constructor(private arancelService: ArancelService) { }
+  constructor(private dataStorageService: DataStorageService, private arancelService: ArancelService) { }
 
   ngOnInit(): void {
-
+    this.dataStorageService.getFormReemboslo().subscribe(statusOn => this.stepsStatusOn = statusOn);
   }
   /**
    *
@@ -53,35 +54,25 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
   }
 
   setStepsStatus(data: any) {
-    this.sendData.emit(data);
-    this.evaluateStepTwo.emit();
+    this.dataStorageService.setFormReembolso(data.step, data.option, data.value);
   }
 
   setCard(tarjeta: ICard) {
-    const dataEmit = {
-      step: 'stepTwo_selectOption',
-      option: 'prestacionSeleccionada',
-      value: tarjeta.prestacion
-    }
+    this.dataStorageService.setFormReembolso('stepTwo_selectOption', 'prestacionSeleccionada', tarjeta.prestacion);
+    this.dataStorageService.setIdPrestacion(tarjeta.idPrestacion);
 
-    this.setStepsStatus(dataEmit);
-    this.evaluateStepTwo.emit();
     this.cards.forEach(e => e.status = '');
     tarjeta.status = 'active';
+
     this.tarjetaSeleccionada = tarjeta;
+
+    // TODO por rectificar dependencia
     this.arancelService.setTarjetaSeleccionada(tarjeta.name);
     this.arancelService.setPrestacionSeleccionadaId(tarjeta.idPrestacion);
     this.arancelService.setIdSubject.next(tarjeta.idPrestacion);
 
+// this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.idprestacionSeleccionada = id) 
+    if (tarjeta.name != 'atencionmedica' && tarjeta.name != 'atencionhospitalaria' && tarjeta.name != 'examenes') this.dataStorageService.setFormReembolso('stepTwo_selectOption', 'reembolsoPrevioIsapre', 'si');
 
-    if (tarjeta.name != 'atencionmedica' && tarjeta.name != 'atencionhospitalaria' && tarjeta.name != 'examenes') {
-      const datosOpcionales = {
-        step: 'stepTwo_selectOption',
-        option: 'reembolsoPrevioIsapre',
-        value: 'si'
-      }
-      this.setStepsStatus(datosOpcionales);
-      this.evaluateStepTwo.emit();
-    }
   }
 }

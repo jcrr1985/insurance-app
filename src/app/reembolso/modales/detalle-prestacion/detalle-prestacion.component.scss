@@ -17,27 +17,8 @@
   }
 }
 
-.titulo-modal-detalle {
-  font-weight: 600 !important;
-  font-weight: 600 !important;
-  padding-top: 4.563rem !important;
-  padding-bottom: 2.313rem !important;
-  span {
-    color: var(--sec2) !important;
-    font-size: 1.35rem !important;
-  }
-}
-.monto-reembolso {
-  margin: 0 auto !important;
-  margin-top: 20px !important;
-  span {
-    font-style: normal;
-    font-weight: bold;
-    font-size: 0.938rem;
-    line-height: 1.125rem;
-    letter-spacing: 0.063rem;
-  }
-}
+
+
 
 .seccion-botones {
   padding-bottom: 1.875rem !important;
@@ -68,16 +49,6 @@
   }
 }
 
-.modal-wrapper {
-  z-index: 101;
-}
-
-.modal-wrapper-parent {
-  // background-color: rgba(240, 240, 250, 0.7);
-  //  width: 100vw;
-  //  height: 100vh;
-  // position: relative;
-}
 
 .indigo-wrapper {
   display: flex;

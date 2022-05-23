@@ -1,3 +1,4 @@
+import { DataStorageService } from './../../services/data-storage.service';
 import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
 import '@vs-design-system/ds-title'
 
@@ -11,29 +12,35 @@ export class TableResumeDetallePrestacionComponent implements OnInit, OnDestroy 
   @Output() editEv: EventEmitter<any> = new EventEmitter();
   @Output() deleteEv: EventEmitter<any> = new EventEmitter();
 
-  @Input() prestaciones: any = [];
+  // @Input() prestaciones: any = [];
+  prestaciones: any
+
   prestacionSeleccionada: any = {};
   totalPrestaciones: number = 0;
   montoReembolsar: number = 0;
   interval: any;
-  constructor() { }
+  constructor(private dataStorageService: DataStorageService) { }
   ngOnInit(): void {
-    this.interval = setInterval(() => {
+    this.dataStorageService.getPrestaciones().subscribe(prestaciones => {
+      this.prestaciones = prestaciones;
+      console.log("recibiendo prestaciones", prestaciones);
+      this.dataStorageService.montoTotalSolicitadoSubject.next(this.prestaciones)
       this.calcMounts();
-    }, 1000)
+    });
   }
 
   ngOnDestroy(): void {
     clearInterval(this.interval);
   }
   edit(prestacion: any) {
-    this.prestacionSeleccionada = prestacion;
-    this.editEv.emit(this.prestacionSeleccionada);
+    // this.prestacionSeleccionada = prestacion;
+    // this.editEv.emit(this.prestacionSeleccionada);
   }
 
   delete(prestacion: any) {
-    this.prestacionSeleccionada = prestacion
-    this.deleteEv.emit(this.prestacionSeleccionada);
+    //this.prestacionSeleccionada = prestacion
+    //this.deleteEv.emit(this.prestacionSeleccionada);
+    this.dataStorageService.deletePrestacion(prestacion.id);
   }
 
   /**
