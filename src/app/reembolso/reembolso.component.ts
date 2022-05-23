@@ -55,6 +55,6 @@ export class ReembolsoComponent implements OnInit {
     var clientId = 'vs-web-salud';
     var url = `${urlSSO}?client_id=${clientId}&redirect_uri=${urlWebSalud}&response_mode=fragment&response_type=code&scope=openid`;
     console.log(url);
-    window.open(url, '_self');
+    window.location.href = url;
   }
 }
