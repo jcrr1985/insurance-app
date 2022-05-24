@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { ReembolsoModule } from './reembolso/reembolso.module';
 import { SharedsModule } from './shared/shareds.module';
 import { HttpClientModule } from '@angular/common/http';
-import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 
 @NgModule({
@@ -22,7 +21,6 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
     ReembolsoModule,
     SharedsModule,
     HttpClientModule,
-    NgxDocViewerModule
 
   ],
   exports: [

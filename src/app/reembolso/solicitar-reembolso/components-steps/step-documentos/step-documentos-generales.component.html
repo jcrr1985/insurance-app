@@ -78,16 +78,18 @@
                   <p>Archivos adjuntos</p>
                   <div class="filesUploaded">
                     <!-- icon -->
-                    <div class="icono-view">
+                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file)">
                       <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                     </div>
-                    <ngx-doc-viewer url='https://www.ilovepdf.com/img/homepage-product-1.png' viewer='google' style='width:100%;height:50vh;'></ngx-doc-viewer> 
+
+                    <!--pre view-->
+
                     <!-- name -->
                     <div class="flex items-center justify-start container-name-file">
                       <div class="text-no-overflow">{{file.name}} </div>
                     </div>
                     <!-- delete -->
-                    <div class="icono-delete"
+                    <div class="icono-delete cursor-pointer"
                       (click)="validateFileState('consultamedica',indexDocName);deleteDocs('consultamedica',indexDocName,file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
@@ -113,7 +115,7 @@
                   <p>Archivos adjuntos</p>
                   <div class="filesUploaded">
                     <!-- icon -->
-                    <div class="icono-view">
+                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file)">
                       <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                     </div>
                     <!-- name -->
@@ -121,7 +123,7 @@
                       <div class="text-no-overflow">{{file.name}} </div>
                     </div>
                     <!-- delete -->
-                    <div class="icono-delete"
+                    <div class="icono-delete cursor-pointer"
                       (click)="validateFileState('hospitalario',indexDocName);deleteDocs('hospitalario',indexDocName,file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
@@ -148,7 +150,7 @@
                   <p>Archivos adjuntos</p>
                   <div class="filesUploaded">
                     <!-- icon -->
-                    <div class="icono-view">
+                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file)">
                       <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                     </div>
                     <!-- name -->
@@ -156,7 +158,7 @@
                       <div class="text-no-overflow">{{file.name}} </div>
                     </div>
                     <!-- delete -->
-                    <div class="icono-delete"
+                    <div class="icono-delete cursor-pointer"
                       (click)="validateFileState('lentes',indexDocName);deleteDocs('lentes',indexDocName,file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
@@ -183,7 +185,7 @@
                   <p>Archivos adjuntos</p>
                   <div class="filesUploaded">
                     <!-- icon -->
-                    <div class="icono-view">
+                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file)">
                       <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                     </div>
                     <!-- name -->
@@ -191,7 +193,7 @@
                       <div class="text-no-overflow">{{file.name}} </div>
                     </div>
                     <!-- delete -->
-                    <div class="icono-delete"
+                    <div class="icono-delete cursor-pointer"
                       (click)="validateFileState('dentales',indexDocName);deleteDocs('dentales',indexDocName,file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
@@ -218,7 +220,7 @@
                   <p>Archivos adjuntos</p>
                   <div class="filesUploaded">
                     <!-- icon -->
-                    <div class="icono-view">
+                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file)">
                       <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                     </div>
                     <!-- name -->
@@ -226,7 +228,7 @@
                       <div class="text-no-overflow">{{file.name}} </div>
                     </div>
                     <!-- delete -->
-                    <div class="icono-delete"
+                    <div class="icono-delete cursor-pointer"
                       (click)="validateFileState('examenes',indexDocName);deleteDocs('examenes',indexDocName,file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
@@ -253,7 +255,7 @@
                   <p>Archivos adjuntos</p>
                   <div class="filesUploaded">
                     <!-- icon -->
-                    <div class="icono-view">
+                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file)">
                       <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                     </div>
                     <!-- name -->
@@ -261,7 +263,7 @@
                       <div class="text-no-overflow">{{file.name}} </div>
                     </div>
                     <!-- delete -->
-                    <div class="icono-delete"
+                    <div class="icono-delete cursor-pointer"
                       (click)="validateFileState('medicamentos',indexDocName);deleteDocs('medicamentos',indexDocName,file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
@@ -282,3 +284,15 @@
 
   </div>
 </section>
+
+<div *ngIf="mostrarPreview" class="modal_preview_container flex items-center justify-center">
+  <div class="modal_preview_doc">
+    <div class="modal_preview_header flex items-center justify-between">
+      <h1>Vista Previa</h1>
+      <button (click)="mostrarPreview=false">X</button>
+    </div>
+    <div class="modal_preview_content custom-scroll-container flex items-center justify-center" *ngIf="fileUrl && fileUrl !==''">
+      <embed [src]="fileUrl" type="application/pdf" width="100%" height="100%" />
+    </div>
+  </div>
+</div>
