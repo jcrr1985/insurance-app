@@ -29,32 +29,37 @@ export class ReembolsoComponent implements OnInit {
 
   }
   async ngOnInit() {
-    // console.log("Inicializacion Web Salud")
-    // const fragment = this.route.snapshot.fragment;
-    // if(fragment != null && fragment != '')
-    // {
-    //   const parts = fragment.split('&')[1];
-    //   const code = parts.split('=')[1];
-    //   this._authService.identify(code).subscribe(
-    //     (response) => {
-    //       console.log(response);
-    //       localStorage.setItem("Token", JSON.stringify(response));
-    //       this.router.navigateByUrl('/home');
-    //   });
-
-    // }else{
-    //   this.LoadReembolso();
-    // }
+    console.log("Inicializacion Web Salud")
+    const fragment = this.route.snapshot.fragment;
+    if(fragment != null && fragment != '')
+    {
+      const parts = fragment.split('&')[1];
+      const code = parts.split('=')[1];
+      this._authService.identify(code).subscribe(
+        (response) => {
+          console.log(response);
+          localStorage.setItem("Token", JSON.stringify(response));
+          this.router.navigateByUrl('/home');
+      });
+    }else{
+      this._authService.getToken("17793573-5","vida2020").subscribe(
+        (response) => {
+          console.log(response);
+          localStorage.setItem("Token", JSON.stringify(response));
+          this.router.navigateByUrl('/home');
+      });
+      //this.LoadReembolso();
+    }
   }
 
-  // LoadReembolso() {
-  //   console.log('Cargando pagina de reembolso');
-  //   //this.appInsightsService.trackEvent(Event.lkLoadReembolso);
-  //   var urlSSO = environment.URL_SSO + '/auth';
-  //   var urlWebSalud = this.document.location.origin + '/reembolso';
-  //   var clientId = 'vs-web-salud';
-  //   var url = `${urlSSO}?client_id=${clientId}&redirect_uri=${urlWebSalud}&response_mode=fragment&response_type=code&scope=openid`;
-  //   console.log(url);
-  //   window.open(url, '_self');
-  // }
+  LoadReembolso() {
+    console.log('Cargando pagina de reembolso');
+    //this.appInsightsService.trackEvent(Event.lkLoadReembolso);
+    var urlSSO = environment.URL_SSO + '/auth';
+    var urlWebSalud = this.document.location.origin + '/reembolso';
+    var clientId = 'vs-web-salud';
+    var url = `${urlSSO}?client_id=${clientId}&redirect_uri=${urlWebSalud}&response_mode=fragment&response_type=code&scope=openid`;
+    console.log(url);
+    window.location.href = url;
+  }
 }
