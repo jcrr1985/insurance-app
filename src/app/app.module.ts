@@ -20,8 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule, ReactiveFormsModule,
     ReembolsoModule,
     SharedsModule,
-    HttpClientModule
-    
+    HttpClientModule,
 
   ],
   exports: [

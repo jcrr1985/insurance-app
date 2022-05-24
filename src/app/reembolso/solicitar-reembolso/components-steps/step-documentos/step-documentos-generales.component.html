@@ -58,12 +58,9 @@
     </div>
 
     <!-- Esperando seleccionar tipo documento -->
-    <ng-container *ngIf="getStepsStatus('stepFour_general','tipoDocumentoSeleccionado') || idPrestacionSeleccionada == 2">
-      <!--<ng-container *ngFor="let docs of documentsDisplay.consultamedica.nameFiles;let indexDocName = index">
-        <div [ngClass]="[documentsDisplay.consultamedica.cols]">
+    <ng-container
+      *ngIf="getStepsStatus('stepFour_general','tipoDocumentoSeleccionado') || idPrestacionSeleccionada == 2">
 
-        </div>
-      </ng-container> -->
 
       <!-- Cards documentos -->
       <div class="cards-document__container">
@@ -81,15 +78,18 @@
                   <p>Archivos adjuntos</p>
                   <div class="filesUploaded">
                     <!-- icon -->
-                    <div class="icono-view">
+                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file)">
                       <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                     </div>
+
+                    <!--pre view-->
+
                     <!-- name -->
                     <div class="flex items-center justify-start container-name-file">
                       <div class="text-no-overflow">{{file.name}} </div>
                     </div>
                     <!-- delete -->
-                    <div class="icono-delete"
+                    <div class="icono-delete cursor-pointer"
                       (click)="validateFileState('consultamedica',indexDocName);deleteDocs('consultamedica',indexDocName,file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
@@ -115,7 +115,7 @@
                   <p>Archivos adjuntos</p>
                   <div class="filesUploaded">
                     <!-- icon -->
-                    <div class="icono-view">
+                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file)">
                       <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                     </div>
                     <!-- name -->
@@ -123,7 +123,7 @@
                       <div class="text-no-overflow">{{file.name}} </div>
                     </div>
                     <!-- delete -->
-                    <div class="icono-delete"
+                    <div class="icono-delete cursor-pointer"
                       (click)="validateFileState('hospitalario',indexDocName);deleteDocs('hospitalario',indexDocName,file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
@@ -150,7 +150,7 @@
                   <p>Archivos adjuntos</p>
                   <div class="filesUploaded">
                     <!-- icon -->
-                    <div class="icono-view">
+                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file)">
                       <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                     </div>
                     <!-- name -->
@@ -158,7 +158,7 @@
                       <div class="text-no-overflow">{{file.name}} </div>
                     </div>
                     <!-- delete -->
-                    <div class="icono-delete"
+                    <div class="icono-delete cursor-pointer"
                       (click)="validateFileState('lentes',indexDocName);deleteDocs('lentes',indexDocName,file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
@@ -185,7 +185,7 @@
                   <p>Archivos adjuntos</p>
                   <div class="filesUploaded">
                     <!-- icon -->
-                    <div class="icono-view">
+                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file)">
                       <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                     </div>
                     <!-- name -->
@@ -193,7 +193,7 @@
                       <div class="text-no-overflow">{{file.name}} </div>
                     </div>
                     <!-- delete -->
-                    <div class="icono-delete"
+                    <div class="icono-delete cursor-pointer"
                       (click)="validateFileState('dentales',indexDocName);deleteDocs('dentales',indexDocName,file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
@@ -220,7 +220,7 @@
                   <p>Archivos adjuntos</p>
                   <div class="filesUploaded">
                     <!-- icon -->
-                    <div class="icono-view">
+                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file)">
                       <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                     </div>
                     <!-- name -->
@@ -228,7 +228,7 @@
                       <div class="text-no-overflow">{{file.name}} </div>
                     </div>
                     <!-- delete -->
-                    <div class="icono-delete"
+                    <div class="icono-delete cursor-pointer"
                       (click)="validateFileState('examenes',indexDocName);deleteDocs('examenes',indexDocName,file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
@@ -255,7 +255,7 @@
                   <p>Archivos adjuntos</p>
                   <div class="filesUploaded">
                     <!-- icon -->
-                    <div class="icono-view">
+                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file)">
                       <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                     </div>
                     <!-- name -->
@@ -263,7 +263,7 @@
                       <div class="text-no-overflow">{{file.name}} </div>
                     </div>
                     <!-- delete -->
-                    <div class="icono-delete"
+                    <div class="icono-delete cursor-pointer"
                       (click)="validateFileState('medicamentos',indexDocName);deleteDocs('medicamentos',indexDocName,file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
@@ -284,3 +284,15 @@
 
   </div>
 </section>
+
+<div *ngIf="mostrarPreview" class="modal_preview_container flex items-center justify-center">
+  <div class="modal_preview_doc">
+    <div class="modal_preview_header flex items-center justify-between">
+      <h1>Vista Previa</h1>
+      <button (click)="mostrarPreview=false">X</button>
+    </div>
+    <div class="modal_preview_content custom-scroll-container flex items-center justify-center" *ngIf="fileUrl && fileUrl !==''">
+      <embed [src]="fileUrl" type="application/pdf" width="100%" height="100%" />
+    </div>
+  </div>
+</div>
