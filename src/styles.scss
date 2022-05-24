@@ -682,3 +682,30 @@ ds-title {
 
 
 }
+
+.custom-scroll-container::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+.custom-scroll-container::-webkit-scrollbar:vertical {
+  width: 10px;
+}
+
+.custom-scroll-container::-webkit-scrollbar-button:increment,
+.custom-scroll-container::-webkit-scrollbar-button {
+  display: none;
+}
+
+.custom-scroll-container::-webkit-scrollbar:horizontal {
+  height: 10px;
+}
+
+.custom-scroll-container::-webkit-scrollbar-thumb {
+  background-color: #797979;
+  border-radius: 20px;
+  border: 2px solid #f1f2f3;
+}
+
+.custom-scroll-container::-webkit-scrollbar-track {
+  border-radius: 10px;
+}

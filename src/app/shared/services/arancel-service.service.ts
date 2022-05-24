@@ -153,42 +153,40 @@ export class ArancelService {
    * FALSE => Hay desviación >+21%.
    * TRUE => No existe desviación.
    */
+  public async validarSesiones(
+    codigoArancel: string,
+    rut: string,
+    montoIngresado: number,
+    cantidadSesiones: number
+  ): Promise<boolean | [number, boolean]> {
+    try {
+      const token = localStorage.getItem('ssoToken');
+      if (!token) throw new Error('No existe token guardado.');
 
-  //comentado temporalmente para realizar el build sin que arroje error
-  // public async validarSesiones(
-  //   codigoArancel: string,
-  //   rut: string,
-  //   montoIngresado: number,
-  //   cantidadSesiones: number
-  // ): Promise<boolean | [number, boolean]> {
-  //   try {
-  //     const token = localStorage.getItem('ssoToken');
-  //     if (!token) throw new Error('No existe token guardado.');
+      const headers = new HttpHeaders()
+        .set('Authorization', token)
+        .set('x-ibm-client-id', ENV.X_IBM_CLIENT_ID)
+        .set('x-application', ENV.CLIENT_ID)
+        .set('x-transaction_id', '12345'); /* Por confirmar. */
 
-  //     const headers = new HttpHeaders()
-  //       .set('Authorization', token)
-  //       .set('x-ibm-client-id', ENV.X_IBM_CLIENT_ID)
-  //       .set('x-application', ENV.CLIENT_ID)
-  //       .set('x-transaction_id', '12345'); /* Por confirmar. */
+      const infoSesiones: ISessions = (
+        await this.http.get<ISessions>(
+          `${ENV.URL_BFF_BASE}/BFF/Reimbursement/validate/session/insured/${rut}?TotalAmount=${montoIngresado}&NumberSessions=${cantidadSesiones}&BenefitCode=${codigoArancel}&RuleName=Sessions`,
+          { headers: headers }).toPromise()
+      );
 
-  //     const infoSesiones: ISessions = (
-  //       await this.http.get<ISessions>(
-  //         `${ENV.URL_BFF_BASE}/BFF/Reimbursement/validate/session/insured/${rut}?TotalAmount=${montoIngresado}&NumberSessions=${cantidadSesiones}&BenefitCode=${codigoArancel}&RuleName=Sessions`,
-  //         { headers: headers }).toPromise()
-  //     );
-
-  //     if (infoSesiones.httpCode === 404) {
-  //       return false;
-  //     } else if (infoSesiones.session !== undefined) {
-  //       return [infoSesiones.session?.amount, infoSesiones.session?.validate];
-  //     } else {
-  //       throw new Error('Ocurrió un error al intentar procesar su solicitud.')
-  //     }
-  //   } catch (error) {
-  //     console.warn(error);
-  //     return false;
-  //   }
-  // }
+      if (infoSesiones.httpCode === 404) {
+        return false;
+      } else if (infoSesiones.session !== undefined) {
+        return [infoSesiones.session?.amount, infoSesiones.session?.validate];
+      } else {
+        throw new Error('Ocurrió un error al intentar procesar su solicitud.')
+      }
+    } catch (error) {
+      console.warn(error);
+      return false;
+    }
+  }
 }
 
 

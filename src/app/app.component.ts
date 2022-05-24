@@ -19,14 +19,14 @@ export class AppComponent {
     //this.LoadReembolso();
   }
 
-  LoadReembolso() {
-    console.log('Cargando pagina de reembolso');
-    //this.appInsightsService.trackEvent(Event.lkLoadReembolso);
-    var urlSSO = environment.URL_SSO + '/auth';
-    var urlWebSalud = this.document.location.origin + '/reembolso';
-    var clientId = 'vs-web-salud';
-    var url = `${urlSSO}?client_id=${clientId}&redirect_uri=${urlWebSalud}&response_mode=fragment&response_type=code&scope=openid`;
-    console.log(url);
-    window.open(url, '_self');
-  }
+  // LoadReembolso() {
+  //   console.log('Cargando pagina de reembolso');
+  //   //this.appInsightsService.trackEvent(Event.lkLoadReembolso);
+  //   var urlSSO = environment.URL_SSO + '/auth';
+  //   var urlWebSalud = this.document.location.origin + '/reembolso';
+  //   var clientId = 'vs-web-salud';
+  //   var url = `${urlSSO}?client_id=${clientId}&redirect_uri=${urlWebSalud}&response_mode=fragment&response_type=code&scope=openid`;
+  //   console.log(url);
+  //   window.open(url, '_self');
+  // }
 }

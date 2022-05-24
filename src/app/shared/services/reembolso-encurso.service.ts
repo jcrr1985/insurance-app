@@ -15,7 +15,7 @@
 // export class ReembolsoEncursoService {
 
 //   private _idPrestacion!: number;
-//   private _documentoActivo!: string;
+//   private _documentoActivo!: string; 
 
 //   private _esArchivos: boolean = false;
 //   private _esMostrarCopago: boolean = false;
