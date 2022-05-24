@@ -102,3 +102,15 @@ ds-table-header.tabla-header {
   border-radius: 0 !important;
   box-shadow: none !important;
 }
+
+.div-colapsable.oculto{
+  display: none!important;
+}
+.div-colapsable.visible{
+  display: table-row!important;
+  background-color: inherit;
+}
+
+.css-34ntg7 th, .css-34ntg7 td{
+  background-color: red;
+}

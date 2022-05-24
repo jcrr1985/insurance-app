@@ -1,5 +1,6 @@
 import { Reembolsos, PaginationSource } from '../../shared/interfaces/interfaces';
 import {
+  AfterContentChecked,
   AfterViewInit,
   Component,
   ElementRef,
@@ -22,11 +23,11 @@ import * as JWT from 'jwt-decode';
   styleUrls: ['./tabla-historial.component.scss'],
 })
 export class TablaHistorialComponent
-implements OnInit, OnDestroy {
+  implements OnInit, OnDestroy, AfterViewInit, AfterContentChecked {
   @ViewChild('dsPageCounter') dsPageCounter: any;
   @ViewChild('theader')
   theader!: ElementRef;
-  
+
   public indiceSeleccionado!: any;
   public reembolsos!: Reembolsos[];
   showTable: boolean = false;
@@ -46,8 +47,15 @@ implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.addAccessKey();
     this.aciveTableHistorial();
-    var tokenData : Token = JSON.parse(localStorage.getItem("Token")!);
-    var UserInfo : TokenData = JWT(tokenData.access_token);
+    var tokenData: Token = JSON.parse(localStorage.getItem("Token")!);
+    var UserInfo: TokenData = JWT(tokenData.access_token);
+  }
+
+  ngAfterContentChecked() {
+  }
+
+  ngAfterViewInit(): void {
+    this.ocultarColapsables();
   }
 
   resultadosPorPagina: number = 10;
@@ -143,8 +151,21 @@ implements OnInit, OnDestroy {
     });
   }
 
-  abrirColapsable(registroNo: any){
+  abrirColapsable(registroNo: any) {
+    this.ocultarColapsables();
     console.log('registroNo', registroNo);
     this.indiceSeleccionado = registroNo;
+    let filaColapsable = document.getElementById(registroNo);
+    console.log('filaColapsable', filaColapsable)
+    filaColapsable?.classList.remove('oculto');
+    filaColapsable?.classList.add('visible')
+
+  }
+  ocultarColapsables() {
+    let colapsables = document.querySelectorAll('.div-colapsable')
+    colapsables.forEach(colapsable => {
+      colapsable.classList.remove('visible')
+      colapsable.classList.add('oculto')
+    });
   }
 }

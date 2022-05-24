@@ -72,12 +72,34 @@
                 <app-col-doc-liq (indiceEmitter)="abrirColapsable($event)" [indice]="i"></app-col-doc-liq>
               </ds-table-body-column>
             </ds-table-body-row>
-          <!--En las ds-table-body-row vacias que se generan abajo se cambiara la condicionm del ngif por un true o false
-          si el usuario presiono la flechita ds-open para desplegar el detalle del reembolso en particular-->
+            <ds-table-body-row [id]="i" class="div-colapsable">
+              <table class="tabla-colapsable">
+                <thead>
+                  <tr>
+                    <th>tipo Reembolso</th>
+                    <th>Monto Solicitado</th>
+                    <th>Monto Reembolsado</th>
+                    <th>Motivo del estado</th>  
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Consulta Médica</td>
+                    <td>$10.0000</td>
+                    <td>$10.0000</td>
+                    <td>Observaciones</td>
+                  </tr>
+                  <div *ngIf="true" class="divider"></div>
+                  <tr>
+                    <td>Consulta de Medicamentos</td>
+                    <td>$10.0000</td>
+                    <td>$0</td>
+                    <td>Observaciones</td>
+                  </tr>
+                </tbody>
+              </table>
+            </ds-table-body-row>
 
-            <!-- <ds-table-body-row *ngIf="indiceSeleccionado == i">
-              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minima amet odio quidem repellendus veritatis vel placeat nulla officia, sequi sit laboriosam, labore natus ut quisquam laudantium perspiciatis dicta voluptate numquam.</p>
-            </ds-table-body-row> -->
           </ng-container>
           <!--End Row-->
         </ds-table-body>
