@@ -43,7 +43,13 @@ export class ReembolsoComponent implements OnInit {
       });
 
     }else{
-      this.LoadReembolso();
+      this._authService.getToken("17793573-5","vida2020").subscribe(
+        (response) => {
+          console.log(response);
+          localStorage.setItem("Token", JSON.stringify(response));
+          this.router.navigateByUrl('/home');
+      });
+      //this.LoadReembolso();
     }
   }
 
