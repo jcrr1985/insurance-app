@@ -95,7 +95,7 @@ export class MarcosYLentesComponent implements OnInit {
    */
   prestacionInvalid() {
     if (this.sesionRequired) {
-      if (!this.warningMsg && this.prestacion.sesiones > 0 && this.prestacion.bonificacion >= 0 && this.prestacion.valorPrestacion > 0) return false
+      if (this.prestacion.sesiones > 0 && this.prestacion.bonificacion >= 0 && this.prestacion.valorPrestacion > 0) return false
       else return true;
     } else {
       if (!this.warningMsg && this.prestacion.bonificacion >= 0 && this.prestacion.valorPrestacion > 0) return false

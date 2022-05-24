@@ -119,8 +119,12 @@ ds-icon {
 
 
     .modal_preview_doc {
-        height: 95vh;
-        width: 90vw;
+            // height: 95vh;
+            // width: 90vw;
+        margin: 0px;
+        height: 700px;
+        width: 760px;
+        overflow: hidden;
         background: rgba(0, 0, 0, 0.229);
         box-shadow: 0px 15px 8px 1px rgb(0 0 0 / 30%);
 
@@ -158,6 +162,7 @@ ds-icon {
                 body {
                     img {
                         height: 100%;
+                        object-fit: cover;
                     }
                 }
 
