@@ -73,7 +73,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
     //this.prestacionSeleccionada = this.arancelService.getPrestacionSeleccionadaId ? this.arancelService.getPrestacionSeleccionadaId : 1;
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.prestacionSeleccionada = id);
     this.dataStorageService.getPrestacionesResumen().subscribe(prestaciones => this.prestacionesCargadas = prestaciones);
-
+    this.dataStorageService.getPrestacionesResumen().subscribe(res => console.log('res', res))
     // TODO Rectificando...
     /* this.montoAndStuff = this.dataStorageService.getmontoAndStuff;
     console.log('this.montoAndStuff', this.montoAndStuff)

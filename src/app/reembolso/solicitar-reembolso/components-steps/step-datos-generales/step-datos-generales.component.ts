@@ -26,7 +26,6 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
   public sesionRequired: boolean = false;
   validDate: boolean = false;
 
-  public formatter = new Intl.NumberFormat('es-CL');
 
   constructor(private dataStorageService: DataStorageService, private prestacionService: ArancelService) {
   }
@@ -93,6 +92,7 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
   }
 
   setStepsStatus(data: any) {
+    console.log('data', data)
     this.dataStorageService.setFormReembolso(data.step, data.option, data.value);
     this.mostrarDocumentoAdicional.emit(data.value)
 
@@ -108,6 +108,7 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
    * @description retorna el valor del archivo de stepsStatusOn
    */
   getStepsStatus(step: string, option: string) {
+    console.log('option', option)
     try {
       return this.stepsStatusOn[step][option];
     } catch (error) {
@@ -120,6 +121,12 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
       console.log("______________________")
     }
   }
+
+  setValue(){
+    
+  }
+
+  
 
 }
 

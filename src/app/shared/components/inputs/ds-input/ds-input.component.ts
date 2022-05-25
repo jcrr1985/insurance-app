@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { timer } from 'rxjs';
 
 
@@ -7,7 +7,7 @@ import { timer } from 'rxjs';
   templateUrl: './ds-input.component.html',
   styleUrls: ['./ds-input.component.scss']
 })
-export class DsInputComponent implements OnInit {
+export class DsInputComponent implements OnInit, AfterViewInit {
 
   constructor() { }
   @Input() type: string = 'text'
@@ -19,26 +19,56 @@ export class DsInputComponent implements OnInit {
   @Input() iconActive: boolean = true;
   @Input() statusActive: boolean = true;
   @Input() formatoMoneda!: boolean;
+  @Input() formatoRut!: boolean
   @Input() tipo!:string
   isValid: boolean = false;
+  @ViewChild('inp') inp!: ElementRef
   public formatter = new Intl.NumberFormat('es-CL');
-
-
+  
+  
   ngOnInit(): void {
   }
   async emitChange() {
     // delay necesario para que el buscador pueda compartir el input
     await timer(100).toPromise();
     //if (this.formatoMoneda) this.value = this.format(this.value);
-    const emit = this.formatoMoneda ? this.limpiarMonto(this.value) : this.value;
+    
+    let emit = null;
+    if(this.formatoMoneda){
+      this.value = this.format(this.value)
+      emit =  this.limpiarMonto(this.value) 
+    }else if(this.formatoRut){
+
+      emit =   this.value.replace(/[.-]/g, '').replace( /^(\d{1,2})(\d{3})(\d{3})(\w{1})$/, '$1.$2.$3-$4')
+      this.inp.nativeElement.value = emit
+    }else{
+      emit = this.value
+      console.log('this.value', this.value)
+    }
+    
+    console.log('emit', emit)
     this.changeEv.emit(emit);
     this.isValid = this.value && this.value.toString().trim() != '' ? true : false;
     // const emit = this.formatoMoneda ? this.limpiarMonto(this.value) : this.value;
-
+    
+  }
+  ngAfterViewInit(): void {
+    this.inp.nativeElement
   }
   emitKeyup() {
-    if (this.formatoMoneda) this.value = this.format(this.value);
-    const emit = this.formatoMoneda ? this.limpiarMonto(this.value) : this.value;
+    let emit = null;
+
+    if(this.formatoMoneda){
+      console.log('this.formatoMoneda', this.formatoMoneda)
+      emit =  this.limpiarMonto(this.value) 
+    }else if(this.formatoRut){
+      console.log('this.formatoRut', this.formatoRut)
+      console.log('this.value', this.value)
+      emit =   this.value.replace(/[.-]/g, '').replace( /^(\d{1,2})(\d{3})(\d{3})(\w{1})$/, '$1.$2.$3-$4')
+    }else{
+      emit = this.value
+      console.log('this.value', this.value)
+    }
     this.keyupEv.emit(emit);
   }
   format(valor: string | number) {

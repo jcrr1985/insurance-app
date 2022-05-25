@@ -17,37 +17,18 @@
                     <ds-select-v2 *ngIf="sesionRequired" class="col-span-12 sm:col-span-6" label="Número de Sesiones"
                         (changeEv)="selectEvent($event)" [source]="sesionesSource">
                     </ds-select-v2>
-                    <!--input nombre prestacion-->
-                    <!-- <ds-search-v2 class="col-span-12 pr-2" [ngClass]="{'sm:col-span-6':sesionRequired}"
-                        formControlName="pres" label="Tipo de Prestación" (changeEv)="itemSelected($event)">
-                    </ds-search-v2> -->
-                    <!--input número de sesiones-->
-                    <!--  <ds-select-v2 *ngIf="sesionRequired" class="col-span-12 sm:col-span-6" formControlName="ses"
-                        label="Número de Sesiones" (changeEv)="selectEvent($event)" [source]="sesionesSource">
-                    </ds-select-v2> -->
-
                 </div>
 
                 <div class="modal--row">
                     <!--valor-->
-                    <ds-input-v2 class="col-span-12 sm:col-span-6" label="Valor" type="text" [formatoMoneda]="true"
-                        (keyupEv)="setValue('valor',$event)">
+                    <ds-input-v2 class="col-span-12 sm:col-span-6" label="Valor" type="text" [formatoMoneda]="true" 
+                     (keyupEv)="setValue('valor',$event)">
                     </ds-input-v2>
 
                     <!--bonificacion isapre/fonasa-->
                     <ds-input-v2 class="col-span-12 sm:col-span-6" label="Bonificación Isapre/Fonasa" type="text"
                         [formatoMoneda]="true" (keyupEv)="setValue('bonificacion',$event)">
                     </ds-input-v2>
-
-                    <!--valor-->
-                    <!-- <ds-input-v2 class="col-span-12 sm:col-span-6" label="Valor" type="text" [formatoMoneda]="true"
-                        formControlName="val" (keyupEv)="setValue('valor',$event)">
-                    </ds-input-v2> -->
-
-                    <!--bonificacion isapre/fonasa-->
-                    <!-- <ds-input-v2 class="col-span-12 sm:col-span-6" label="Bonificación Isapre/Fonasa" type="text"
-                        [formatoMoneda]="true" formControlName="bon" (keyupEv)="setValue('bonificacion',$event)">
-                    </ds-input-v2> -->
                 </div>
             </div>
             <!--Monto a rembolsar-->

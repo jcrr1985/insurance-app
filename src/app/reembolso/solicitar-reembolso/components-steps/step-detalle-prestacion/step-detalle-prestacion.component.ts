@@ -15,6 +15,7 @@ export class StepDetallePrestacionComponent implements OnInit {
   showModal: boolean = false;
   prestaciones: any[] = [];
   prestacionSeleccionada: any;
+  montoTotalPrestaciones: any;
   //prestacionSeleccionada: any = this.arancelService.getPrestacionSeleccionada
 
   constructor(private dataStorageService: DataStorageService, private arancelService: ArancelService) { }
@@ -58,5 +59,9 @@ export class StepDetallePrestacionComponent implements OnInit {
     return this.stepsStatusOn[step][option];
   }
 
+  geTotalPrestaciones(e:any){
+    this.montoTotalPrestaciones = e;
+    console.log('this.montoTotalPrestaciones', this.montoTotalPrestaciones)
+  }
 
 }
