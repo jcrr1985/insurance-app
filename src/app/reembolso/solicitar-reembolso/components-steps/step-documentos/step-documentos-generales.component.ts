@@ -28,6 +28,10 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
   @Output() evaluateStepFour: EventEmitter<any> = new EventEmitter<any>();
 
   public subtituloPrimerDocumento: string = '';
+  public previewDocumentName: string = '';
+  public nameDocSelectedPreview: string = '';
+
+
   public documentsDisplay: any = {
     consultamedica: {
       nameFiles: [{ name: `${this.subtituloPrimerDocumento}`, files: [], multi: false, required: true, valid: false, esDiagnostico: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, valid: false, esDiagnostico: true }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true, esDiagnostico: false }],
@@ -207,7 +211,9 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
     this.validateFileState(prestacion, indexNameFiles);
     this.emitirCambioArchivo();
   }
-  vistaPreviaArchivo(event: any) {
+  vistaPreviaArchivo(event: any, docName: string) {
+    this.previewDocumentName = docName;
+    this.nameDocSelectedPreview = event.name;
     const extensionesDisponibles = ['image/png', 'image/jpg', 'image/jpeg', 'application/pdf'];
     console.log(event);
     if (extensionesDisponibles.includes(event.type)) {

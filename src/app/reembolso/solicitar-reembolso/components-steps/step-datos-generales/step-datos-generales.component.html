@@ -41,7 +41,7 @@
             helpText="">
           </ds-select-v2>
           <!-- RUT -->
-          <ds-input-v2 class="col-span-12 md:col-span-6 sm:col-span-6" label="Rut institucion/prestador"
+          <ds-input-v2 class="col-span-12 md:col-span-6 sm:col-span-6" label="Rut institucion/prestador" [tipo]="'isapre-fonasa'"
             helpText="ingresa cualquier tipo" type="text" helpText=""
             (changeEv)="setStepsStatus({step: 'stepThree_general',option: 'rutInstitucion', value: $event })">
           </ds-input-v2>

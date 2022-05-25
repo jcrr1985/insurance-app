@@ -19,6 +19,7 @@ export class DsInputComponent implements OnInit {
   @Input() iconActive: boolean = true;
   @Input() statusActive: boolean = true;
   @Input() formatoMoneda!: boolean;
+  @Input() tipo!:string
   isValid: boolean = false;
   public formatter = new Intl.NumberFormat('es-CL');
 
@@ -32,6 +33,8 @@ export class DsInputComponent implements OnInit {
     const emit = this.formatoMoneda ? this.limpiarMonto(this.value) : this.value;
     this.changeEv.emit(emit);
     this.isValid = this.value && this.value.toString().trim() != '' ? true : false;
+    // const emit = this.formatoMoneda ? this.limpiarMonto(this.value) : this.value;
+
   }
   emitKeyup() {
     if (this.formatoMoneda) this.value = this.format(this.value);
