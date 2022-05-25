@@ -6,7 +6,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ReembolsoModule } from './reembolso/reembolso.module';
 import { SharedsModule } from './shared/shareds.module';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -18,17 +17,13 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     FormsModule, ReactiveFormsModule,
-    ReembolsoModule,
     SharedsModule,
     HttpClientModule
-    
-
   ],
   exports: [
     CommonModule,
     BrowserModule,
-    AppRoutingModule,
-    ReembolsoModule,
+    AppRoutingModule
 
   ],
   providers: [ArancelService],

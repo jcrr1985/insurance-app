@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChange
 import '@vs-design-system/ds-file';
 import { timer } from 'rxjs';
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-step-documentos-generales',
@@ -17,6 +18,10 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
   stepsStatusOn: any;
   isapreFonasaOptions: any = previsionesArray;
   idPrestacionSeleccionada: number = 1;
+
+  fileUrl: any;
+  mostrarPreview: boolean = false;
+
 
 
   @Output() sendData: EventEmitter<any> = new EventEmitter<any>();
@@ -50,7 +55,7 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
       cols: 'col-span-4'
     },
   }
-  constructor(private dataStorageService: DataStorageService, private arancelService: ArancelService) {
+  constructor(private dataStorageService: DataStorageService, private sanitizer: DomSanitizer, private arancelService: ArancelService) {
   }
 
   ngOnChanges(changes: SimpleChanges) { }
@@ -201,6 +206,23 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
     this.documentsDisplay[prestacion]['nameFiles'][indexNameFiles]['files'] = newFiles;
     this.validateFileState(prestacion, indexNameFiles);
     this.emitirCambioArchivo();
+  }
+  vistaPreviaArchivo(event: any) {
+    const extensionesDisponibles = ['image/png', 'image/jpg', 'image/jpeg', 'application/pdf'];
+    console.log(event);
+    if (extensionesDisponibles.includes(event.type)) {
+      const reader = new FileReader();
+      reader.onload = () =>
+      (this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+        reader.result as string
+      ));
+      reader.readAsDataURL(event);
+      this.mostrarPreview = true;
+    } else {
+      console.log("Extencion no permitida para visualizar")
+      console.log("extensione disponibles", extensionesDisponibles);
+      alert('Visual no disponible por el tipo de extension');
+    }
   }
 
   setStepsStatus(data: any) {

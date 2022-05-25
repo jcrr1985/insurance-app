@@ -35,5 +35,12 @@ formatoMoneda
   </ng-container>
 </div> -->
 
-<ds-input-v2 class="col-span-3" label="Input tipo texto" helpText="ingresa cualquier tipo" type="text" [formatoMoneda]="true"
-    (changeEv)="changeEvent($event)" (keyupEv)="keypressEvent($event)">
+<ds-input-v2 class="col-span-3" label="Input tipo texto" helpText="ingresa cualquier tipo" type="text"
+  [formatoMoneda]="true" (changeEv)="changeEvent($event)" (keyupEv)="keypressEvent($event)"></ds-input-v2>
+
+<div class="w-full" style="background-color: red;">
+  <h1>boon</h1>
+  <ds-button id="ds-button-siguiente" [disabled]="disabledButton" [size]="'s2'" variant="primary" slot-name="next-button-slot">
+    <span slot="next-button-slot"> Guardar </span>
+  </ds-button>
+</div>

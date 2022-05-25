@@ -3,15 +3,44 @@ import { Injectable, Injector } from '@angular/core';
 import { Chip, Reembolsos } from '../interfaces/interfaces';
 import { AuthenticationService } from './authentication.service';
 import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { IConsignment } from '../interfaces/IConsignment';
+import { IResponseConsignment } from '../interfaces/IResponseConsignment';
+import { environment } from 'src/environments/environment';
+import { Token } from '../interfaces/sso';
+
 
 @Injectable({
       providedIn: 'root',
 })
 export class ReembolsoService {
-      public datosReembolsosRepetido: Reembolsos[] = [];
+  public datosReembolsosRepetido: Reembolsos[] = [];
+  private ssoToken!: Token;
+  private headers!: HttpHeaders;
 
 
-      constructor() { }
+  constructor(private http: HttpClient) { }
+
+  async postConsignment (consignment: IConsignment): Promise<IResponseConsignment | null> {
+    const request = {data: consignment};
+    this.ssoToken = JSON.parse(localStorage.getItem('Token')!);
+    this.headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${this.ssoToken.access_token}`)
+      .set('x-ibm-client-id', environment.X_IBM_CLIENT_ID);
+    try {
+      const data = await this.http
+        .post<IResponseConsignment>(
+          `${environment.URL_BFF_BASE}/client/consignment`,
+          request,
+          { headers: this.headers }
+        )
+        .toPromise();
+      return data;
+    } catch (error) {
+      console.log('error', error)
+      return null;
+    }
+  }
 
       public reembolsos: Reembolsos[] = [
             {

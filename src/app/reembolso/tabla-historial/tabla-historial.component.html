@@ -1,8 +1,11 @@
 <div class="h-full historial-wrapper">
   <div class="p-5 border-2 border-solid first-section rounded-xl">
     <div class="card-historial__container">
+      <!-- header contenido -->
       <div class="card-historial__texts">
+        <!-- Titulo -->
         <h3 class="h3-bold">¿Quieres solicitar un reembolso?</h3>
+        <!-- texto -->
         <div class="textos-card__historial">
           <p><span class="bold2">Tiempos de espera:</span></p>
           <p><span class="bold2">Gastos médicos ambulatorios, ópticos, dentales y medicamentos:</span> 5 días hábiles
@@ -22,8 +25,10 @@
   </div>
   <!--TABLE-->
   <ng-container *ngIf="showTable">
+    <!-- Tabla Contenido Reembolsos -->
     <div class="grid w-full">
       <ds-table>
+        <!-- Tabla Header -->
         <ds-table-header appColored #theader class="tabla-header" slot="header">
           <ds-table-header-column class="text-sm" slot="column"><span slot="element">Nombre Beneficiario</span>
           </ds-table-header-column>
@@ -37,6 +42,7 @@
           <ds-table-header-column slot="column"><span slot="element">Documento de liquidación</span>
           </ds-table-header-column>
         </ds-table-header>
+        <!-- Tabla Header END -->
         <!--TABLE BODY-->
         <ds-table-body slot="body">
           <!--Row Start-->
@@ -69,20 +75,58 @@
                 <app-pill [texto]="registro.estado"></app-pill>
               </ds-table-body-column>
               <ds-table-body-column slot="column">
-                <app-col-doc-liq (indiceEmitter)="abrirColapsable($event)" [indice]="i"></app-col-doc-liq>
+                <app-col-doc-liq (indiceEmitter)="toogleCollapsable($event)" [indice]="'registerColapsable'+i">
+                </app-col-doc-liq>
               </ds-table-body-column>
             </ds-table-body-row>
-          <!--En las ds-table-body-row vacias que se generan abajo se cambiara la condicionm del ngif por un true o false
-          si el usuario presiono la flechita ds-open para desplegar el detalle del reembolso en particular-->
+            <!-- header colapsable -->
+            <ds-table-body-row [id]="'registerColapsable'+i" class="div-colapsable oculto" slot="row">
+              <ds-table-body-column slot="column">
+                <span class="texto-normal texto-header-colapsable" slot="element">Tipo Reembolso</span>
+              </ds-table-body-column>
+              <ds-table-body-column slot="column">
+                <span class="texto-normal texto-header-colapsable" slot="element">Monto Solicitado</span>
+              </ds-table-body-column>
+              <ds-table-body-column slot="column">
+                <span class="texto-normal texto-header-colapsable" slot="element">Monto Reembolsado</span>
+              </ds-table-body-column>
+              <ds-table-body-column slot="column">
+                <span class="texto-normal texto-header-colapsable" slot="element">Motivo del estado</span>
+              </ds-table-body-column>
+            </ds-table-body-row>
+            <!-- registros para el colapsable -->
+            <ng-container *ngFor="let fila of filasColapsables">
+              <ds-table-body-row [id]="'registerColapsable'+i" class="div-colapsable oculto" slot="row">
+                <ds-table-body-column slot="column">
+                  <span class="texto-normal" slot="element">
+                    {{fila.motivo}}
+                  </span>
+                </ds-table-body-column>
+                <ds-table-body-column slot="column">
+                  <span class="texto-normal" slot="element">
+                    {{fila.valor}}
+                  </span>
+                </ds-table-body-column>
+                <ds-table-body-column slot="column">
+                  <span class="texto-normal" slot="element">
+                    {{fila.bonificacion}}
+                  </span>
+                </ds-table-body-column>
+                <ds-table-body-column slot="column">
+                  <span class="texto-normal" slot="element">
+                    {{fila.observaciones}}
+                  </span>
+                </ds-table-body-column>
 
-            <!-- <ds-table-body-row *ngIf="indiceSeleccionado == i">
-              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minima amet odio quidem repellendus veritatis vel placeat nulla officia, sequi sit laboriosam, labore natus ut quisquam laudantium perspiciatis dicta voluptate numquam.</p>
-            </ds-table-body-row> -->
+              </ds-table-body-row>
+            </ng-container>
           </ng-container>
           <!--End Row-->
         </ds-table-body>
+        <!-- TABLE BODY END -->
       </ds-table>
     </div>
+    <!-- Paginacion -->
     <div class="flex items-start justify-between w-full h-20">
       <div class="pagination-wrapper">
         <div class="css-1r2g4su">
@@ -101,3 +145,43 @@
   </ng-container>
 
 </div>
+<!-- <table class="tabla-colapsable">
+                <thead>
+                  <tr>
+                    <th>tipo Reembolso</th>
+                    <th>Monto Solicitado</th>
+                    <th>Monto Reembolsado</th>
+                    <th>Motivo del estado</th>  
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Consulta Médica</td>
+                    <td>$10.0000</td>
+                    <td>$10.0000</td>
+                    <td>Observaciones</td>
+                  </tr>
+                  <div *ngIf="true" class="divider"></div>
+                  <tr>
+                    <td>Consulta de Medicamentos</td>
+                    <td>$10.0000</td>
+                    <td>$0</td>
+                    <td>Observaciones</td>
+                  </tr>
+                </tbody>
+              </table> -->
+
+<!-- <div class="wrapper"  slot="element">
+                <div class="row header"  slot="element">
+                  <div class="col">Tipo Reembolso</div>
+                  <div class="col">Monto Solicitado</div>
+                  <div class="col">Monto Reembolsado</div>
+                  <div class="col">Motivo del estado</div>
+                </div>
+                  <div class="row x" *ngFor="let fila of filasColapsables">
+                  <div class="col" >{{fila.motivo}}</div>
+                  <div class="col" >{{fila.valor}}</div>
+                  <div class="col" >{{fila.bonificacion}}</div>
+                  <div class="col" >{{fila.observaciones}}</div>
+                </div>
+              </div> -->

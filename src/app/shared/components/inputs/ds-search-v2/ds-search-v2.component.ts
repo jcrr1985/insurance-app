@@ -26,8 +26,8 @@ export class DsSearchV2Component implements OnInit {
   }
 
   search(keySearch: string) {
-    this.keySearch = keySearch;
-    const val = this.keySearch && this.keySearch.trim().toLowerCase();
+    this.keySearch = keySearch ? keySearch.toString().toLowerCase() : '';
+    const val = this.keySearch && this.keySearch != '' && this.keySearch.toString().trim().toLowerCase();
     this.filterResult = this.arancelService.busquedaAranceles(keySearch)
   }
   selectValue(element: any) {

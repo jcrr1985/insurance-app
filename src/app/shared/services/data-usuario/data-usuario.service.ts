@@ -4,7 +4,6 @@ import { environment } from 'src/environments/environment';
 import { Token } from '../../interfaces/sso';
 import { Usuario } from '../../interfaces/usuario';
 import { IUsuario } from '../../interfaces/usuario-api';
-import { Http } from '@capacitor-community/http';
 
 
 @Injectable({
@@ -18,24 +17,30 @@ export class DataUsuarioService {
   async buscarData(rut: string): Promise<boolean> {
     var tokenData : Token = JSON.parse(localStorage.getItem("Token")!);
 
-      const rutDv = rut.replace('-','');
-      const options = {
-        url: `${environment.URL_BFF_BASE}/client/${rutDv}/cargas`,
-        headers: {
-          'Authorization': `Bearer ${tokenData.access_token}`,
-          'x-ibm-client-id': environment.X_IBM_CLIENT_ID
-        },
-      };
-      const respuesta = await Http.request({ ...options, method: 'GET' });
-      const dataPehuen = respuesta.data.data as IUsuario;
+      const rutSinGuion = rut.replace('-','');
+      const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${tokenData.access_token}`)
+      .set('x-ibm-client-id', environment.X_IBM_CLIENT_ID);
+
+      try {
+      const usuarioConectado = (
+        await this.http
+          .get<any>(`${environment.URL_BFF_BASE}/client/${rutSinGuion}/cargas`, { headers: headers })
+          .toPromise()
+      )['data'];
 
       const rutCuerpo = rut.split('.').join('').split('-')[0];
-     //const rutDv = rut.split('.').join('').split('-')[1];
-      this.usuarioConectado = new Usuario(dataPehuen, rutCuerpo, rutDv);
-      console.log("usuarioConectado",this.usuarioConectado);
+      const dv = rut.split('.').join('').split('-')[1];
+
+      this.usuarioConectado = new Usuario(usuarioConectado, rutCuerpo, dv);
+
       if (this.usuarioConectado) {
         return true;
       } else {
+        return false;
+      }
+      } catch (error) {
+        console.warn(error);
         return false;
       }
     }

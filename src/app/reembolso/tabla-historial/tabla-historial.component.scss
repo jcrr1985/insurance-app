@@ -102,3 +102,51 @@ ds-table-header.tabla-header {
   border-radius: 0 !important;
   box-shadow: none !important;
 }
+
+.div-colapsable.oculto {
+  display: none !important;
+}
+
+.div-colapsable.visible {
+  display: table-row !important;
+  background-color: inherit;
+}
+
+.css-34ntg7 th,
+.css-34ntg7 td {
+  background-color: red;
+}
+
+.wrapper {
+  width: 100%;
+  border: 1px solid black;
+  height: 400px;
+  font-size: 24px;
+
+}
+
+.row {
+
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.row.header {
+  margin-bottom: 5px;
+  border-bottom: 1px solid black;
+}
+
+.row {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.divisor {
+  width: 95%
+}
+
+.texto-header-colapsable {
+  font-size: 16px !important;
+  font-weight: bold;
+}

@@ -15,7 +15,8 @@ import { environment } from 'src/environments/environment';
 import { DOCUMENT } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { DataUsuarioService } from '../shared/services/data-usuario/data-usuario.service';
-import { Token } from 'src/app/shared/interfaces/sso';
+import { Token, TokenData } from 'src/app/shared/interfaces/sso';
+import * as JWT from 'jwt-decode';
 
 @Component({
   selector: 'app-reembolso',
@@ -48,27 +49,27 @@ export class ReembolsoComponent implements OnInit {
           localStorage.setItem("Token", JSON.stringify(response));
           this.router.navigateByUrl('/home');
       });
-
-
     }else{
-
-      this.LoadReembolso();
+      this._authService.getToken("17793573-5","vida2020").subscribe(
+        (response) => {
+          console.log(response);
+          localStorage.setItem("Token", JSON.stringify(response));
+          this.LoadReembolso();
+          this.router.navigateByUrl('/home');
+      });
+      //this.LoadReembolso();
     }
   }
 
   async LoadReembolso() {
     console.log('Cargando pagina de reembolso');
-    //this.appInsightsService.trackEvent(Event.lkLoadReembolso);
-    var urlSSO = environment.URL_SSO + '/auth';
-    var urlWebSalud = this.document.location.origin + '/reembolso';
-    var clientId = 'vs-web-salud';
-    var url = `${urlSSO}?client_id=${clientId}&redirect_uri=${urlWebSalud}&response_mode=fragment&response_type=code&scope=openid`;
-    console.log(url);
-    var tokenData : Token = JSON.parse(localStorage.getItem("Token")!);
-    const loginExitoso = await this.serviceUsuario.buscarData("17793573-5");
+    var token : Token = JSON.parse(localStorage.getItem('Token')!);
+   /*  const token = localStorage.getItem('Token') */
+    var UserInfo: TokenData = JWT(token.access_token);
+    const loginExitoso = await this.serviceUsuario.buscarData(UserInfo.preferred_username);
+
     if (loginExitoso) {
       try { 
-         // window.open(url, '_self');
          this.router.navigate(["/historial"]);
          } catch (error) {
           console.warn('¡No se pudo recuperar un historial para esta cuenta!');

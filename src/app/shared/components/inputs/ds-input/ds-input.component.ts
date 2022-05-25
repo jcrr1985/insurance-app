@@ -18,7 +18,7 @@ export class DsInputComponent implements OnInit {
   @Output() keyupEv: EventEmitter<any> = new EventEmitter();
   @Input() iconActive: boolean = true;
   @Input() statusActive: boolean = true;
-  @Input() formatoMoneda: boolean = false;
+  @Input() formatoMoneda!: boolean;
   isValid: boolean = false;
   public formatter = new Intl.NumberFormat('es-CL');
 
