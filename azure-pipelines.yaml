@@ -1,0 +1,20 @@
+
+resources:
+  repositories:
+    - repository: templates
+      type: git
+      name: VS-IT-SUPPORT/VS-Pipeline-Templates
+
+trigger:
+  - master
+
+extends:
+  template: node.js/angular-build.yml@templates
+  parameters:
+    nodeVersion: 14.x
+    angularVersion: 12.2.0
+    npmrcInSecureFile: true
+    scriptDelete: true
+    devConfigName: 'development'
+    qaConfigName: 'production'
+    prodConfigName: 'production'
