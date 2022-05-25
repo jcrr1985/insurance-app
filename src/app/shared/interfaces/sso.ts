@@ -6,6 +6,7 @@ export interface Token {
   token_type: string;
   id_token: string;
   session_state: string;
+  preferred_username: string;
 }
 
 export interface TokenData {

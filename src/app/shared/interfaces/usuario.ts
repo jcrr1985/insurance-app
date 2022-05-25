@@ -99,7 +99,7 @@ export class Usuario {
   }
 
   public get coberturasTitular(): number[] {
-    const coberturas = [];
+    const coberturas: number[] = [];
     this.coberturas.forEach((cobertura) => {
       coberturas.push(cobertura.idCobertura);
     })

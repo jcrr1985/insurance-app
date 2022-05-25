@@ -13,9 +13,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../shared/services/authentication.service';
 import { environment } from 'src/environments/environment';
 import { DOCUMENT } from '@angular/common';
-import { DataUsuarioService } from 'src/app/shared/services/data-usuario/data-usuario.service';
 import { Subscription } from 'rxjs';
-
+import { DataUsuarioService } from '../shared/services/data-usuario/data-usuario.service';
+import { Token } from 'src/app/shared/interfaces/sso';
 
 @Component({
   selector: 'app-reembolso',
@@ -31,7 +31,7 @@ export class ReembolsoComponent implements OnInit {
     @Inject(DOCUMENT) private document: Document,
     private route : ActivatedRoute,
     private _authService: AuthenticationService,
-    private service: DataUsuarioService,
+    private serviceUsuario: DataUsuarioService,
     private router : Router) {
 
   }
@@ -46,17 +46,17 @@ export class ReembolsoComponent implements OnInit {
         (response) => {
           console.log(response);
           localStorage.setItem("Token", JSON.stringify(response));
-          this.buscarDatos();
           this.router.navigateByUrl('/home');
-          
       });
 
+
     }else{
+
       this.LoadReembolso();
     }
   }
 
-  LoadReembolso() {
+  async LoadReembolso() {
     console.log('Cargando pagina de reembolso');
     //this.appInsightsService.trackEvent(Event.lkLoadReembolso);
     var urlSSO = environment.URL_SSO + '/auth';
@@ -64,19 +64,16 @@ export class ReembolsoComponent implements OnInit {
     var clientId = 'vs-web-salud';
     var url = `${urlSSO}?client_id=${clientId}&redirect_uri=${urlWebSalud}&response_mode=fragment&response_type=code&scope=openid`;
     console.log(url);
-    window.open(url, '_self');
-  }
-
-  buscarDatos() {
-    console.log('busco los datos');
-    localStorage.setItem("ssoToken",environment.DEV_TOKEN_TEST);
-
-    this.isLoading = true;
-    this.dataSubscription = this.service.buscarData("17793573").subscribe((response) => {
-      console.log(response);
-      this.isLoading = false;
-      /* this.dataSource = response.data.data; */
-    });
+    var tokenData : Token = JSON.parse(localStorage.getItem("Token")!);
+    const loginExitoso = await this.serviceUsuario.buscarData("17793573-5");
+    if (loginExitoso) {
+      try { 
+         // window.open(url, '_self');
+         this.router.navigate(["/historial"]);
+         } catch (error) {
+          console.warn('¡No se pudo recuperar un historial para esta cuenta!');
+        } 
+      }
   }
 
 }

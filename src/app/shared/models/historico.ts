@@ -5,12 +5,12 @@ export class Historico {
   private readonly _fechaSolicitud: Date;
   private readonly _tipoPrestacion: string;
   private readonly _montoSolicitado: number;
-  private readonly _montoReembolsado: number;
+  private readonly _montoReembolsado: any;
   private readonly _nombreAsegurado: string;
   private readonly _nombreBeneficiario: string;
   private readonly _relacionBeneficiario: string;
   private readonly _numeroSolicitud: number;
-  private readonly _fechaPago: Date;
+  private readonly _fechaPago: any;
 
   constructor(reembolso: IClaim) {
     this._estado = reembolso.claimsStatus;
