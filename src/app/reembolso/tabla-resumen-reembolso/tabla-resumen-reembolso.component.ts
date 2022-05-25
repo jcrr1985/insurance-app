@@ -57,8 +57,6 @@ export class TablaResumenReembolsoComponent implements OnInit {
   ];
 
 
-  public montoAndStuff: any;
-
   public continuar: boolean = false;
   public prestacionSeleccionada: any;
   public goToMensajeFinal: string = 'no';
@@ -73,11 +71,10 @@ export class TablaResumenReembolsoComponent implements OnInit {
     //this.prestacionSeleccionada = this.arancelService.getPrestacionSeleccionadaId ? this.arancelService.getPrestacionSeleccionadaId : 1;
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.prestacionSeleccionada = id);
     this.dataStorageService.getPrestacionesResumen().subscribe(prestaciones => this.prestacionesCargadas = prestaciones);
-
     // TODO Rectificando...
     /* this.montoAndStuff = this.dataStorageService.getmontoAndStuff;
     console.log('this.montoAndStuff', this.montoAndStuff)
-    let total: number = 0;
+    let total: number = 0;F
     this.solicitudes.forEach(solicitud => {
       total += (solicitud.valorPrestacion - solicitud.bonificacion);
     });
