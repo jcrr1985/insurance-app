@@ -85,9 +85,9 @@ export class DataStorageService {
   public montoAndStuff: any;
 
   setmontoAndStuff() {
-    this.montoTotalSolicitado$.subscribe(montoAndStuff => { 
+    this.montoTotalSolicitado$.subscribe(montoAndStuff => {
       console.log('dentro de setMontoAndStuff en el servicio')
-      this.montoAndStuff = montoAndStuff 
+      this.montoAndStuff = montoAndStuff
       console.log('this.montoAndStuff', this.montoAndStuff)
     })
   }

@@ -48,7 +48,7 @@ export class TablaHistorialComponent
     this.addAccessKey();
     this.aciveTableHistorial();
     var tokenData: Token = JSON.parse(localStorage.getItem("Token")!);
-    //var UserInfo: TokenData = JWT(tokenData.access_token);
+    var UserInfo: TokenData = JWT(tokenData.access_token);
   }
 
   ngAfterContentChecked() {
