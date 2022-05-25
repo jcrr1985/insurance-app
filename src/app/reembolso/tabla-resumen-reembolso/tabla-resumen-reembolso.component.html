@@ -133,7 +133,7 @@
                     <span slot="cancel-button-slot">Cancelar</span>
                 </ds-button>
                 <ds-button id="ds-button-finalizar" [size]="'s2'" variant="primary" slot-name="next-button-slot"
-                    [routerLink]="['/final']">
+                    (click)="finalizarGo()">
                     <span slot="next-button-slot"> Finalizar y Enviar </span>
                 </ds-button>
 
@@ -161,7 +161,7 @@
                     <p>Consulta médica y compra de medicamentos a favor de Alejandro Salgado</p>
                     <div class="linea-division"></div>
                 </div>
-                
+
 
                 <div class="info">
                     <!-- Detalles  -->
@@ -195,7 +195,7 @@
                                 </ds-paragraph>
                                 <ds-paragraph type="p1" family="secondary" color="primary">
                                     <span slot="text" class="text-normal">
-                                        0000-86544-87</span>
+                                        {{this.numeroSolicitado}}</span>
                                 </ds-paragraph>
                             </div>
                         </div> <!--Fin Detalles izquierda  -->
@@ -218,7 +218,7 @@
                                 </ds-paragraph>
                                 <ds-paragraph type="p1" family="secondary" color="primary">
                                     <span slot="text" class="text-normal">
-                                        $40.000</span>
+                                        ${{this.montoSolicitado}}</span>
                                 </ds-paragraph>
                             </div>
                         </div> <!--Fin Detalles derecha  -->
@@ -275,10 +275,6 @@
                 </section>
             </div> <!-- fin content -->
         </div>
-        
-        
-        
-        
     </div>
 
 </section>
