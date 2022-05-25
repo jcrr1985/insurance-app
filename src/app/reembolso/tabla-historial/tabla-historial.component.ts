@@ -48,14 +48,16 @@ export class TablaHistorialComponent
     this.addAccessKey();
     this.aciveTableHistorial();
     var tokenData: Token = JSON.parse(localStorage.getItem("Token")!);
-    var UserInfo: TokenData = JWT(tokenData.access_token);
+    //var UserInfo: TokenData = JWT(tokenData.access_token);
   }
 
   ngAfterContentChecked() {
   }
 
   ngAfterViewInit(): void {
-    this.ocultarColapsables();
+    setTimeout(() => {
+      //this.ocultarColapsables();
+    }, 200);
   }
 
   resultadosPorPagina: number = 10;
@@ -150,17 +152,21 @@ export class TablaHistorialComponent
         this.router.navigate(['/testing']);
     });
   }
-
+  // TODO funcion Vieja, pendiente rectificar de ser necesario
   abrirColapsable(registroNo: any) {
     this.ocultarColapsables();
     console.log('registroNo', registroNo);
     this.indiceSeleccionado = registroNo;
     let filaColapsable = document.getElementById(registroNo);
-    console.log('filaColapsable', filaColapsable)
+    // console.log('filaColapsable', filaColapsable)
+    console.log("me buscas ->", filaColapsable?.classList);
     filaColapsable?.classList.remove('oculto');
     filaColapsable?.classList.add('visible')
 
   }
+  /**
+   * @description oculta todas las colapsables dentro de la tabla html que muestran la informacion del registro
+   */
   ocultarColapsables() {
     let colapsables = document.querySelectorAll('.div-colapsable')
     colapsables.forEach(colapsable => {
@@ -168,4 +174,27 @@ export class TablaHistorialComponent
       colapsable.classList.add('oculto')
     });
   }
+  /**
+   * @description realiza un toggle del colapsable para mostrar la informacion
+   * @param registroNo id del row en la tabla html
+   */
+  toogleCollapsable(registroNo: any) {
+    console.log('registroNo', registroNo);
+    this.indiceSeleccionado = registroNo;
+    let filaColapsables = document.querySelectorAll('#' + registroNo) as any;
+    for (let filaColapsable of filaColapsables) {
+      const styles = filaColapsable?.classList;
+      if (styles && styles[1] == 'visible') { filaColapsable?.classList.add('oculto'); filaColapsable?.classList.remove('visible'); }
+      else { filaColapsable?.classList.add('visible'); filaColapsable?.classList.remove('oculto'); }
+    }
+  }
+
+  public filasColapsables = [
+    { motivo: 'Consulta Médica', valor: '$10.000', bonificacion: '$10.000', observaciones: 'Observaciones' },
+    { motivo: 'Compra de Medicamentos', valor: '$5.000', bonificacion: '$3.000', observaciones: 'Observaciones' },
+    { motivo: 'Marcos y Lentes', valor: '$550.000', bonificacion: '$93.000', observaciones: 'Observaciones' }
+  ];
+
+
 }
+
