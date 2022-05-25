@@ -95,16 +95,18 @@ ds-icon {
 
 }
 
+.archivos-adjuntos__title{
+    font-weight: 600;
+        font-size: 14px;
+        line-height: 16px;
+}
+
 .archivos-adjuntos__container {
     display: flex;
     flex-direction: column;
     gap: 10px;
 
-    p {
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 16px;
-    }
+  
 }
 
 .modal_preview_container {

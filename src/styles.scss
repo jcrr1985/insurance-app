@@ -666,6 +666,7 @@ ds-title {
         }
 
         background: #F1F3F5;
+        border: 1px solid #D2D9DF;
       }
     }
 
@@ -709,3 +710,172 @@ ds-title {
 .custom-scroll-container::-webkit-scrollbar-track {
   border-radius: 10px;
 }
+
+.prestaciones__container{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: auto;
+
+  gap: 15px;
+  width: 100%;
+  box-sizing: border-box;
+  
+  .col-span-4{
+    grid-column: auto;
+  }
+}
+
+//////////////////////////////////////////////////////////////
+// Responsive mobile
+
+@media (max-width: 720px){
+
+  .steps__container{
+    gap: 10px;
+  } 
+
+  .page-title__container {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column-reverse;
+}
+ 
+  .agregar-otro-detalle{
+    .css-2vxw4u.css-lirlie{
+      padding: 10px !important;
+    }
+  }
+
+  .agregar-detalle
+  {
+    .css-2vxw4u.css-lirlie{
+      padding: 10px !important;
+      justify-content: center !important;
+    }
+  }
+
+  ds-button {
+    .css-2vxw4u{
+      padding: 0 !important;
+
+      .back-button__text{
+        display: none !important;
+      }
+      
+      
+    }
+
+
+    .css-15peefa{
+      justify-content: flex-start !important;
+    }
+
+    
+
+  }
+
+  .stepperOneContent{
+    width: 100% !important;
+  }
+
+  .wrapper-select-parentesco{
+    width: 100% !important;
+  }
+
+  .prestaciones__container{
+    grid-template-columns: 1fr;
+  }
+
+  .question__container{
+    flex-wrap: wrap;
+    width: 90vw !important;
+
+    ds-paragraph{
+      width: 90vw;
+      span{
+        width: 100%;
+      }
+    }
+  }
+
+  .upload-documents__container ds-paragraph{
+    height: auto;
+  }
+
+  .documents__options{
+    flex-direction: column;
+  }
+
+  .cards-document__container{
+    flex-direction: column;
+  }
+
+
+  // Modal detalles de prestación
+
+  .modal-container{
+
+    .modal-wrapper{
+      width: 90vw;
+      padding: 20px 15px 15px 15px;
+
+      .modal--row{
+        flex-direction: column;
+      }
+    }
+  }  // FIn Modal detalles de prestación
+  
+  // Modal finalización
+
+  .modal-pantalla-final{
+
+    .wrapper-final{
+      width: 90vw !important;
+
+      .modal--container{
+        flex-direction: column;
+        padding: 0 !important;
+
+        .detalles {
+          flex-direction: column;
+          gap: 20px !important;
+        }
+      }
+
+      .bank-title{
+        text-align: left !important;
+
+      }
+
+      .mail{
+        .css-p4f3xo span{
+          display: inline !important;
+        }
+      }
+
+      .reembolso__botones--container{
+        justify-content: center;
+      }
+    }
+  } // Fin Modal finalización
+
+// Historial
+.card-historial__container{
+  flex-direction: column;
+
+  .button-wrapper {
+    width: 100% !important;
+
+    ds-button{
+      background-color: #ef6f00;
+      justify-content: center;
+      border-radius: 25px;
+    }
+  }
+}
+// Fin Historial
+
+} // Fin Responsive mobile
+
+
+
