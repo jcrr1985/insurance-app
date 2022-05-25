@@ -11,6 +11,7 @@ import '@vs-design-system/ds-title'
 export class TableResumeDetallePrestacionComponent implements OnInit, OnDestroy {
   @Output() editEv: EventEmitter<any> = new EventEmitter();
   @Output() deleteEv: EventEmitter<any> = new EventEmitter();
+  @Output() totalPrestacionesEmitter: EventEmitter<any> = new EventEmitter();
 
   // @Input() prestaciones: any = [];
   prestaciones: any
@@ -23,7 +24,7 @@ export class TableResumeDetallePrestacionComponent implements OnInit, OnDestroy 
   ngOnInit(): void {
     this.dataStorageService.getPrestaciones().subscribe(prestaciones => {
       this.prestaciones = prestaciones;
-      console.log("recibiendo prestaciones", prestaciones);
+      console.log("recibiendo prestaciones", this.prestaciones);
       this.dataStorageService.montoTotalSolicitadoSubject.next(this.prestaciones)
       this.calcMounts();
     });
@@ -55,6 +56,7 @@ export class TableResumeDetallePrestacionComponent implements OnInit, OnDestroy 
       bonificacion += Number(x.bonificacion)
     }
     this.montoReembolsar = this.totalPrestaciones - bonificacion;
+    this.totalPrestacionesEmitter.emit(this.montoReembolsar)
   }
 
 }
