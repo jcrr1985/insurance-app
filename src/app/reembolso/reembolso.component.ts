@@ -13,6 +13,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../shared/services/authentication.service';
 import { environment } from 'src/environments/environment';
 import { DOCUMENT } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { DataUsuarioService } from '../shared/services/data-usuario/data-usuario.service';
+import { Token, TokenData } from 'src/app/shared/interfaces/sso';
+import * as JWT from 'jwt-decode';
 
 @Component({
   selector: 'app-reembolso',
@@ -20,11 +24,15 @@ import { DOCUMENT } from '@angular/common';
   styleUrls: ['./reembolso.component.scss'],
 })
 export class ReembolsoComponent implements OnInit {
+  isLoading = true;
+  dataSubscription = new Subscription();
+
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private route : ActivatedRoute,
     private _authService: AuthenticationService,
+    private serviceUsuario: DataUsuarioService,
     private router : Router) {
 
   }
@@ -46,20 +54,27 @@ export class ReembolsoComponent implements OnInit {
         (response) => {
           console.log(response);
           localStorage.setItem("Token", JSON.stringify(response));
+          this.LoadReembolso();
           this.router.navigateByUrl('/home');
       });
       //this.LoadReembolso();
     }
   }
 
-  LoadReembolso() {
+  async LoadReembolso() {
     console.log('Cargando pagina de reembolso');
-    //this.appInsightsService.trackEvent(Event.lkLoadReembolso);
-    var urlSSO = environment.URL_SSO + '/auth';
-    var urlWebSalud = this.document.location.origin + '/reembolso';
-    var clientId = 'vs-web-salud';
-    var url = `${urlSSO}?client_id=${clientId}&redirect_uri=${urlWebSalud}&response_mode=fragment&response_type=code&scope=openid`;
-    console.log(url);
-    window.location.href = url;
+    var token : Token = JSON.parse(localStorage.getItem('Token')!);
+   /*  const token = localStorage.getItem('Token') */
+    var UserInfo: TokenData = JWT(token.access_token);
+    const loginExitoso = await this.serviceUsuario.buscarData(UserInfo.preferred_username);
+
+    if (loginExitoso) {
+      try { 
+         this.router.navigate(["/historial"]);
+         } catch (error) {
+          console.warn('¡No se pudo recuperar un historial para esta cuenta!');
+        } 
+      }
   }
+
 }

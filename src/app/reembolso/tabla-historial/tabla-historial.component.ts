@@ -73,8 +73,9 @@ export class TablaHistorialComponent
     this.getReembolsos();
     this.createSourcePagination();
     this.showTable = false;
-    await timer(10);
+    timer(10);
     this.showTable = true;
+   
   }
   /**
    * @description calcula el total de registros disponibles
