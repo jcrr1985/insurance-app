@@ -492,30 +492,42 @@ ds-button {
 app-table-resume-detalle-prestacion {
   width: 100% !important;
 
+  
   ds-table {
     width: 100% !important;
 
-    ds-table-body-row {
-      height: 40px !important;
-      background: #F1F3F5 !important;
+    
 
-    }
+    .tabla-historial__row{
 
-    ds-table-body-row:hover {
-      background: #F1F3F5 !important;
-    }
-
-    .row_total {
-      background-color: #bcdeb1 !important;
-
-      span {
-        font-weight: 600 !important;
+      ds-table-body-row {
+        height: 40px !important;
+        background: #F1F3F5 !important;
+      
+  
       }
-    }
 
-    .row_total:hover {
-      background-color: #bcdeb1 !important;
+     
+
+  
+      ds-table-body-row:hover {
+        background: #F1F3F5 !important;
+      }
+  
+      .row_total {
+        background-color: #bcdeb1 !important;
+        
+        span {
+          font-weight: 600 !important;
+        }
+      }
+      
+      .row_total:hover {
+        background-color: #bcdeb1 !important;
+      }
+      
     }
+    
 
   }
 }
@@ -723,6 +735,13 @@ ds-title {
   .col-span-4{
     grid-column: auto;
   }
+}
+
+.line-divider{
+  width: 100%;
+  height: 1px;
+  background-color: #D2D9DF;
+
 }
 
 //////////////////////////////////////////////////////////////
