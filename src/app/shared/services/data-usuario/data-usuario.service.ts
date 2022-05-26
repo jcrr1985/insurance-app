@@ -14,10 +14,10 @@ export class DataUsuarioService {
 
   constructor(private http: HttpClient) { }
 
-  async buscarData(rut: string): Promise<boolean> {
+  async InsuredData(rut: string): Promise<boolean> {
     var tokenData : Token = JSON.parse(localStorage.getItem("Token")!);
 
-      const rutSinGuion = rut.replace('-','');
+      const RutDv = rut.replace('-','');
       const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${tokenData.access_token}`)
       .set('x-ibm-client-id', environment.X_IBM_CLIENT_ID);
@@ -25,7 +25,7 @@ export class DataUsuarioService {
       try {
       const usuarioConectado = (
         await this.http
-          .get<any>(`${environment.URL_BFF_BASE}/client/${rutSinGuion}/cargas`, { headers: headers })
+          .get<any>(`${environment.URL_BFF_BASE}/client/${RutDv}/cargas`, { headers: headers })
           .toPromise()
       )['data'];
 
