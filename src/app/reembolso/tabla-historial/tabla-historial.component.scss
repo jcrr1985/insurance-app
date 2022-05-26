@@ -92,6 +92,7 @@ ds-table-header.tabla-header {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 97vw;
 }
 
 .css-9uz96q {
@@ -103,14 +104,7 @@ ds-table-header.tabla-header {
   box-shadow: none !important;
 }
 
-.div-colapsable.oculto {
-  display: none !important;
-}
 
-.div-colapsable.visible {
-  display: table-row !important;
-  background-color: inherit;
-}
 
 .css-34ntg7 th,
 .css-34ntg7 td {
@@ -149,4 +143,155 @@ ds-table-header.tabla-header {
 .texto-header-colapsable {
   font-size: 16px !important;
   font-weight: bold;
+}
+
+
+///////////////////////////////////////////////////
+// TABLA HISTORIAL NUEVA ///////////////////////////
+
+.table__container{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table--header{
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 14px;
+  background: #424893;
+  height: 40px;
+}
+
+.table--row{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  gap: 15px;
+
+  width: 100%;
+  height: 50px;
+  
+}
+
+
+
+.size-130px{
+  width: 130px;
+}
+
+.nombre-titular{
+  display: flex;
+  flex-direction: column;
+}
+
+.size-160px{
+  width: 160px;
+}
+.size-100px{
+  width: 100px;
+}
+
+.center-text{
+  text-align: center;
+}
+
+.right-text{
+  text-align: right;
+}
+
+
+.header-colapsable{
+  display: flex;
+}
+
+.contenido-colapsable--borde.oculto {
+  display: none !important;
+}
+
+.contenido-colapsable--borde.visible{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 15px;
+  gap: 10px;
+  background-color: #E6ECF8 ;
+  width: 100%;
+
+    
+ 
+    .div-colapsable{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 15px 30px;
+      gap: 10px;
+      width: 100%;
+      background: #FFFFFF;
+
+      .header-colapsable{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 10px 0px;
+  
+        width: 100%;
+        height: 40px;
+
+      }
+      .details{
+
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        width: 100%;
+
+  
+        .info-row{
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          padding: 10px 0px;
+    
+          width: 100%;
+          height: 40px;
+  
+        }
+      }
+
+      .doc-nota{
+        display: flex;
+        gap: 10px;
+        width: auto;
+        cursor: pointer;
+
+        .icono-doc{
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+        p{
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 16px;
+          display: flex;
+          align-items: center;
+          text-decoration-line: underline;
+          color: #424893;
+        }
+      }
+    }
+  
+}
+
+.pagination__container{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
