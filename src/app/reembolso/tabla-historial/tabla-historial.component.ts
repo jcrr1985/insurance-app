@@ -169,7 +169,7 @@ export class TablaHistorialComponent
    * @description oculta todas las colapsables dentro de la tabla html que muestran la informacion del registro
    */
   ocultarColapsables() {
-    let colapsables = document.querySelectorAll('.div-colapsable')
+    let colapsables = document.querySelectorAll('.contenido-colapsable--borde')
     colapsables.forEach(colapsable => {
       colapsable.classList.remove('visible')
       colapsable.classList.add('oculto')

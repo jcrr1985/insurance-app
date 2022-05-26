@@ -111,7 +111,7 @@ ds-file {
   min-width: 200px !important;
   height: auto;
 
-  .css-ivir7d {
+  .css-ivir7d, .css-1o7esu3{
     width: 100% !important;
     gap: 20px !important;
     height: auto;
@@ -427,24 +427,53 @@ ds-title {
 
 }
 
+.css-1o7esu3{
+  width: 100% !important;
+}
+
+.css-ou2yfm{
+  height: 40px !important;
+  gap: 10px ;
+
+  ds-paragraph{
+    display: flex !important;
+    align-items: center;
+    height: 40px !important;
+  }
+  .css-1y7fx7v{
+    display: flex !important;
+    flex-direction: column;
+    gap: 5px;
+    margin: 0 !important;
+  }
+}
+
 ds-icon {
   display: flex !important;
   flex-direction: column;
   justify-content: center;
+  align-items: center !important;
   height: auto;
   margin: 0 !important;
+  
+  .css-19x5ls3{
+    display: flex !important;
+    justify-content: center;
+    align-items: center !important;
 
+  }
   .css-7kp13n {
     display: flex !important;
     flex-direction: column;
     justify-content: center;
     height: auto !important;
 
+
     span {
       display: flex !important;
       flex-direction: column;
       width: 100%;
-      height: auto;
+      height: auto !important;
 
     }
   }
@@ -742,6 +771,10 @@ ds-title {
   height: 1px;
   background-color: #D2D9DF;
 
+}
+
+.doc-liq{
+  cursor: pointer !important;
 }
 
 //////////////////////////////////////////////////////////////
