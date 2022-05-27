@@ -1,5 +1,4 @@
 import { DataStorageService } from 'src/app/shared/services/data-storage.service';
-import { Prestacion } from 'src/app/shared/interfaces/interfaces';
 import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
 
@@ -123,10 +122,10 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
   }
 
   setValue(){
-    
+
   }
 
-  
+
 
 }
 

@@ -35,7 +35,7 @@ export interface CustomStepperSize {
   stepperFour: string;
   stepperFive: string;
 }
-export interface Prestacion {
+export interface Arancel {
   /**
    * @description consulta medica - medicamentos - lentes ...
    */
@@ -45,4 +45,6 @@ export interface Prestacion {
   sesiones: number;
   valorPrestacion: number;
   bonificacion: number;
+  sesionValida : boolean;
+  montoHistorico : number;
 }

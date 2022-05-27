@@ -11,6 +11,7 @@ export class DsInputComponent implements OnInit, AfterViewInit {
 
   constructor() { }
   @Input() type: string = 'text'
+  @Input() maxlength: string = '30'
   @Input() label!: string;
   @Input() helpText!: string;
   @Input() value: any;
@@ -24,19 +25,19 @@ export class DsInputComponent implements OnInit, AfterViewInit {
   isValid: boolean = false;
   @ViewChild('inp') inp!: ElementRef
   public formatter = new Intl.NumberFormat('es-CL');
-  
-  
+
+
   ngOnInit(): void {
   }
   async emitChange() {
     // delay necesario para que el buscador pueda compartir el input
     await timer(100).toPromise();
     //if (this.formatoMoneda) this.value = this.format(this.value);
-    
+
     let emit = null;
     if(this.formatoMoneda){
       this.value = this.format(this.value)
-      emit =  this.limpiarMonto(this.value) 
+      emit =  this.limpiarMonto(this.value)
     }else if(this.formatoRut){
 
       emit =   this.value.replace(/[.-]/g, '').replace( /^(\d{1,2})(\d{3})(\d{3})(\w{1})$/, '$1.$2.$3-$4')
@@ -45,12 +46,12 @@ export class DsInputComponent implements OnInit, AfterViewInit {
       emit = this.value
       console.log('this.value', this.value)
     }
-    
+
     console.log('emit', emit)
     this.changeEv.emit(emit);
     this.isValid = this.value && this.value.toString().trim() != '' ? true : false;
     // const emit = this.formatoMoneda ? this.limpiarMonto(this.value) : this.value;
-    
+
   }
   ngAfterViewInit(): void {
     this.inp.nativeElement
@@ -60,7 +61,8 @@ export class DsInputComponent implements OnInit, AfterViewInit {
 
     if(this.formatoMoneda){
       console.log('this.formatoMoneda', this.formatoMoneda)
-      emit =  this.limpiarMonto(this.value) 
+      this.value = this.format(this.value)
+      emit =  this.limpiarMonto(this.value)
     }else if(this.formatoRut){
       console.log('this.formatoRut', this.formatoRut)
       console.log('this.value', this.value)

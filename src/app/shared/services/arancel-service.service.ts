@@ -5,6 +5,7 @@ import { ICard } from '../interfaces/ICard';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ISessions } from '../interfaces/ISessions';
 import { environment as ENV } from 'src/environments/environment';
+import { Token } from '../interfaces/sso';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,8 @@ export class ArancelService {
   public aranceles = aranceles;
   public prestacionSeleccionada: any;
   public respuestaFiltro!: IArancel[] | undefined[];
+  private _montoHistorico: number = 0;
+  private _esDesviado: boolean = false;
   public esListaActiva!: boolean;
   public tarjetaSeleccionada: any;
   public idprestacionSeleccionada!: number;
@@ -160,11 +163,11 @@ export class ArancelService {
     cantidadSesiones: number
   ): Promise<boolean | [number, boolean]> {
     try {
-      const token = localStorage.getItem('ssoToken');
-      if (!token) throw new Error('No existe token guardado.');
+      const ssoToken : Token = JSON.parse(localStorage.getItem('Token')!);
+      if (!ssoToken) throw new Error('No existe token guardado.');
 
       const headers = new HttpHeaders()
-        .set('Authorization', token)
+        .set('Authorization', `Bearer ${ssoToken.access_token}`)
         .set('x-ibm-client-id', ENV.X_IBM_CLIENT_ID)
         .set('x-application', ENV.CLIENT_ID)
         .set('x-transaction_id', '12345'); /* Por confirmar. */
@@ -187,6 +190,24 @@ export class ArancelService {
       return false;
     }
   }
+
+  public get montoHistorico(): number {
+    return this._montoHistorico;
+  }
+
+  public set montoHistorico(valor: number) {
+    this._montoHistorico = valor;
+  }
+
+  public get esDesviado(): boolean {
+    return this._esDesviado;
+  }
+
+  public set esDesviado(estado: boolean) {
+    this._esDesviado = estado;
+  }
+
+
 }
 
 
@@ -35590,4 +35611,4 @@ const aranceles: IArancel[] = [
 ];
 
 const tiposdeLiquidacion: string[] = [];
-// 
+//
