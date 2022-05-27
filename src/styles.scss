@@ -467,6 +467,7 @@ ds-icon {
     flex-direction: column;
     justify-content: center;
     height: auto !important;
+    
 
 
     span {
@@ -489,7 +490,7 @@ ds-icon {
 ds-button {
   display: flex !important;
   width: auto !important;
-  height: auto !important;
+  height: 40px !important;
 
   .css-2vxw4u {
     min-width: 160px;
@@ -510,57 +511,41 @@ ds-button {
       height: auto;
     }
 
-    .back-button__text {
-      width: auto;
-      font-size: 16px !important;
-    }
+   
 
   }
 }
 
-app-table-resume-detalle-prestacion {
+app-table-resume-detalle-prestacion{
   width: 100% !important;
 
-  
-  ds-table {
+  ds-table{
     width: 100% !important;
 
-    
-
-    .tabla-historial__row{
-
-      ds-table-body-row {
-        height: 40px !important;
-        background: #F1F3F5 !important;
-      
-  
-      }
-
-     
-
-  
-      ds-table-body-row:hover {
-        background: #F1F3F5 !important;
-      }
-  
-      .row_total {
-        background-color: #bcdeb1 !important;
-        
-        span {
-          font-weight: 600 !important;
-        }
-      }
-      
-      .row_total:hover {
-        background-color: #bcdeb1 !important;
-      }
+    ds-table-body-row{
+      height: 40px !important;
+      background: #fff !important;
       
     }
-    
 
+    ds-table-body-row:hover{
+      background: #fff !important;
+    }
+
+    .row_total{
+      background-color: #bcdeb1 !important;
+
+      span{
+        font-weight: 600 !important;
+      }
+    }
+
+    .row_total:hover{
+      background-color: #bcdeb1 !important;
+    }
+    
   }
 }
-
 .css-lirlie {
   border: 1px solid #6B77B3 !important;
   box-shadow: 0px 4px 12px rgba(67, 80, 94, 0.1) !important;
@@ -602,9 +587,6 @@ ds-title {
   box-shadow: none !important;
 }
 
-.css-1el2sgw {
-  margin: 0 !important;
-}
 
 
 .modal-container {
@@ -777,6 +759,128 @@ ds-title {
   cursor: pointer !important;
 }
 
+.css-1xunp8i{
+  box-shadow: none !important;
+}
+
+.css-ijte3v{
+  box-shadow: none !important;
+  width: 190px !important;
+}
+
+.css-ijte3v:hover{
+  background-color: #EF6F00 !important;
+}
+
+.css-1c9x7sh{
+  box-shadow: 0px 4px 12px rgba(67, 80, 94, 0.1) !important;
+  border: 1px solid #6B77B3 !important;
+}
+
+.modal_preview_container[_ngcontent-mlf-c68] .modal_preview_doc[_ngcontent-mlf-c68] .modal_preview_content[_ngcontent-mlf-c68] .document[_ngcontent-mlf-c68] embed[_ngcontent-mlf-c68]{
+  width: 100% !important;
+  img{
+      width: 100% !important;
+  }
+}
+
+.document--viewer{
+  img{
+    width: 100%;
+    max-height: 60vh;
+  }
+  display: flex;
+  embed{
+    width: 100% !important;
+    #documentent html body img{
+      width: 100% !important;
+    }
+  }
+}
+
+.document--text{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  align-items: center;
+  flex-wrap: wrap;
+
+  .title_file_preview{
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 26px;
+    color: #424893;
+  }
+  .subtitle_file_preview{
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    color: #242C35;
+  }
+}
+
+.css-1r2g4su{
+  height: auto !important;
+  gap: 10px;
+  .css-7kp13n{
+    
+    width: 26px;
+    height: 26px;
+    display: grid !important;
+    place-content: center;
+    span{
+      display: flex;
+    }
+  }
+  .css-7kp13n:hover{
+    background-color: #F1F3F5;
+    border-radius: 20px;
+  }
+  .css-1n9apyz{
+    gap: 5px;
+    margin: 0 !important;
+    border-radius: 20px !important;
+    .css-7mrpfl, .css-16sfy5f{
+        font-size: 14px;
+        border: none;
+        width: 28px !important;
+        height: 24px !important;
+        margin: 0 !important;
+        padding: 0 0 2px 0 !important;
+        border-radius: 14px !important;
+    
+    }
+  }
+
+}
+
+.page-resumen--title__container{
+
+  .back-button__text {
+    width: 90px !important;
+    font-size: 16px !important;
+  }
+    .css-s79kzq span{
+      margin: 0 !important;
+    }
+
+}
+
+.agregar-otro-detalle{
+  height: 40px;
+  .css-s79kzq{
+    padding: 0 5px!important;
+    height: 40px !important;
+  }
+
+  ds-icon{
+    width: 24px !important;
+  }
+  
+}
+
+
 //////////////////////////////////////////////////////////////
 // Responsive mobile
 
@@ -793,6 +897,7 @@ ds-title {
 }
  
   .agregar-otro-detalle{
+
     .css-2vxw4u.css-lirlie{
       padding: 10px !important;
     }
@@ -926,6 +1031,71 @@ ds-title {
   }
 }
 // Fin Historial
+
+// Modal viewer
+.modal_preview_container{
+  padding: 10px;
+
+  .document--text{
+    align-items: center;
+    .title_file_preview{
+      font-size: 20px;
+      line-height: 20px;
+      color: #424893;
+    }
+    .subtitle_file_preview{
+      font-size: 14px;
+      line-height: 14px;
+      color: #242C35;
+    }
+  }
+}// Fin Modal viewer
+
+
+.page-resumen--title__container{
+  flex-direction: column-reverse;
+  align-items: flex-start !important;
+  gap: 10px;
+  ds-title{
+    gap: 0px !important;
+    flex-direction: column;
+  }
+  ds-button{
+    height: 20px !important;
+    .css-s79kzq{
+      padding: 0 !important;
+      height: 20px !important;
+
+      .back-button__text{
+        display: none !important;
+      }
+    }
+  }
+}
+
+.seccion-agregar-nuevo-reembolso{
+  flex-direction: column;
+  gap: 15px;
+}
+
+.otro-reembolso__container{
+  .reembolso__row{
+    flex-wrap: wrap;
+  }
+
+  .botones__row{
+    #ds-button-siguiente, #ds-button-finalizar{
+      width: 100% !important;
+      div, .css-ijte3v{
+        width: 100% !important;
+      }
+    }
+  }
+}
+
+.text-normal--mail{
+  flex-direction: column !important;
+}
 
 } // Fin Responsive mobile
 
