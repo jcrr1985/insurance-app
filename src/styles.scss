@@ -777,6 +777,61 @@ ds-title {
   cursor: pointer !important;
 }
 
+.css-ijte3v{
+  box-shadow: none !important;
+}
+
+.css-ijte3v:hover{
+  background-color: #EF6F00 !important;
+}
+
+.css-1c9x7sh{
+  box-shadow: 0px 4px 12px rgba(67, 80, 94, 0.1) !important;
+  border: 1px solid #6B77B3 !important;
+}
+
+.modal_preview_container[_ngcontent-mlf-c68] .modal_preview_doc[_ngcontent-mlf-c68] .modal_preview_content[_ngcontent-mlf-c68] .document[_ngcontent-mlf-c68] embed[_ngcontent-mlf-c68]{
+  width: 100% !important;
+  img{
+      width: 100% !important;
+  }
+}
+
+.document--viewer{
+  img{
+    width: 100%;
+    max-height: 60vh;
+  }
+  display: flex;
+  embed{
+    width: 100% !important;
+    #documentent html body img{
+      width: 100% !important;
+    }
+  }
+}
+
+.document--text{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  align-items: center;
+  flex-wrap: wrap;
+
+  .title_file_preview{
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 26px;
+    color: #424893;
+  }
+  .subtitle_file_preview{
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    color: #242C35;
+  }
+}
 //////////////////////////////////////////////////////////////
 // Responsive mobile
 
