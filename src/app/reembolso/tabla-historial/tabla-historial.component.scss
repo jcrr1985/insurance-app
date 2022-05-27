@@ -157,7 +157,9 @@ ds-table-header.tabla-header {
 
   border-radius: 8px;
   overflow: hidden;
+  
 }
+
 
 .table--header{
   color: white;
@@ -294,4 +296,5 @@ ds-table-header.tabla-header {
   display: flex;
   width: 100%;
   justify-content: space-between;
+  align-items: center;
 }

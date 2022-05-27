@@ -77,7 +77,8 @@ ds-icon {
 
     .div,
     .col-span-4,
-    .col-span-3 {
+    .col-span-3,
+    .col-span-12 {
         display: flex !important;
         flex-direction: column;
         gap: 20px;
@@ -116,71 +117,60 @@ ds-icon {
     left: 0;
     bottom: 0;
     height: 100vh;
-    width: 100vw;
-    background: rgba(0, 0, 0, 0.229);
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: grid;
+    place-content: center;
 
 
     .modal_preview_doc {
-        height: 95vh;
-        width: 60vw;
-        margin: 0px;
-        //height: 700px;
-        //width: 760px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        padding: 20px 20px 40px 20px;
+        width: 100%;
+        max-width: 700px;
         overflow: hidden;
-        // background: rgba(0, 0, 0, 0.229);
         background-color: #ffffff;
-        box-shadow: 0px 15px 8px 1px rgb(0 0 0 / 30%);
+        border: 1px solid #D2D9DF;
+        box-shadow: 0px 4px 8px rgba(67, 80, 94, 0.2);
+        border-radius: 8px;
 
         .modal_preview_header {
-            padding-right: 20px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            height: 20px;
 
-            h1 {
-                padding-left: 20px;
-                font-size: 2rem;
-            }
-
-            button {
-                border: none;
-                font-size: larger;
+            ds-icon {
                 cursor: pointer;
-                font-weight: 700;
-                text-align: center;
-                background-color: #ffffff;
-                color: #989999;
-                padding: 5px;
-                margin-right: -5px;
             }
-
-            background-color: white;
-            border-radius: 5px;
         }
 
         .modal_preview_content {
-            width: 60vw;
-            height: 89vh;
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
 
-            .title_file_preview {
-                font-size: 1.5rem;
-                font-weight: 700;
-            }
-
-            .subtitle_file_preview {
-                font-weight: 400;
-            }
-
-            embed {
-                width: 60vw;
-                height: 75vh;
-
-                body {
-                    img {
-                        height: 100%;
-                        object-fit: cover;
+            .document{
+                width: 100%;
+                embed {
+                    width: 60vw;
+                    height: 75vh;
+    
+                    body {
+                        img {
+                            height: 100%;
+                            object-fit: cover;
+                        }
                     }
+    
                 }
-
             }
         }
     }
 
 }
+
