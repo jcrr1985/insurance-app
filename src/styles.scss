@@ -982,6 +982,26 @@ ds-title {
 }
 // Fin Historial
 
+// Modal viewer
+
+// Fin Modal viewer
+.modal_preview_container{
+  padding: 10px;
+
+  .document--text{
+    align-items: center;
+    .title_file_preview{
+      font-size: 20px;
+      line-height: 20px;
+      color: #424893;
+    }
+    .subtitle_file_preview{
+      font-size: 14px;
+      line-height: 14px;
+      color: #242C35;
+    }
+  }
+}
 } // Fin Responsive mobile
 
 
