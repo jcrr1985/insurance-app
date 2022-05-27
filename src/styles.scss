@@ -467,6 +467,7 @@ ds-icon {
     flex-direction: column;
     justify-content: center;
     height: auto !important;
+    
 
 
     span {
@@ -602,9 +603,6 @@ ds-title {
   box-shadow: none !important;
 }
 
-.css-1el2sgw {
-  margin: 0 !important;
-}
 
 
 .modal-container {
@@ -779,7 +777,6 @@ ds-title {
 
 .css-1xunp8i{
   box-shadow: none !important;
-  width: 190px !important;
 }
 
 .css-ijte3v{
@@ -838,6 +835,43 @@ ds-title {
     color: #242C35;
   }
 }
+
+.css-1r2g4su{
+  height: auto !important;
+  gap: 10px;
+  .css-7kp13n{
+    
+    width: 26px;
+    height: 26px;
+    display: grid !important;
+    place-content: center;
+    span{
+      display: flex;
+    }
+  }
+  .css-7kp13n:hover{
+    background-color: #F1F3F5;
+    border-radius: 20px;
+  }
+  .css-1n9apyz{
+    gap: 5px;
+    margin: 0 !important;
+    border-radius: 20px !important;
+    .css-7mrpfl, .css-16sfy5f{
+        font-size: 14px;
+        border: none;
+        width: 28px !important;
+        height: 24px !important;
+        margin: 0 !important;
+        padding: 0 0 2px 0 !important;
+        border-radius: 14px !important;
+    
+    }
+  }
+
+}
+
+
 //////////////////////////////////////////////////////////////
 // Responsive mobile
 
