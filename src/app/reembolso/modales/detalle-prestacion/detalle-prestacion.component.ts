@@ -23,10 +23,9 @@ export class DetallePrestacionComponent
   public montoReembolso: any = 0;
   public sesionRequired: boolean = false;
   public arancel: Arancel = {} as Arancel;
-  public warningMsg: boolean = false;
+  public warningMsg: boolean = true;
   public prestacioSeleccionada = this.arancelService.getPrestacionSeleccionada;
   public sourceSearch: any;
-  public sesionesSource = this.arancelService.getSesionesSource;
   public form : any;
   public labelArancel : string = 'Nombre Prestación';
   public labelValor : string = 'Valor';
@@ -62,9 +61,10 @@ export class DetallePrestacionComponent
   itemSelected(arancel: IArancel) {
     this.sesionRequired = arancel.RequiereSesiones === '1' ? true : false;
     this.arancel.prestacionSeleccionada = arancel.Arancel;
-    this.arancel.tipoPrestacion = arancel.TipoLiquidacion
+    this.arancel.tipoPrestacion = arancel.TipoLiquidacion;
+    this.arancel.codigoPrestacion = arancel.CodigoArancel;
     this.arancelService.montoHistorico = 0;
-    this.arancelService.esDesviado = false;
+    this.arancelService.desviadoOK = true;
   }
 
   selectEvent(item: any) {
@@ -104,14 +104,18 @@ export class DetallePrestacionComponent
     }
   }
 
-  validarMensajeWarning() {
-    if (this.arancel.bonificacion && this.arancel.valorPrestacion) {
-      const prestacion = this.arancel.valorPrestacion ? this.arancel.valorPrestacion : 0;
-      const bonificacion = this.arancel.bonificacion ? this.arancel.bonificacion : 0;
-      const sesiones = this.arancel.sesiones ? this.arancel.sesiones : 1;
-      const monto = (Number(prestacion) - Number(bonificacion)) / sesiones;
-      const result = (this.montoReferencia == monto && monto != 0) ? false : true;
-      this.warningMsg = result;
+  async validarMensajeWarning() {
+    if (this.arancel.sesiones > 0 && this.arancel.valorPrestacion) {
+      await this.arancelService.validarSesiones(
+        this.arancel.codigoPrestacion,
+        this.stepsStatusOn.stepOne_who.personaSeleccionada,
+        this.arancel.valorPrestacion,
+        this.arancel.sesiones
+        );
+      this.arancel.sesionValida = this.arancelService.desviadoOK;
+      this.arancel.montoHistorico = this.arancelService.montoHistorico;
+      this.montoReferencia = this.arancelService.montoHistorico;
+      this.warningMsg = this.arancelService.desviadoOK;
     }
   }
   /**

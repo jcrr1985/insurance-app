@@ -15,25 +15,12 @@ export class ArancelService {
   public prestacionSeleccionada: any;
   public respuestaFiltro!: IArancel[] | undefined[];
   private _montoHistorico: number = 0;
-  private _esDesviado: boolean = false;
+  private _desviadoOK: boolean = true;
   public esListaActiva!: boolean;
   public tarjetaSeleccionada: any;
   public idprestacionSeleccionada!: number;
   public setIdSubject: BehaviorSubject<any> = new BehaviorSubject(0)
   public setIdSubject$ = this.setIdSubject.asObservable();
-  public sesionesSource = [
-    { key: '1 sesión', value: 1 },
-    { key: '2 sesiónes', value: 2 },
-    { key: '3 sesiónes', value: 3 },
-    { key: '4 sesiónes', value: 4 },
-    { key: '5 sesiónes', value: 5 },
-    { key: '6 sesiónes', value: 6 },
-    { key: '7 sesiónes', value: 7 },
-    { key: '8 sesiónes', value: 8 },
-    { key: '9 sesiónes', value: 9 },
-    { key: '10 sesiónes', value: 10 },
-
-  ];
 
   constructor(private http: HttpClient) {
     for (let i = 0; i < aranceles.length; i++) {
@@ -42,10 +29,6 @@ export class ArancelService {
         aranceles[i].Arancel.charAt(0).toUpperCase() +
         aranceles[i].Arancel.slice(1);
     }
-  }
-
-  public get getSesionesSource() {
-    return this.sesionesSource
   }
   public get getPrestacionSeleccionada() {
     return this.tarjetaSeleccionada;
@@ -161,7 +144,7 @@ export class ArancelService {
     rut: string,
     montoIngresado: number,
     cantidadSesiones: number
-  ): Promise<boolean | [number, boolean]> {
+  ) {
     try {
       const ssoToken : Token = JSON.parse(localStorage.getItem('Token')!);
       if (!ssoToken) throw new Error('No existe token guardado.');
@@ -177,17 +160,13 @@ export class ArancelService {
           `${ENV.URL_BFF_BASE}/BFF/Reimbursement/validate/session/insured/${rut}?TotalAmount=${montoIngresado}&NumberSessions=${cantidadSesiones}&BenefitCode=${codigoArancel}&RuleName=Sessions`,
           { headers: headers }).toPromise()
       );
+      this.desviadoOK = infoSesiones.session?.validate!;
+      this.montoHistorico = infoSesiones.session?.amount!;
 
-      if (infoSesiones.httpCode === 404) {
-        return false;
-      } else if (infoSesiones.session !== undefined) {
-        return [infoSesiones.session?.amount, infoSesiones.session?.validate];
-      } else {
-        throw new Error('Ocurrió un error al intentar procesar su solicitud.')
-      }
     } catch (error) {
       console.warn(error);
-      return false;
+      this.desviadoOK = true;
+      this.montoHistorico = 0;
     }
   }
 
@@ -199,12 +178,12 @@ export class ArancelService {
     this._montoHistorico = valor;
   }
 
-  public get esDesviado(): boolean {
-    return this._esDesviado;
+  public get desviadoOK(): boolean {
+    return this._desviadoOK;
   }
 
-  public set esDesviado(estado: boolean) {
-    this._esDesviado = estado;
+  public set desviadoOK(estado: boolean) {
+    this._desviadoOK = estado;
   }
 
 

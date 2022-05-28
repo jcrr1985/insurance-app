@@ -41,10 +41,17 @@ export interface Arancel {
    */
   tipoPrestacion: string;
   prestacionSeleccionada: string;
+  codigoPrestacion :string;
   numerosesiones: String;
   sesiones: number;
   valorPrestacion: number;
   bonificacion: number;
   sesionValida : boolean;
   montoHistorico : number;
+}
+
+export interface ISource {
+  key : string,
+  value : string,
+  parentesco : string
 }

@@ -44,7 +44,7 @@
 
       </div>
       <!-- Mensaje de error -->
-      <ds-messaging *ngIf="warningMsg" variant="warning" family="secondary" size="s2" title="El valor que ingresaste es diferente a los registrados que has ingresado anteriormente: {{montoReferencia}} por sesión.
+      <ds-messaging *ngIf="!warningMsg" variant="warning" family="secondary" size="s2" title="El valor que ingresaste es diferente a los registrados que has ingresado anteriormente: {{montoReferencia}} por sesión.
           Recuerda que debes indicar la cantidad de sesiones que equivalen al valor que estás ingresando.">
       </ds-messaging>
       <!--Fin mensaje de error-->
