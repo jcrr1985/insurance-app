@@ -1,4 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ISource } from 'src/app/shared/interfaces/interfaces';
+import { DataUsuarioService } from 'src/app/shared/services/data-usuario/data-usuario.service';
 
 @Component({
   selector: 'app-select-parentesco',
@@ -7,18 +9,20 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class SelectParentescoComponent implements OnInit {
   @Output() changeEv: EventEmitter<any> = new EventEmitter()
-
-  source = [
-    { key: 'Alejandro Salgado', value: '1', parentesco: 'Yo' },
-    { key: 'Marcelo Salgado', value: '2', parentesco: 'Hijo' },
-    { key: 'Ana María Gonzales', value: '3', parentesco: 'Madre' },
-    { key: 'Francisca Arriagada', value: '4', parentesco: 'Conyugue' },
-  ]
+  public source : ISource[] = [];
 
   label = 'Seleccione una persona';
-  constructor() { }
+  constructor(private userService : DataUsuarioService) {
+  }
 
   ngOnInit(): void {
+    this.userService.usuarioConectado.cargas.forEach((carga) => {
+      this.source.push({
+        key : carga.nombres + " " +carga.apellidos,
+        value : carga.rut + carga.dv,
+        parentesco : carga.parentesco
+      });
+    });
   }
 
   selectPerson(value: any) {

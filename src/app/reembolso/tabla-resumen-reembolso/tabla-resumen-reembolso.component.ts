@@ -7,6 +7,8 @@ import * as moment from 'moment';
 import { IResponseConsignment } from 'src/app/shared/interfaces/IResponseConsignment';
 import { IConsignment } from 'src/app/shared/interfaces/IConsignment';
 import { IBeneficiario } from 'src/app/shared/interfaces/beneficiarios';
+import { Usuario } from 'src/app/shared/interfaces/usuario';
+import { DataUsuarioService } from 'src/app/shared/services/data-usuario/data-usuario.service';
 
 @Component({
   selector: 'app-tabla-resumen-reembolso',
@@ -20,6 +22,8 @@ export class TablaResumenReembolsoComponent implements OnInit {
   public consignment!: IConsignment;
   public montoSolicitado : string = '';
   public numeroSolicitado : string = '';
+  public usuario!: Usuario;
+  public usuarioSeleccionado!: IBeneficiario;
 
   public solicitudes: any[] = [
     {
@@ -64,10 +68,13 @@ export class TablaResumenReembolsoComponent implements OnInit {
 
   constructor(private dataStorageService: DataStorageService,
     private reembolsoService: ReembolsoService,
-    private arancelService: ArancelService
+    private arancelService: ArancelService,
+    private insuredData: DataUsuarioService,
     ) { }
 
   ngOnInit(): void {
+    this.usuario = this.insuredData.usuarioConectado;
+    this.usuarioSeleccionado = this.usuario.obtenerUsuarioSeleccionado();
     //this.prestacionSeleccionada = this.arancelService.getPrestacionSeleccionadaId ? this.arancelService.getPrestacionSeleccionadaId : 1;
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.prestacionSeleccionada = id);
     this.dataStorageService.getPrestacionesResumen().subscribe(prestaciones => this.prestacionesCargadas = prestaciones);
@@ -176,6 +183,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
     //setear segun monto total de todos los gastos (+ de una prestacion)
     let montoTotalTodosGastos = 0;
     //Setear el beneficiario seleccionado
+    //let beneficiario = this.usuario.cargas.filter((carga) => carga.esSeleccionado === true)[0];
     let beneficiario : IBeneficiario = {
       rut : '17793573',
       apellidos : 'HIDALGO AGUILAR',
@@ -188,26 +196,26 @@ export class TablaResumenReembolsoComponent implements OnInit {
     }
 
     const dataConsignment : IConsignment = {
-      policy : '281364', // setear la poliza del datapoliza
+      policy : this.usuario.poliza,
       clasif : clasificacion,
       idIsapre : 204, // setear la primera seleccionada en el detalle de prestacion, si no tiene setear la de data pehuen
       folioDenuncio : 0, //OK
       plataforma : 'WEB',
       sistemaOperativo : sistemaOperativo,
       apellidosBeneficiario : beneficiario.apellidos,
-      apellidosTitular : 'HIDALGO AGUILAR', //setear desde data pehuen
+      apellidosTitular : this.usuario.apellidos,
       codCobertura : `${cobertura}`, // si idPrestacion es 3 (dental) enviar '0063'
-      codigoBanco : '11', //setear desde data pehuen
+      codigoBanco : `${this.usuario.codBanco}`,
       dvRutBeneficiario : beneficiario.dv,
-      dvRutTitular : '5', //setear desde data pehuen
+      dvRutTitular : this.usuario.cargas[0].dv,
       fechaDenuncia: new Date(),
-      mailCliente: 'chidalgoa3@gmail.com', //setearlo desde datos pehuen,
+      mailCliente: this.usuario.mailCliente,
       nombresBeneficiario: beneficiario.nombres,
-      nombresTitular: 'CAMILA ALEXANDRA', //setearlo desde datos pehuen,
-      numeroCuenta: '121212', //setearlo desde datos pehuen
+      nombresTitular: this.usuario.nombres,
+      numeroCuenta: this.usuario.ctaBancaria,
       rutBeneficiario: beneficiario.rut,
-      rutTitular: '17793573',//setearlo desde datos pehuen
-      nombreBanco: 'BANCO ESTADO DE CHILE',//setearlo desde datos pehuen
+      rutTitular: this.usuario.cargas[0].rut,
+      nombreBanco: this.usuario.nombreBanco,
       montoTotal: +montoTotalTodosGastos,
       gastos : [
         {

@@ -54,26 +54,22 @@ export class ReembolsoComponent implements OnInit {
         (response) => {
           console.log(response);
           localStorage.setItem("Token", JSON.stringify(response));
-          this.LoadReembolso();
-          this.router.navigateByUrl('/home');
+          this.LoadInsuredData();
       });
-      //this.LoadReembolso();
     }
   }
 
-  async LoadReembolso() {
+  async LoadInsuredData() {
     console.log('Cargando pagina de reembolso');
     var token : Token = JSON.parse(localStorage.getItem('Token')!);
-   /*  const token = localStorage.getItem('Token') */
     var UserInfo: TokenData = JWT(token.access_token);
-    const loginExitoso = await this.serviceUsuario.buscarData(UserInfo.preferred_username);
-
+    const loginExitoso = await this.serviceUsuario.InsuredData(UserInfo.preferred_username);
     if (loginExitoso) {
-      try { 
-         this.router.navigate(["/historial"]);
+      try {
+         this.router.navigate(["/home"]);
          } catch (error) {
-          console.warn('¡No se pudo recuperar un historial para esta cuenta!');
-        } 
+          console.warn('¡No se pudo recuperar los datos del asegurado!');
+        }
       }
   }
 

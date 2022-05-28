@@ -35,14 +35,23 @@ export interface CustomStepperSize {
   stepperFour: string;
   stepperFive: string;
 }
-export interface Prestacion {
+export interface Arancel {
   /**
    * @description consulta medica - medicamentos - lentes ...
    */
   tipoPrestacion: string;
   prestacionSeleccionada: string;
+  codigoPrestacion :string;
   numerosesiones: String;
   sesiones: number;
   valorPrestacion: number;
   bonificacion: number;
+  sesionValida : boolean;
+  montoHistorico : number;
+}
+
+export interface ISource {
+  key : string,
+  value : string,
+  parentesco : string
 }

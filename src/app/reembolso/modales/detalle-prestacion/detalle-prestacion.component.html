@@ -1,22 +1,65 @@
-<div *ngIf="idprestacionSeleccionada == 1">
-  <app-consulta-medica (close)="closeModal()" (dataEvent)=receivedModalData($event)
-    (textoArancelSeleccionado)="setearValorInputPredictivo($event)"></app-consulta-medica>
+<div class="modal-container">
+  <div class="modal-wrapper">
+      <div class="titulo-modal-detalle">
+          <ds-paragraph family="primary" weight="semiBold">
+              <span slot="text">Ingresa el detalle de la
+                  prestación</span>
+          </ds-paragraph>
+      </div>
+      <div class="modal--form__container">
+          <div class="modal--form">
+              <div class="modal--row">
+                  <!--input nombre prestacion-->
+                  <ds-search-v2 label="{{labelArancel}}" (changeEv)="itemSelected($event)">
+                  </ds-search-v2>
+
+                  <!--input número de sesiones-->
+                  <ds-input-v2 *ngIf="sesionRequired" label="Número de Sesiones" type="number" maxlength="3"
+                      (keyupEv)="setValue('sesiones',$event)">
+                  </ds-input-v2>
+              </div>
+
+              <div class="modal--row">
+                  <!--valor-->
+                  <ds-input-v2 label="{{labelValor}}" type="text" maxlength="15" [formatoMoneda]="true" (keyupEv)="setValue('valor',$event)"
+                      (changeEv)="validarMensajeWarning()">
+                  </ds-input-v2>
+
+                  <!--bonificacion isapre/fonasa-->
+                  <ds-input-v2 *ngIf="!(esBoletaFactura && idprestacionSeleccionada !== 6)" label="{{labelValorBon}}" type="text" maxlength="15" [formatoMoneda]="true"
+                      (keyupEv)="setValue('bonificacion',$event)" (changeEv)="validarMensajeWarning()">
+                  </ds-input-v2>
+              </div>
+          </div>
+          <!--Monto a rembolsar-->
+          <div class="form--total__container" [ngClass]="{'disabled' : montoReembolso == 0}">
+              <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
+                  <span slot="text">Monto solicitado</span>
+              </ds-paragraph>
+              <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
+                  <span slot="text">$
+                      {{montoReembolso}}</span>
+              </ds-paragraph>
+          </div>
+
+      </div>
+      <!-- Mensaje de error -->
+      <ds-messaging *ngIf="!warningMsg" variant="warning" family="secondary" size="s2" title="El valor que ingresaste es diferente a los registrados que has ingresado anteriormente: {{montoReferencia}} por sesión.
+          Recuerda que debes indicar la cantidad de sesiones que equivalen al valor que estás ingresando.">
+      </ds-messaging>
+      <!--Fin mensaje de error-->
+
+      <!-- botones-->
+      <section class="reembolso__botones--container">
+          <ds-button id="ds-button-cancelar" (click)="closeModal()" [size]="'s2'" variant="secondary"
+              slot-name="cancel-button-slot">
+              <span slot="cancel-button-slot">Cancelar</span>
+          </ds-button>
+          <ds-button id="ds-button-siguiente" (click)="sendData()"
+              [size]="'s2'" variant="primary" slot-name="next-button-slot">
+              <span slot="next-button-slot"> Guardar </span>
+          </ds-button>
+      </section>
+
+  </div>
 </div>
-<div *ngIf="idprestacionSeleccionada == 2">
-  <app-atencion-hospitalaria (close)="closeModal()" (dataEvent)=receivedModalData($event)></app-atencion-hospitalaria>
-</div>
-<div *ngIf="idprestacionSeleccionada == 3">
-  <app-marcos-y-lentes (close)="closeModal()" (dataEvent)=receivedModalData($event)></app-marcos-y-lentes>
-</div>
-<div *ngIf="idprestacionSeleccionada == 4">
-  <app-atencion-dental (close)="closeModal()" [stepsStatusOn]="stepsStatusOn" (dataEvent)=receivedModalData($event)>
-  </app-atencion-dental>
-</div>
-<div *ngIf="idprestacionSeleccionada == 5">
-  <app-examenes-y-procedimientos (close)="closeModal()" (dataEvent)=receivedModalData($event)>
-  </app-examenes-y-procedimientos>
-</div>
-<div *ngIf="idprestacionSeleccionada == 6">
-  <app-compra-medicamentos (close)="closeModal()" (dataEvent)=receivedModalData($event)></app-compra-medicamentos>
-</div>
-        

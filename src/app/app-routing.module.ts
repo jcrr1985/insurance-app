@@ -3,12 +3,6 @@ import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { DetallePrestacionComponent } from './reembolso/modales/detalle-prestacion/detalle-prestacion.component';
-import { AtencionDentalComponent } from './reembolso/modales/detalle-prestacion/tipos/atencion-dental/atencion-dental.component';
-import { AtencionHospitalariaComponent } from './reembolso/modales/detalle-prestacion/tipos/atencion-hospitalaria/atencion-hospitalaria.component';
-import { CompraMedicamentosComponent } from './reembolso/modales/detalle-prestacion/tipos/compra-medicamentos/compra-medicamentos.component';
-import { ConsultaMedicaComponent } from './reembolso/modales/detalle-prestacion/tipos/consulta-medica/consulta-medica.component';
-import { ExamenesYProcedimientosComponent } from './reembolso/modales/detalle-prestacion/tipos/examenes-y-procedimientos/examenes-y-procedimientos.component';
-import { MarcosYLentesComponent } from './reembolso/modales/detalle-prestacion/tipos/marcos-y-lentes/marcos-y-lentes.component';
 import { ModalRegistrarMedicamentoComponent } from './reembolso/modales/modal-registrar-medicamento/modal-registrar-medicamento.component';
 import { ModalSolicitudReembolsoCompletadaComponent } from './reembolso/modales/modal-solicitud-reembolso-completada/modal-solicitud-reembolso-completada.component';
 import { PantallaFinalComponent } from './reembolso/pantalla-final/pantalla-final.component';
@@ -47,12 +41,6 @@ const routes: Routes = [
     StepDocumentosGeneralesComponent,
     StepDatosGeneralesComponent,
     StepDetallePrestacionComponent,
-    ConsultaMedicaComponent,
-    AtencionHospitalariaComponent,
-    MarcosYLentesComponent,
-    AtencionDentalComponent,
-    CompraMedicamentosComponent,
-    ExamenesYProcedimientosComponent,
     TablaResumenReembolsoComponent,
     PantallaFinalComponent
   ],
