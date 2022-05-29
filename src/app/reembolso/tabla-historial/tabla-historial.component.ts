@@ -56,10 +56,23 @@ export class TablaHistorialComponent
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      //this.ocultarColapsables();
+     
+
     }, 200);
+
+  }
+  siguientePagina(){
+    let naranja = document.querySelector('.css-7mrpfl') as HTMLElement | null;
+    let naranjaNextSibling = naranja?.nextSibling as HTMLElement | null;
+    naranjaNextSibling?.click()
   }
 
+  paginaAnterior(){
+    let naranja = document.querySelector('.css-7mrpfl') as HTMLElement | null;
+    let naranjaPreviousSibling = naranja?.previousSibling as HTMLElement | null;
+    naranjaPreviousSibling?.click();
+  }
+  
   resultadosPorPagina: number = 10;
   pageSelected: number = 1;
   totalRegistros: number = 0;
