@@ -70,7 +70,8 @@
             <div [ngClass]="[documentsDisplay.consultamedica.cols]"
               *ngIf="!(getStepsStatus('stepThree_general','copagoMayor') == 'no' && docs.esDiagnostico)">
               <h1 class="titleDocs">{{docs.name}}</h1>
-              <ds-file type="default" [attr.id]="'documento'+indexDocName" bottom-text="Adjunta un archivo (jpg, jpeg o png) que no supere los 15MB">
+              <ds-file type="default" [attr.id]="'documento'+indexDocName"
+                bottom-text="Adjunta un archivo (jpg, jpeg o png) que no supere los 15MB">
               </ds-file>
               <p class="archivos-adjuntos__title">Archivos adjuntos</p>
               <ng-container *ngFor="let file of docs.files;let indexFile = index">
@@ -108,7 +109,8 @@
           <ng-container *ngFor="let docs of documentsDisplay.hospitalario.nameFiles;let indexDocName = index">
             <div [ngClass]="[documentsDisplay.hospitalario.cols]">
               <h1 class="titleDocs">{{docs.name}}</h1>
-              <ds-file type="default" [attr.id]="'documento'+indexDocName" bottom-text="Adjunta un archivo (jpg, jpeg o png) que no supere los 15MB">
+              <ds-file type="default" [attr.id]="'documento'+indexDocName"
+                bottom-text="Adjunta un archivo (jpg, jpeg o png) que no supere los 15MB">
               </ds-file>
               <p class="archivos-adjuntos__title">Archivos adjuntos</p>
               <ng-container *ngFor="let file of docs.files;let indexFile = index">
@@ -143,7 +145,8 @@
           <ng-container *ngFor="let docs of documentsDisplay.lentes.nameFiles;let indexDocName = index">
             <div [ngClass]="[documentsDisplay.lentes.cols]">
               <h1 class="titleDocs">{{docs.name}}</h1>
-              <ds-file type="default" [attr.id]="'documento'+indexDocName" bottom-text="Adjunta un archivo (jpg, jpeg o png) que no supere los 15MB">
+              <ds-file type="default" [attr.id]="'documento'+indexDocName"
+                bottom-text="Adjunta un archivo (jpg, jpeg o png) que no supere los 15MB">
               </ds-file>
               <p class="archivos-adjuntos__title">Archivos adjuntos</p>
               <ng-container *ngFor="let file of docs.files;let indexFile = index">
@@ -178,7 +181,8 @@
           <ng-container *ngFor="let docs of documentsDisplay.dentales.nameFiles;let indexDocName = index">
             <div [ngClass]="[documentsDisplay.dentales.cols]">
               <h1 class="titleDocs">{{docs.name}}</h1>
-              <ds-file type="default" [attr.id]="'documento'+indexDocName" bottom-text="Adjunta un archivo (jpg, jpeg o png) que no supere los 15MB">
+              <ds-file type="default" [attr.id]="'documento'+indexDocName"
+                bottom-text="Adjunta un archivo (jpg, jpeg o png) que no supere los 15MB">
               </ds-file>
               <p class="archivos-adjuntos__title">Archivos adjuntos</p>
               <ng-container *ngFor="let file of docs.files;let indexFile = index">
@@ -213,7 +217,8 @@
             <div [ngClass]="[documentsDisplay.examenes.cols]"
               *ngIf="docs.required || getStepsStatus('stepThree_general','copagoMayor') == 'si' && !docs.required">
               <h1 class="titleDocs">{{docs.name}}</h1>
-              <ds-file type="default" [attr.id]="'documento'+indexDocName" bottom-text="Adjunta un archivo (jpg, jpeg o png) que no supere los 15MB">
+              <ds-file type="default" [attr.id]="'documento'+indexDocName"
+                bottom-text="Adjunta un archivo (jpg, jpeg o png) que no supere los 15MB">
               </ds-file>
               <p class="archivos-adjuntos__title">Archivos adjuntos</p>
               <ng-container *ngFor="let file of docs.files;let indexFile = index">
@@ -248,7 +253,8 @@
           <ng-container *ngFor="let docs of documentsDisplay.medicamentos.nameFiles;let indexDocName = index">
             <div [ngClass]="[documentsDisplay.medicamentos.cols]">
               <h1 class="titleDocs">{{docs.name}}</h1>
-              <ds-file type="default" [attr.id]="'documento'+indexDocName" bottom-text="Adjunta un archivo (jpg, jpeg o png) que no supere los 15MB">
+              <ds-file type="default" [attr.id]="'documento'+indexDocName"
+                bottom-text="Adjunta un archivo (jpg, jpeg o png) que no supere los 15MB">
               </ds-file>
               <p class="archivos-adjuntos__title">Archivos adjuntos</p>
               <ng-container *ngFor="let file of docs.files;let indexFile = index">
@@ -296,11 +302,11 @@
         <embed [src]="fileUrl" type="application/pdf" width="100%"/>
       </div> -->
       <div class="document--viewer">
-        <img [src]="fileUrl" type="application/pdf" width="100%"/>
+        <img [src]="fileUrl" type="application/pdf" width="100%" />
       </div>
       <div class="document--text">
-          <span class="title_file_preview">{{previewDocumentName}}</span>
-          <span class="subtitle_file_preview">{{nameDocSelectedPreview}}</span>
+        <span class="title_file_preview">{{previewDocumentName}}</span>
+        <span class="subtitle_file_preview">{{nameDocSelectedPreview}}</span>
       </div>
     </div>
   </div>
