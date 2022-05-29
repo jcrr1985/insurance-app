@@ -107,7 +107,6 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
    * @description retorna el valor del archivo de stepsStatusOn
    */
   getStepsStatus(step: string, option: string) {
-    console.log('option', option)
     try {
       return this.stepsStatusOn[step][option];
     } catch (error) {
