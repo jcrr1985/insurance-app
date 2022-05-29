@@ -1,7 +1,7 @@
 import { DataStorageService } from './../../shared/services/data-storage.service';
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
 import { ReembolsoService } from 'src/app/shared/services/reembolso.service';
-import { ApplicationRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ICard } from 'src/app/shared/interfaces/ICard';
 import * as moment from 'moment';
 import { IResponseConsignment } from 'src/app/shared/interfaces/IResponseConsignment';
@@ -22,28 +22,10 @@ export class TablaResumenReembolsoComponent implements OnInit {
   public consignment!: IConsignment;
   public montoSolicitado : string = '';
   public numeroSolicitado : string = '';
-  public usuario!: Usuario;
-  public usuarioSeleccionado!: IBeneficiario;
+  public usuario!: any;
+  public usuarioSeleccionado!: any;
 
-  public solicitudes: any[] = [
-    {
-      tipoReembolso: "Consulta medica en duro",
-      numerosesiones: 3,
-      valorPrestacion: 1000,
-      bonificacion: 500
-    },
-    {
-      tipoReembolso: "Compra medicamentos en duro",
-      numerosesiones: 3,
-      valorPrestacion: 2000,
-      bonificacion: 600
-    }, {
-      tipoReembolso: "Examenes y Proc en Duro",
-      numerosesiones: 3,
-      valorPrestacion: 3000,
-      bonificacion: 700
-    },
-  ];
+  public solicitudes: any[] = [];
 
   public opcionesPrestacionesCLEM: ICard[] = [
     { prestacion: 'Consulta Médica', name: 'atencionmedica', status: 'disabled', idPrestacion: 1 },
@@ -74,19 +56,11 @@ export class TablaResumenReembolsoComponent implements OnInit {
 
   ngOnInit(): void {
     this.usuario = this.insuredData.usuarioConectado;
-    this.usuarioSeleccionado = this.usuario.obtenerUsuarioSeleccionado();
-    //this.prestacionSeleccionada = this.arancelService.getPrestacionSeleccionadaId ? this.arancelService.getPrestacionSeleccionadaId : 1;
+    this.usuarioSeleccionado = this.dataStorageService.getBeneficiario;
+    console.log('usuarioSeleccionado', this.usuarioSeleccionado)
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.prestacionSeleccionada = id);
     this.dataStorageService.getPrestacionesResumen().subscribe(prestaciones => this.prestacionesCargadas = prestaciones);
-    // TODO Rectificando...
-    /* this.montoAndStuff = this.dataStorageService.getmontoAndStuff;
-    console.log('this.montoAndStuff', this.montoAndStuff)
-    let total: number = 0;F
-    this.solicitudes.forEach(solicitud => {
-      total += (solicitud.valorPrestacion - solicitud.bonificacion);
-    });
-    this.montoTotalSolicitado = total;
-    this.reembolsoService.montoTotalSolicitado = this.montoTotalSolicitado; */
+
 
     this.calcularTablaResumen();
 

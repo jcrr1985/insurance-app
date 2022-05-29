@@ -4,7 +4,7 @@
         <div class="page-resumen--title__container">
             <ds-title type="t4" family="secondary" weight="bold" color="primary">
                 <span class="titulo-parte-izquierda">Detalle de reembolso de: </span>
-                <span class="titulo-parte-derecha">Nombre beneficiario</span>
+                <span class="titulo-parte-derecha">{{usuarioSeleccionado.key | titlecase }}</span>
             </ds-title>
             <div [routerLink]="['/solicitud']">
                 <ds-button variant="complementary" slotName="back-button-slot">
@@ -81,10 +81,10 @@
             </ds-paragraph>
         </div>
         <div class="radio-buttons__resumen">
-            <ds-radio  type="s1" family="primary" label="Sí" name="reembolsoIsapre" value="Sí"
+            <ds-radio type="s1" family="primary" label="Sí" name="reembolsoIsapre" value="Sí"
                 (click)="setValorRadioButtons('si')">
             </ds-radio>
-            <ds-radio  type="s1" family="primary" label="No" name="reembolsoIsapre" value="No"
+            <ds-radio type="s1" family="primary" label="No" name="reembolsoIsapre" value="No"
                 (click)="setValorRadioButtons('no')">
             </ds-radio>
         </div>
@@ -151,8 +151,7 @@
             </div>
             <div class="content">
                 <div class="title">
-                    <ds-title type="t4"
-                        family="secondary" weight="bold" color="primary">
+                    <ds-title type="t4" family="secondary" weight="bold" color="primary">
                         <span slot="text">
                             <span> Recibimos con éxito tu solicitud de reembolso
                             </span>
@@ -198,7 +197,8 @@
                                         {{this.numeroSolicitado}}</span>
                                 </ds-paragraph>
                             </div>
-                        </div> <!--Fin Detalles izquierda  -->
+                        </div>
+                        <!--Fin Detalles izquierda  -->
                         <!--Detalles derecha  -->
                         <div class="detalles--column">
                             <div class="info-row">
@@ -221,8 +221,10 @@
                                         ${{this.montoSolicitado}}</span>
                                 </ds-paragraph>
                             </div>
-                        </div> <!--Fin Detalles derecha  -->
-                    </div> <!--Fin Detalles  -->
+                        </div>
+                        <!--Fin Detalles derecha  -->
+                    </div>
+                    <!--Fin Detalles  -->
 
                     <!-- Datos bancarios  -->
                     <div class="data-bank">
