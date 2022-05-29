@@ -22,15 +22,24 @@ export class StepQuienSeAtendioComponent implements OnInit {
 
   }
 
-  setStatusOn(data: any) {
-    this.dataStorageService.setFormReembolso('stepOne_who', 'personaSeleccionada', data.value)
+  setStatusOn(beneficiario: Beneficiario) {
+    console.log('beneficiario', beneficiario)
+    this.dataStorageService.setFormReembolso('stepOne_who', 'personaSeleccionada', beneficiario.value);
+    this.dataStorageService.beneficiarioBehavior.next(beneficiario);
   }
+
 
 }
 
-const beneficiariosArray = [
+const beneficiariosArray: Beneficiario[] = [
   { label: 'Seleccione', value: 0, selected: false },
   { label: 'Alejandro Salgado', value: 1, selected: false },
   { label: 'Maria Salgado', value: 2, selected: false },
   { label: 'Camilo Salgado', value: 3, selected: false },
 ];
+
+export interface Beneficiario {
+  label: string;
+  value: number;
+  selected: boolean;
+}

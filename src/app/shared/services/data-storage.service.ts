@@ -24,6 +24,25 @@ export class DataStorageService {
    */
   private reembolsoForm: any;
 
+  //#######################################################################
+  //################## Para Beneficiario Seleccionado #####################
+  //#######################################################################
+  //#######################################################################
+
+  /**
+   * @description Behavior Subjet del beneficiario
+   */
+   public beneficiarioBehavior: BehaviorSubject<any>;
+   /**
+    * @description Observable para conocer el beneficiario
+    */
+   public beneficiario$: Observable<any>;
+   /**
+    * @description formulario  para solicitar un reembolso, mantiene los valores de la  aplicacion en curso
+    */
+   public beneficiario: any;
+
+
 
   //#######################################################################
   //############## Para Detalle de prestaciones tabla #####################
@@ -95,9 +114,16 @@ export class DataStorageService {
   get getmontoAndStuff() {
     return this.montoAndStuff;
   }
-
+  
   constructor() {
-    this.setmontoAndStuff()
+    this.setmontoAndStuff();
+
+    this.beneficiarioBehavior = new BehaviorSubject('');
+    this.beneficiario$ = this.beneficiarioBehavior.asObservable();
+    this.beneficiario$.subscribe( e => {
+      this.beneficiario = e;
+    })
+
     // _____________________________________________________________
     // _______________ Para Formulario Reembolso ___________________
     // _____________________________________________________________
@@ -272,6 +298,14 @@ export class DataStorageService {
   restaurarId() {
     this.idprestacionSeleccionada = 0;
   }
+
+    /**
+   * @description retorna un observable con el beneficiario seleccionado
+   * @returns {array} Prestaciones
+   */
+     public get getBeneficiario() {
+      return this.beneficiario;
+    }
 
 }
 
