@@ -130,57 +130,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       this.evaluateStepFour();
       this.evaluateStepFive();
     })
-    /*     window.addEventListener('onchangeSelect', (event: any) => {
-          if (event.target.id == 'personaSeleccionada') {
-            const idPersonSelected = event.detail[0].value;
-            this.setStepsStatus({
-              step: 'stepOne_who',
-              option: 'personaSeleccionada',
-              value: idPersonSelected,
-            });
-            this.evaluateStepOne();
-          }
-          if (event.target.id == 'isapreFonasaSelect') {
-            let idAgencia;
-            if (event.detail[0]?.value) {
-              idAgencia = event.detail[0]?.value;
-              this.setStepsStatus({
-                step: 'stepThree_general',
-                option: 'agenciaSeleccionada',
-                value: idAgencia,
-              });
-            }
-          }
-        });
-        window.addEventListener('oninput', (event: any) => {
-          if (event.target.id == 'rutInstitucion') {
-            const value = event.detail;
-            this.setStepsStatus({
-              step: 'stepThree_general',
-              option: 'rutInstitucion',
-              value,
-            });
-          }
-          if (event.target.id == 'boletaFactura') {
-            const value = event.detail;
-            this.setStepsStatus({
-              step: 'stepThree_general',
-              option: 'boletaFactura',
-              value,
-            });
-          }
-        });
-        window.addEventListener('onSelectDate', (event: any) => {
-          const id = event.path[1].id
-          if (id == 'fecha_generales') {
-            const value = event.detail.init;
-            this.setStepsStatus({
-              step: 'stepThree_general',
-              option: 'fechaAtencion',
-              value,
-            });
-          }
-        }); */
+
   }
   /**
    * @description construye el formulario para guardar los valores

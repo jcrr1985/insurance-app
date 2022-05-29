@@ -11,7 +11,7 @@
         <ng-container *ngFor="let prestacion of prestaciones">
             <ds-table-body-row slot="row">
                 <ds-table-body-column slot="column">
-                    <span slot="element">{{prestacion.tipoPrestacion}}</span>
+                    <span slot="element">{{prestacion.prestacionSeleccionada}}</span>
                 </ds-table-body-column>
                 <ds-table-body-column slot="column">
                     <span slot="element">{{prestacion.numerosesiones}}</span>
@@ -28,9 +28,6 @@
                 </ds-table-body-column>
                 <ds-table-body-column-actions slot="column">
                     <span slot="element" class="flex items-center justify-start">
-                       <!--  <div class="icons-margin" (click)="edit(prestacion)">
-                            <ds-icon size="23" icon-name="bi-pencil-square" color="info6"></ds-icon>
-                        </div> -->
                         <div (click)="delete(prestacion)">
                             <ds-icon size="23" icon-name="bi-trash" color="info6"></ds-icon>
                         </div>

@@ -101,6 +101,8 @@ export class DetallePrestacionComponent
       this.dataStorageService.agregarPrestacion(this.arancel);
       this.dataStorageService.setFormReembolso('stepFive_Details', 'reembolsoCalculation', true);
       this.closeModal();
+    }else{
+
     }
   }
 
@@ -127,7 +129,7 @@ export class DetallePrestacionComponent
       if (this.arancel.sesiones > 0 && this.arancel.bonificacion >= 0 && this.arancel.valorPrestacion > 0) return false
       else return true;
     } else {
-      if (!this.warningMsg && this.arancel.bonificacion >= 0 && this.arancel.valorPrestacion > 0) return false
+      if (this.arancel.bonificacion >= 0 && this.arancel.valorPrestacion > 0) return false
       else return true;
     }
   }
