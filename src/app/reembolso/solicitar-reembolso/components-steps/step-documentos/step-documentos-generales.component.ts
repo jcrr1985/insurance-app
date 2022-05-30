@@ -133,6 +133,11 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
           fileEvnt = [...evt.detail];
           multi = this.documentsDisplay.consultamedica.nameFiles[index]['multi'];
           multi ? this.documentsDisplay.consultamedica.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.consultamedica.nameFiles[index].files = fileEvnt
+          if(this.documentsDisplay.consultamedica.nameFiles.name = 'Documento Reembolso'){
+            while (this.documentsDisplay.consultamedica.nameFiles[0].files.length > 1) {
+              this.documentsDisplay.consultamedica.nameFiles[0].files.pop();
+            }
+          }
           this.validateFileState('consultamedica', index);
           this.emitirCambioArchivo()
           break;
