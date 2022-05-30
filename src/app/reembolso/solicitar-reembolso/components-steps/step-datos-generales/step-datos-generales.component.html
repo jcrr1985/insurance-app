@@ -44,8 +44,10 @@
           </ds-input-v2>
           <!-- Fecha Atencion -->
           <div class="flex items-center justify-center col-span-12 gap-datepicker md:col-span-6 sm:col-span-6">
-            <ds-datepicker class="w-full inputsThirdField" id="fecha_on_generales" [type]="'single'" [size]="'s2'"
+            <!-- <ds-datepicker class="w-full inputsThirdField" id="fecha_on_generales" [type]="'single'" [size]="'s2'"
               [helperMessage]="''" [initialLabel]="'Fecha de atención'">
+            </ds-datepicker> -->
+            <ds-datepicker type="single" initial-label="Fecha de atención" initial-date="07/08/2020" id="fecha_on_generales">
             </ds-datepicker>
             <ds-icon *ngIf="validDate" size="25" icon-name="bi-check-circle-fill" color="info5"></ds-icon>
           </div>

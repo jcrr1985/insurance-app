@@ -301,6 +301,9 @@ app-solicitar-reembolso {
   gap: 20px;
   height: auto;
   width: 100%;
+
+
+
 }
 
 .css-2z5p18 {
@@ -879,6 +882,39 @@ ds-title {
   }
   
 }
+ds-datepicker{
+  width: 100% !important;
+  .css-1v8xhu3, .css-1k7iecf{
+    max-width: 100% !important;
+    height: 40px !important;
+  }
+  .css-1k7iecf{
+    p{
+      display: none !important;
+    }
+
+    input[type="text"]{
+      padding: 10px !important;
+    }
+    
+    #rightIcon {
+      position: absolute;
+      display: flex !important;
+      height: 100%;
+      top: -2px !important;
+      right: 12px;
+    }
+  }
+
+
+
+
+}
+.css-47y4r6{
+  display: flex !important;
+  height: auto !important;
+  }
+
 
 
 //////////////////////////////////////////////////////////////
