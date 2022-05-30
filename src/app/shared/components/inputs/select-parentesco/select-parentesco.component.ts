@@ -1,3 +1,4 @@
+import { Input } from '@angular/core';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ISource } from 'src/app/shared/interfaces/interfaces';
 import { DataUsuarioService } from 'src/app/shared/services/data-usuario/data-usuario.service';
@@ -9,18 +10,20 @@ import { DataUsuarioService } from 'src/app/shared/services/data-usuario/data-us
 })
 export class SelectParentescoComponent implements OnInit {
   @Output() changeEv: EventEmitter<any> = new EventEmitter()
-  public source : ISource[] = [];
+  @Input() valueSelected: number | null = null;
+
+  public source: ISource[] = [];
 
   label = 'Seleccione una persona';
-  constructor(private userService : DataUsuarioService) {
+  constructor(private userService: DataUsuarioService) {
   }
 
   ngOnInit(): void {
     this.userService.usuarioConectado.cargas.forEach((carga) => {
       this.source.push({
-        key : carga.nombres + " " +carga.apellidos,
-        value : carga.rut + carga.dv,
-        parentesco : carga.parentesco
+        key: carga.nombres + " " + carga.apellidos,
+        value: carga.rut + carga.dv,
+        parentesco: carga.parentesco
       });
     });
   }

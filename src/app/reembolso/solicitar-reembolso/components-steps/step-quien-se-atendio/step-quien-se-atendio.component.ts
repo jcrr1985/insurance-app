@@ -13,13 +13,18 @@ export class StepQuienSeAtendioComponent implements OnInit {
   @Input() stepperOneSource: any;
   @Input() customStepperSize: any;
   personSelectOption: any = beneficiariosArray;
+  valueSelected: number | null = null;
+
 
   @Output() sendData: EventEmitter<any> = new EventEmitter();
 
   constructor(private dataStorageService: DataStorageService) { }
 
   ngOnInit(): void {
-
+    this.dataStorageService.getFormReemboslo().subscribe(statusOn => {
+      const value = statusOn['stepOne_who']['personaSeleccionada'];
+      this.valueSelected = value;
+    })
   }
 
   setStatusOn(beneficiario: Beneficiario) {

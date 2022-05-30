@@ -32,15 +32,15 @@ export class DataStorageService {
   /**
    * @description Behavior Subjet del beneficiario
    */
-   public beneficiarioBehavior: BehaviorSubject<any>;
-   /**
-    * @description Observable para conocer el beneficiario
-    */
-   public beneficiario$: Observable<any>;
-   /**
-    * @description formulario  para solicitar un reembolso, mantiene los valores de la  aplicacion en curso
-    */
-   public beneficiario: any;
+  public beneficiarioBehavior: BehaviorSubject<any>;
+  /**
+   * @description Observable para conocer el beneficiario
+   */
+  public beneficiario$: Observable<any>;
+  /**
+   * @description formulario  para solicitar un reembolso, mantiene los valores de la  aplicacion en curso
+   */
+  public beneficiario: any;
 
 
 
@@ -114,13 +114,13 @@ export class DataStorageService {
   get getmontoAndStuff() {
     return this.montoAndStuff;
   }
-  
+
   constructor() {
     this.setmontoAndStuff();
 
     this.beneficiarioBehavior = new BehaviorSubject('');
     this.beneficiario$ = this.beneficiarioBehavior.asObservable();
-    this.beneficiario$.subscribe( e => {
+    this.beneficiario$.subscribe(e => {
       this.beneficiario = e;
     })
 
@@ -184,12 +184,12 @@ export class DataStorageService {
         reembolsoPrevioIsapre: null,
       },
       stepThree_general: {
-        agenciaSeleccionada: false,
-        rutInstitucion: false,
-        boletaFactura: false,
-        fechaAtencion: false,
-        copagoMayor: null,
-        montoSolicitado: false,
+        agenciaSeleccionada: '',
+        rutInstitucion: '',
+        boletaFactura: '',
+        fechaAtencion: '',
+        copagoMayor: '',
+        montoSolicitado: '$ 0',
       },
       stepFour_general: {
         tipoDocumentoSeleccionado: false,
@@ -265,6 +265,14 @@ export class DataStorageService {
     return this.prestacionesCargadas$;
   }
   /**
+  * @description elimina el ultimo registro en el resumen de prestaciones
+  */
+  popPrestacionResume() {
+    this.prestacionesCargadas.pop();
+    console.log(this.prestacionesCargadas)
+    this.prestacionesCargadasBehavior.next(this.prestacionesCargadas);
+  }
+  /**
    * @description restaura las prestaciones que estan ya disponibles en el resumen y actualiza los subscritos con el valor por defecto
    */
   restaurarPrestacionesResumen() {
@@ -299,16 +307,48 @@ export class DataStorageService {
     this.idprestacionSeleccionada = 0;
   }
 
-    /**
-   * @description retorna un observable con el beneficiario seleccionado
-   * @returns {array} Prestaciones
-   */
-     public get getBeneficiario() {
-      return this.beneficiario;
-    }
+  /**
+ * @description retorna un observable con el beneficiario seleccionado
+ * @returns {array} Prestaciones
+ */
+  public get getBeneficiario() {
+    return this.beneficiario;
+  }
 
 }
 
+
+const prestaciones: any = [];
+
+const resumePrestaciones: any = [];
+
+const documentsDisplay: any = {
+  consultamedica: {
+    nameFiles: [{ name: '', files: [], multi: false, required: true, valid: false, esDiagnostico: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, valid: false, esDiagnostico: true }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true, esDiagnostico: false }],
+    cols: 'col-span-4'
+  },
+  hospitalario: {
+    nameFiles: [{ name: 'Documento Hospitalario', files: [], multi: false, required: true, valid: false }],
+    filesUploades: [[], [], []],
+    cols: 'col-span-12',
+  },
+  lentes: {
+    nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Receta Óptica', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true }],
+    cols: 'col-span-4'
+  },
+  dentales: {
+    nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Formulario Dental', files: [], multi: true, required: true, valid: false }, { name: 'Presupuesto Dental', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true }],
+    cols: 'col-span-3'
+  },
+  examenes: {
+    nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true }],
+    cols: 'col-span-4'
+  },
+  medicamentos: {
+    nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true }],
+    cols: 'col-span-4'
+  },
+}
 
 const formReembolso = {
   stepOne_who: {
@@ -319,12 +359,12 @@ const formReembolso = {
     reembolsoPrevioIsapre: null,
   },
   stepThree_general: {
-    agenciaSeleccionada: false,
-    rutInstitucion: false,
-    boletaFactura: false,
-    fechaAtencion: false,
-    copagoMayor: null,
-    montoSolicitado: false,
+    agenciaSeleccionada: '',
+    rutInstitucion: '',
+    boletaFactura: '',
+    fechaAtencion: '',
+    copagoMayor: '',
+    montoSolicitado: '$ 0',
   },
   stepFour_general: {
     tipoDocumentoSeleccionado: false,
@@ -335,8 +375,8 @@ const formReembolso = {
   stepFive_Details: {
     reembolsoCalculation: false,
   },
+  files: {
+    docsStructure: documentsDisplay,
+    firstDocName: ''
+  }
 };
-
-const prestaciones: any = [];
-
-const resumePrestaciones: any = [];

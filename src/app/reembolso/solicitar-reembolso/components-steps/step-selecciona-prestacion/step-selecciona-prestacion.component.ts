@@ -16,6 +16,8 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
   stepsStatusOn: any;
   public tarjetaSeleccionada!: ICard
 
+  checkedSi: string = '';
+
   public cards: ICard[] = [
     { prestacion: 'Consulta Médica', name: 'atencionmedica', status: 'disabled', idPrestacion: 1 },
     { prestacion: 'Atención Hospitalaria', name: 'atencionhospitalaria', status: '', idPrestacion: 2 },
@@ -41,6 +43,24 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataStorageService.getFormReemboslo().subscribe(statusOn => this.stepsStatusOn = statusOn);
+    this.verificarValoresPreservador();
+  }
+  verificarValoresPreservador() {
+    if (this.stepsStatusOn['stepTwo_selectOption']['prestacionSeleccionada']) {
+      const prestacions = this.stepsStatusOn['stepTwo_selectOption']['prestacionSeleccionada'];
+      const finded = this.cards.find(e => e.prestacion == prestacions)
+      if (finded) this.setCard(finded);
+    }
+    if (this.stepsStatusOn['stepTwo_selectOption']['reembolsoPrevioIsapre']) {
+      const valueReembolsaste = this.stepsStatusOn['stepTwo_selectOption']['reembolsoPrevioIsapre'];
+      this.setStepsStatus({
+        step: 'stepTwo_selectOption',
+        option: 'reembolsoPrevioIsapre',
+        value: valueReembolsaste
+      })
+      this.checkedSi = valueReembolsaste;
+    }
+
   }
   /**
    *
@@ -71,7 +91,7 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
     this.arancelService.setPrestacionSeleccionadaId(tarjeta.idPrestacion);
     this.arancelService.setIdSubject.next(tarjeta.idPrestacion);
 
-// this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.idprestacionSeleccionada = id) 
+    // this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.idprestacionSeleccionada = id) 
     if (tarjeta.name != 'atencionmedica' && tarjeta.name != 'atencionhospitalaria' && tarjeta.name != 'examenes') this.dataStorageService.setFormReembolso('stepTwo_selectOption', 'reembolsoPrevioIsapre', 'si');
 
   }

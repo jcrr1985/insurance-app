@@ -21,13 +21,18 @@ export class DsInputComponent implements OnInit, AfterViewInit {
   @Input() statusActive: boolean = true;
   @Input() formatoMoneda!: boolean;
   @Input() formatoRut!: boolean
-  @Input() tipo!:string
+  @Input() tipo!: string
   isValid: boolean = false;
   @ViewChild('inp') inp!: ElementRef
   public formatter = new Intl.NumberFormat('es-CL');
 
 
   ngOnInit(): void {
+    if (this.value) {
+      this.isValid = this.value && this.value.toString().trim() != '' ? true : false;
+      if (this.formatoMoneda) this.value = this.format(this.value);
+    };
+
   }
   async emitChange() {
     // delay necesario para que el buscador pueda compartir el input
@@ -35,14 +40,14 @@ export class DsInputComponent implements OnInit, AfterViewInit {
     //if (this.formatoMoneda) this.value = this.format(this.value);
 
     let emit = null;
-    if(this.formatoMoneda){
+    if (this.formatoMoneda) {
       this.value = this.format(this.value)
-      emit =  this.limpiarMonto(this.value)
-    }else if(this.formatoRut){
+      emit = this.limpiarMonto(this.value)
+    } else if (this.formatoRut) {
 
-      emit =   this.value.replace(/[.-]/g, '').replace( /^(\d{1,2})(\d{3})(\d{3})(\w{1})$/, '$1.$2.$3-$4')
+      emit = this.value.replace(/[.-]/g, '').replace(/^(\d{1,2})(\d{3})(\d{3})(\w{1})$/, '$1.$2.$3-$4')
       this.inp.nativeElement.value = emit
-    }else{
+    } else {
       emit = this.value
       console.log('this.value', this.value)
     }
@@ -59,15 +64,15 @@ export class DsInputComponent implements OnInit, AfterViewInit {
   emitKeyup() {
     let emit = null;
 
-    if(this.formatoMoneda){
+    if (this.formatoMoneda) {
       console.log('this.formatoMoneda', this.formatoMoneda)
       this.value = this.format(this.value)
-      emit =  this.limpiarMonto(this.value)
-    }else if(this.formatoRut){
+      emit = this.limpiarMonto(this.value)
+    } else if (this.formatoRut) {
       console.log('this.formatoRut', this.formatoRut)
       console.log('this.value', this.value)
-      emit =   this.value.replace(/[.-]/g, '').replace( /^(\d{1,2})(\d{3})(\d{3})(\w{1})$/, '$1.$2.$3-$4')
-    }else{
+      emit = this.value.replace(/[.-]/g, '').replace(/^(\d{1,2})(\d{3})(\d{3})(\w{1})$/, '$1.$2.$3-$4')
+    } else {
       emit = this.value
       console.log('this.value', this.value)
     }

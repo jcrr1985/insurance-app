@@ -9,8 +9,8 @@
     </ds-title>
     <!-- Fin Title -->
     <div>
-      <ng-container *ngIf="(getStepsStatus('stepThree_general', 'agenciaSeleccionada') && getStepsStatus('stepThree_general', 'rutInstitucion') && getStepsStatus('stepThree_general', 'boletaFactura') && getStepsStatus('stepThree_general', 'fechaAtencion') && getStepsStatus('stepThree_general', 'copagoMayor')) 
-      || getStepsStatus('stepThree_general', 'montoSolicitado')">
+      <ng-container *ngIf="(getStepsStatus('stepThree_general', 'agenciaSeleccionada') !='' && getStepsStatus('stepThree_general', 'rutInstitucion') !='' && getStepsStatus('stepThree_general', 'boletaFactura') !='' && getStepsStatus('stepThree_general', 'fechaAtencion') !='' && getStepsStatus('stepThree_general', 'copagoMayor') !='') 
+      || getStepsStatus('stepThree_general', 'montoSolicitado') != '$ 0'">
         <!--pregunta tipo documento -->
         <div *ngIf="idPrestacionSeleccionada != 2" class="upload-documents__container">
           <ds-paragraph type="p1" family="primary" weight="regular" color="secondary">
@@ -24,44 +24,30 @@
           <div class="documents__options">
             <ds-radio *ngIf="
               getStepsStatus('stepTwo_selectOption', 'reembolsoPrevioIsapre') == 'si'
-            " (click)="
-              setStepsStatus({
-                step: 'stepFour_general',
-                option: 'tipoDocumentoSeleccionado',
-                value: 1
-              })
-            " class="mx-5 md:w-max" type="s1" family="primary" label="Documento reembolso isapre o fonasa"
+            " (click)="setStepsStatus({step: 'stepFour_general', option: 'tipoDocumentoSeleccionado', value: 1})"
+              [attr.checked]="getStepsStatus('stepFour_general', 'tipoDocumentoSeleccionado') == 1"
+              class="mx-5 md:w-max" type="s1" family="primary" label="Documento reembolso isapre o fonasa"
               name="documentType" value="1">
             </ds-radio>
             <ds-radio *ngIf="
               getStepsStatus('stepTwo_selectOption', 'reembolsoPrevioIsapre') == 'si'
-            " (click)="
-              setStepsStatus({
-                step: 'stepFour_general',
-                option: 'tipoDocumentoSeleccionado',
-                value: 2
-              })
-            " class="md:w-max" type="s1" family="primary" label="Bono" name="documentType" value="2">
+            " (click)="setStepsStatus({step: 'stepFour_general',option: 'tipoDocumentoSeleccionado', value: 2})"
+              [attr.checked]="getStepsStatus('stepFour_general', 'tipoDocumentoSeleccionado') == 2" class="md:w-max"
+              type="s1" family="primary" label="Bono" name="documentType" value="2">
             </ds-radio>
-            <ds-radio (click)="
-              setStepsStatus({
-                step: 'stepFour_general',
-                option: 'tipoDocumentoSeleccionado',
-                value: 3
-              })
-            " class=" md:w-max" type="s1" family="primary" label="Boleta / Factura" name="documentType" value="3">
+            <ds-radio
+              (click)="setStepsStatus({step: 'stepFour_general', option: 'tipoDocumentoSeleccionado', value: 3})"
+              [attr.checked]="getStepsStatus('stepFour_general', 'tipoDocumentoSeleccionado') == 3" class=" md:w-max"
+              type="s1" family="primary" label="Boleta / Factura" name="documentType" value="3">
             </ds-radio>
           </div>
         </div>
         <!-- Finpregunta tipo documento -->
       </ng-container>
     </div>
-
     <!-- Esperando seleccionar tipo documento -->
     <ng-container
       *ngIf="getStepsStatus('stepFour_general','tipoDocumentoSeleccionado') || idPrestacionSeleccionada == 2">
-
-
       <!-- Cards documentos -->
       <div class="cards-document__container">
         <!-- consulta medica -->
@@ -285,7 +271,6 @@
         <!--Fin medicamentos -->
 
       </div> <!-- Fin Cards documentos -->
-
     </ng-container>
     <!--Fin Esperando seleccionar tipo documento -->
 
@@ -298,11 +283,8 @@
       <div class="modal_preview_header">
         <ds-icon (click)="mostrarPreview=false" color="actionPrimary" size="20" icon-name="bi-x"></ds-icon>
       </div>
-      <!-- <div class="document">
-        <embed [src]="fileUrl" type="application/pdf" width="100%"/>
-      </div> -->
-      <div class="document--viewer">
-        <img [src]="fileUrl" type="application/pdf" width="100%" />
+      <div class="document">
+        <embed [src]="fileUrl" type="application/pdf" width="100%" />
       </div>
       <div class="document--text">
         <span class="title_file_preview">{{previewDocumentName}}</span>

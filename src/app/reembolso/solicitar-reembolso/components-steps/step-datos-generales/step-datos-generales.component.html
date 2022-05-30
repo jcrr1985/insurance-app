@@ -17,37 +17,29 @@
         <!--step datos para hospitalario-->
         <ng-container *ngIf="idPestacionSeleccionada == 2">
           <!-- Monto Hospitalario -->
-          <ds-input-v2 class="col-span-12" label="Monto solicitado" helpText="" type="text" [formatoMoneda]="true" helpText=""
+          <ds-input-v2 class="col-span-12" label="Monto solicitado" helpText="" type="text" [formatoMoneda]="true"
+            [value]="getStepsStatus('stepThree_general','montoSolicitado')" helpText=""
             (changeEv)="setStepsStatus({step: 'stepThree_general',option: 'montoSolicitado', value: $event })">
           </ds-input-v2>
-          <!-- <div class="flex items-center justify-center col-span-12">
-            <ds-input class="w-full inputsThirdField" id="montoTotalrHospitalario" [helperMessage]="''"
-              [initialLabel]="'Monto solicitado'" size="s2" labelOrientation="start" (keyup)="setStepsStatus({
-                step: 'stepThree_general',
-                option: 'montoSolicitado',
-                value: true
-              })">
-            </ds-input>
-            <ds-icon *ngIf="getStepsStatus('stepThree_general', 'boletaFactura')" color="info5" size="25"
-              icon-name="bi-check-circle-fill"></ds-icon>
-          </div> -->
         </ng-container>
         <!--Datos para cualquier flujo diferente a hospitalario-->
         <ng-container *ngIf="idPestacionSeleccionada   != 2 ">
           <!-- Isapre/Fonasa -->
           <ds-select-v2 class="col-span-12 md:col-span-6 sm:col-span-6" label="Isapre/Fonasa"
-            [source]="isapreFonasaOptions"
-            (changeEv)="setStepsStatus({step:'stepThree_general',option:'agenciaSeleccionada',value:true})"
+            [source]="isapreFonasaOptions" [valueSelected]="getStepsStatus('stepThree_general','agenciaSeleccionada')"
+            (changeEv)="setStepsStatus({step:'stepThree_general',option:'agenciaSeleccionada',value:$event.value})"
             helpText="">
           </ds-select-v2>
           <!-- RUT -->
-          <ds-input-v2 [formatoRut]="true"  class="col-span-12 md:col-span-6 sm:col-span-6" label="Rut institucion/prestador" [tipo]="'isapre-fonasa'"
-            helpText="ingresa cualquier tipo" type="text" helpText=""
+          <ds-input-v2 [formatoRut]="true" class="col-span-12 md:col-span-6 sm:col-span-6"
+            label="Rut institucion/prestador" [tipo]="'isapre-fonasa'" helpText="ingresa cualquier tipo" type="text"
+            helpText="" [value]="getStepsStatus('stepThree_general','rutInstitucion')"
             (changeEv)="setStepsStatus({step: 'stepThree_general',option: 'rutInstitucion', value: $event })">
           </ds-input-v2>
           <!-- Numero Boleta -->
           <ds-input-v2 class="col-span-12 md:col-span-6 sm:col-span-6" label="Nº Boleta/Factura"
             helpText="ingresa cualquier tipo" type="text" helpText=""
+            [value]="getStepsStatus('stepThree_general','boletaFactura')"
             (changeEv)="setStepsStatus({step: 'stepThree_general',option: 'boletaFactura', value: $event })">
           </ds-input-v2>
           <!-- Fecha Atencion -->
@@ -68,20 +60,22 @@
           </ds-paragraph>
 
           <div class="question-options" *ngIf="mostrarRadioButtons && idPestacionSeleccionada !=2">
-            <ds-radio type="s1" family="primary" label="Si" name="copagoMayor" value="si" (click)="
+            <ds-radio type="s1" family="primary" label="Si" [attr.checked]="copago=='si'" name="copagoMayor" value="si"
+              (click)="
               setStepsStatus({
                 step: 'stepThree_general',
                 option: 'copagoMayor',
                 value: 'si'
-              })
+              });copago='si';
             ">
             </ds-radio>
-            <ds-radio type="s1" family="primary" label="No" name="copagoMayor" value="no" (click)="
+            <ds-radio type="s1" family="primary" label="No" [attr.checked]="copago=='no'" name="copagoMayor" value="no"
+              (click)="
               setStepsStatus({
                 step: 'stepThree_general',
                 option: 'copagoMayor',
                 value: 'no'
-              })
+              });copago='no';
             ">
             </ds-radio>
           </div>

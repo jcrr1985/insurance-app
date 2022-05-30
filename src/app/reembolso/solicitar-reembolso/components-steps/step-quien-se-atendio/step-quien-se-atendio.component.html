@@ -4,13 +4,13 @@
   <app-custom-stepper [status]="stepperOneSource()[0].status">
   </app-custom-stepper>
 
-  <div id="stepperOneContent" >
+  <div id="stepperOneContent">
     <ds-title type="t4" family="secondary" weight="bold" color="primary">
       <span class="steps-title" slot="text">¿Quién se atendió?</span>
     </ds-title>
-    
+
     <div class="wrapper-select-parentesco sm:col-span-6">
-      <app-select-parentesco  (changeEv)="setStatusOn($event)"></app-select-parentesco>
+      <app-select-parentesco [valueSelected]="valueSelected" (changeEv)="setStatusOn($event)"></app-select-parentesco>
     </div>
   </div>
 </section>

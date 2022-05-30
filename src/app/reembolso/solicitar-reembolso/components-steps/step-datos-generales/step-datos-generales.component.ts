@@ -25,6 +25,7 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
   public sesionRequired: boolean = false;
   validDate: boolean = false;
 
+  copago: string | null = null;
 
   constructor(private dataStorageService: DataStorageService, private prestacionService: ArancelService) {
   }
@@ -34,6 +35,9 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
   filesUploaded: any = [];
   ngOnInit(): void {
     this.dataStorageService.getFormReemboslo().subscribe(statusOn => this.stepsStatusOn = statusOn);
+    if (this.stepsStatusOn['stepThree_general']['copagoMayor']) {
+      this.copago = this.stepsStatusOn['stepThree_general']['copagoMayor'];
+    }
     this.agregarAgenteEscucha();
     // this.prestacionService.setIdSubject$.subscribe(idPrestacionSeleccionada => { this.idPestacionSeleccionada = idPrestacionSeleccionada; });
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => (this.idPestacionSeleccionada = id, console.log(id)))
@@ -120,7 +124,7 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
     }
   }
 
-  setValue(){
+  setValue() {
 
   }
 

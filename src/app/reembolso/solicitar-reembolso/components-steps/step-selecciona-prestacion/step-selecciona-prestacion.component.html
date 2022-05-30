@@ -3,51 +3,52 @@
   </app-custom-stepper>
   <div id="stepperTwoContent" class="steps-content__container">
     <ds-title type="t4" family="secondary" weight="bold" color="primary">
-      <span  class="steps-title two" slot="text"
+      <span class="steps-title two" slot="text"
         [ngClass]="{'waitStepperText':this.stepperTwoSource()[0].status == 'waiting'}">Selecciona tu prestación
       </span>
     </ds-title>
     <div class="prestaciones__container">
       <ng-container *ngIf="getStepsStatus('stepOne_who', 'personaSeleccionada')">
         <ng-container *ngFor="let card of cards;let i = index">
-          <app-card-option  [ngClass]="[coldefined]" [status]="card.status" [name]="card.name"
+          <app-card-option [ngClass]="[coldefined]" [status]="card.status" [name]="card.name"
             [prestacionName]="card.prestacion" (click)="setCard(card)">
           </app-card-option>
         </ng-container>
       </ng-container>
-      
+
     </div>
     <!--Pregunta Reembolsaste -->
     <ng-container
-    *ngIf="tarjetaSeleccionada?.name==='atencionmedica'||tarjetaSeleccionada?.name==='atencionhospitalaria' ||tarjetaSeleccionada?.name==='examenes'">
+      *ngIf="tarjetaSeleccionada?.name==='atencionmedica'||tarjetaSeleccionada?.name==='atencionhospitalaria' ||tarjetaSeleccionada?.name==='examenes'">
       <div class="question__container">
-        <ds-paragraph 
-        type="p1" family="secondary" weight="semiBold" color="secondary">
+        <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
           <span *ngIf="tarjetaSeleccionada?.name==='atencionmedica'" slot="text"
             class="font-bold">{{textPregunta.atencionmedica}}</span>
           <span *ngIf="tarjetaSeleccionada?.name==='atencionhospitalaria'" slot="text"
             class="font-bold">{{textPregunta.atencionhospitalaria}}</span>
           <span *ngIf="tarjetaSeleccionada?.name==='examenes'" slot="text"
             class="font-bold">{{textPregunta.examenes}}</span>
-          
+
         </ds-paragraph>
 
         <div class="question-options"
           [ngClass]="{'md:col-span-6':tarjetaSeleccionada?.name==='atencionmedica','md:col-span-3':tarjetaSeleccionada?.name==='atencionhospitalaria'}">
-          <ds-radio  type="s1" family="primary" label="Si" name="reembolsoIsapre" value="si" (click)="
+          <ds-radio type="s1" family="primary" label="Si" name="reembolsoIsapre" [attr.checked]="checkedSi == 'si'"
+            value="si" (click)="
               setStepsStatus({
                 step: 'stepTwo_selectOption',
                 option: 'reembolsoPrevioIsapre',
                 value: 'si'
-              })
+              });checkedSi = 'si'
             ">
           </ds-radio>
-          <ds-radio  type="s1" family="primary" label="No" name="reembolsoIsapre" value="no" (click)="
+          <ds-radio type="s1" family="primary" label="No" name="reembolsoIsapre" [attr.checked]="checkedSi == 'no'"
+            value="no" (click)="
               setStepsStatus({
                 step: 'stepTwo_selectOption',
                 option: 'reembolsoPrevioIsapre',
                 value: 'no'
-              })
+              });checkedSi = 'no'
             ">
           </ds-radio>
         </div>
@@ -56,7 +57,7 @@
     <!--Fin pregunta Reembolsaste -->
     <!-- Mensaje -->
     <div class="col-span-12" *ngIf=" 
-    getStepsStatus('stepTwo_selectOption', 'reembolsoPrevioIsapre') == 'no' "> 
+    getStepsStatus('stepTwo_selectOption', 'reembolsoPrevioIsapre') == 'no' ">
       <ds-messaging variant="warning" family="secondary" size="s2"
         title="Te recomendamos que realices primero tu reembolso en tu Isapre o Fonasa, ya que si no lo haces, el monto de reembolso puede ser menor">
       </ds-messaging>

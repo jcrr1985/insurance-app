@@ -7,7 +7,7 @@
                 <span class="titulo-parte-derecha">{{usuarioSeleccionado.key | titlecase }}</span>
             </ds-title>
             <div [routerLink]="['/solicitud']">
-                <ds-button variant="complementary" slotName="back-button-slot">
+                <ds-button (click)="goBack()" variant="complementary" slotName="back-button-slot">
                     <ds-icon class="css-1h5x3dy" size="16" color="info6" icon-name="bi-chevron-left"
                         slot="back-button-slot"></ds-icon>
                     <span class="back-button__text" slot="back-button-slot">volver atrás</span>

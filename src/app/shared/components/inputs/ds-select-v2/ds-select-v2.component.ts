@@ -10,6 +10,7 @@ export class DsSelectV2Component implements OnInit {
   valueDisplay: string = '';
   isValid: boolean = false;
   elementSelected: any | sourceDsSelect;
+  @Input() valueSelected: number | null = null;
   @Input() source!: any[] | sourceDsSelect[];
   @Input() label!: string;
   @Input() helpText: string = '';
@@ -24,18 +25,22 @@ export class DsSelectV2Component implements OnInit {
     // }else if(this.source[0].parentesco == 'Yo'){
     //   console.log('BAKUHATSU!!!!!!  quien se atendio')  
     // }
+    if (this.valueSelected) {
+      const finded = this.source.find(e => e.value == this.valueSelected);
+      if (finded) this.selectValue(finded)
+    }
 
     switch (this.label) {
       case 'Isapre/Fonasa':
-    this.tituloSelectInput = 'Isapre/Fonasa'
+        this.tituloSelectInput = 'Isapre/Fonasa'
         break;
-        case 'Seleccione una persona':
-    this.tituloSelectInput = 'Elige una persona'
-          break;
-          case 'Número de Sesiones':
-    this.tituloSelectInput = 'Número de sesiones'
-            break;
-    
+      case 'Seleccione una persona':
+        this.tituloSelectInput = 'Elige una persona'
+        break;
+      case 'Número de Sesiones':
+        this.tituloSelectInput = 'Número de sesiones'
+        break;
+
       default:
         break;
     }

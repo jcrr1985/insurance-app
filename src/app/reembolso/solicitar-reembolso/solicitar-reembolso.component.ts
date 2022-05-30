@@ -102,6 +102,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
    */
   subscripcionDatos() {
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.prestacionSeleccionada = id)
+    this.dataStorageService.getFormReemboslo().subscribe(form => console.log("me buscas -> ", form));
     this.reembolsoService.habilitarSeleccionBeneficiario$.subscribe(val => {
       this.habilitarSeleccionBeneficiario = val;
     })
@@ -158,7 +159,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     this.dataStorageService.getPrestaciones().subscribe(prestaciones => this.prestacionesCargadas = prestaciones);
     this.dataStorageService.getFormReemboslo().subscribe(form => this.formularioActual = form);
     this.dataStorageService.agregarPrestacionResumen({ prestaciones: this.prestacionesCargadas, idprestacionSeleccionada: this.prestacionSeleccionada, formValues: this.formularioActual });
-    this.dataStorageService.restaurarDetallePrestaciones();
+    // this.dataStorageService.restaurarDetallePrestaciones();
     this.router.navigate(['/resumen']);
   }
   public formatter = new Intl.NumberFormat('es-CL');
@@ -248,21 +249,21 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
   evaluateStepThree() {
 
     const agenciaSeleccionada = this.stepsStatusOn.stepThree_general
-      .agenciaSeleccionada
+      .agenciaSeleccionada != ''
       ? 'completed'
       : 'waiting';
 
     const statusrutInstitucion = this.stepsStatusOn.stepThree_general
-      .rutInstitucion
+      .rutInstitucion != ''
       ? 'completed'
       : 'waiting';
     const statusboletaFactura = this.stepsStatusOn.stepThree_general
-      .boletaFactura
+      .boletaFactura != ''
       ? 'completed'
       : 'waiting';
 
     const statusFechaAtencion = this.stepsStatusOn.stepThree_general
-      .fechaAtencion
+      .fechaAtencion != ''
       ? 'completed'
       : 'waiting';
 
@@ -270,7 +271,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       ? 'completed'
       : 'waiting';
 
-    const statusMontoSolicitado = this.stepsStatusOn.stepThree_general.montoSolicitado
+    const statusMontoSolicitado = this.stepsStatusOn.stepThree_general.montoSolicitado != '$ 0'
       ? 'completed'
       : 'waiting';
 
