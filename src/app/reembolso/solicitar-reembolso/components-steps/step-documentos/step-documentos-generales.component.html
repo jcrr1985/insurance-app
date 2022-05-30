@@ -283,8 +283,8 @@
       <div class="modal_preview_header">
         <ds-icon (click)="mostrarPreview=false" color="actionPrimary" size="20" icon-name="bi-x"></ds-icon>
       </div>
-      <div class="document">
-        <embed [src]="fileUrl" type="application/pdf" width="100%" />
+      <div class="document--viewer">
+        <img [src]="fileUrl" type="application/pdf" width="100%" />
       </div>
       <div class="document--text">
         <span class="title_file_preview">{{previewDocumentName}}</span>
