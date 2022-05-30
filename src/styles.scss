@@ -882,28 +882,30 @@ ds-title {
   }
   
 }
-ds-datepicker{
-  width: 100% !important;
-  .css-1v8xhu3, .css-1k7iecf{
-    max-width: 100% !important;
-    height: 40px !important;
-  }
-  .css-1k7iecf{
-    p{
-      display: none !important;
-    }
 
-    input[type="text"]{
-      padding: 10px !important;
-    }
-    
-    #rightIcon {
-      position: absolute;
-      display: flex !important;
-      height: 100%;
-      top: -2px !important;
-      right: 12px;
-    }
+
+#fecha_on_generales{
+  width: 100% !important;
+  ds-single-datepicker div{
+      height: 40px !important ;
+      max-width: 100% !important;
+
+      p{
+        display: none !important;
+      }
+  
+      #start-date-single-undefined{
+        padding: 10px !important;
+      }
+      
+      #rightIcon {
+        position: absolute;
+        display: flex !important;
+        height: 100%;
+        top: -2px !important;
+        right: 12px;
+      }
+  
   }
 
 
@@ -915,6 +917,13 @@ ds-datepicker{
   height: auto !important;
   }
 
+.select_container{
+  .input_container{
+    label{
+      padding: 2px !important;
+    }
+  }
+}
 
 
 //////////////////////////////////////////////////////////////
