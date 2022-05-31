@@ -50,7 +50,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
 
 
   public customStepperSize: CustomStepperSize = {
-    stepperOne: '104px',
+    stepperOne: '80px',
     stepperTwo: '104px',
     stepperThree: '104px',
     stepperFour: '104px',

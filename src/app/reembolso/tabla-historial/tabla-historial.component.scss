@@ -219,7 +219,12 @@ ds-table-header.tabla-header {
   height: auto;
   background-color: white;
 }
-
+.collapsabe-box:nth-child(odd){
+  .table-info__container{
+    background-color: #F1F3F5 !important;
+  }
+}
+//fila donde se muestra el resumen antes de desplegar
 .table-info__container{
   z-index: 3;
   background-color: #FFFFFF;
@@ -244,6 +249,8 @@ ds-table-header.tabla-header {
   animation-duration: 600ms;
   transition: 0.3s;
   z-index: 1;
+
+  
 }
 
 .contenido-colapsable--borde{

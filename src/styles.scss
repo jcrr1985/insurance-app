@@ -473,9 +473,16 @@ ds-title {
   }
   .css-1y7fx7v{
     display: flex !important;
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: 5px;
     margin: 0 !important;
+    z-index: 4;
+    .css-1gq3ka1{
+      border: 1px solid #FAFAFA !important;
+      .css-1dzmd0k{
+        justify-content: center;
+      }
+    }
   }
 }
 
@@ -520,8 +527,8 @@ ds-icon {
 
 ds-button {
   display: flex !important;
-  width: auto !important;
   height: 40px !important;
+  cursor: pointer;
 
   .css-2vxw4u {
     min-width: 160px;
@@ -733,9 +740,6 @@ ds-title {
   justify-content: flex-end;
   align-items: center;
   gap: 10px;
-  width: 100%;
-
-
 }
 
 .custom-scroll-container::-webkit-scrollbar {
@@ -1042,6 +1046,20 @@ ds-title {
   .cards-document__container{
     flex-direction: column;
   }
+
+  
+.reembolso__botones--container, #ds-button-finalizar, #ds-button-siguiente, .btn-siguiente {
+  width: 100% !important;
+  
+    div{
+      width: 100% !important;
+      .css-1vyubn8.css-2z0lnu, .css-1vyubn8{
+        width: 100% !important;        
+      }
+    }
+  
+}
+
 
 
   // Modal detalles de prestación

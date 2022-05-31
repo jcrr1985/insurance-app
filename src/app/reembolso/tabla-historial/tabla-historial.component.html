@@ -40,77 +40,77 @@
       <ng-container *ngFor="let registro of dataRegistros; let i = index">
         <div class="collapsabe-box">
           
-        </div>
-        <div class="table-info__container table--row">
-          <div class="size-130px nombre-titular">
-            <span class="texto-normal" slot="element">{{
-              registro.nombre
+          <div class="table-info__container table--row">
+            <div class="size-130px nombre-titular">
+              <span class="texto-normal" slot="element">{{
+                registro.nombre
+                }}</span>
+              <span class="texto-especial" slot="element">{{
+                registro.parentesco
+                }}</span>
+            </div>
+            <span class="texto-normal" slot="element" class="size-100px">{{
+              registro.numSolicitud
               }}</span>
-            <span class="texto-especial" slot="element">{{
-              registro.parentesco
+  
+            <span class="texto-normal" slot="element" class="size-100px">{{
+              registro.montoSolicitado
               }}</span>
+  
+            <span class="texto-normal" slot="element" class="size-100px">{{
+              registro.fechaPago | date: "shortDate"
+              }}</span>
+  
+            <app-pill [texto]="registro.estado" class="size-160px"></app-pill>
+            <app-col-doc-liq class="size-160px" (indiceEmitter)="toogleCollapsable($event)"
+              [indice]="'registerColapsable'+i">
+            </app-col-doc-liq>
+  
           </div>
-          <span class="texto-normal" slot="element" class="size-100px">{{
-            registro.numSolicitud
-            }}</span>
-
-          <span class="texto-normal" slot="element" class="size-100px">{{
-            registro.montoSolicitado
-            }}</span>
-
-          <span class="texto-normal" slot="element" class="size-100px">{{
-            registro.fechaPago | date: "shortDate"
-            }}</span>
-
-          <app-pill [texto]="registro.estado" class="size-160px"></app-pill>
-          <app-col-doc-liq class="size-160px" (indiceEmitter)="toogleCollapsable($event)"
-            [indice]="'registerColapsable'+i">
-          </app-col-doc-liq>
-
+          <!-- desplegable-->
+          <div [id]="'registerColapsable'+i" class="contenido-colapsable--borde oculto">
+  
+            <div class="div-colapsable" slot="row">
+              <div class="header-colapsable">
+                <span class="texto-normal texto-header-colapsable size-160px" slot="element">Tipo Reembolso</span>
+                <span class="texto-normal texto-header-colapsable size-160px right-text" slot="element">Monto
+                  Solicitado</span>
+                <span class="texto-normal texto-header-colapsable size-160px right-text" slot="element">Monto
+                  Reembolsado</span>
+                <span class="texto-normal texto-header-colapsable size-160px" slot="element">Motivo del estado</span>
+              </div>
+              <div v class="details">
+                <!-- registros para el colapsable -->
+                <ng-container *ngFor="let fila of filasColapsables">
+                  <div class="line-divider"></div>
+                  <div [id]="'registerColapsable'+i" class="info-row" slot="row">
+  
+                    <span class="texto-normal size-160px" slot="element">
+                      {{fila.motivo}}
+                    </span>
+                    <span class="texto-normal size-160px right-text" slot="element">
+                      {{fila.valor}}
+                    </span>
+                    <span class="texto-normal size-160px right-text" slot="element">
+                      {{fila.bonificacion}}
+                    </span>
+                    <span class="texto-normal size-160px" slot="element">
+                      {{fila.observaciones}}
+                    </span>
+                  </div>
+                </ng-container>
+              </div>
+              <div class="doc-nota">
+                <span class="icono-doc">
+                  <img src="./../../../../assets/images/svgs/descargar.svg" alt="descargar">
+                </span>
+                <span>
+                  <p>Descargar nota de denuncio</p>
+                </span>
+              </div>
+            </div>
+            <!--Fin desplegable-->
         </div>
-        <!-- desplegable-->
-        <div [id]="'registerColapsable'+i" class="contenido-colapsable--borde oculto">
-
-          <div class="div-colapsable" slot="row">
-            <div class="header-colapsable">
-              <span class="texto-normal texto-header-colapsable size-160px" slot="element">Tipo Reembolso</span>
-              <span class="texto-normal texto-header-colapsable size-160px right-text" slot="element">Monto
-                Solicitado</span>
-              <span class="texto-normal texto-header-colapsable size-160px right-text" slot="element">Monto
-                Reembolsado</span>
-              <span class="texto-normal texto-header-colapsable size-160px" slot="element">Motivo del estado</span>
-            </div>
-            <div v class="details">
-              <!-- registros para el colapsable -->
-              <ng-container *ngFor="let fila of filasColapsables">
-                <div class="line-divider"></div>
-                <div [id]="'registerColapsable'+i" class="info-row" slot="row">
-
-                  <span class="texto-normal size-160px" slot="element">
-                    {{fila.motivo}}
-                  </span>
-                  <span class="texto-normal size-160px right-text" slot="element">
-                    {{fila.valor}}
-                  </span>
-                  <span class="texto-normal size-160px right-text" slot="element">
-                    {{fila.bonificacion}}
-                  </span>
-                  <span class="texto-normal size-160px" slot="element">
-                    {{fila.observaciones}}
-                  </span>
-                </div>
-              </ng-container>
-            </div>
-            <div class="doc-nota">
-              <span class="icono-doc">
-                <img src="./../../../../assets/images/svgs/descargar.svg" alt="descargar">
-              </span>
-              <span>
-                <p>Descargar nota de denuncio</p>
-              </span>
-            </div>
-          </div>
-          <!--Fin desplegable-->
 
         </div>
       </ng-container>
