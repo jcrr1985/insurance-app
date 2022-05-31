@@ -1,29 +1,18 @@
-import { Reembolsos, PaginationSource } from '../../shared/interfaces/interfaces';
-import {
-  AfterContentChecked,
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { ReembolsoService } from 'src/app/shared/services/reembolso.service';
-import '@vs-design-system/ds-pagination';
-import '@vs-design-system/ds-collapsible'
-
+import { Token } from '@angular/compiler';
+import { AfterContentChecked, AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { timer } from 'rxjs';
-import { Token, TokenData } from 'src/app/shared/interfaces/sso';
-import * as JWT from 'jwt-decode';
+import { Observable, timer } from 'rxjs';
+import { Reembolsos } from '../../interfaces/interfaces';
+import { TokenData } from '../../interfaces/sso';
+import { BreakpointObserverService } from '../../services/breakpoint-observer.service';
+import { ReembolsoService } from '../../services/reembolso.service';
 
 @Component({
-  selector: 'app-tabla-historial',
-  templateUrl: './tabla-historial.component.html',
-  styleUrls: ['./tabla-historial.component.scss'],
+  selector: 'app-tabla-mobile',
+  templateUrl: './tabla-mobile.component.html',
+  styleUrls: ['./tabla-mobile.component.scss']
 })
-export class TablaHistorialComponent
-  implements OnInit, OnDestroy, AfterViewInit, AfterContentChecked {
+export class TablaMobileComponent  implements OnInit, OnDestroy, AfterViewInit, AfterContentChecked {
   @ViewChild('dsPageCounter') dsPageCounter: any;
   @ViewChild('theader')
   theader!: ElementRef;
@@ -31,10 +20,13 @@ export class TablaHistorialComponent
   public indiceSeleccionado!: any;
   public reembolsos!: Reembolsos[];
   showTable: boolean = false;
+  public size$!: Observable<string>;
+
 
   constructor(
     private reembolsoService: ReembolsoService,
-    private router: Router
+    private router: Router,
+    private _breakpointObserverService: BreakpointObserverService
   ) {
   }
 
@@ -48,7 +40,7 @@ export class TablaHistorialComponent
     this.addAccessKey();
     this.aciveTableHistorial();
     var tokenData: Token = JSON.parse(localStorage.getItem("Token")!);
-    var UserInfo: TokenData = JWT(tokenData.access_token);
+    this.size$ = this._breakpointObserverService.size$;
   }
 
   ngAfterContentChecked() {
@@ -56,8 +48,6 @@ export class TablaHistorialComponent
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-     
-
     }, 200);
 
   }
@@ -72,7 +62,7 @@ export class TablaHistorialComponent
     let naranjaPreviousSibling = naranja?.previousSibling as HTMLElement | null;
     naranjaPreviousSibling?.click();
   }
-  
+
   resultadosPorPagina: number = 10;
   pageSelected: number = 1;
   totalRegistros: number = 0;
@@ -207,7 +197,4 @@ export class TablaHistorialComponent
     { motivo: 'Compra de Medicamentos', valor: '$5.000', bonificacion: '$3.000', observaciones: 'Observaciones' },
     { motivo: 'Marcos y Lentes', valor: '$550.000', bonificacion: '$93.000', observaciones: 'Observaciones' }
   ];
-
-
 }
-

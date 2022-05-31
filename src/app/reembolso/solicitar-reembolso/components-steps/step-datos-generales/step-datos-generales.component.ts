@@ -1,6 +1,7 @@
 import { DataStorageService } from 'src/app/shared/services/data-storage.service';
 import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-step-datos-generales',
@@ -41,6 +42,16 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
     this.agregarAgenteEscucha();
     // this.prestacionService.setIdSubject$.subscribe(idPrestacionSeleccionada => { this.idPestacionSeleccionada = idPrestacionSeleccionada; });
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => (this.idPestacionSeleccionada = id, console.log(id)))
+  }
+
+  validarNumero(event: any) {
+    return (event.charCode >= 48 && event.charCode <= 57)
+  }
+
+  fechaDeAtencion() {
+    // const fecha = this.getStepsStatus('stepThree_general', 'fechaAtencion') != '' ? moment(this.getStepsStatus('stepThree_general', 'fechaAtencion'), ['DD/M/YYYY']).format('DD / MM / YYYY') : null;
+    // if (fecha) console.log("fechaAtencion", fecha);
+    // return fecha;
   }
 
   agregarAgenteEscucha() {
@@ -127,7 +138,6 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
   setValue() {
 
   }
-
 
 
 }

@@ -1,0 +1,57 @@
+.wrapper-tabla-responsive {
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+
+    width: 335px;
+    height: auto;
+
+    /* gris/G4 */
+
+    border: 1px solid #D2D9DF;
+    border-radius: 8px;
+
+    .header-t-mobile {
+        box-sizing: border-box;
+
+        
+        grid-gap: 5px!important;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 20px;
+        gap: 30px;
+
+        width: 100%;
+
+
+        /* white */
+
+        background: #FFFFFF;
+        /* gris/G4 */
+
+        border: 1px solid #D2D9DF;
+        border-radius: 8px;
+        .wrapper-header1{
+            display: flex;
+            align-self: center;
+
+        }
+
+        .header1 {
+            font-family: 'Titillium Web';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 22px;
+      
+            white-space: nowrap;
+            
+            color: #424893;
+
+        }
+    }
+}

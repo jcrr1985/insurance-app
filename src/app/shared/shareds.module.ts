@@ -19,6 +19,7 @@ import { CardOptionComponent } from './components/card-option/card-option.compon
 import { SelectParentescoComponent } from './components/inputs/select-parentesco/select-parentesco.component';
 import { ColDocLiqComponent } from "./components/col-doc-liq/col-doc-liq.component";
 import { PillComponent } from "./components/pill/pill.component";
+import { TablaMobileComponent } from './components/tabla-mobile/tabla-mobile.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { PillComponent } from "./components/pill/pill.component";
     CardOptionComponent,
     SelectParentescoComponent,
     PillComponent,
-    ColDocLiqComponent
+    ColDocLiqComponent,
+    TablaMobileComponent
   ],
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   exports: [
@@ -55,7 +57,8 @@ import { PillComponent } from "./components/pill/pill.component";
     CardOptionComponent,
     SelectParentescoComponent,
     PillComponent,
-    ColDocLiqComponent
+    ColDocLiqComponent,
+    TablaMobileComponent
   ],
   providers: [DataStorageService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

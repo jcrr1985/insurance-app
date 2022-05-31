@@ -50,8 +50,14 @@ export class DetallePrestacionComponent
       this.esBoletaFactura = true;
       this.arancel.bonificacion = 0;
     }
+  }
 
+  validarSoloLetras(event:any){
+    return /[a-z, ]/i.test(event.key)
+  }
 
+  validarNumero(event: any){
+    return (event.charCode >= 48 && event.charCode <= 57)
   }
 
   closeModal(): void {

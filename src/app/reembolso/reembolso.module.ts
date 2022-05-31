@@ -14,12 +14,12 @@ import { StepDocumentosGeneralesComponent } from './solicitar-reembolso/componen
 import { StepDatosGeneralesComponent } from './solicitar-reembolso/components-steps/step-datos-generales/step-datos-generales.component';
 import { StepDetallePrestacionComponent } from './solicitar-reembolso/components-steps/step-detalle-prestacion/step-detalle-prestacion.component';
 import { TestingComponent } from '../shared/components/testing/testing.component';
-import { ConsultaMedicaComponent } from './modales/detalle-prestacion/tipos/consulta-medica/consulta-medica.component';
-import { AtencionHospitalariaComponent } from './modales/detalle-prestacion/tipos/atencion-hospitalaria/atencion-hospitalaria.component';
-import { MarcosYLentesComponent } from './modales/detalle-prestacion/tipos/marcos-y-lentes/marcos-y-lentes.component';
-import { AtencionDentalComponent } from './modales/detalle-prestacion/tipos/atencion-dental/atencion-dental.component';
-import { CompraMedicamentosComponent } from './modales/detalle-prestacion/tipos/compra-medicamentos/compra-medicamentos.component';
-import { ExamenesYProcedimientosComponent } from './modales/detalle-prestacion/tipos/examenes-y-procedimientos/examenes-y-procedimientos.component';
+// import { ConsultaMedicaComponent } from './modales/detalle-prestacion/tipos/consulta-medica/consulta-medica.component';
+// import { AtencionHospitalariaComponent } from './modales/detalle-prestacion/tipos/atencion-hospitalaria/atencion-hospitalaria.component';
+// import { MarcosYLentesComponent } from './modales/detalle-prestacion/tipos/marcos-y-lentes/marcos-y-lentes.component';
+// import { AtencionDentalComponent } from './modales/detalle-prestacion/tipos/atencion-dental/atencion-dental.component';
+// import { CompraMedicamentosComponent } from './modales/detalle-prestacion/tipos/compra-medicamentos/compra-medicamentos.component';
+// import { ExamenesYProcedimientosComponent } from './modales/detalle-prestacion/tipos/examenes-y-procedimientos/examenes-y-procedimientos.component';
 import { TablaHistorialComponent } from './tabla-historial/tabla-historial.component';
 import { TablaResumenReembolsoComponent } from './tabla-resumen-reembolso/tabla-resumen-reembolso.component';
 import { PantallaFinalComponent } from './pantalla-final/pantalla-final.component';
@@ -34,7 +34,7 @@ const route: Routes = [
 ];
 
 @NgModule({
-  declarations: [ReembolsoComponent, TablaHistorialComponent, DetallePrestacionComponent, ModalSolicitudReembolsoCompletadaComponent, ModalRegistrarMedicamentoComponent, SolicitarReembolsoComponent, StepQuienSeAtendioComponent, StepSeleccionaPrestacionComponent, StepDocumentosGeneralesComponent, StepDatosGeneralesComponent, StepDetallePrestacionComponent, ConsultaMedicaComponent, AtencionHospitalariaComponent, MarcosYLentesComponent, AtencionDentalComponent, CompraMedicamentosComponent, ExamenesYProcedimientosComponent, TablaResumenReembolsoComponent, PantallaFinalComponent],
+  declarations: [ReembolsoComponent, TablaHistorialComponent, DetallePrestacionComponent, ModalSolicitudReembolsoCompletadaComponent, ModalRegistrarMedicamentoComponent, SolicitarReembolsoComponent, StepQuienSeAtendioComponent, StepSeleccionaPrestacionComponent, StepDocumentosGeneralesComponent, StepDatosGeneralesComponent, StepDetallePrestacionComponent, TablaResumenReembolsoComponent, PantallaFinalComponent],
   imports: [CommonModule, RouterModule.forChild(route), SharedsModule, FormsModule, ReactiveFormsModule],
   exports: [CommonModule, ReembolsoComponent, TablaHistorialComponent, DetallePrestacionComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

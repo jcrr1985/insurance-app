@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import '@vs-design-system/ds-input';
-import '@vs-design-system/ds-datepicker';
+import '@vs-design-system/ds-datepicker'; 
 import '@vs-design-system/ds-select';
 import '@vs-design-system/ds-stepper';
 import '@vs-design-system/ds-radio';

@@ -15,6 +15,7 @@ import { StepSeleccionaPrestacionComponent } from './reembolso/solicitar-reembol
 import { SolicitarReembolsoComponent } from './reembolso/solicitar-reembolso/solicitar-reembolso.component';
 import { TablaHistorialComponent } from './reembolso/tabla-historial/tabla-historial.component';
 import { TablaResumenReembolsoComponent } from './reembolso/tabla-resumen-reembolso/tabla-resumen-reembolso.component';
+import { TablaMobileComponent } from './shared/components/tabla-mobile/tabla-mobile.component';
 import { TestingComponent } from './shared/components/testing/testing.component';
 import { SharedsModule } from './shared/shareds.module';
 
@@ -26,7 +27,9 @@ const routes: Routes = [
   { path: 'solicitud', component: SolicitarReembolsoComponent },
   { path: 'resumen', component: TablaResumenReembolsoComponent },
   { path: 'final', component: PantallaFinalComponent },
-  { path: 'testing', component: TestingComponent }
+  { path: 'testing', component: TestingComponent },
+  { path: 'tmogile', component: TablaMobileComponent },
+
 ];
 
 @NgModule({
@@ -42,7 +45,7 @@ const routes: Routes = [
     StepDatosGeneralesComponent,
     StepDetallePrestacionComponent,
     TablaResumenReembolsoComponent,
-    PantallaFinalComponent
+    PantallaFinalComponent,
   ],
   imports: [CommonModule,
     RouterModule.forRoot(routes, {

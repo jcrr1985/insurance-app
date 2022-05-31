@@ -352,7 +352,7 @@ const documentsDisplay: any = {
 
 const formReembolso = {
   stepOne_who: {
-    personaSeleccionada: false,
+    personaSeleccionada: true,
   },
   stepTwo_selectOption: {
     prestacionSeleccionada: false,

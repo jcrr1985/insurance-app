@@ -1,7 +1,12 @@
 <div class="relative inputs__container">
     <div class="input_container">
-        <input #inp [ngClass]="{'success':isValid && statusActive}" placeholder=" " id="" type="{{type}}" [(ngModel)]="value"
-            maxlength="{{maxlength}}" (change)="emitChange()" (keyup)="emitKeyup()">
+        <!-- <input #inp
+            [ngClass]="{'success':isValid , 'error': !isValid && inp.classList.contains('ng-touched') && inp.value !=''}"
+            placeholder=" " id="" type="{{type}}" [(ngModel)]="value" maxlength="{{maxlength}}" (change)="emitChange()"
+            (keyup)="emitKeyup()"> -->
+        <input [ngClass]="{'success':isValid , 'error': !isValid && testing.touched}" placeholder=" " id=""
+            type="{{type}}" [(ngModel)]="value" maxlength="{{maxlength}}" (change)="emitChange()" (keyup)="emitKeyup()"
+            #testing="ngModel">
         <label *ngIf="label"> {{label}} </label>
         <p *ngIf="helpText">{{helpText}}</p>
     </div>

@@ -141,6 +141,14 @@ ds-file {
   }
 }
 
+.icon-check.error {
+  ds-icon {
+    svg {
+      fill: red !important;
+    }
+  }
+}
+
 /* Personalizando ds-input */
 
 .waitStepperText {
@@ -176,6 +184,26 @@ ds-file {
     border-width: 1px 1px 1px 4px;
     border-style: solid;
     border-color: rgb(98, 142, 55);
+    border-image: initial;
+    font-family: "Titillium Web", sans-serif;
+    font-size: 14px;
+    color: rgb(67, 80, 94);
+    line-height: 1.43;
+    padding: 10px 10px 4px 12px;
+  }
+
+  input.error {
+    outline: none;
+    transition: padding 0.4s ease 0s;
+    box-sizing: border-box;
+    width: 100%;
+    height: 40px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 8px;
+    cursor: text;
+    border-width: 1px 1px 1px 4px;
+    border-style: solid;
+    border-color: rgb(158, 12, 12);
     border-image: initial;
     font-family: "Titillium Web", sans-serif;
     font-size: 14px;
