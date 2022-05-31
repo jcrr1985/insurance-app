@@ -7,10 +7,17 @@
         <span><strong>Tiempos de espera:</strong></span>
         <span><strong>Gastos médicos ambulatorios, ópticos, dentales y medicamentos:</strong> 5 días hábiles desde el
             ingreso de la solicitud</span>
-        <span><strong> Gastos hospitalarios:</strong> 10 días hábiles desde el ingreso de la solicitud</span>
+        <span class="gastos-hosp"><strong> Gastos hospitalarios:</strong> 10 días hábiles desde el ingreso de la solicitud</span>
         <ds-button id="ds-button-siguiente" [disabled]="false" *ngIf="true" [size]="'s2'" variant="primary"
             slot-name="next-button-slot" [routerLink]="['/final']">
             <span slot="next-button-slot"> Continuar </span>
         </ds-button>
+    </div>
+    <div class="subtitulo-historial">Historial de reembolsos</div>
+    <div class="listado-container">
+        <div class="titulo-card">
+            <span>Consulta médica</span>
+            <ds-open class="ds-open-historial" class="ds-open-tabla-hist" size="s1"></ds-open>
+        </div>
     </div>
 </div>

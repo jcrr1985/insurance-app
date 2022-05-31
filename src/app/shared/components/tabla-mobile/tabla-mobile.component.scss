@@ -1,5 +1,4 @@
 .wrapper-tabla-responsive {
-
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -16,8 +15,8 @@
     .header-t-mobile {
         box-sizing: border-box;
 
-        
-        grid-gap: 5px!important;
+
+        grid-gap: 5px !important;
 
         display: flex;
         flex-direction: column;
@@ -36,7 +35,8 @@
 
         border: 1px solid #D2D9DF;
         border-radius: 8px;
-        .wrapper-header1{
+
+        .wrapper-header1 {
             display: flex;
             align-self: center;
 
@@ -47,11 +47,88 @@
             font-style: normal;
             font-weight: 700;
             font-size: 22px;
-      
+
             white-space: nowrap;
-            
+
             color: #424893;
 
+
         }
+    }
+
+    margin-bottom: 25px;
+
+    ds-button {
+        margin: auto !important;
+        align-self: center;
+
+    }
+
+    .gastos-hosp {
+        margin-bottom: 25px;
+    }
+
+    .subtitulo-historial {
+        width: 223px;
+        height: 22px;
+
+        /* fonts/semi-bold/h3--semi-bold */
+
+        font-family: 'Titillium Web';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 22px;
+        line-height: 22px;
+        /* identical to box height, or 100% */
+
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin: auto !important;
+        align-self: center;
+        /* secundario/A2 */
+
+        color: #424893;
+        margin-bottom: 25px;
+        margin-top: 25px;
+    }
+
+    .listado-container {
+
+        box-sizing: border-box;
+
+        /* Auto layout */
+
+        display: flex;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0px;
+
+        width: 335px;
+        height: auto;
+        padding: 25px;
+
+
+        /* gris/G4 */
+
+        border: 1px solid #D2D9DF;
+        border-radius: 8px;
+        border-right: none;
+        border-left: none;
+
+    }
+
+    .titulo-card {
+        font-family: 'Titillium Web';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 24px;
+        /* identical to box height, or 133% */
+        display: flex!important;
+        justify-content: space-between;
+        width: -webkit-fill-available;
+        color: #424893;
     }
 }
