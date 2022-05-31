@@ -934,10 +934,13 @@ ds-title {
         right: 12px;
       }
   
-  }
+}
 
 
-
+.litepicker .container__days .day-item.is-start-date{
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+}
 
 }
 .css-47y4r6{

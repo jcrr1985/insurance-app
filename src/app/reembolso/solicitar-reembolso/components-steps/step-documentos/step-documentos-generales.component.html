@@ -64,7 +64,7 @@
                 <!-- Card documento adjunto -->
                 <div class="archivos-adjuntos__container">
 
-                  <div class="filesUploaded">
+                  <div class="filesUploaded" (click)="vistaPreviaArchivo(file,docs.name)" >
                     <!-- icon -->
                     <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file,docs.name)">
                       <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>

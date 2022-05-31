@@ -213,11 +213,40 @@ ds-table-header.tabla-header {
   display: flex;
 }
 
+
+.collapsabe-box{
+  width: 100%;
+  height: auto;
+  background-color: white;
+}
+
+.table-info__container{
+  z-index: 3;
+  background-color: #FFFFFF;
+}
+
 .contenido-colapsable--borde.oculto {
-  display: none !important;
+  opacity: 0.4;
+  height: 0px;
+  width: 100%;
+  overflow: hidden;
+  padding: 0;
+  // transform: translateY(-50px);
+  animation-timing-function: ease-out;
+  animation-duration: 400ms;
+  transition: 0.3s;
+  z-index: -1;
 }
 
 .contenido-colapsable--borde.visible{
+  height: auto;
+  animation-timing-function: ease-in-out;
+  animation-duration: 600ms;
+  transition: 0.3s;
+  z-index: 1;
+}
+
+.contenido-colapsable--borde{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -225,9 +254,8 @@ ds-table-header.tabla-header {
   gap: 10px;
   background-color: #E6ECF8 ;
   width: 100%;
+  z-index: 3;
 
-    
- 
     .div-colapsable{
       display: flex;
       flex-direction: column;
