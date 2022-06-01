@@ -202,6 +202,7 @@ export class TablaHistorialComponent
     }
   }
 
+  //Datos dummy para filas colapsables
   public filasColapsables = [
     { motivo: 'Consulta Médica', valor: '$10.000', bonificacion: '$10.000', observaciones: 'Observaciones' },
     { motivo: 'Compra de Medicamentos', valor: '$5.000', bonificacion: '$3.000', observaciones: 'Observaciones' },

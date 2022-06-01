@@ -960,6 +960,10 @@ ds-title {
   }
 }
 
+.table-mobile{
+  display: none;
+}
+
 
 //////////////////////////////////////////////////////////////
 // Responsive mobile
@@ -1111,6 +1115,9 @@ ds-title {
   } // Fin Modal finalización
 
 // Historial
+.historial-wrapper{
+  width: 100% !important;
+}
 .card-historial__container{
   flex-direction: column;
 
@@ -1124,6 +1131,188 @@ ds-title {
     }
   }
 }
+
+//Tabla
+.table-desktop{
+  display: none !important;
+}
+
+
+
+.table-mobile--container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  border: 1px solid #D2D9DF;
+  border-radius: 8px;
+
+  
+
+  .table-mobile--items{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 25px;
+    gap: 20px;
+    width: 100%;
+
+    input{
+      display: none;
+    }
+    .collapsable-content{
+      height: 40px;
+      overflow: hidden; 
+      .content{
+        height: 0px;
+        transition: all 0.3s ease-in;
+      }
+    }
+
+    .hidden{
+      // display: none !important;
+      height: 0px;
+      opacity: 0;
+      overflow: hidden;
+      transition: all 0.5s ease-in-out;
+    }
+
+    input:checked ~ .collapsable-content .hidden{
+      // display: flex !important;
+      height: 100%;
+      opacity: 1;     
+    }
+
+    input:checked ~ .collapsable-content{
+      display: flex !important;
+      flex-direction: column;
+      gap: 20px;
+      height: auto;
+      overflow: visible; 
+      .content{
+        height: 36px;
+      }
+
+    }
+
+    input:checked ~ .titulo ds-icon{
+      transform: rotate(180deg);
+    }
+
+    
+
+    .titulo, label{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0px;
+      width: 100%;
+      height: 20px;
+      h5{
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 20px;
+        color: #424893;
+      }
+      .toggle-container{
+        width: 20px;
+        height: 20px;
+        background: #424893;
+        border-radius: 4px;
+        display: grid;
+        place-content: center;
+        .bi-chevron-down, ds-icon{
+          color: white;
+          span{
+            height: auto !important;
+            display: grid;
+            place-content: center;
+          }
+        }
+      }
+    }
+
+    .content-group{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .download-files{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+      justify-content: space-between;
+      height: 70px !important;
+    }
+    .content{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 0px;
+      width: 100%;
+      .subtitulo{
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 18px;
+        color: #43505E;
+      }
+      .info{
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 18px;
+        color: #43505E;
+      }
+
+      .doc-download{
+        display: flex;
+        gap: 5px;
+        color: #424893;
+        text-decoration-line: underline;
+        span, img{
+          display: grid;
+          place-content: center;
+        }
+      }
+    }
+
+  }
+
+.table-mobile--items:nth-child(even){
+    background-color: #F1F3F5 !important;
+  }
+  .table-mobile--totalizers{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 2px;
+    width: 100%;
+    .subtotal{
+      background: #E9F8E6;
+    }
+    .total{
+      background: #BCDEB1;
+    }
+    .subtotal, .total{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 25px;
+      width: 100%;
+      height: 40px;
+      h6{
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 18px;
+        color: #242C35;
+      }
+    }
+  }
+}
+
 // Fin Historial
 
 // Modal viewer
@@ -1189,6 +1378,12 @@ ds-title {
 
 .text-normal--mail{
   flex-direction: column !important;
+}
+
+.pagination__container{
+  flex-wrap: wrap;
+  justify-content: center !important;
+  gap: 20px;
 }
 
 } // Fin Responsive mobile

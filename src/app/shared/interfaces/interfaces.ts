@@ -17,6 +17,7 @@ export interface Reembolsos {
   montoSolicitado: string;
   fechaPago: string;
   estado: string;
+  montoReembolsado: string;
 }
 
 export interface FilesUploaded {
