@@ -62,15 +62,21 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
         })
         this.cards[e].status = 'active'
       })
-      
+
     }
 
   }
   verificarValoresPreservador() {
-    if (this.stepsStatusOn['stepTwo_selectOption']['prestacionSeleccionada']) {
+    let idprestacion = 0;
+    this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => { idprestacion = id; });
+    if (idprestacion) {
+      const found = this.cards.find(e => e.idPrestacion == idprestacion)
+      if (found) this.setCard(found);
+    }
+    else if (this.stepsStatusOn['stepTwo_selectOption']['prestacionSeleccionada']) {
       const prestacions = this.stepsStatusOn['stepTwo_selectOption']['prestacionSeleccionada'];
-      const finded = this.cards.find(e => e.prestacion == prestacions)
-      if (finded) this.setCard(finded);
+      const found = this.cards.find(e => e.prestacion == prestacions)
+      if (found) this.setCard(found);
     }
     if (this.stepsStatusOn['stepTwo_selectOption']['reembolsoPrevioIsapre']) {
       const valueReembolsaste = this.stepsStatusOn['stepTwo_selectOption']['reembolsoPrevioIsapre'];
@@ -113,7 +119,10 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
     this.arancelService.setIdSubject.next(tarjeta.idPrestacion);
 
     // this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.idprestacionSeleccionada = id) 
-    if (tarjeta.name != 'atencionmedica' && tarjeta.name != 'atencionhospitalaria' && tarjeta.name != 'examenes') this.dataStorageService.setFormReembolso('stepTwo_selectOption', 'reembolsoPrevioIsapre', 'si');
+    if (tarjeta.name != 'atencionmedica' && tarjeta.name != 'atencionhospitalaria' && tarjeta.name != 'examenes') {
+      this.dataStorageService.setFormReembolso('stepTwo_selectOption', 'reembolsoPrevioIsapre', 'si');
+      console.log('en el if de no M no A H no E')
+    }
 
   }
 }

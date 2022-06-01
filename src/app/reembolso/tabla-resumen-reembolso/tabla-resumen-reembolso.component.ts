@@ -109,6 +109,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
   habilitarSeleccionBeneficiario(valor: boolean) {
     this.reembolsoService.setHabilitarStepone(valor);
     this.restaurarFormulario();
+
   }
   setValorRadioButtons(respuesta: string) {
     this.nuevoReembolso = respuesta;
