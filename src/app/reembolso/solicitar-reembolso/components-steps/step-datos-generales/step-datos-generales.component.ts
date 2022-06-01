@@ -42,6 +42,16 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
     this.agregarAgenteEscucha();
     // this.prestacionService.setIdSubject$.subscribe(idPrestacionSeleccionada => { this.idPestacionSeleccionada = idPrestacionSeleccionada; });
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => (this.idPestacionSeleccionada = id, console.log(id)))
+    setTimeout(() => {
+      
+      let cal = document.querySelector('#start-date-single-undefined')
+
+      cal?.addEventListener('click', ()=> {
+        let days = document.querySelector('.data-time')
+        console.log('days', days)
+         
+      })
+    }, 600);
   }
 
   validarNumero(event: any) {

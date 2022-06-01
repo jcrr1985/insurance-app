@@ -1,4 +1,4 @@
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, timer } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -70,15 +70,15 @@ export class DataStorageService {
   /**
    * @description Behavior Subject del detalle de prestaciones cargadas para la solicitud de reembolso
    */
-  private prestacionesCargadasBehavior: BehaviorSubject<any>;
+  public prestacionesCargadasBehavior: BehaviorSubject<any>;
   /**
    * @description Observable de las prestaciones disponibles que han sido cargadas en el formulario de solicitar reembolso
    */
-  private prestacionesCargadas$: Observable<any>;
+  public prestacionesCargadas$: Observable<any>;
   /**
    * @description Arreglo de las prestaciones que han sido cargadads en el detalle
    */
-  private prestacionesCargadas: any[];
+  public prestacionesCargadas: any[];
 
   //#######################################################################
   //################# Para id prestacion seleccionada #####################
@@ -88,36 +88,28 @@ export class DataStorageService {
   /**
    * @description Behavior Subject del detalle de prestaciones cargadas para la solicitud de reembolso
    */
-  private idprestacionSeleccionadaBehavior: BehaviorSubject<any>;
+  public idprestacionSeleccionadaBehavior: BehaviorSubject<any>;
   /**
    * @description Observable de las prestaciones disponibles que han sido cargadas en el formulario de solicitar reembolso
    */
-  private idprestacionSeleccionada$: Observable<any>;
+  public idprestacionSeleccionada$: Observable<any>;
   /**
    * @description Arreglo de las prestaciones que han sido cargadads en el detalle
    */
-  private idprestacionSeleccionada: number;
+  public idprestacionSeleccionada: number;
 
   public montoTotalSolicitadoSubject: Subject<any> = new Subject();
   public montoTotalSolicitado$ = this.montoTotalSolicitadoSubject.asObservable();
 
   public montoAndStuff: any;
 
-  setmontoAndStuff() {
-    this.montoTotalSolicitado$.subscribe(montoAndStuff => {
-      console.log('dentro de setMontoAndStuff en el servicio')
-      this.montoAndStuff = montoAndStuff
-      console.log('this.montoAndStuff', this.montoAndStuff)
-    })
-  }
+
 
   get getmontoAndStuff() {
     return this.montoAndStuff;
   }
 
   constructor() {
-    this.setmontoAndStuff();
-
     this.beneficiarioBehavior = new BehaviorSubject('');
     this.beneficiario$ = this.beneficiarioBehavior.asObservable();
     this.beneficiario$.subscribe(e => {
@@ -170,6 +162,28 @@ export class DataStorageService {
   getFormReemboslo() {
     return this.reembolsoForm$;
   }
+  temptext = '';
+  /**
+   * @description retorna un arreglo de los archivos cargados en base64
+   * @param namePrestacion
+   */
+  async getFilesFormReembolsoBase64(namePrestacion: string, index: number) {
+    const prestaciones = ['consultamedica', 'hospitalario', 'lentes', 'dentales', 'examenes', 'medicamentos']
+    let filesReume: any = [];
+    for (const prestacion of prestaciones) {
+      const files = this.reembolsoForm.files.docsStructure[prestacion].nameFiles;
+      for (let archivo of files) {
+        for (const file of archivo.files) {
+          const reader = new FileReader();
+          reader.onload = () => this.temptext = (reader.result as string)
+          reader.readAsDataURL(file);
+          const data = { prestacion: prestacion, name: file.name, base64: this.temptext };
+          filesReume.push(data);
+        }
+      }
+    }
+    return filesReume;
+  }
 
   /**
    * @description restura el formulario de reembolso a su estado original y actualiza  todos los componentes subscritos
@@ -210,9 +224,9 @@ export class DataStorageService {
 
 
   /**
- * @description agrega una nueva prestacion al detalle de las prestaciones
- * @param prestacion prestacion recibida del modal de agregar detalle prestacion
- */
+  * @description agrega una nueva prestacion al detalle de las prestaciones
+  * @param prestacion prestacion recibida del modal de agregar detalle prestacion
+  */
   agregarPrestacion(prestacion: any) {
     const id = this.detallePrestaciones.length;
     this.detallePrestaciones.push({ ...prestacion, id });
@@ -352,7 +366,7 @@ const documentsDisplay: any = {
 
 const formReembolso = {
   stepOne_who: {
-    personaSeleccionada: true,
+    personaSeleccionada: false,
   },
   stepTwo_selectOption: {
     prestacionSeleccionada: false,

@@ -129,12 +129,11 @@ export class DsInputComponent implements OnInit, AfterViewInit {
       this.value = this.format(this.value)
       emit = this.limpiarMonto(this.value)
     } else if (this.formatoRut) {
-      console.log('this.formatoRut', this.formatoRut)
-      console.log('this.value', this.value)
-      emit = this.value.replace(/[.-]/g, '').replace(/^(\d{1,2})(\d{3})(\d{3})(\w{1})$/, '$1.$2.$3-$4')
+
+      emit = this.value
+      console.log('emit', emit)
     } else {
       emit = this.value
-      console.log('this.value', this.value)
     }
     this.keyupEv.emit(emit);
   }

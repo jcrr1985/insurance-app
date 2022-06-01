@@ -28,7 +28,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
   public solicitudes: any[] = [];
 
   public opcionesPrestacionesCLEM: ICard[] = [
-    { prestacion: 'Consulta Médica', name: 'atencionmedica', status: 'disabled', idPrestacion: 1 },
+    { prestacion: 'Consulta Médica', name: 'atencionmedica', status: '', idPrestacion: 1 },
     { prestacion: 'Marcos y lentes', name: 'optica', status: '', idPrestacion: 3 },
     { prestacion: 'Examenes y Procedimientos', name: 'examenes', status: '', idPrestacion: 5 },
     { prestacion: 'Compra de medicamentos', name: 'medicamentos', status: '', idPrestacion: 6 },
@@ -47,6 +47,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
   public prestacionSeleccionada: any;
   public goToMensajeFinal: string = 'no';
   public mostrarModalFinal: boolean = false;
+  public tarjetaSeleccionada!: ICard;
 
   constructor(private dataStorageService: DataStorageService,
     private reembolsoService: ReembolsoService,
@@ -63,6 +64,10 @@ export class TablaResumenReembolsoComponent implements OnInit {
       this.prestacionesCargadas = prestaciones;
       this.calcularTablaResumen();
     });
+
+    this.dataStorageService.getFormReemboslo().subscribe(form => console.log("data ->", form))
+    this.dataStorageService.getPrestacionesResumen().subscribe(form => console.log("cargadas ->", form))
+    this.dataStorageService.getPrestaciones().subscribe(form => console.log("en espera de carga ->", form))
 
 
     if (this.prestacionSeleccionada == 2) {
@@ -226,48 +231,17 @@ export class TablaResumenReembolsoComponent implements OnInit {
     return dataConsignment
   }
 
+  setCard(tarjeta: ICard) {
+    // this.dataStorageService.setIdPrestacion(tarjeta.idPrestacion);
+    this.opcionesPrestacionesCLEM.forEach(e => e.status = '');
+    this.opcionesPrestacionesD.forEach(e => e.status = '');
+    this.opcionesPrestacionesH.forEach(e => e.status = '');
+    tarjeta.status = 'active';
+    this.reembolsoService.habilitarSeleccionBeneficiario.next(false)
+    this.dataStorageService.idprestacionSeleccionadaBehavior.next(tarjeta.idPrestacion)
+  }
 
 }
 
-const examplePrestacionsCargadas = [
-  {
-    prestaciones: [
-      {
-        prestacionSeleccionada: "Consultas psiquiatria",
-        tipoPrestacion: "CONSULTA",
-        numerosesiones: "1 sesión",
-        sesiones: 1,
-        valorPrestacion: "50000",
-        bonificacion: "0",
-        id: 0
-      }
-    ],
-    idprestacionSeleccionada: 1,
-    formValues: {
-      stepOne_who: {
-        personaSeleccionada: "2"
-      },
-      stepTwo_selectOption: {
-        prestacionSeleccionada: "Consulta Médica",
-        reembolsoPrevioIsapre: "si"
-      },
-      stepThree_general: {
-        agenciaSeleccionada: true,
-        rutInstitucion: "asd",
-        boletaFactura: "asd",
-        fechaAtencion: "4/5/2022",
-        copagoMayor: "si",
-        montoSolicitado: false
-      },
-      stepFour_general: {
-        tipoDocumentoSeleccionado: 2,
-        fileUploaded: true,
-        agenciaSeleccionada: false
-      },
-      stepFive_Details: {
-        reembolsoCalculation: false
-      }
-    },
-    id: 0
-  }
-]
+
+

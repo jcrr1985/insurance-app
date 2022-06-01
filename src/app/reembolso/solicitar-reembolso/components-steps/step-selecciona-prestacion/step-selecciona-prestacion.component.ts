@@ -15,6 +15,7 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
 
   stepsStatusOn: any;
   public tarjetaSeleccionada!: ICard
+  public cardy!: ICard;
 
   checkedSi: string = '';
 
@@ -39,11 +40,31 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
 
   }
 
+  @Input() esReembolso!: boolean;
+
   constructor(private dataStorageService: DataStorageService, private arancelService: ArancelService) { }
 
   ngOnInit(): void {
+    console.log('esReembolso', this.esReembolso)
     this.dataStorageService.getFormReemboslo().subscribe(statusOn => this.stepsStatusOn = statusOn);
     this.verificarValoresPreservador();
+
+    this.cardy = this.arancelService.getTarjetaSeleccionada;
+
+    if (this.esReembolso) {
+      this.cards.forEach(e => {
+        e.status = 'off'
+      })
+
+      const cardSelectedId = this.dataStorageService.getIdPrestacionSeleccionada().subscribe(e => {
+        this.cards.forEach(e => {
+          e.status = 'off'
+        })
+        this.cards[e].status = 'active'
+      })
+      
+    }
+
   }
   verificarValoresPreservador() {
     if (this.stepsStatusOn['stepTwo_selectOption']['prestacionSeleccionada']) {
