@@ -140,4 +140,10 @@ export class DetallePrestacionComponent
     }
   }
 
+  checkDsInputs(){
+   let inputValor =  document.querySelector('#valor')?.querySelector('input')?.value
+   let inputBonificacion =  document.querySelector('#bonificacion')?.querySelector('input')?.value
+
+  }?
+
 }
