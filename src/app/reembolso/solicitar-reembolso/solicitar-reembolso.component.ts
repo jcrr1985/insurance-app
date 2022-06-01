@@ -43,12 +43,6 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
   public prestacionSeleccionada: any = null;
   public habilitarBotones: boolean = false;
 
-  public historicoSesiones = [
-    { prestacion: "consulta psicologica", valor: 50000 },
-    { prestacion: "consulta psiquiatrica", valor: 60000 }
-  ]
-
-
   public customStepperSize: CustomStepperSize = {
     stepperOne: '80px',
     stepperTwo: '104px',
@@ -68,12 +62,11 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
   public eliminarDocumentoAdicional!: string;
   public prestacionesCargadas: any;
   public formularioActual: any;
-
+  public esReembolso!:boolean;
   constructor(
     private dataStorageService: DataStorageService,
     private reembolsoService: ReembolsoService,
     private router: Router,
-    private arancelService: ArancelService,
     private cdref: ChangeDetectorRef
   ) {
     this.chipsData = this.reembolsoService.getChipsData();
@@ -105,6 +98,11 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     this.dataStorageService.getFormReemboslo().subscribe(form => console.log("me buscas -> ", form));
     this.reembolsoService.habilitarSeleccionBeneficiario$.subscribe(val => {
       this.habilitarSeleccionBeneficiario = val;
+      if(!this.habilitarSeleccionBeneficiario){
+        this.esReembolso = true;
+      }else{
+        this.esReembolso = false;
+      }
     })
   }
   /**

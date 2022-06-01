@@ -39,6 +39,10 @@ export class ArancelService {
     this.tarjetaSeleccionada = cardName;
   }
 
+  public get getTarjetaSeleccionada() {
+    return this.tarjetaSeleccionada;
+  }
+
   public setPrestacionSeleccionadaId(cardId: number) {
 
     this.idprestacionSeleccionada = cardId;

@@ -236,14 +236,12 @@ export class TablaResumenReembolsoComponent implements OnInit {
     this.opcionesPrestacionesCLEM.forEach(e => e.status = '');
     this.opcionesPrestacionesD.forEach(e => e.status = '');
     this.opcionesPrestacionesH.forEach(e => e.status = '');
-
     tarjeta.status = 'active';
-
-
-
+    this.reembolsoService.habilitarSeleccionBeneficiario.next(false)
+    this.dataStorageService.idprestacionSeleccionadaBehavior.next(tarjeta.idPrestacion)
   }
 
-
 }
+
 
 

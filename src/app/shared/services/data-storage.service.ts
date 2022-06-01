@@ -70,15 +70,15 @@ export class DataStorageService {
   /**
    * @description Behavior Subject del detalle de prestaciones cargadas para la solicitud de reembolso
    */
-  private prestacionesCargadasBehavior: BehaviorSubject<any>;
+  public prestacionesCargadasBehavior: BehaviorSubject<any>;
   /**
    * @description Observable de las prestaciones disponibles que han sido cargadas en el formulario de solicitar reembolso
    */
-  private prestacionesCargadas$: Observable<any>;
+  public prestacionesCargadas$: Observable<any>;
   /**
    * @description Arreglo de las prestaciones que han sido cargadads en el detalle
    */
-  private prestacionesCargadas: any[];
+  public prestacionesCargadas: any[];
 
   //#######################################################################
   //################# Para id prestacion seleccionada #####################
@@ -88,15 +88,15 @@ export class DataStorageService {
   /**
    * @description Behavior Subject del detalle de prestaciones cargadas para la solicitud de reembolso
    */
-  private idprestacionSeleccionadaBehavior: BehaviorSubject<any>;
+  public idprestacionSeleccionadaBehavior: BehaviorSubject<any>;
   /**
    * @description Observable de las prestaciones disponibles que han sido cargadas en el formulario de solicitar reembolso
    */
-  private idprestacionSeleccionada$: Observable<any>;
+  public idprestacionSeleccionada$: Observable<any>;
   /**
    * @description Arreglo de las prestaciones que han sido cargadads en el detalle
    */
-  private idprestacionSeleccionada: number;
+  public idprestacionSeleccionada: number;
 
   public montoTotalSolicitadoSubject: Subject<any> = new Subject();
   public montoTotalSolicitado$ = this.montoTotalSolicitadoSubject.asObservable();
