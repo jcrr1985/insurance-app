@@ -32,7 +32,7 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
   public nameDocSelectedPreview: string = '';
 
 
-  public documentsDisplay: any = {
+  public documentsDisplay: any /* = {
     consultamedica: {
       nameFiles: [{ name: `${this.subtituloPrimerDocumento}`, files: [], multi: false, required: true, valid: false, esDiagnostico: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, valid: false, esDiagnostico: true }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true, esDiagnostico: false }],
       cols: 'col-span-4'
@@ -58,17 +58,39 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
       nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true }],
       cols: 'col-span-4'
     },
-  }
+  } */
   constructor(private dataStorageService: DataStorageService, private sanitizer: DomSanitizer, private arancelService: ArancelService) {
   }
 
   ngOnChanges(changes: SimpleChanges) { }
-  filesUploaded: any = [];
   ngOnInit(): void {
-    this.dataStorageService.getFormReemboslo().subscribe(statusOn => this.stepsStatusOn = statusOn);
+    this.dataStorageService.getFormReemboslo().subscribe(statusOn => {
+      this.stepsStatusOn = statusOn;
+      this.restoreDocs();
+      this.documentsDisplay = statusOn.files?.docsStructure;
+    });
+    // getStepsStatus('stepFour_general', 'tipoDocumentoSeleccionado')
+    if (this.stepsStatusOn['stepFour_general']['tipoDocumentoSeleccionado']) {
+      switch (parseInt(this.stepsStatusOn['stepFour_general']['tipoDocumentoSeleccionado'])) {
+        case 1:
+          this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de reembolso';
+          this.subtituloPrimerDocumento = 'Documento de reembolso';
+          break;
+        case 2:
+          this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de Bono atencion';
+          this.subtituloPrimerDocumento = 'Documento de Bono atencion';
+          break;
+        case 3:
+          this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de Boleta o Factura';
+          this.subtituloPrimerDocumento = 'Documento de Boleta o Factura';
+          break;
+
+        default:
+          break;
+      }
+    }
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.idPrestacionSeleccionada = id)
     this.addEventListener();
-    this.restoreDocs();
   }
 
   restoreDocs() {
@@ -104,22 +126,13 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
   addEventListener() {
     document.addEventListener('dsFileSendFiles', async (evt: any) => {
       const index = parseInt(evt.target.id.replace('documento', ''));
-      let fileEvnt = [];
+      let fileEvnt: any = [];
       let multi = false;
-            // this.documentsDisplay.forEach((docs:any)=> {
-      //   docs.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.consultamedica.nameFiles[index].files = fileEvnt
-      // })
       switch (this.idPrestacionSeleccionada) {
         case 1:
           fileEvnt = [...evt.detail];
           multi = this.documentsDisplay.consultamedica.nameFiles[index]['multi'];
           multi ? this.documentsDisplay.consultamedica.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.consultamedica.nameFiles[index].files = fileEvnt
-          if(this.documentsDisplay.consultamedica.nameFiles.name = 'Documento Reembolso'){
-            console.log('if si')
-            while (this.documentsDisplay.consultamedica.nameFiles[0].files.length > 1) {
-              this.documentsDisplay.consultamedica.nameFiles[0].files.pop();
-            }
-          }
           this.validateFileState('consultamedica', index);
           this.emitirCambioArchivo()
           break;
@@ -127,12 +140,6 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
           fileEvnt = [...evt.detail];
           multi = this.documentsDisplay.hospitalario.nameFiles[index]['multi'];
           multi ? this.documentsDisplay.hospitalario.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.hospitalario.nameFiles[index].files = fileEvnt;
-          if(this.documentsDisplay.consultamedica.nameFiles.name = 'Documento Reembolso'){
-            console.log('if si')
-            while (this.documentsDisplay.consultamedica.nameFiles[0].files.length > 1) {
-              this.documentsDisplay.consultamedica.nameFiles[0].files.pop();
-            }
-          }
           this.validateFileState('hospitalario', index);
           this.emitirCambioArchivo()
           break;
@@ -140,12 +147,6 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
           fileEvnt = [...evt.detail];
           multi = this.documentsDisplay.lentes.nameFiles[index]['multi'];
           multi ? this.documentsDisplay.lentes.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.lentes.nameFiles[index].files = fileEvnt
-          if(this.documentsDisplay.consultamedica.nameFiles.name = 'Documento Reembolso'){
-            console.log('if si')
-            while (this.documentsDisplay.consultamedica.nameFiles[0].files.length > 1) {
-              this.documentsDisplay.consultamedica.nameFiles[0].files.pop();
-            }
-          }
           this.validateFileState('lentes', index);
           this.emitirCambioArchivo()
           break;
@@ -153,12 +154,6 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
           fileEvnt = [...evt.detail];
           multi = this.documentsDisplay.dentales.nameFiles[index]['multi'];
           multi ? this.documentsDisplay.dentales.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.dentales.nameFiles[index].files = fileEvnt;
-          if(this.documentsDisplay.consultamedica.nameFiles.name = 'Documento Reembolso'){
-            console.log('if si')
-            while (this.documentsDisplay.consultamedica.nameFiles[0].files.length > 1) {
-              this.documentsDisplay.consultamedica.nameFiles[0].files.pop();
-            }
-          }
           this.validateFileState('dentales', index);
           this.emitirCambioArchivo()
           break;
@@ -166,12 +161,6 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
           fileEvnt = [...evt.detail];
           multi = this.documentsDisplay.examenes.nameFiles[index]['multi'];
           multi ? this.documentsDisplay.examenes.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.examenes.nameFiles[index].files = fileEvnt;
-          if(this.documentsDisplay.consultamedica.nameFiles.name = 'Documento Reembolso'){
-            console.log('if si')
-            while (this.documentsDisplay.consultamedica.nameFiles[0].files.length > 1) {
-              this.documentsDisplay.consultamedica.nameFiles[0].files.pop();
-            }
-          }
           this.validateFileState('examenes', index);
           this.emitirCambioArchivo()
           break;
@@ -179,12 +168,6 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
           fileEvnt = [...evt.detail];
           multi = this.documentsDisplay.medicamentos.nameFiles[index]['multi'];
           multi ? this.documentsDisplay.medicamentos.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.medicamentos.nameFiles[index].files = fileEvnt;
-          if(this.documentsDisplay.consultamedica.nameFiles.name = 'Documento Reembolso'){
-            console.log('if si')
-            while (this.documentsDisplay.consultamedica.nameFiles[0].files.length > 1) {
-              this.documentsDisplay.consultamedica.nameFiles[0].files.pop();
-            }
-          }
           this.validateFileState('medicamentos', index);
           this.emitirCambioArchivo()
           break;
@@ -239,6 +222,8 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
   async emitirCambioArchivo() {
     const archivosSubidosCorrectamente = this.validarCargaDeArchivos();
     await timer(100).toPromise();
+    this.dataStorageService.setFormReembolso('files', 'docsStructure', this.documentsDisplay);
+    this.dataStorageService.setFormReembolso('files', 'firstDocName', this.subtituloPrimerDocumento);
     this.dataStorageService.setFormReembolso('stepFour_general', 'fileUploaded', archivosSubidosCorrectamente)
   }
   deleteDocs(prestacion: string, indexNameFiles: number, nameFile: string) {
@@ -258,9 +243,8 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
     if (extensionesDisponibles.includes(event.type)) {
       const reader = new FileReader();
       reader.onload = () =>
-      (this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-        reader.result as string
-      ));
+        (this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(reader.result as string));
+
       reader.readAsDataURL(event);
       this.mostrarPreview = true;
     } else {
@@ -276,7 +260,6 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
     this.dataStorageService.setFormReembolso(data.step, data.option, data.value);
 
     switch (data.value) {
-
       case 1:
         this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de reembolso';
         break;

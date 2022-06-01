@@ -93,14 +93,14 @@
     <ng-containter class="otro-reembolso__container" *ngIf="nuevoReembolso=== 'si'">
         <div class="reembolso__row" [ngSwitch]="prestacionSeleccionada">
             <div *ngSwitchCase="1 || 3 || 5 || 6" class="reembolso__row">
-                <app-card-option *ngFor="let x of opcionesPrestacionesCLEM;let id = index" [status]="'off'"
-                    [name]="x.name" [routerLink]="['/solicitud']" (click)="habilitarSeleccionBeneficiario(false);"
+                <app-card-option *ngFor="let x of opcionesPrestacionesCLEM;let id = index" [status]="x.status"
+                    [name]="x.name"  (click)="habilitarSeleccionBeneficiario(false);setCard(x)"
                     [prestacionName]="x.prestacion" (click)="  continuar=true">
                 </app-card-option>
             </div>
             <div *ngSwitchCase="4">
-                <app-card-option *ngFor="let x of opcionesPrestacionesD;let id =index" [status]="'off'" [name]="x.name"
-                    [routerLink]="['/solicitud']" (click)="habilitarSeleccionBeneficiario(false);"
+                <app-card-option *ngFor="let x of opcionesPrestacionesD;let id =index" [status]="x.status" [name]="x.name"
+                     (click)="habilitarSeleccionBeneficiario(false); setCard(x)"
                     [prestacionName]=" x.prestacion" (click)="  continuar=true">
                 </app-card-option>
             </div>
@@ -118,7 +118,7 @@
                 </ds-button>
                 <ds-button id="ds-button-siguiente" (click)="habilitarSeleccionBeneficiario(true)"
                     [disabled]="!continuar" *ngIf="returnValorRadioButtons() == 'si'" [size]="'s2'" variant="primary"
-                    slot-name="next-button-slot" [routerLink]="['/final']">
+                    slot-name="next-button-slot" [routerLink]="['/solicitud']">
                     <span slot="next-button-slot"> Continuar </span>
                 </ds-button>
             </div>
