@@ -57,7 +57,7 @@
         slot-name="cancel-button-slot">
         <span slot="cancel-button-slot">Cancelar</span>
       </ds-button>
-      <ds-button [disabled]="invalidInputs" id="ds-button-siguiente" (click)="sendData()" [size]="'s2'" variant="primary"
+      <ds-button [disabled]="checkDsInputs()" id="ds-button-siguiente" (click)="sendData()" [size]="'s2'" variant="primary"
         slot-name="next-button-slot">
         <span slot="next-button-slot"> Guardar </span>
       </ds-button>

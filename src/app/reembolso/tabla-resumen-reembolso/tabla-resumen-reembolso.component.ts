@@ -17,7 +17,7 @@ import { DataUsuarioService } from 'src/app/shared/services/data-usuario/data-us
 })
 export class TablaResumenReembolsoComponent implements OnInit {
   public montoTotalSolicitado!: number;
-  public nuevoReembolso: string = '';
+  public nuevoReembolso: boolean = false;
   public prestacionesCargadas: any = [];
   public consignment!: IConsignment;
   public montoSolicitado: string = '';
@@ -45,7 +45,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
 
   public continuar: boolean = false;
   public prestacionSeleccionada: any;
-  public goToMensajeFinal: string = 'no';
+  public goToMensajeFinal: boolean = false;
   public mostrarModalFinal: boolean = false;
   public tarjetaSeleccionada!: ICard;
 
@@ -59,7 +59,10 @@ export class TablaResumenReembolsoComponent implements OnInit {
     this.usuario = this.insuredData.usuarioConectado;
     this.usuarioSeleccionado = this.dataStorageService.getBeneficiario;
     console.log('usuarioSeleccionado', this.usuarioSeleccionado)
-    this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.prestacionSeleccionada = id);
+    this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => {
+      this.prestacionSeleccionada = id
+      console.log('this.prestacionSeleccionada', this.prestacionSeleccionada)
+    });
     this.dataStorageService.getPrestacionesResumen().subscribe(prestaciones => {
       this.prestacionesCargadas = prestaciones;
       this.calcularTablaResumen();
@@ -71,8 +74,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
 
 
     if (this.prestacionSeleccionada == 2) {
-      this.nuevoReembolso = 'no';
-      this.goToMensajeFinal = 'sí'
+      this.nuevoReembolso = false;
     }
   }
 
@@ -111,7 +113,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
     this.restaurarFormulario();
 
   }
-  setValorRadioButtons(respuesta: string) {
+  setValorRadioButtons(respuesta: boolean) {
     this.nuevoReembolso = respuesta;
   }
   returnValorRadioButtons() {

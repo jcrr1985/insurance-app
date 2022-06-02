@@ -60,7 +60,7 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
         this.cards.forEach(e => {
           e.status = 'off'
         })
-        this.cards[e].status = 'active'
+        this.cards[e - 1].status = 'active'
       })
 
     }
@@ -121,8 +121,9 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
     // this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.idprestacionSeleccionada = id) 
     if (tarjeta.name != 'atencionmedica' && tarjeta.name != 'atencionhospitalaria' && tarjeta.name != 'examenes') {
       this.dataStorageService.setFormReembolso('stepTwo_selectOption', 'reembolsoPrevioIsapre', 'si');
-      console.log('en el if de no M no A H no E')
     }
+
+    this.evaluateStepTwo.emit();
 
   }
 }

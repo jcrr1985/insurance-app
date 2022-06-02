@@ -20,10 +20,10 @@
 
   <!-- SELECCIONA TU PRESTACION -->
   <app-step-selecciona-prestacion [esReembolso]="esReembolso" [stepperTwoSource]="stepperTwoSource" [customStepperSize]="customStepperSize"
-    [chipsData]="chipsData"></app-step-selecciona-prestacion>
+    [chipsData]="chipsData" ></app-step-selecciona-prestacion>
 
   <!-- COMPLETAR DATOS GENERALES -->
-  <app-step-datos-generales (mostrarDocumentoAdicional)="mostrarDocumentoAdicional($event)"
+  <app-step-datos-generales  (mostrarDocumentoAdicional)="mostrarDocumentoAdicional($event)"
     [stepperThreeSource]="stepperThreeSource" [customStepperSize]="customStepperSize"></app-step-datos-generales>
 
   <!-- CARGA DE DOCUMENTOS -->
