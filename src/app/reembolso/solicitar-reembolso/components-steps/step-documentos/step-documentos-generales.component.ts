@@ -1,5 +1,5 @@
 import { DataStorageService } from './../../../../shared/services/data-storage.service';
-import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import '@vs-design-system/ds-file';
 import { timer } from 'rxjs';
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
@@ -10,7 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   templateUrl: './step-documentos-generales.component.html',
   styleUrls: ['./step-documentos-generales.component.scss']
 })
-export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
+export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDestroy {
   @Input() montoReelbolso: any;
   @Input() stepperFourSource: any;
   @Input() customStepperSize: any;
@@ -22,6 +22,62 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
   fileUrl: any;
   mostrarPreview: boolean = false;
 
+  handlerFunction = async (evt: any) => {
+    const index = parseInt(evt.target.id.replace('documento', ''));
+    let fileEvnt: any = [];
+    let multi = false;
+    switch (this.idPrestacionSeleccionada) {
+      case 1:
+        fileEvnt = [...evt.detail];
+        multi = this.documentsDisplay.consultamedica.nameFiles[index]['multi'];
+        multi ? this.documentsDisplay.consultamedica.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.consultamedica.nameFiles[index].files = fileEvnt
+        this.validateFileState('consultamedica', index);
+        this.emitirCambioArchivo()
+        break;
+      case 2:
+        fileEvnt = [...evt.detail];
+        multi = this.documentsDisplay.hospitalario.nameFiles[index]['multi'];
+        multi ? this.documentsDisplay.hospitalario.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.hospitalario.nameFiles[index].files = fileEvnt;
+        this.validateFileState('hospitalario', index);
+        this.emitirCambioArchivo()
+        break;
+      case 3:
+        fileEvnt = [...evt.detail];
+        multi = this.documentsDisplay.lentes.nameFiles[index]['multi'];
+        multi ? this.documentsDisplay.lentes.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.lentes.nameFiles[index].files = fileEvnt
+        this.validateFileState('lentes', index);
+        this.emitirCambioArchivo()
+        break;
+      case 4:
+        fileEvnt = [...evt.detail];
+        multi = this.documentsDisplay.dentales.nameFiles[index]['multi'];
+        multi ? this.documentsDisplay.dentales.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.dentales.nameFiles[index].files = fileEvnt;
+        this.validateFileState('dentales', index);
+        this.emitirCambioArchivo()
+        break;
+      case 5:
+        fileEvnt = [...evt.detail];
+        multi = this.documentsDisplay.examenes.nameFiles[index]['multi'];
+        multi ? this.documentsDisplay.examenes.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.examenes.nameFiles[index].files = fileEvnt;
+        this.validateFileState('examenes', index);
+        this.emitirCambioArchivo()
+        break;
+      case 6:
+        fileEvnt = [...evt.detail];
+        multi = this.documentsDisplay.medicamentos.nameFiles[index]['multi'];
+        multi ? this.documentsDisplay.medicamentos.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.medicamentos.nameFiles[index].files = fileEvnt;
+        this.validateFileState('medicamentos', index);
+        this.emitirCambioArchivo()
+        break;
+
+      default:
+        break;
+    }
+    await timer(1000);
+    (document.querySelector(`#${evt.target.id} > div > div > input`) as any).value = null;
+    this.evaluateStepFour.emit()
+  }
+
 
 
   @Output() sendData: EventEmitter<any> = new EventEmitter<any>();
@@ -32,7 +88,7 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
   public nameDocSelectedPreview: string = '';
 
 
-  public documentsDisplay: any /* = {
+  public documentsDisplay: any; /* = {
     consultamedica: {
       nameFiles: [{ name: `${this.subtituloPrimerDocumento}`, files: [], multi: false, required: true, valid: false, esDiagnostico: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, valid: false, esDiagnostico: true }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true, esDiagnostico: false }],
       cols: 'col-span-4'
@@ -67,7 +123,9 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
     this.dataStorageService.getFormReemboslo().subscribe(statusOn => {
       this.stepsStatusOn = statusOn;
       this.restoreDocs();
-      this.documentsDisplay = statusOn.files?.docsStructure;
+      this.documentsDisplay = statusOn.files.docsStructure;
+      console.log("statusOn", statusOn);
+      console.log("this.documentsDisplay", this.documentsDisplay);
     });
     // getStepsStatus('stepFour_general', 'tipoDocumentoSeleccionado')
     if (this.stepsStatusOn['stepFour_general']['tipoDocumentoSeleccionado']) {
@@ -91,6 +149,10 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
     }
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.idPrestacionSeleccionada = id)
     this.addEventListener();
+  }
+  ngOnDestroy(): void {    
+    document.removeEventListener('dsFileSendFiles', this.handlerFunction)
+
   }
 
   restoreDocs() {
@@ -124,61 +186,8 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges {
   }
 
   addEventListener() {
-    document.addEventListener('dsFileSendFiles', async (evt: any) => {
-      const index = parseInt(evt.target.id.replace('documento', ''));
-      let fileEvnt: any = [];
-      let multi = false;
-      switch (this.idPrestacionSeleccionada) {
-        case 1:
-          fileEvnt = [...evt.detail];
-          multi = this.documentsDisplay.consultamedica.nameFiles[index]['multi'];
-          multi ? this.documentsDisplay.consultamedica.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.consultamedica.nameFiles[index].files = fileEvnt
-          this.validateFileState('consultamedica', index);
-          this.emitirCambioArchivo()
-          break;
-        case 2:
-          fileEvnt = [...evt.detail];
-          multi = this.documentsDisplay.hospitalario.nameFiles[index]['multi'];
-          multi ? this.documentsDisplay.hospitalario.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.hospitalario.nameFiles[index].files = fileEvnt;
-          this.validateFileState('hospitalario', index);
-          this.emitirCambioArchivo()
-          break;
-        case 3:
-          fileEvnt = [...evt.detail];
-          multi = this.documentsDisplay.lentes.nameFiles[index]['multi'];
-          multi ? this.documentsDisplay.lentes.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.lentes.nameFiles[index].files = fileEvnt
-          this.validateFileState('lentes', index);
-          this.emitirCambioArchivo()
-          break;
-        case 4:
-          fileEvnt = [...evt.detail];
-          multi = this.documentsDisplay.dentales.nameFiles[index]['multi'];
-          multi ? this.documentsDisplay.dentales.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.dentales.nameFiles[index].files = fileEvnt;
-          this.validateFileState('dentales', index);
-          this.emitirCambioArchivo()
-          break;
-        case 5:
-          fileEvnt = [...evt.detail];
-          multi = this.documentsDisplay.examenes.nameFiles[index]['multi'];
-          multi ? this.documentsDisplay.examenes.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.examenes.nameFiles[index].files = fileEvnt;
-          this.validateFileState('examenes', index);
-          this.emitirCambioArchivo()
-          break;
-        case 6:
-          fileEvnt = [...evt.detail];
-          multi = this.documentsDisplay.medicamentos.nameFiles[index]['multi'];
-          multi ? this.documentsDisplay.medicamentos.nameFiles[index].files.push(...fileEvnt) : this.documentsDisplay.medicamentos.nameFiles[index].files = fileEvnt;
-          this.validateFileState('medicamentos', index);
-          this.emitirCambioArchivo()
-          break;
 
-        default:
-          break;
-      }
-      await timer(1000);
-      (document.querySelector(`#${evt.target.id} > div > div > input`) as any).value = null;
-      this.evaluateStepFour.emit()
-    })
+    document.addEventListener('dsFileSendFiles', this.handlerFunction)
   }
 
   validateFileState(nombrePrestacion: string, index: number) {

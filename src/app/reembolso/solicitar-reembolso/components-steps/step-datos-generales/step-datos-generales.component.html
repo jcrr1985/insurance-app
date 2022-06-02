@@ -8,7 +8,7 @@
         [ngClass]="{'waitStepperText':this.stepperThreeSource()[0].status == 'waiting'}">Completa los siguientes
         datos</span>
     </ds-title>
-    <div class="grid grid-cols-12 gap-4">
+    <div class="grid grid-cols-12 gap-4 datos-generales-container">
       <ng-container
         *ngIf="getStepsStatus('stepTwo_selectOption', 'prestacionSeleccionada') && getStepsStatus('stepTwo_selectOption', 'reembolsoPrevioIsapre')">
 

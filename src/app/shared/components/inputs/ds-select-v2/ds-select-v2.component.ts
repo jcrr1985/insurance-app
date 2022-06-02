@@ -26,8 +26,8 @@ export class DsSelectV2Component implements OnInit {
     //   console.log('BAKUHATSU!!!!!!  quien se atendio')  
     // }
     if (this.valueSelected) {
-      const finded = this.source.find(e => e.value == this.valueSelected);
-      if (finded) this.selectValue(finded)
+      const found = this.source.find(e => e.value == this.valueSelected);
+      if (found) this.selectValue(found)
     }
 
     switch (this.label) {

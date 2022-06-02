@@ -1,5 +1,5 @@
 import { DataStorageService } from 'src/app/shared/services/data-storage.service';
-import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges, AfterViewInit } from '@angular/core';
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
 import * as moment from 'moment';
 
@@ -8,7 +8,7 @@ import * as moment from 'moment';
   templateUrl: './step-datos-generales.component.html',
   styleUrls: ['./step-datos-generales.component.scss'],
 })
-export class StepDatosGeneralesComponent implements OnInit, OnChanges {
+export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() stepperThreeSource: any;
   @Input() customStepperSize: any;
   stepsStatusOn: any;
@@ -30,11 +30,17 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
 
   constructor(private dataStorageService: DataStorageService, private prestacionService: ArancelService) {
   }
+  ngAfterViewInit(): void {
+    let datosGeneralesContainer = document.querySelector('datos-generales-container')
+    let inputsDatosGeneralesArray = datosGeneralesContainer?.querySelectorAll('inputs')
+    console.log('inputsDatosGeneralesArray', inputsDatosGeneralesArray)
+  }
   ngOnChanges(changes: SimpleChanges): void {
     this.definirTextoPregunta()
   }
   filesUploaded: any = [];
   ngOnInit(): void {
+
     this.dataStorageService.getFormReemboslo().subscribe(statusOn => this.stepsStatusOn = statusOn);
     if (this.stepsStatusOn['stepThree_general']['copagoMayor']) {
       this.copago = this.stepsStatusOn['stepThree_general']['copagoMayor'];
@@ -43,13 +49,15 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
     // this.prestacionService.setIdSubject$.subscribe(idPrestacionSeleccionada => { this.idPestacionSeleccionada = idPrestacionSeleccionada; });
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => (this.idPestacionSeleccionada = id, console.log(id)))
     setTimeout(() => {
-      
+
       let cal = document.querySelector('#start-date-single-undefined')
 
-      cal?.addEventListener('click', ()=> {
+      cal?.addEventListener('click', () => {
         let days = document.querySelector('.data-time')
         console.log('days', days)
-         
+
+
+
       })
     }, 600);
   }
@@ -58,12 +66,7 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges {
     return (event.charCode >= 48 && event.charCode <= 57)
   }
 
-  fechaDeAtencion() {
-    // const fecha = this.getStepsStatus('stepThree_general', 'fechaAtencion') != '' ? moment(this.getStepsStatus('stepThree_general', 'fechaAtencion'), ['DD/M/YYYY']).format('DD / MM / YYYY') : null;
-    // if (fecha) console.log("fechaAtencion", fecha);
-    // return fecha;
-  }
-
+ 
   agregarAgenteEscucha() {
     window.addEventListener('onSelectDate', (event: any) => {
       const id = event.path[1].id

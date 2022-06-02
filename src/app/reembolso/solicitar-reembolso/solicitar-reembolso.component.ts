@@ -100,6 +100,10 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       this.habilitarSeleccionBeneficiario = val;
       if(!this.habilitarSeleccionBeneficiario){
         this.esReembolso = true;
+        this.stepperOneSource = () => [{ label: '', status:'completed' }];
+        this.stepperTwoSource = () => [{ label: '', status: 'active' }];
+        this.dataStorageService.setIdPrestacion(this.prestacionSeleccionada);
+    
       }else{
         this.esReembolso = false;
       }
@@ -235,6 +239,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
         ? 'completed'
         : 'waiting';
 
+        console.log('status', status)
     if (status == 'completed') {
       this.stepperTwoSource = () => [{ label: '', status }];
       this.stepperThreeSource = () => [{ label: '', status: 'active' }];

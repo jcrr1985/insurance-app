@@ -18,11 +18,11 @@ export class DataStorageService {
   /**
    * @description Observable para conocer el estado del formulario
    */
-  private reembolsoForm$: Observable<any>;
+  public reembolsoForm$: Observable<any>;
   /**
    * @description formulario  para solicitar un reembolso, mantiene los valores de la  aplicacion en curso
    */
-  private reembolsoForm: any;
+  public reembolsoForm: any;
 
   //#######################################################################
   //################## Para Beneficiario Seleccionado #####################
@@ -188,6 +188,8 @@ export class DataStorageService {
   /**
    * @description restura el formulario de reembolso a su estado original y actualiza  todos los componentes subscritos
    */
+
+
   resturarFormularioReembolso() {
     this.reembolsoForm = {
       stepOne_who: {
@@ -210,10 +212,13 @@ export class DataStorageService {
         fileUploaded: false,
         agenciaSeleccionada: false,
       },
-
       stepFive_Details: {
         reembolsoCalculation: false,
       },
+      files: {
+        docsStructure: documentsDisplay,
+        firstDocName: ''
+      }
     };
     this.reembolsoFormBehavior.next(this.reembolsoForm);
   }

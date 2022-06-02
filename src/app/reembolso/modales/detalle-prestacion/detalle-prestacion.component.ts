@@ -11,13 +11,13 @@ import { Arancel } from 'src/app/shared/interfaces/interfaces';
 })
 export class DetallePrestacionComponent
   implements OnInit {
-  public modalMontoReembolso!: number;
-  public prestacionNombre!: any;
+    public modalMontoReembolso!: number;
+    public prestacionNombre!: any;
   public idprestacionSeleccionada!: number;
   public stepsStatusOn: any;
   public prestacionSeleccionada: any = {};
   @Output() hideModalEvent: EventEmitter<any> = new EventEmitter<any>();
-
+  
   public valor: any = 0;
   public bonificacion: any = 0;
   public montoReembolso: any = 0;
@@ -26,11 +26,12 @@ export class DetallePrestacionComponent
   public warningMsg: boolean = true;
   public prestacioSeleccionada = this.arancelService.getPrestacionSeleccionada;
   public sourceSearch: any;
-  public form : any;
-  public labelArancel : string = 'Nombre Prestación';
-  public labelValor : string = 'Valor';
-  public labelValorBon : string = 'Bonificación Isapre/Fonasa';
-  public esBoletaFactura : boolean = false;
+  public form: any;
+  public labelArancel: string = 'Nombre Prestación';
+  public labelValor: string = 'Valor';
+  public labelValorBon: string = 'Bonificación Isapre/Fonasa';
+  public esBoletaFactura: boolean = false;
+  public invalidInputs: any = null;
 
 
   public montoReferencia = 50000;
@@ -41,27 +42,34 @@ export class DetallePrestacionComponent
     this.dataStorageService.getFormReemboslo().subscribe(statusOn => this.stepsStatusOn = statusOn);
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.prestacionSeleccionada = id);
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.idprestacionSeleccionada = id);
-    if(this.idprestacionSeleccionada == 6){
+    if (this.idprestacionSeleccionada == 6) {
       this.labelArancel = 'Nombre Medicamento';
       this.labelValor = 'Valor Medicamento';
       this.labelValorBon = 'Descuento Institución';
     }
-    if(this.stepsStatusOn.stepFour_general.tipoDocumentoSeleccionado == 3){
+    if (this.stepsStatusOn.stepFour_general.tipoDocumentoSeleccionado == 3) {
       this.esBoletaFactura = true;
       this.arancel.bonificacion = 0;
     }
   }
 
-  validarSoloLetras(event:any){
+  validarSoloLetras(event: any) {
+    this.inval();
     return /[a-z, ]/i.test(event.key)
   }
 
-  validarNumero(event: any){
+  validarNumero(event: any) {
+    this.inval();
     return (event.charCode >= 48 && event.charCode <= 57)
   }
 
   closeModal(): void {
     this.hideModalEvent.emit(false);
+  }
+  
+  inval() {
+    const inputFeilds = document.querySelectorAll("input");
+    this.invalidInputs = Array.from(inputFeilds).filter(input => input.value == "" || input.value == undefined);
   }
 
   itemSelected(arancel: IArancel) {
@@ -107,8 +115,7 @@ export class DetallePrestacionComponent
       this.dataStorageService.agregarPrestacion(this.arancel);
       this.dataStorageService.setFormReembolso('stepFive_Details', 'reembolsoCalculation', true);
       this.closeModal();
-    }else{
-
+    } else {
     }
   }
 
@@ -119,7 +126,7 @@ export class DetallePrestacionComponent
         this.stepsStatusOn.stepOne_who.personaSeleccionada,
         this.arancel.valorPrestacion,
         this.arancel.sesiones
-        );
+      );
       this.arancel.sesionValida = this.arancelService.desviadoOK;
       this.arancel.montoHistorico = this.arancelService.montoHistorico;
       this.montoReferencia = this.arancelService.montoHistorico;
@@ -138,6 +145,20 @@ export class DetallePrestacionComponent
       if (this.arancel.bonificacion >= 0 && this.arancel.valorPrestacion > 0) return false
       else return true;
     }
+  }
+
+  checkDsInputs() {
+    let inputValor = document.querySelector('#valor')?.querySelector('input')?.value
+    let inputBonificacion = document.querySelector('#bonificacion')?.querySelector('input')?.value
+    let nombrePrestacion = document.querySelector('#nombrePrestacion')?.querySelector('input')?.value
+    let numeroSesiones = document.querySelector('#numeroSesiones')?.querySelector('input')?.value
+
+    if (inputValor && inputBonificacion && nombrePrestacion && numeroSesiones){
+      return false
+    }else{
+      return true
+    }
+
   }
 
 }
