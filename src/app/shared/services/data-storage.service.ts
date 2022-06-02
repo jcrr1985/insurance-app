@@ -347,7 +347,7 @@ const documentsDisplay: any = {
     cols: 'col-span-4'
   },
   hospitalario: {
-    nameFiles: [{ name: 'Documento Hospitalario', files: [], multi: false, required: true, valid: false }],
+    nameFiles: [{ name: 'Documento Hospitalario', files: [], multi: true, required: true, valid: false }],
     filesUploades: [[], [], []],
     cols: 'col-span-12',
   },
