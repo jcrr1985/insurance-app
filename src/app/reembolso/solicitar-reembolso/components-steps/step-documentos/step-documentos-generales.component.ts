@@ -18,6 +18,7 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
   stepsStatusOn: any;
   isapreFonasaOptions: any = previsionesArray;
   idPrestacionSeleccionada: number = 1;
+  descriptionDSFile: string = 'Adjunta un archivo (jpg, jpeg, png o pdf) que no supere los 15MB';
 
   fileUrl: any;
   mostrarPreview: boolean = false;
@@ -179,7 +180,7 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
         cols: 'col-span-4'
       },
       medicamentos: {
-        nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true }],
+        nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Receta médica', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true }],
         cols: 'col-span-4'
       },
     }

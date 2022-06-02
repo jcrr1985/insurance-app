@@ -10,7 +10,7 @@
     <!-- Fin Title -->
     <div>
       <ng-container *ngIf="(getStepsStatus('stepThree_general', 'agenciaSeleccionada') !='' && getStepsStatus('stepThree_general', 'rutInstitucion') !='' && getStepsStatus('stepThree_general', 'boletaFactura') !='' && getStepsStatus('stepThree_general', 'fechaAtencion') !='' && getStepsStatus('stepThree_general', 'copagoMayor') !='') 
-      || getStepsStatus('stepThree_general', 'montoSolicitado') != '$ 0'">
+      || (getStepsStatus('stepThree_general', 'montoSolicitado') != '' && getStepsStatus('stepThree_general', 'montoSolicitado') != '$0')">
         <!--pregunta tipo documento -->
         <div *ngIf="idPrestacionSeleccionada != 2" class="upload-documents__container">
           <ds-paragraph type="p1" family="primary" weight="regular" color="secondary">
@@ -57,10 +57,10 @@
               *ngIf="!(getStepsStatus('stepThree_general','copagoMayor') == 'no' && docs.esDiagnostico)">
               <h1 class="titleDocs">{{docs.name}}</h1>
               <ds-file type="default" [attr.id]="'documento'+indexDocName"
-                bottom-text="Adjunta un archivo (jpg, jpeg o png) que no supere los 15MB">
+                bottom-text="Adjunta un archivo (jpg, jpeg, png o pdf) que no supere los 15MB">
               </ds-file>
-              <p class="archivos-adjuntos__title">Archivos adjuntos</p>
               <ng-container *ngFor="let file of docs.files;let indexFile = index">
+                <p class="archivos-adjuntos__title" *ngIf="indexFile == 0">Archivos adjuntos</p>
                 <!-- Card documento adjunto -->
                 <div class="archivos-adjuntos__container">
 
@@ -96,10 +96,10 @@
             <div [ngClass]="[documentsDisplay.hospitalario.cols]">
               <h1 class="titleDocs">{{docs.name}}</h1>
               <ds-file type="default" [attr.id]="'documento'+indexDocName"
-                bottom-text="Adjunta un archivo (jpg, jpeg o png) que no supere los 15MB">
+                bottom-text="Adjunta un archivo (jpg, jpeg, png o pdf) que no supere los 15MB">
               </ds-file>
-              <p class="archivos-adjuntos__title">Archivos adjuntos</p>
               <ng-container *ngFor="let file of docs.files;let indexFile = index">
+                <p class="archivos-adjuntos__title" *ngIf="indexFile == 0">Archivos adjuntos</p>
                 <!-- Card documento adjunto -->
                 <div class="archivos-adjuntos__container">
                   <div class="filesUploaded" (click)="vistaPreviaArchivo(file,docs.name)">
@@ -132,10 +132,10 @@
             <div [ngClass]="[documentsDisplay.lentes.cols]">
               <h1 class="titleDocs">{{docs.name}}</h1>
               <ds-file type="default" [attr.id]="'documento'+indexDocName"
-                bottom-text="Adjunta un archivo (jpg, jpeg o png) que no supere los 15MB">
+                bottom-text="Adjunta un archivo (jpg, jpeg, png o pdf) que no supere los 15MB">
               </ds-file>
-              <p class="archivos-adjuntos__title">Archivos adjuntos</p>
               <ng-container *ngFor="let file of docs.files;let indexFile = index">
+                <p class="archivos-adjuntos__title" *ngIf="indexFile == 0">Archivos adjuntos</p>
                 <!-- Card documento adjunto -->
                 <div class="archivos-adjuntos__container">
                   <div class="filesUploaded" (click)="vistaPreviaArchivo(file,docs.name)">
@@ -168,10 +168,10 @@
             <div [ngClass]="[documentsDisplay.dentales.cols]">
               <h1 class="titleDocs">{{docs.name}}</h1>
               <ds-file type="default" [attr.id]="'documento'+indexDocName"
-                bottom-text="Adjunta un archivo (jpg, jpeg o png) que no supere los 15MB">
+                bottom-text="Adjunta un archivo (jpg, jpeg, png o pdf) que no supere los 15MB">
               </ds-file>
-              <p class="archivos-adjuntos__title">Archivos adjuntos</p>
               <ng-container *ngFor="let file of docs.files;let indexFile = index">
+                <p class="archivos-adjuntos__title" *ngIf="indexFile == 0">Archivos adjuntos</p>
                 <!-- Card documento adjunto -->
                 <div class="archivos-adjuntos__container">
                   <div class="filesUploaded" (click)="vistaPreviaArchivo(file,docs.name)">
@@ -204,10 +204,10 @@
               *ngIf="docs.required || getStepsStatus('stepThree_general','copagoMayor') == 'si' && !docs.required">
               <h1 class="titleDocs">{{docs.name}}</h1>
               <ds-file type="default" [attr.id]="'documento'+indexDocName"
-                bottom-text="Adjunta un archivo (jpg, jpeg o png) que no supere los 15MB">
+                bottom-text="Adjunta un archivo (jpg, jpeg, png o pdf) que no supere los 15MB">
               </ds-file>
-              <p class="archivos-adjuntos__title">Archivos adjuntos</p>
               <ng-container *ngFor="let file of docs.files;let indexFile = index">
+                <p class="archivos-adjuntos__title" *ngIf="indexFile == 0">Archivos adjuntos</p>
                 <!-- Card documento adjunto -->
                 <div class="archivos-adjuntos__container">
                   <div class="filesUploaded" (click)="vistaPreviaArchivo(file,docs.name)">
@@ -240,10 +240,10 @@
             <div [ngClass]="[documentsDisplay.medicamentos.cols]">
               <h1 class="titleDocs">{{docs.name}}</h1>
               <ds-file type="default" [attr.id]="'documento'+indexDocName"
-                bottom-text="Adjunta un archivo (jpg, jpeg o png) que no supere los 15MB">
+                bottom-text="Adjunta un archivo (jpg, jpeg, png o pdf) que no supere los 15MB">
               </ds-file>
-              <p class="archivos-adjuntos__title">Archivos adjuntos</p>
               <ng-container *ngFor="let file of docs.files;let indexFile = index">
+                <p class="archivos-adjuntos__title" *ngIf="indexFile == 0">Archivos adjuntos</p>
                 <!-- Card documento adjunto -->
                 <div class="archivos-adjuntos__container">
                   <div class="filesUploaded" (click)="vistaPreviaArchivo(file,docs.name)">

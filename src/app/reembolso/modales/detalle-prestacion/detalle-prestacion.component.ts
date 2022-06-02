@@ -32,6 +32,7 @@ export class DetallePrestacionComponent
   public labelValorBon: string = 'Bonificación Isapre/Fonasa';
   public esBoletaFactura: boolean = false;
   public invalidInputs: any = null;
+  public formatter = new Intl.NumberFormat('es-CL');
 
 
   public montoReferencia = 50000;
@@ -161,7 +162,11 @@ export class DetallePrestacionComponent
     }else{
       return true
     }
+  }
 
+  formateoValor(valor: number) {
+    if (valor < 1) return '$0';
+    return '$' + this.formatter.format(valor);
   }
 
 }

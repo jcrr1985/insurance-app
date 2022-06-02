@@ -1,17 +1,23 @@
 <div class="relative inputs__container">
     <div class="input_container">
-        <!-- <input #inp
-            [ngClass]="{'success':isValid , 'error': !isValid && inp.classList.contains('ng-touched') && inp.value !=''}"
-            placeholder=" " id="" type="{{type}}" [(ngModel)]="value" maxlength="{{maxlength}}" (change)="emitChange()"
-            (keyup)="emitKeyup()"> -->
-        <input [ngClass]="{'success':isValid , 'error': !isValid && inputNgModel.touched}" placeholder=" " id=""
-            type="{{type}}" [(ngModel)]="value" maxlength="{{maxlength}}" (change)="emitChange()" (keyup)="emitKeyup()"
-            #inputNgModel="ngModel">
-        <label *ngIf="label"> {{label}} </label>
-        <p *ngIf="helpText">{{helpText}}</p>
+      <input
+        placeholder=" "
+        id=""
+        type="{{ type }}"
+        [(ngModel)]="value"
+        maxlength="{{ maxlength }}"
+        (change)="emitChange()"
+        (keyup)="emitKeyup()"
+        (blur)="perdidaFocus()"
+        #inputNgModel="ngModel"
+        #input
+      />
+      <label *ngIf="label"> {{ label }} </label>
+      <p *ngIf="helpText">{{ helpText }}</p>
     </div>
     <div *ngIf="isValid && iconActive">
-        <ds-icon color="info5" [iconName]="'bi-check-circle-fill'" size="24">
-        </ds-icon>
+      <ds-icon color="info5" [iconName]="'bi-check-circle-fill'" size="24">
+      </ds-icon>
     </div>
-</div>
+  </div>
+  

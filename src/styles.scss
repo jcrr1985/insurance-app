@@ -89,11 +89,12 @@ app-custom-stepper {
 }
 
 .css-1vyubn8.css-2z0lnu {
-  padding: 10px 38px !important;
+  padding: 15px !important;
   font-weight: bold !important;
   font-size: 18px !important;
   color: rgb(255, 255, 255);
   box-shadow: none !important;
+  min-width: 140px;
 }
 
 .css-1mpi4ja {
@@ -203,7 +204,7 @@ ds-file {
     cursor: text;
     border-width: 1px 1px 1px 4px;
     border-style: solid;
-    border-color: rgb(158, 12, 12);
+    border-color: #E60D2E;
     border-image: initial;
     font-family: "Titillium Web", sans-serif;
     font-size: 14px;
@@ -525,6 +526,8 @@ ds-icon {
   }
 }
 
+
+
 ds-button {
   display: flex !important;
   height: 40px !important;
@@ -736,10 +739,12 @@ ds-title {
 }
 
 .reembolso__botones--container {
+  width: 100%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 10px;
+  width: 100%;
 }
 
 .custom-scroll-container::-webkit-scrollbar {
@@ -1292,10 +1297,13 @@ ds-title {
     .subtotal{
       background: #E9F8E6;
     }
+    .subtotal-resumen{
+      background: #F1F3F5;
+    }
     .total{
       background: #BCDEB1;
     }
-    .subtotal, .total{
+    .subtotal, .total, .subtotal-resumen{
       display: flex;
       flex-direction: row;
       justify-content: space-between;

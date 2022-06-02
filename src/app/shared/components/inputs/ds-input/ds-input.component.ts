@@ -23,17 +23,17 @@ export class DsInputComponent implements OnInit, AfterViewInit {
   @Input() formatoRut!: boolean
   @Input() tipo!: string
   isValid: boolean = false;
-  @ViewChild('inp') inp!: HTMLInputElement
+  @ViewChild('inp') inp!: HTMLInputElement;
+  @ViewChild('input') inputElement!: ElementRef;
   public formatter = new Intl.NumberFormat('es-CL');
   inputNgModel: null = null;
 
 
   ngOnInit(): void {
-    if (this.value) {
-      this.isValid = this.value && this.value.toString().trim() != '' && this.value != '$ 0' ? true : false;
-      if (this.formatoMoneda) this.value = this.format(this.value);
-    };
-
+    // if (this.value) {
+    //   this.isValid = this.value && this.value.toString().trim() != '' && this.value != '$ 0' ? true : false;
+    //   if (this.formatoMoneda) this.value = this.format(this.value);
+    // };
   }
   async emitChange() {
     // delay necesario para que el buscador pueda compartir el input
@@ -43,8 +43,9 @@ export class DsInputComponent implements OnInit, AfterViewInit {
     let emit = null;
     if (this.formatoMoneda) {
       this.value = this.format(this.value);
-      emit = this.limpiarMonto(this.value);
+      emit = this.value;
       this.isValid = this.value && this.value.toString().trim() != '' ? true : false;
+      console.log(emit)
     }
     else if (this.formatoRut) {
       console.log("verificando rut ->", '#################')
@@ -68,55 +69,42 @@ export class DsInputComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit(): void { }
 
-  onRutBlur(obj: any): any {
-    if (this.VerificaRut(obj.target.value)) {
-      console.log("Rut correcto");
-      this.isValid = true;
-    }
-    else
-      console.log("Rut incorrecto");
-    this.isValid = false;
-  }
-
   VerificaRut(rut: any) {
-    if (rut.toString().trim() != '' && rut.toString().indexOf('-') > 0) {
-      let caracteres = new Array();
-      let serie = new Array(2, 3, 4, 5, 6, 7);
-      let dig = rut.toString().substr(rut.toString().length - 1, 1);
-      rut = rut.toString().substr(0, rut.toString().length - 2);
+    if (rut) {
+      var valor = rut.replaceAll('.', '');
+      valor = valor.replace('-', '');
 
-      for (let i = 0; i < rut.length; i++) {
-        caracteres[i] = parseInt(rut.charAt((rut.length - (i + 1))));
-      }
+      let cuerpo = valor.slice(0, -1);
+      let dv = valor.slice(-1).toUpperCase();
 
-      let sumatoria = 0;
-      let k = 0;
-      let resto = 0;
-
-      for (var j = 0; j < caracteres.length; j++) {
-        if (k == 6) {
-          k = 0;
-        }
-        sumatoria += parseInt(caracteres[j]) * serie[k];
-        k++;
-      }
-
-      resto = sumatoria % 11;
-      let dv: any = 11 - resto;
-
-      if (dv == 10) {
-        dv = "K";
-      }
-      else if (dv == 11) {
-        dv = 0;
-      }
-
-      if (dv.toString().trim().toUpperCase() == dig.toString().trim().toUpperCase())
-        return true;
-      else
+      if (cuerpo.length < 7) {
         return false;
-    }
-    else {
+      }
+
+      let suma = 0;
+      let multiplo = 2;
+
+      for (let i = 1; i <= cuerpo.length; i++) {
+        let index = multiplo * valor.charAt(cuerpo.length - i);
+        suma = suma + index;
+        if (multiplo < 7) {
+          multiplo = multiplo + 1;
+        } else {
+          multiplo = 2;
+        }
+      }
+
+      let dvEsperado = 11 - (suma % 11);
+
+      dv = dv == 'K' ? 10 : dv;
+      dv = dv == 0 ? 11 : dv;
+
+      if (dvEsperado != dv) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
       return false;
     }
   }
@@ -148,7 +136,7 @@ export class DsInputComponent implements OnInit, AfterViewInit {
       const format = this.formatter.format(valorParseado);
       const incluyedecimal2 = format.includes(',');
       // parseamos el valor una vez se ha validado que es un numero
-      return '$ ' + format + `${incluyedecimal && !incluyedecimal2 ? ',' : ''}`;
+      return '$' + format + `${incluyedecimal && !incluyedecimal2 ? ',' : ''}`;
     } else {
       return null
     }
@@ -156,6 +144,25 @@ export class DsInputComponent implements OnInit, AfterViewInit {
   limpiarMonto(value: string | number) {
     const regexp = /[^0-9,]/g
     return parseFloat(value?.toString().replace(regexp, '').replace(',', '.'));
+  }
+
+  perdidaFocus() {
+    if (this.label === 'Rut institucion/prestador') {
+      console.log('intentando')
+      this.value = this.value.replace(/[.-]/g, '').replace(/^(\d{1,2})(\d{3})(\d{3})(\w{1})$/, '$1.$2.$3-$4');
+    }
+    setTimeout(() => {
+      console.log(this.value);
+      if (this.value === '' || this.value === null || this.value === undefined) {
+        this.inputElement.nativeElement.classList.remove('error');
+        this.inputElement.nativeElement.classList.remove('success');
+      } else if (this.isValid) {
+        this.inputElement.nativeElement.classList.remove('error');
+        this.inputElement.nativeElement.classList.add('success');
+      } else if (!this.isValid && this.value !== '' && this.value !== null) {
+        this.inputElement.nativeElement.classList.add('error');
+      }
+    }, 150);
   }
 }
 

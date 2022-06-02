@@ -15,31 +15,31 @@
 
           <!--input número de sesiones-->
           <ds-input-v2 *ngIf="sesionRequired" (keypress)="validarNumero($event)" label="Número de Sesiones"
-            type="number" maxlength="3" (keyupEv)="setValue('sesiones', $event)" id="numeroSesiones">
+            type="tel" maxlength="2" (keyupEv)="setValue('sesiones', $event)" id="numeroSesiones">
           </ds-input-v2>
         </div>
 
         <div class="modal--row">
           <!--valor-->
-          <ds-input-v2 label="{{ labelValor }}" type="text" maxlength="15" [formatoMoneda]="true"
+          <ds-input-v2 label="{{ labelValor }}" type="text" maxlength="14" [formatoMoneda]="true"
             (keyupEv)="setValue('valor', $event)" (changeEv)="validarMensajeWarning()"
             (keypress)="validarNumero($event)" id="valor">
           </ds-input-v2>
 
           <!--bonificacion isapre/fonasa-->
           <ds-input-v2 *ngIf="!(esBoletaFactura && idprestacionSeleccionada !== 6)" label="{{ labelValorBon }}"
-            type="text" maxlength="15" [formatoMoneda]="true" (keyupEv)="setValue('bonificacion', $event)"
+            type="text" maxlength="14" [formatoMoneda]="true" (keyupEv)="setValue('bonificacion', $event)"
             (changeEv)="validarMensajeWarning()" (keypress)="validarNumero($event)" id="bonificacion">
           </ds-input-v2>
         </div>
       </div>
       <!--Monto a rembolsar-->
-      <div class="form--total__container" [ngClass]="{ disabled: montoReembolso == 0 }">
+      <div class="form--total__container" [ngClass]="{ disabled: montoReembolso <= 0 }">
         <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
           <span slot="text">Monto solicitado</span>
         </ds-paragraph>
         <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
-          <span slot="text">$ {{ montoReembolso }}</span>
+          <span slot="text">{{ formateoValor(montoReembolso) }}</span>
         </ds-paragraph>
       </div>
     </div>

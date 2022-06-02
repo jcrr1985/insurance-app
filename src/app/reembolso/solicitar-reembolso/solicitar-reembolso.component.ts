@@ -275,7 +275,8 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       ? 'completed'
       : 'waiting';
 
-    const statusMontoSolicitado = this.stepsStatusOn.stepThree_general.montoSolicitado != '$ 0'
+    const statusMontoSolicitado = 
+        (this.stepsStatusOn.stepThree_general.montoSolicitado != '$0' && this.stepsStatusOn.stepThree_general.montoSolicitado != '')
       ? 'completed'
       : 'waiting';
 

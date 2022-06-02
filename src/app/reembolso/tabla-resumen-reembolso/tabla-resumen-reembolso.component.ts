@@ -24,6 +24,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
   public numeroSolicitado: string = '';
   public usuario!: any;
   public usuarioSeleccionado!: any;
+  public formatter = new Intl.NumberFormat('es-CL');
 
   public solicitudes: any[] = [];
 
@@ -243,6 +244,11 @@ export class TablaResumenReembolsoComponent implements OnInit {
     tarjeta.status = 'active';
     this.reembolsoService.habilitarSeleccionBeneficiario.next(false)
     this.dataStorageService.idprestacionSeleccionadaBehavior.next(tarjeta.idPrestacion)
+  }
+  
+  formateoValor(valor: number) {
+    if (valor < 1) return '$0';
+    return '$' + this.formatter.format(valor);
   }
 
 }
