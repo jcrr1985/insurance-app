@@ -57,10 +57,8 @@ export class TablaResumenReembolsoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('nuevoReembolso', this.nuevoReembolso)
     this.usuario = this.insuredData.usuarioConectado;
     this.usuarioSeleccionado = this.dataStorageService.getBeneficiario;
-    console.log('usuarioSeleccionado', this.usuarioSeleccionado)
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => {
       this.prestacionSeleccionada = id ? id : 1
 
@@ -70,9 +68,6 @@ export class TablaResumenReembolsoComponent implements OnInit {
       this.calcularTablaResumen();
     });
 
-    // this.dataStorageService.getFormReemboslo().subscribe(form => console.log("data ->", form))
-    // this.dataStorageService.getPrestacionesResumen().subscribe(form => console.log("cargadas ->", form))
-    // this.dataStorageService.getPrestaciones().subscribe(form => console.log("en espera de carga ->", form))
 
 
     if (this.prestacionSeleccionada == 2) {
