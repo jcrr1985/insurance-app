@@ -17,7 +17,7 @@ import { DataUsuarioService } from 'src/app/shared/services/data-usuario/data-us
 })
 export class TablaResumenReembolsoComponent implements OnInit {
   public montoTotalSolicitado!: number;
-  public nuevoReembolso: boolean = false;
+  public nuevoReembolso: any = null; 
   public prestacionesCargadas: any = [];
   public consignment!: IConsignment;
   public montoSolicitado: string = '';
@@ -56,6 +56,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log('nuevoReembolso', this.nuevoReembolso)
     this.usuario = this.insuredData.usuarioConectado;
     this.usuarioSeleccionado = this.dataStorageService.getBeneficiario;
     console.log('usuarioSeleccionado', this.usuarioSeleccionado)
@@ -113,9 +114,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
     this.restaurarFormulario();
 
   }
-  setValorRadioButtons(respuesta: boolean) {
-    this.nuevoReembolso = respuesta;
-  }
+
   returnValorRadioButtons() {
     return this.nuevoReembolso;
   }
