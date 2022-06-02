@@ -9,9 +9,9 @@
       <div class="modal--form">
         <div class="modal--row">
           <!--input nombre prestacion-->
-          <ds-search-v2 (keydown)="validarSoloLetras($event)" label="{{ labelArancel }}"
-            (changeEv)="itemSelected($event)">
-          </ds-search-v2 id="nombrePrestacion">
+          <ds-search-v2  (keydown)="validarSoloLetras($event)" label="{{ labelArancel }}"
+            (changeEv)="itemSelected($event)" id="nombrePrestacion">
+          </ds-search-v2>
 
           <!--input número de sesiones-->
           <ds-input-v2 *ngIf="sesionRequired" (keypress)="validarNumero($event)" label="Número de Sesiones"
@@ -57,7 +57,7 @@
         slot-name="cancel-button-slot">
         <span slot="cancel-button-slot">Cancelar</span>
       </ds-button>
-      <ds-button id="ds-button-siguiente" (click)="sendData()" [size]="'s2'" variant="primary"
+      <ds-button [disabled]="invalidInputs" id="ds-button-siguiente" (click)="sendData()" [size]="'s2'" variant="primary"
         slot-name="next-button-slot">
         <span slot="next-button-slot"> Guardar </span>
       </ds-button>

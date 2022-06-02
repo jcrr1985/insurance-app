@@ -187,8 +187,8 @@ export class DataStorageService {
 
   /**
    * @description restura el formulario de reembolso a su estado original y actualiza  todos los componentes subscritos
-   */ 
- 
+   */
+
 
   resturarFormularioReembolso() {
     this.reembolsoForm = {
@@ -212,10 +212,13 @@ export class DataStorageService {
         fileUploaded: false,
         agenciaSeleccionada: false,
       },
-
       stepFive_Details: {
         reembolsoCalculation: false,
       },
+      files: {
+        docsStructure: documentsDisplay,
+        firstDocName: ''
+      }
     };
     this.reembolsoFormBehavior.next(this.reembolsoForm);
   }
