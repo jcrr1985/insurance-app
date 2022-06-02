@@ -56,3 +56,9 @@ export interface ISource {
   value : string,
   parentesco : string
 }
+
+export interface IFile {
+  file : File,
+  base64 : string,
+  extension : string
+}

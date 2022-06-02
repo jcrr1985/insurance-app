@@ -9,7 +9,7 @@
     </ds-title>
     <!-- Fin Title -->
     <div>
-      <ng-container *ngIf="(getStepsStatus('stepThree_general', 'agenciaSeleccionada') !='' && getStepsStatus('stepThree_general', 'rutInstitucion') !='' && getStepsStatus('stepThree_general', 'boletaFactura') !='' && getStepsStatus('stepThree_general', 'fechaAtencion') !='' && getStepsStatus('stepThree_general', 'copagoMayor') !='') 
+      <ng-container *ngIf="(getStepsStatus('stepThree_general', 'agenciaSeleccionada') !='' && getStepsStatus('stepThree_general', 'rutInstitucion') !='' && getStepsStatus('stepThree_general', 'boletaFactura') !='' && getStepsStatus('stepThree_general', 'fechaAtencion') !='' && getStepsStatus('stepThree_general', 'copagoMayor') !='')
       || (getStepsStatus('stepThree_general', 'montoSolicitado') != '' && getStepsStatus('stepThree_general', 'montoSolicitado') != '$0')">
         <!--pregunta tipo documento -->
         <div *ngIf="idPrestacionSeleccionada != 2" class="upload-documents__container">
@@ -64,9 +64,9 @@
                 <!-- Card documento adjunto -->
                 <div class="archivos-adjuntos__container">
 
-                  <div class="filesUploaded" (click)="vistaPreviaArchivo(file,docs.name)">
+                  <div class="filesUploaded" (click)="vistaPreviaArchivo(file.file,docs.name)">
                     <!-- icon -->
-                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file,docs.name)">
+                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file.file,docs.name)">
                       <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                     </div>
 
@@ -74,11 +74,11 @@
 
                     <!-- name -->
                     <div class="flex items-center justify-start container-name-file">
-                      <div class="text-no-overflow">{{file.name}} </div>
+                      <div class="text-no-overflow">{{file.file.name}} </div>
                     </div>
                     <!-- delete -->
                     <div class="icono-delete cursor-pointer"
-                      (click)="validateFileState('consultamedica',indexDocName);deleteDocs('consultamedica',indexDocName,file.name)">
+                      (click)="validateFileState('consultamedica',indexDocName);deleteDocs('consultamedica',indexDocName,file.file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
                   </div>
@@ -102,18 +102,18 @@
                 <p class="archivos-adjuntos__title" *ngIf="indexFile == 0">Archivos adjuntos</p>
                 <!-- Card documento adjunto -->
                 <div class="archivos-adjuntos__container">
-                  <div class="filesUploaded" (click)="vistaPreviaArchivo(file,docs.name)">
+                  <div class="filesUploaded" (click)="vistaPreviaArchivo(file.file,docs.name)">
                     <!-- icon -->
-                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file,docs.name)">
+                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file.file,docs.name)">
                       <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                     </div>
                     <!-- name -->
                     <div class="flex items-center justify-start container-name-file">
-                      <div class="text-no-overflow">{{file.name}} </div>
+                      <div class="text-no-overflow">{{file.file.name}} </div>
                     </div>
                     <!-- delete -->
                     <div class="icono-delete cursor-pointer"
-                      (click)="validateFileState('hospitalario',indexDocName);deleteDocs('hospitalario',indexDocName,file.name)">
+                      (click)="validateFileState('hospitalario',indexDocName);deleteDocs('hospitalario',indexDocName,file.file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
                   </div>
@@ -138,18 +138,18 @@
                 <p class="archivos-adjuntos__title" *ngIf="indexFile == 0">Archivos adjuntos</p>
                 <!-- Card documento adjunto -->
                 <div class="archivos-adjuntos__container">
-                  <div class="filesUploaded" (click)="vistaPreviaArchivo(file,docs.name)">
+                  <div class="filesUploaded" (click)="vistaPreviaArchivo(file.file,docs.name)">
                     <!-- icon -->
-                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file,docs.name)">
+                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file.file,docs.name)">
                       <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                     </div>
                     <!-- name -->
                     <div class="flex items-center justify-start container-name-file">
-                      <div class="text-no-overflow">{{file.name}} </div>
+                      <div class="text-no-overflow">{{file.file.name}} </div>
                     </div>
                     <!-- delete -->
                     <div class="icono-delete cursor-pointer"
-                      (click)="validateFileState('lentes',indexDocName);deleteDocs('lentes',indexDocName,file.name)">
+                      (click)="validateFileState('lentes',indexDocName);deleteDocs('lentes',indexDocName,file.file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
                   </div>
@@ -174,18 +174,18 @@
                 <p class="archivos-adjuntos__title" *ngIf="indexFile == 0">Archivos adjuntos</p>
                 <!-- Card documento adjunto -->
                 <div class="archivos-adjuntos__container">
-                  <div class="filesUploaded" (click)="vistaPreviaArchivo(file,docs.name)">
+                  <div class="filesUploaded" (click)="vistaPreviaArchivo(file.file,docs.name)">
                     <!-- icon -->
-                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file,docs.name)">
+                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file.file,docs.name)">
                       <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                     </div>
                     <!-- name -->
                     <div class="flex items-center justify-start container-name-file">
-                      <div class="text-no-overflow">{{file.name}} </div>
+                      <div class="text-no-overflow">{{file.file.name}} </div>
                     </div>
                     <!-- delete -->
                     <div class="icono-delete cursor-pointer"
-                      (click)="validateFileState('dentales',indexDocName);deleteDocs('dentales',indexDocName,file.name)">
+                      (click)="validateFileState('dentales',indexDocName);deleteDocs('dentales',indexDocName,file.file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
                   </div>
@@ -210,18 +210,18 @@
                 <p class="archivos-adjuntos__title" *ngIf="indexFile == 0">Archivos adjuntos</p>
                 <!-- Card documento adjunto -->
                 <div class="archivos-adjuntos__container">
-                  <div class="filesUploaded" (click)="vistaPreviaArchivo(file,docs.name)">
+                  <div class="filesUploaded" (click)="vistaPreviaArchivo(file.file,docs.name)">
                     <!-- icon -->
-                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file,docs.name)">
+                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file.file,docs.name)">
                       <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                     </div>
                     <!-- name -->
                     <div class="flex items-center justify-start container-name-file">
-                      <div class="text-no-overflow">{{file.name}} </div>
+                      <div class="text-no-overflow">{{file.file.name}} </div>
                     </div>
                     <!-- delete -->
                     <div class="icono-delete cursor-pointer"
-                      (click)="validateFileState('examenes',indexDocName);deleteDocs('examenes',indexDocName,file.name)">
+                      (click)="validateFileState('examenes',indexDocName);deleteDocs('examenes',indexDocName,file.file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
                   </div>
@@ -246,18 +246,18 @@
                 <p class="archivos-adjuntos__title" *ngIf="indexFile == 0">Archivos adjuntos</p>
                 <!-- Card documento adjunto -->
                 <div class="archivos-adjuntos__container">
-                  <div class="filesUploaded" (click)="vistaPreviaArchivo(file,docs.name)">
+                  <div class="filesUploaded" (click)="vistaPreviaArchivo(file.file,docs.name)">
                     <!-- icon -->
-                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file,docs.name)">
+                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file.file,docs.name)">
                       <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                     </div>
                     <!-- name -->
                     <div class="flex items-center justify-start container-name-file">
-                      <div class="text-no-overflow">{{file.name}} </div>
+                      <div class="text-no-overflow">{{file.file.name}} </div>
                     </div>
                     <!-- delete -->
                     <div class="icono-delete cursor-pointer"
-                      (click)="validateFileState('medicamentos',indexDocName);deleteDocs('medicamentos',indexDocName,file.name)">
+                      (click)="validateFileState('medicamentos',indexDocName);deleteDocs('medicamentos',indexDocName,file.file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
                   </div>
