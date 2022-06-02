@@ -45,7 +45,6 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
   constructor(private dataStorageService: DataStorageService, private arancelService: ArancelService) { }
 
   ngOnInit(): void {
-    console.log('esReembolso', this.esReembolso)
     this.dataStorageService.getFormReemboslo().subscribe(statusOn => this.stepsStatusOn = statusOn);
     this.verificarValoresPreservador();
 

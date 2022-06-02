@@ -17,7 +17,7 @@ import { DataUsuarioService } from 'src/app/shared/services/data-usuario/data-us
 })
 export class TablaResumenReembolsoComponent implements OnInit {
   public montoTotalSolicitado!: number;
-  public nuevoReembolso: any = null; 
+  public nuevoReembolso: boolean = false;
   public prestacionesCargadas: any = [];
   public consignment!: IConsignment;
   public montoSolicitado: string = '';
@@ -48,6 +48,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
   public goToMensajeFinal: boolean = false;
   public mostrarModalFinal: boolean = false;
   public tarjetaSeleccionada!: ICard;
+  public radioBtnNuevoReembolso: string = '';
 
   constructor(private dataStorageService: DataStorageService,
     private reembolsoService: ReembolsoService,
@@ -61,17 +62,17 @@ export class TablaResumenReembolsoComponent implements OnInit {
     this.usuarioSeleccionado = this.dataStorageService.getBeneficiario;
     console.log('usuarioSeleccionado', this.usuarioSeleccionado)
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => {
-      this.prestacionSeleccionada = id
-      console.log('this.prestacionSeleccionada', this.prestacionSeleccionada)
+      this.prestacionSeleccionada = id ? id : 1
+
     });
     this.dataStorageService.getPrestacionesResumen().subscribe(prestaciones => {
       this.prestacionesCargadas = prestaciones;
       this.calcularTablaResumen();
     });
 
-    this.dataStorageService.getFormReemboslo().subscribe(form => console.log("data ->", form))
-    this.dataStorageService.getPrestacionesResumen().subscribe(form => console.log("cargadas ->", form))
-    this.dataStorageService.getPrestaciones().subscribe(form => console.log("en espera de carga ->", form))
+    // this.dataStorageService.getFormReemboslo().subscribe(form => console.log("data ->", form))
+    // this.dataStorageService.getPrestacionesResumen().subscribe(form => console.log("cargadas ->", form))
+    // this.dataStorageService.getPrestaciones().subscribe(form => console.log("en espera de carga ->", form))
 
 
     if (this.prestacionSeleccionada == 2) {
@@ -231,6 +232,12 @@ export class TablaResumenReembolsoComponent implements OnInit {
       ]
     }
     return dataConsignment
+  }
+
+  setRadioBtn(status: boolean) {
+    this.nuevoReembolso = status;
+    this.radioBtnNuevoReembolso = status ? 'si' : 'no';
+
   }
 
   setCard(tarjeta: ICard) {

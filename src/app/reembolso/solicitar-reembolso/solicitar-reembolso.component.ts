@@ -62,7 +62,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
   public eliminarDocumentoAdicional!: string;
   public prestacionesCargadas: any;
   public formularioActual: any;
-  public esReembolso!:boolean;
+  public esReembolso!: boolean;
   constructor(
     private dataStorageService: DataStorageService,
     private reembolsoService: ReembolsoService,
@@ -95,16 +95,15 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
    */
   subscripcionDatos() {
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.prestacionSeleccionada = id)
-    this.dataStorageService.getFormReemboslo().subscribe(form => console.log("me buscas -> ", form));
     this.reembolsoService.habilitarSeleccionBeneficiario$.subscribe(val => {
       this.habilitarSeleccionBeneficiario = val;
-      if(!this.habilitarSeleccionBeneficiario){
+      if (!this.habilitarSeleccionBeneficiario) {
         this.esReembolso = true;
-        this.stepperOneSource = () => [{ label: '', status:'completed' }];
+        this.stepperOneSource = () => [{ label: '', status: 'completed' }];
         this.stepperTwoSource = () => [{ label: '', status: 'active' }];
         this.dataStorageService.setIdPrestacion(this.prestacionSeleccionada);
-    
-      }else{
+
+      } else {
         this.esReembolso = false;
       }
     })
@@ -126,7 +125,6 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
   subscribeChangesOnInput() {
     this.dataStorageService.getFormReemboslo().subscribe(statusOn => {
       this.stepsStatusOn = statusOn;
-      console.log("en el formulario ->", statusOn);
       this.evaluateStepOne();
       this.evaluateStepTwo();
       this.evaluateStepThree();
@@ -173,7 +171,6 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
    * @description setea un valor dentro del formulario
    */
   setForm(formControlName: string, value: any) {
-    console.log('setForm: ', this.setForm)
     try {
       this.formReembolso.get(formControlName)?.patchValue(this.formatter.format(value));
     } catch (error) {
@@ -239,7 +236,6 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
         ? 'completed'
         : 'waiting';
 
-        console.log('status', status)
     if (status == 'completed') {
       this.stepperTwoSource = () => [{ label: '', status }];
       this.stepperThreeSource = () => [{ label: '', status: 'active' }];

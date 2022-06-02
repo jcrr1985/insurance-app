@@ -56,23 +56,23 @@ export class TablaHistorialComponent
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-     
+
 
     }, 200);
 
   }
-  siguientePagina(){
+  siguientePagina() {
     let naranja = document.querySelector('.css-7mrpfl') as HTMLElement | null;
     let naranjaNextSibling = naranja?.nextSibling as HTMLElement | null;
     naranjaNextSibling?.click()
   }
 
-  paginaAnterior(){
+  paginaAnterior() {
     let naranja = document.querySelector('.css-7mrpfl') as HTMLElement | null;
     let naranjaPreviousSibling = naranja?.previousSibling as HTMLElement | null;
     naranjaPreviousSibling?.click();
   }
-  
+
   resultadosPorPagina: number = 10;
   pageSelected: number = 1;
   totalRegistros: number = 0;
@@ -88,7 +88,7 @@ export class TablaHistorialComponent
     this.showTable = false;
     timer(10);
     this.showTable = true;
-   
+
   }
   /**
    * @description calcula el total de registros disponibles
@@ -169,11 +169,9 @@ export class TablaHistorialComponent
   // TODO funcion Vieja, pendiente rectificar de ser necesario
   abrirColapsable(registroNo: any) {
     this.ocultarColapsables();
-    console.log('registroNo', registroNo);
     this.indiceSeleccionado = registroNo;
     let filaColapsable = document.getElementById(registroNo);
     // console.log('filaColapsable', filaColapsable)
-    console.log("me buscas ->", filaColapsable?.classList);
     filaColapsable?.classList.remove('oculto');
     filaColapsable?.classList.add('visible')
 

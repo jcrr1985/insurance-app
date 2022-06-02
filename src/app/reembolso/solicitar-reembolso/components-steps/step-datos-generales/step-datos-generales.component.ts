@@ -27,13 +27,14 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterView
   validDate: boolean = false;
 
   copago: string | null = null;
+  rutValid = false;
 
   constructor(private dataStorageService: DataStorageService, private prestacionService: ArancelService) {
   }
   ngAfterViewInit(): void {
-    let datosGeneralesContainer = document.querySelector('datos-generales-container')
+    /* let datosGeneralesContainer = document.querySelector('datos-generales-container')
     let inputsDatosGeneralesArray = datosGeneralesContainer?.querySelectorAll('inputs')
-    console.log('inputsDatosGeneralesArray', inputsDatosGeneralesArray)
+    console.log('inputsDatosGeneralesArray', inputsDatosGeneralesArray) */
   }
   ngOnChanges(changes: SimpleChanges): void {
     this.definirTextoPregunta()
@@ -45,19 +46,18 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterView
     if (this.stepsStatusOn['stepThree_general']['copagoMayor']) {
       this.copago = this.stepsStatusOn['stepThree_general']['copagoMayor'];
     }
+
+    // if (this.stepsStatusOn['stepThree_general']['rutInstitucion'] != '') this.rutValid 
+
+
     this.agregarAgenteEscucha();
     // this.prestacionService.setIdSubject$.subscribe(idPrestacionSeleccionada => { this.idPestacionSeleccionada = idPrestacionSeleccionada; });
-    this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => (this.idPestacionSeleccionada = id, console.log(id)))
+    this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => (this.idPestacionSeleccionada = id))
     setTimeout(() => {
-
       let cal = document.querySelector('#start-date-single-undefined')
-
       cal?.addEventListener('click', () => {
-        let days = document.querySelector('.data-time')
-        console.log('days', days)
-
-
-
+        /* let days = document.querySelector('.data-time')
+        console.log('days', days) */
       })
     }, 600);
   }
@@ -65,8 +65,55 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterView
   validarNumero(event: any) {
     return (event.charCode >= 48 && event.charCode <= 57)
   }
+  /**
+   * @description valida el rut recibidoo del dsInput
+   */
+  validarRut(rutFormat: string) {
+    //= '17793573-5'
+    let rut = rutFormat.replace(/\./g, '');
+    if (rut.toString().trim() != '' && rut.toString().indexOf('-') > 0) {
+      let caracteres = new Array();
+      let serie = new Array(2, 3, 4, 5, 6, 7);
+      let dig = rut.toString().substr(rut.toString().length - 1, 1);
+      rut = rut.toString().substr(0, rut.toString().length - 2);
 
- 
+      for (let i = 0; i < rut.length; i++) {
+        caracteres[i] = parseInt(rut.charAt((rut.length - (i + 1))));
+      }
+
+      let sumatoria = 0;
+      let k = 0;
+      let resto = 0;
+
+      for (var j = 0; j < caracteres.length; j++) {
+        if (k == 6) {
+          k = 0;
+        }
+        sumatoria += parseInt(caracteres[j]) * serie[k];
+        k++;
+      }
+
+      resto = sumatoria % 11;
+      let dv: any = 11 - resto;
+
+      if (dv == 10) {
+        dv = "K";
+      }
+      else if (dv == 11) {
+        dv = 0;
+      }
+
+      if (dv.toString().trim().toUpperCase() == dig.toString().trim().toUpperCase())
+        this.rutValid = true;
+      else
+        this.rutValid = false;
+    }
+    else {
+      this.rutValid = false;
+    }
+  }
+
+
   agregarAgenteEscucha() {
     window.addEventListener('onSelectDate', (event: any) => {
       const id = event.path[1].id
@@ -119,13 +166,11 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterView
   }
 
   setStepsStatus(data: any) {
-    console.log('data', data)
+    console.log("···· ->", data);
     this.dataStorageService.setFormReembolso(data.step, data.option, data.value);
     this.mostrarDocumentoAdicional.emit(data.value)
-
   }
   revisarSelectevent(dataEvt: any) {
-    console.log(dataEvt);
   }
   /**
    *
