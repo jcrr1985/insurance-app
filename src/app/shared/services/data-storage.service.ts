@@ -205,7 +205,7 @@ export class DataStorageService {
         boletaFactura: '',
         fechaAtencion: '',
         copagoMayor: '',
-        montoSolicitado: '$ 0',
+        montoSolicitado: '',
       },
       stepFour_general: {
         tipoDocumentoSeleccionado: false,
@@ -364,7 +364,7 @@ const documentsDisplay: any = {
     cols: 'col-span-4'
   },
   medicamentos: {
-    nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true }],
+    nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Receta médica', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true }],
     cols: 'col-span-4'
   },
 }
@@ -383,7 +383,7 @@ const formReembolso = {
     boletaFactura: '',
     fechaAtencion: '',
     copagoMayor: '',
-    montoSolicitado: '$ 0',
+    montoSolicitado: '',
   },
   stepFour_general: {
     tipoDocumentoSeleccionado: false,

@@ -19,7 +19,7 @@
           <!-- Monto Hospitalario -->
           <ds-input-v2 class="col-span-12" label="Monto solicitado" helpText="" type="text" [formatoMoneda]="true"
             [value]="getStepsStatus('stepThree_general','montoSolicitado')" helpText=""
-            (changeEv)="setStepsStatus({step: 'stepThree_general',option: 'montoSolicitado', value: $event })">
+            (changeEv)="setStepsStatus({step: 'stepThree_general',option: 'montoSolicitado', value: $event })" maxlength="14">
           </ds-input-v2>
         </ng-container>
         <!--Datos para cualquier flujo diferente a hospitalario-->
@@ -38,7 +38,7 @@
           </ds-input-v2>
           <!-- Numero Boleta -->
           <ds-input-v2 (keypress)="validarNumero($event)" class="col-span-12 md:col-span-6 sm:col-span-6"
-            label="Nº Boleta/Factura" helpText="ingresa cualquier tipo" type="text" helpText=""
+            label="Nº Boleta/Factura" helpText="ingresa cualquier tipo" type="text" helpText="" maxlength="10"
             [value]="getStepsStatus('stepThree_general','boletaFactura')"
             (changeEv)="setStepsStatus({step: 'stepThree_general',option: 'boletaFactura', value: $event })">
           </ds-input-v2>

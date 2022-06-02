@@ -12,6 +12,7 @@ export class TableResumeDetallePrestacionComponent implements OnInit, OnDestroy 
   @Output() editEv: EventEmitter<any> = new EventEmitter();
   @Output() deleteEv: EventEmitter<any> = new EventEmitter();
   @Output() totalPrestacionesEmitter: EventEmitter<any> = new EventEmitter();
+  public formatter = new Intl.NumberFormat('es-CL');
 
   // @Input() prestaciones: any = [];
   prestaciones: any
@@ -59,4 +60,8 @@ export class TableResumeDetallePrestacionComponent implements OnInit, OnDestroy 
     this.totalPrestacionesEmitter.emit(this.montoReembolsar)
   }
 
+  formateoValor(valor: number) {
+    if (valor < 1) return '$0';
+    return '$' + this.formatter.format(valor);
+  }
 }

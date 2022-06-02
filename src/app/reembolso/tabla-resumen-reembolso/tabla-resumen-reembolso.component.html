@@ -15,62 +15,55 @@
                 </ds-button>
             </div>
         </div>
-        <div class="table__container">
-            <ds-table>
-                <ds-table-header slot="header">
-                    <ds-table-header-column slot="column"><span slot="element header-tabla-resumen">Tipo de
-                            reembolso</span>
-                    </ds-table-header-column>
-                    <ds-table-header-column slot="column"><span slot="element header-tabla-resumen">Fecha de
-                            emisión</span>
-                    </ds-table-header-column>
-                    <ds-table-header-column slot="column"><span slot="element header-tabla-resumen">Valor
-                            prestaciones</span>
-                    </ds-table-header-column>
-                    <ds-table-header-column slot="column"><span slot="element">Monto solicitado</span>
-                    </ds-table-header-column>
-                </ds-table-header>
-                <ds-table-body slot="body">
-                    <ng-container *ngFor="let solicitud of solicitudes">
-                        <ds-table-body-row slot="row" class="sub-totales">
-                            <ds-table-body-column slot="column">
-                                <span slot="element">{{solicitud.tipoReembolso}}</span>
-                            </ds-table-body-column>
-                            <ds-table-body-column slot="column">
-                                <span slot="element">{{solicitud.fecha}}</span>
-                            </ds-table-body-column>
-                            <ds-table-body-column slot="column">
-                                <span slot="element">$ {{solicitud.valorPrestacion | number :'0.0-2'}}</span>
-                            </ds-table-body-column>
-                            <ds-table-body-column slot="column">
-                                <span slot="element">$ {{solicitud.valorPrestacion - solicitud.bonificacion | number
-                                    :'0.0-2'}}</span>
-                            </ds-table-body-column>
-                        </ds-table-body-row>
-                    </ng-container>
 
-                    <!-- rows of totals -->
-                    <!-- Row total reembolsar -->
-                    <ds-table-body-row class="row_defined wrapper-total row_total" slot="row">
-                        <ds-table-body-column slot="column">
-                            <span slot="element"><strong>Monto total solicitado</strong></span>
-                        </ds-table-body-column>
-                        <ds-table-body-column slot="column">
-                            <span slot="element"></span>
-                        </ds-table-body-column>
-                        <ds-table-body-column slot="column">
-                            <span slot="element"></span>
-                        </ds-table-body-column>
-                        <ds-table-body-column-actions slot="column">
-                            <span class="totalizador-monto-solicitado" slot="element">$ {{montoTotalSolicitado | number
-                                :
-                                '0.0-2'}}</span>
-                        </ds-table-body-column-actions>
-                    </ds-table-body-row>
-                </ds-table-body>
-            </ds-table> <!-- Fin ds-table -->
-
+        <!-- Nueva tabla -->
+        <div class="table__container table-desktop">
+            <div slot="header" class="table--header">
+                <span slot="element" class="text-left size-all">Tipo de reembolso</span>
+                <span slot="element" class="text-right size-130px">Fecha de emisión</span>
+                <span slot="element" class="text-right size-130px">Valor prestaciones</span>
+                <span slot="element" class="text-right size-130px">Monto solicitado</span>
+            </div>
+        
+            <div class="table-content">
+                <ng-container *ngFor="let solicitud of solicitudes">
+                    <div class="table--row">
+                            <span slot="element" class="text-left size-all">Tipo de reembolso</span>
+                            <span slot="element" class="text-right size-130px">{{ solicitud.fecha }}</span>
+                            <span slot="element" class="text-right size-130px">{{ formateoValor(solicitud.valorPrestacion) }}</span>
+                            <span slot="element" class="text-right size-130px">{{ formateoValor(solicitud.valorPrestacion - solicitud.bonificacion) }}</span>
+                    </div>
+                </ng-container>
+            </div>
+        
+            <div class="table--totalizers">
+                <div class="total">
+                  <h6>Monto total solicitado</h6>
+                  <h6>{{ formateoValor(montoTotalSolicitado) }}</h6>
+                </div>
+            </div>
         </div>
+        
+        <!-- Fin de nueva tabla -->
+
+        <!-- tabla mobile -->
+        <div class="table-mobile table-mobile--container">
+            <div class="table-mobile--totalizers">
+            <div class="subtotal-resumen">
+                <h6>Total prestaciones</h6>
+                <h6>monto-total</h6>
+            </div>
+            <div class="subtotal-resumen">
+                <h6>Total bonificacion</h6>
+                <h6>monto-total</h6>
+            </div>
+            <div class="total">
+                <h6>Monto solicitado</h6>
+                <h6>{{ formateoValor(montoTotalSolicitado) }}</h6>
+            </div>
+            </div>
+        </div>    <!--Fin tabla mobile -->
+
     </div>
     <!-- Nuevo reembolso -->
     <div class="seccion-agregar-nuevo-reembolso" *ngIf="prestacionSeleccionada != 2">

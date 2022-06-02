@@ -1,112 +1,94 @@
-<ds-table>
-    <ds-table-header slot="header">
-        <ds-table-header-column slot="column"><span slot="element">Nombre Prestacion</span></ds-table-header-column>
-        <ds-table-header-column slot="column"><span slot="element">Nº de Sesiones</span></ds-table-header-column>
-        <ds-table-header-column slot="column"><span slot="element">Valor Prestación</span></ds-table-header-column>
-        <ds-table-header-column slot="column"><span slot="element">Bonificacion Isapre</span> </ds-table-header-column>
-        <ds-table-header-column slot="column"><span slot="element">Monto a Reembolsar</span> </ds-table-header-column>
-        <ds-table-header-column slot="column" type="actions"></ds-table-header-column>
-    </ds-table-header>
-    <ds-table-body slot="body">
+<div class="table__container table-desktop">
+    <div slot="header" class="table--header">
+        <span slot="element" class="text-left size-250px">Nombre Prestacion</span>
+        <span slot="element" class="text-right size-130px">N° de sesiones</span>
+        <span slot="element" class="text-right size-130px">Valor prestación</span>
+        <span slot="element" class="text-right size-130px">Bonificación isapre</span> 
+        <span slot="element" class="text-right size-130px">Monto solicitado</span>
+        <span class="size-130px"></span>
+    </div>
+
+    <div class="table-content">
         <ng-container *ngFor="let prestacion of prestaciones">
-            <ds-table-body-row slot="row">
-                <ds-table-body-column slot="column">
-                    <span slot="element">{{prestacion.prestacionSeleccionada}}</span>
-                </ds-table-body-column>
-                <ds-table-body-column slot="column">
-                    <span slot="element">{{prestacion.sesiones}}</span>
-                </ds-table-body-column>
-                <ds-table-body-column slot="column">
-                    <span slot="element">$ {{prestacion.valorPrestacion | number :'0.0-2'}}</span>
-                </ds-table-body-column>
-                <ds-table-body-column slot="column">
-                    <span slot="element">$ {{prestacion.bonificacion | number :'0.0-2'}}</span>
-                </ds-table-body-column>
-                <ds-table-body-column slot="column">
-                    <span slot="element">$ {{(prestacion.valorPrestacion - prestacion.bonificacion) | number
-                        :'0.0-2'}}</span>
-                </ds-table-body-column>
-                <ds-table-body-column-actions slot="column">
-                    <span slot="element" class="flex items-center justify-start">
-                        <div (click)="delete(prestacion)">
+            <div class="table--row">
+                    <span slot="element" class="text-left size-250px">{{prestacion.prestacionSeleccionada}}</span>
+                    <span slot="element" class="text-right size-130px">{{prestacion.sesiones}}</span>
+                    <span slot="element" class="text-right size-130px">{{ formateoValor(prestacion.valorPrestacion) }}</span>
+                    <span slot="element" class="text-right size-130px">{{ formateoValor(prestacion.bonificacion) }}</span>
+                    <span slot="element" class="text-right size-130px">{{ formateoValor(prestacion.valorPrestacion - prestacion.bonificacion) }}</span>
+                    <span slot="element" class="size-130px text-right">
+                        <div (click)="delete(prestacion)" class="size-50px">
                             <ds-icon size="23" icon-name="bi-trash" color="info6"></ds-icon>
                         </div>
                     </span>
-                </ds-table-body-column-actions>
-            </ds-table-body-row>
+            </div>
         </ng-container>
+    </div>
 
-        <!-- rows of totals -->
-        <!-- Row Valor total prestaciones -->
-        <ds-table-body-row class="row_defined" slot="row">
-            <ds-table-body-column slot="column">
-                <span slot="element">Valor total prestaciones</span>
-            </ds-table-body-column>
-            <ds-table-body-column slot="column">
-                <span slot="element"></span>
-            </ds-table-body-column>
-            <ds-table-body-column slot="column">
-                <span slot="element"></span>
-            </ds-table-body-column>
-            <ds-table-body-column slot="column">
-                <span slot="element"></span>
-            </ds-table-body-column>
-            <ds-table-body-column slot="column">
-                <span slot="element"></span>
-            </ds-table-body-column>
-            <ds-table-body-column-actions slot="column">
-                <span slot="element">$ {{totalPrestaciones | number : '0.0-2'}}</span>
+    <div class="table--totalizers">
+        <div class="subtotal">
+          <h6>Valor total prestaciones</h6>
+          <h6>{{ formateoValor(totalPrestaciones) }}</h6>
+        </div>
+        <div class="subtotal">
+          <h6>Bonificación total Isapre/ Fonasa </h6>
+          <h6>{{ formateoValor(totalPrestaciones - montoReembolsar) }}</h6>
+        </div>
+        <div class="total">
+          <h6>Monto total solicitado</h6>
+          <h6>{{ formateoValor(montoReembolsar) }}</h6>
+        </div>
+    </div>
+</div>
 
-            </ds-table-body-column-actions>
-        </ds-table-body-row>
-        <!-- Row Bonificación total Isapre/ Fonasa  -->
-        <ds-table-body-row class="row_defined" slot="row">
-            <ds-table-body-column slot="column">
-                <span slot="element">Bonificación total Isapre/ Fonasa</span>
-            </ds-table-body-column>
-            <ds-table-body-column slot="column">
-                <span slot="element"></span>
-            </ds-table-body-column>
-            <ds-table-body-column slot="column">
-                <span slot="element"></span>
-            </ds-table-body-column>
-            <ds-table-body-column slot="column">
-                <span slot="element"></span>
-            </ds-table-body-column>
-            <ds-table-body-column slot="column">
-                <span slot="element"></span>
-            </ds-table-body-column>
-            <ds-table-body-column-actions slot="column">
-                <span slot="element">$ {{totalPrestaciones - montoReembolsar | number : '0.0-2'}}</span>
+<!-- tabla mobile -->
+<div class="table-mobile table-mobile--container">
+    <ng-container *ngFor="let prestacion of prestaciones; let i = index">
+     <div class="table-mobile--items">
+        <input type="checkbox" [id]="'collapsible-trigger'+i">
+        <div class="titulo">
+          <label [for]="'collapsible-trigger'+i">
+            <h5>{{prestacion.prestacionSeleccionada}}</h5>
+            <div class="toggle-container">
+              <ds-icon id="chevron" icon-name="bi-chevron-down" size="12" class="css-7kp13n"></ds-icon>
+            </div>
+          </label>                 
+        </div>
+        <div class="collapsable-content">
+            <div class="content-group hidden">
+                <div class="content">
+                    <h6 class="subtitulo">N° de sesiones</h6>
+                    <p class="info">{{prestacion.sesiones}}</p>
+                </div>
+                <div class="content">
+                <h6 class="subtitulo">Valor prestación</h6>
+                <p class="info">{{ formateoValor(prestacion.valorPrestacion) }}</p>
+                </div>
+                <div class="content">
+                <h6 class="subtitulo">Bonificación Isapre/Fonasa</h6>
+                <p class="info">{{ formateoValor(prestacion.bonificacion) }}</p>
+                </div>
+            </div>
+            <div class="content">
+                <h6 class="subtitulo">Monto solicitado</h6>
+                <p class="info">{{formateoValor(prestacion.valorPrestacion - prestacion.bonificacion)}}</p>
+            </div>
+        </div>
 
-            </ds-table-body-column-actions>
-        </ds-table-body-row>
-
-                <!-- Row total asignado -->
-                <ds-table-body-row class="row_total" slot="row">
-                    <ds-table-body-column slot="column">
-                        <span slot="element">Monto a reembolsar</span>
-                    </ds-table-body-column>
-                    <ds-table-body-column slot="column">
-                        <span slot="element"></span>
-                    </ds-table-body-column>
-                    <ds-table-body-column slot="column">
-                        <span slot="element"></span>
-                    </ds-table-body-column>
-                    <ds-table-body-column slot="column">
-                        <span slot="element"></span>
-                    </ds-table-body-column>
-                    <ds-table-body-column slot="column">
-                        <span slot="element"></span>
-                    </ds-table-body-column>
-                    <ds-table-body-column-actions slot="column">
-                        <span slot="element">$ {{montoReembolsar | number : '0.0-2' }}</span>
-                    </ds-table-body-column-actions>
-                </ds-table-body-row>
-    </ds-table-body>
-</ds-table>
-<!-- <div class="my-10" *ngIf="true"> 
-    <ds-messaging  variant="warning" family="secondary" size="s2"
-        title="Los montos que has ingresado no coinciden con el total">
-    </ds-messaging>
-</div> -->
+      </div>
+    </ng-container>
+    <div class="table-mobile--totalizers">
+      <div class="subtotal">
+        <h6>Total prestaciones</h6>
+        <h6>{{ formateoValor(totalPrestaciones) }}</h6>
+      </div>
+      <div class="subtotal">
+        <h6>Total bonificacion</h6>
+        <h6>{{ formateoValor(totalPrestaciones - montoReembolsar) }}</h6>
+      </div>
+      <div class="total">
+        <h6>Monto solicitado</h6>
+        <h6>{{ formateoValor(montoReembolsar) }}</h6>
+      </div>
+    </div>
+  </div>    <!--Fin tabla mobile -->
