@@ -124,8 +124,8 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
       this.stepsStatusOn = statusOn;
       this.restoreDocs();
       this.documentsDisplay = statusOn.files.docsStructure;
-      console.log("statusOn", statusOn);
-      console.log("this.documentsDisplay", this.documentsDisplay);
+      // console.log("statusOn", statusOn);
+      // console.log("this.documentsDisplay", this.documentsDisplay);
     });
     // getStepsStatus('stepFour_general', 'tipoDocumentoSeleccionado')
     if (this.stepsStatusOn['stepFour_general']['tipoDocumentoSeleccionado']) {

@@ -73,7 +73,7 @@
         </div>
     </div>
     <!-- Nuevo reembolso -->
-    <div class="seccion-agregar-nuevo-reembolso">
+    <div class="seccion-agregar-nuevo-reembolso" *ngIf="prestacionSeleccionada != 2">
         <div>
             <ds-paragraph class="pregunta" type="p1" family="primary" weight="bold" color="primary">
                 <span slot="text">¿Quieres agregar un nuevo reembolso a esta solicitud?
@@ -82,14 +82,15 @@
         </div>
         <div class="radio-buttons__resumen">
             <ds-radio type="s1" family="primary" label="Sí" name="reembolsoIsapre" value="Sí"
-                (click)="setValorRadioButtons(true)">
+                [attr.checked]="radioBtnNuevoReembolso=='si'" (click)="setRadioBtn(true)">
             </ds-radio>
-            <ds-radio type="s1" family="primary" label="No" name="reembolsoIsapre" value="No"
-                (click)="setValorRadioButtons(false)">
+            <ds-radio type="s1" family="primary" [attr.checked]="radioBtnNuevoReembolso=='no'" label="No"
+                name="reembolsoIsapre" value="No" (click)="setRadioBtn(false)">
             </ds-radio>
         </div>
     </div> <!-- Fin Nuevo reembolso -->
 
+    <!--inicio prestaciones condicionadas-->
     <ng-containter class="otro-reembolso__container" *ngIf="nuevoReembolso=== true">
         <div class="reembolso__row"
             *ngIf="prestacionSeleccionada ===  1 || prestacionSeleccionada === 3 || prestacionSeleccionada === 5 || prestacionSeleccionada === 6">
@@ -98,8 +99,7 @@
                 [prestacionName]="x.prestacion" (click)="  continuar=true">
             </app-card-option>
         </div>
-        <div class="reembolso__row"
-            *ngIf="prestacionSeleccionada ===  4">
+        <div class="reembolso__row" *ngIf="prestacionSeleccionada ===  4">
             <app-card-option *ngFor="let x of opcionesPrestacionesD; let id = index" [status]="x.status" [name]="x.name"
                 (click)="habilitarSeleccionBeneficiario(false);setCard(x)" [prestacionName]="x.prestacion"
                 (click)="  continuar=true">
@@ -122,7 +122,7 @@
         </section>
 
     </ng-containter>
-    <ng-containter class="otro-reembolso__container" *ngIf="!nuevoReembolso">
+    <ng-containter class="otro-reembolso__container" *ngIf="(radioBtnNuevoReembolso == 'no' && prestacionSeleccionada!=2) || prestacionSeleccionada == 2">
         <!-- botones-->
         <section>
             <div class="botones__row">

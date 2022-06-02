@@ -153,7 +153,10 @@ export class DetallePrestacionComponent
     let nombrePrestacion = document.querySelector('#nombrePrestacion')?.querySelector('input')?.value
     let numeroSesiones = document.querySelector('#numeroSesiones')?.querySelector('input')?.value
 
-    if (inputValor && inputBonificacion && nombrePrestacion && numeroSesiones){
+    if (inputValor &&  nombrePrestacion && inputBonificacion && ( inputBonificacion && Number(inputBonificacion) != 0) ){
+      if(numeroSesiones){
+      return false
+      }else
       return false
     }else{
       return true

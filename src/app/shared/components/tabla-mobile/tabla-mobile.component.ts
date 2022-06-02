@@ -12,7 +12,7 @@ import { ReembolsoService } from '../../services/reembolso.service';
   templateUrl: './tabla-mobile.component.html',
   styleUrls: ['./tabla-mobile.component.scss']
 })
-export class TablaMobileComponent  implements OnInit, OnDestroy, AfterViewInit, AfterContentChecked {
+export class TablaMobileComponent implements OnInit, OnDestroy, AfterViewInit, AfterContentChecked {
   @ViewChild('dsPageCounter') dsPageCounter: any;
   @ViewChild('theader')
   theader!: ElementRef;
@@ -51,13 +51,13 @@ export class TablaMobileComponent  implements OnInit, OnDestroy, AfterViewInit, 
     }, 200);
 
   }
-  siguientePagina(){
+  siguientePagina() {
     let naranja = document.querySelector('.css-7mrpfl') as HTMLElement | null;
     let naranjaNextSibling = naranja?.nextSibling as HTMLElement | null;
     naranjaNextSibling?.click()
   }
 
-  paginaAnterior(){
+  paginaAnterior() {
     let naranja = document.querySelector('.css-7mrpfl') as HTMLElement | null;
     let naranjaPreviousSibling = naranja?.previousSibling as HTMLElement | null;
     naranjaPreviousSibling?.click();
@@ -78,7 +78,7 @@ export class TablaMobileComponent  implements OnInit, OnDestroy, AfterViewInit, 
     this.showTable = false;
     timer(10);
     this.showTable = true;
-   
+
   }
   /**
    * @description calcula el total de registros disponibles
@@ -159,11 +159,9 @@ export class TablaMobileComponent  implements OnInit, OnDestroy, AfterViewInit, 
   // TODO funcion Vieja, pendiente rectificar de ser necesario
   abrirColapsable(registroNo: any) {
     this.ocultarColapsables();
-    console.log('registroNo', registroNo);
     this.indiceSeleccionado = registroNo;
     let filaColapsable = document.getElementById(registroNo);
     // console.log('filaColapsable', filaColapsable)
-    console.log("me buscas ->", filaColapsable?.classList);
     filaColapsable?.classList.remove('oculto');
     filaColapsable?.classList.add('visible')
 

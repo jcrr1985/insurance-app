@@ -34,7 +34,7 @@
           <ds-input-v2 [formatoRut]="true" class="col-span-12 md:col-span-6 sm:col-span-6"
             label="Rut institucion/prestador" [tipo]="'isapre-fonasa'" helpText="ingresa cualquier tipo" type="text"
             helpText="" [value]="getStepsStatus('stepThree_general','rutInstitucion')"
-            (changeEv)="setStepsStatus({step: 'stepThree_general',option: 'rutInstitucion', value: $event })">
+            (changeEv)="setStepsStatus({step: 'stepThree_general',option: 'rutInstitucion', value: $event });validarRut($event)">
           </ds-input-v2>
           <!-- Numero Boleta -->
           <ds-input-v2 (keypress)="validarNumero($event)" class="col-span-12 md:col-span-6 sm:col-span-6"
@@ -55,13 +55,14 @@
         </ng-container>
 
         <!-- Second Row data -->
-
         <!-- Reembolsaste -->
-        <div class="question__container">
+        <div class="question__container" *ngIf="getStepsStatus('stepThree_general','agenciaSeleccionada') != '' 
+          && getStepsStatus('stepThree_general','rutInstitucion') != '' 
+          && getStepsStatus('stepThree_general','boletaFactura') != ''
+          && rutValid && validDate">
           <ds-paragraph class="question-style" type="p1" family="secondary" weight="semiBold" color="secondary">
             <span slot="text" class="font-bold">{{textPreguntas}}</span>
           </ds-paragraph>
-
           <div class="question-options" *ngIf="mostrarRadioButtons && idPestacionSeleccionada !=2">
             <ds-radio type="s1" family="primary" label="Si" [attr.checked]="copago=='si'" name="copagoMayor" value="si"
               (click)="

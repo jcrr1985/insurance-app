@@ -19,13 +19,18 @@ export class SelectParentescoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.usuarioConectado.cargas.forEach((carga) => {
-      this.source.push({
-        key: carga.nombres + " " + carga.apellidos,
-        value: carga.rut + carga.dv,
-        parentesco: carga.parentesco
+    if (this.userService.usuarioConectado && this.userService.usuarioConectado.cargas) {
+      this.userService.usuarioConectado.cargas.forEach((carga) => {
+        this.source.push({
+          key: carga.nombres + " " + carga.apellidos,
+          value: carga.rut + carga.dv,
+          parentesco: carga.parentesco
+        });
       });
-    });
+    } else {
+      console.log("cargas no definidas");
+    }
+
   }
 
   selectPerson(value: any) {

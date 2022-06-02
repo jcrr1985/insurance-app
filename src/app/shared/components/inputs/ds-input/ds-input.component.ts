@@ -25,12 +25,12 @@ export class DsInputComponent implements OnInit, AfterViewInit {
   isValid: boolean = false;
   @ViewChild('inp') inp!: HTMLInputElement
   public formatter = new Intl.NumberFormat('es-CL');
-  testing: null = null;
+  inputNgModel: null = null;
 
 
   ngOnInit(): void {
     if (this.value) {
-      this.isValid = this.value && this.value.toString().trim() != '' ? true : false;
+      this.isValid = this.value && this.value.toString().trim() != '' && this.value != '$ 0' ? true : false;
       if (this.formatoMoneda) this.value = this.format(this.value);
     };
 
@@ -61,7 +61,6 @@ export class DsInputComponent implements OnInit, AfterViewInit {
       this.isValid = this.value && this.value.toString().trim() != '' ? true : false;
     }
 
-    console.log('emit', emit)
     this.changeEv.emit(emit);
     // this.isValid = this.value && this.value.toString().trim() != '' ? true : false;
     // const emit = this.formatoMoneda ? this.limpiarMonto(this.value) : this.value;
@@ -156,7 +155,7 @@ export class DsInputComponent implements OnInit, AfterViewInit {
   }
   limpiarMonto(value: string | number) {
     const regexp = /[^0-9,]/g
-    return parseFloat(value.toString().replace(regexp, '').replace(',', '.'));
+    return parseFloat(value?.toString().replace(regexp, '').replace(',', '.'));
   }
 }
 
