@@ -37,10 +37,10 @@
         </ng-container>
 
         <!-- rows of totals -->
-        <!-- Row total reembolsar -->
+        <!-- Row Valor total prestaciones -->
         <ds-table-body-row class="row_defined" slot="row">
             <ds-table-body-column slot="column">
-                <span slot="element">Total Prestaciones</span>
+                <span slot="element">Valor total prestaciones</span>
             </ds-table-body-column>
             <ds-table-body-column slot="column">
                 <span slot="element"></span>
@@ -59,10 +59,10 @@
 
             </ds-table-body-column-actions>
         </ds-table-body-row>
-        <!-- Row total asignado -->
-        <ds-table-body-row class="row_total" slot="row">
+        <!-- Row Bonificación total Isapre/ Fonasa  -->
+        <ds-table-body-row class="row_defined" slot="row">
             <ds-table-body-column slot="column">
-                <span slot="element">Monto a reembolsar</span>
+                <span slot="element">Bonificación total Isapre/ Fonasa</span>
             </ds-table-body-column>
             <ds-table-body-column slot="column">
                 <span slot="element"></span>
@@ -77,9 +77,32 @@
                 <span slot="element"></span>
             </ds-table-body-column>
             <ds-table-body-column-actions slot="column">
-                <span slot="element">$ {{montoReembolsar | number : '0.0-2' }}</span>
+                <span slot="element">$ {{totalPrestaciones - montoReembolsar | number : '0.0-2'}}</span>
+
             </ds-table-body-column-actions>
         </ds-table-body-row>
+
+                <!-- Row total asignado -->
+                <ds-table-body-row class="row_total" slot="row">
+                    <ds-table-body-column slot="column">
+                        <span slot="element">Monto a reembolsar</span>
+                    </ds-table-body-column>
+                    <ds-table-body-column slot="column">
+                        <span slot="element"></span>
+                    </ds-table-body-column>
+                    <ds-table-body-column slot="column">
+                        <span slot="element"></span>
+                    </ds-table-body-column>
+                    <ds-table-body-column slot="column">
+                        <span slot="element"></span>
+                    </ds-table-body-column>
+                    <ds-table-body-column slot="column">
+                        <span slot="element"></span>
+                    </ds-table-body-column>
+                    <ds-table-body-column-actions slot="column">
+                        <span slot="element">$ {{montoReembolsar | number : '0.0-2' }}</span>
+                    </ds-table-body-column-actions>
+                </ds-table-body-row>
     </ds-table-body>
 </ds-table>
 <!-- <div class="my-10" *ngIf="true"> 
