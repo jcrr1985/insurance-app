@@ -48,7 +48,7 @@
     </div>
     <!-- Esperando seleccionar tipo documento -->
     <ng-container
-      *ngIf="getStepsStatus('stepFour_general','tipoDocumentoSeleccionado') || idPrestacionSeleccionada == 2">
+      *ngIf="getStepsStatus('stepFour_general','tipoDocumentoSeleccionado') || (idPrestacionSeleccionada == 2  && getStepsStatus('stepThree_general','montoSolicitado'))">
       <!-- Cards documentos -->
       <div class="cards-document__container">
         <!-- consulta medica -->
@@ -286,7 +286,7 @@
       </div>
       <div class="document--viewer">
         <ng-container *ngIf="previewDocumentType == 'application/pdf';else nopdf">
-          <img src="assets/svg/pdf sin fondo.svg" alt="show pdf img" width="100%">
+          <img src="assets/svg/pdf.jpg" alt="show pdf img" width="100%">
         </ng-container>
         <ng-template #nopdf>
           <img [src]="fileUrl" width="100%" />

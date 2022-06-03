@@ -21,6 +21,7 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
   isapreFonasaOptions: any = previsionesArray;
   idPrestacionSeleccionada: number = 1;
   descriptionDSFile: string = 'Adjunta un archivo (jpg, jpeg, png o pdf) que no supere los 15MB';
+  @Input() otroReembolso: any;
 
   fileUrl: any;
   mostrarPreview: boolean = false;
