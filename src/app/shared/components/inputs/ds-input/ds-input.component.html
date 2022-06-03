@@ -1,23 +1,22 @@
 <div class="relative inputs__container">
-    <div class="input_container">
-      <input
-        placeholder=" "
-        id=""
-        type="{{ type }}"
-        [(ngModel)]="value"
-        maxlength="{{ maxlength }}"
-        (change)="emitChange()"
-        (keyup)="emitKeyup()"
-        (blur)="perdidaFocus()"
-        #inputNgModel="ngModel"
-        #input
-      />
-      <label *ngIf="label"> {{ label }} </label>
-      <p *ngIf="helpText">{{ helpText }}</p>
-    </div>
-    <div *ngIf="isValid && iconActive">
-      <ds-icon color="info5" [iconName]="'bi-check-circle-fill'" size="24">
-      </ds-icon>
-    </div>
+  <div class="input_container">
+    <input
+      placeholder=" "
+      [id]="subId"
+      type="{{ type }}"
+      [(ngModel)]="value"
+      maxlength="{{ maxlength }}"
+      (change)="emitChange()"
+      (keyup)="emitKeyup()"
+      (blur)="perdidaFocus()"
+      #inputNgModel="ngModel"
+      #input
+    />
+    <label *ngIf="label"> {{ label }} </label>
+    <p *ngIf="helpText">{{ helpText }}</p>
   </div>
-  
+  <div *ngIf="isValid && iconActive">
+    <ds-icon color="info5" [iconName]="'bi-check-circle-fill'" size="24">
+    </ds-icon>
+  </div>
+</div>

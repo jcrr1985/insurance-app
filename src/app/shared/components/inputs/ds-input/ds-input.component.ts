@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import * as moment from 'moment';
 import { timer } from 'rxjs';
-
 
 @Component({
   selector: 'ds-input-v2',
@@ -10,6 +10,7 @@ import { timer } from 'rxjs';
 export class DsInputComponent implements OnInit, AfterViewInit {
 
   constructor() { }
+  @Input() subId: string = '';
   @Input() type: string = 'text'
   @Input() maxlength: string = '30'
   @Input() label!: string;
@@ -27,6 +28,7 @@ export class DsInputComponent implements OnInit, AfterViewInit {
   @ViewChild('input') inputElement!: ElementRef;
   public formatter = new Intl.NumberFormat('es-CL');
   inputNgModel: null = null;
+  fechaHoy: string = moment().format('DD/MM/YYYY');
 
 
   ngOnInit(): void {
@@ -34,6 +36,10 @@ export class DsInputComponent implements OnInit, AfterViewInit {
     //   this.isValid = this.value && this.value.toString().trim() != '' && this.value != '$ 0' ? true : false;
     //   if (this.formatoMoneda) this.value = this.format(this.value);
     // };
+    if (this.label === 'Rut institucion/prestador') {
+      let cal = document.getElementById('fecha_on_generales');
+      cal?.setAttribute('initial-date', this.fechaHoy);
+    }
   }
   async emitChange() {
     // delay necesario para que el buscador pueda compartir el input
@@ -148,11 +154,27 @@ export class DsInputComponent implements OnInit, AfterViewInit {
 
   perdidaFocus() {
     if (this.label === 'Rut institucion/prestador') {
-      console.log('intentando')
       this.value = this.value.replace(/[.-]/g, '').replace(/^(\d{1,2})(\d{3})(\d{3})(\w{1})$/, '$1.$2.$3-$4');
     }
     setTimeout(() => {
-      console.log(this.value);
+      if (this.label === 'Valor') {
+        if (this.value === '$0') {
+          this.isValid = false;
+        }
+      } else if (this.label === 'Bonificación Isapre/Fonasa') {
+        if (this.value) {
+          const valor = +this.obtenerValueInputValor().replace(/\D/g,'');
+          const bonificacion = +(this.value.replace(/\D/g,''));
+          if (bonificacion >= valor) {
+            this.isValid = false;
+          }
+        }
+      } else if (this.label === 'Monto solicitado') {
+        if (this.value && this.value === '$0') {
+          this.isValid = false;
+        }
+      }
+
       if (this.value === '' || this.value === null || this.value === undefined) {
         this.inputElement.nativeElement.classList.remove('error');
         this.inputElement.nativeElement.classList.remove('success');
@@ -164,5 +186,9 @@ export class DsInputComponent implements OnInit, AfterViewInit {
       }
     }, 150);
   }
-}
 
+  obtenerValueInputValor(): string {
+    const inputValor = document.getElementById('valorInput') as HTMLInputElement;
+    return inputValor.value;
+  }
+}

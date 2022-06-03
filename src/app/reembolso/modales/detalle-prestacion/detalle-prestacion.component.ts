@@ -160,6 +160,24 @@ public multiplesSesiones:any;
     let nombrePrestacion = document.querySelector('#nombrePrestacion')?.querySelector('input')?.value
     let numeroSesiones = document.querySelector('#numeroSesiones')?.querySelector('input')?.value
 
+    if (inputBonificacion && inputValor) {
+      const valor =  inputValor.replace(/\D/g,'');
+      const bonificacion = inputBonificacion.replace(/\D/g,'');
+      if (bonificacion >= valor) return true;
+    }
+
+    if (this.esBoletaFactura) {
+      if (inputValor && nombrePrestacion) {
+        if (numeroSesiones) {
+          return false;
+        } else {
+          return false;
+        }
+      } else {
+        return true;
+      }
+    }
+
     if (inputValor &&  nombrePrestacion && inputBonificacion && ( inputBonificacion && Number(inputBonificacion) != 0) ){
       if(numeroSesiones){
       return false
