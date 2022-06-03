@@ -47,9 +47,6 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterView
       this.copago = this.stepsStatusOn['stepThree_general']['copagoMayor'];
     }
 
-    // if (this.stepsStatusOn['stepThree_general']['rutInstitucion'] != '') this.rutValid 
-
-
     this.agregarAgenteEscucha();
     // this.prestacionService.setIdSubject$.subscribe(idPrestacionSeleccionada => { this.idPestacionSeleccionada = idPrestacionSeleccionada; });
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => (this.idPestacionSeleccionada = id))
@@ -201,12 +198,19 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterView
 }
 
 const previsionesArray = [
-  { key: 'Fonasa', value: 1, selected: false },
-  { key: 'Colmena', value: 2, selected: false },
-  { key: 'Consalud', value: 3, selected: false },
-  { key: 'Cruz Blanca', value: 4, selected: false },
-  { key: 'Banmédica', value: 5, selected: false },
-  { key: 'Masvida', value: 6, selected: false },
-  { key: 'Vida', value: 7, selected: false },
-
+  { key: 'Colmena', value: 200, selected: false },
+  { key: 'Cruz Blanca', value: 201, selected: false },
+  { key: 'Consalud', value: 203, selected: false },
+  { key: 'Masvida', value: 204, selected: false },
+  { key: 'Banmédica', value: 206, selected: false },
+  { key: 'Dipreca', value: 207, selected: false },
+  { key: 'Vida Tres', value: 208, selected: false },
+  { key: 'Capredena', value: 210, selected: false },
+  { key: 'Fonasa', value: 211, selected: false },
+  { key: 'Normédica', value: 212, selected: false },
+  { key: 'Optima', value: 213, selected: false },
+  { key: 'Chuquicamata', value: 214, selected: false },
+  { key: 'Fundacion', value: 215, selected: false },
+  { key: 'SIN ISAPRE', value: 217, selected: false },
+  { key: 'Del Cobre Ex Fusat', value: 1, selected: false }
 ];

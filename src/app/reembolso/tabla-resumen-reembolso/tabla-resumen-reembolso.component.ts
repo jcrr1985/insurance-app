@@ -9,6 +9,8 @@ import { IConsignment } from 'src/app/shared/interfaces/IConsignment';
 import { IBeneficiario } from 'src/app/shared/interfaces/beneficiarios';
 import { Usuario } from 'src/app/shared/interfaces/usuario';
 import { DataUsuarioService } from 'src/app/shared/services/data-usuario/data-usuario.service';
+import { IGasto } from 'src/app/shared/interfaces/IGasto';
+import { IArancel } from 'src/app/shared/interfaces/IArancel';
 
 @Component({
   selector: 'app-tabla-resumen-reembolso',
@@ -20,7 +22,6 @@ export class TablaResumenReembolsoComponent implements OnInit {
   public nuevoReembolso: boolean = false;
   public prestacionesCargadas: any = [];
   public consignment!: IConsignment;
-  public montoSolicitado: string = '';
   public numeroSolicitado: string = '';
   public usuario!: any;
   public usuarioSeleccionado!: any;
@@ -46,6 +47,8 @@ export class TablaResumenReembolsoComponent implements OnInit {
 
   public continuar: boolean = false;
   public prestacionSeleccionada: any;
+  public idPrestacionVT!: number;
+  public tipoDocVT!: number;
   public goToMensajeFinal: boolean = false;
   public mostrarModalFinal: boolean = false;
   public tarjetaSeleccionada!: ICard;
@@ -60,17 +63,11 @@ export class TablaResumenReembolsoComponent implements OnInit {
   ngOnInit(): void {
     this.usuario = this.insuredData.usuarioConectado;
     this.usuarioSeleccionado = this.dataStorageService.getBeneficiario;
-    this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => {
-      this.prestacionSeleccionada = id ? id : 1
-
-    });
+    this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => { this.prestacionSeleccionada = id ? id : 1 });
     this.dataStorageService.getPrestacionesResumen().subscribe(prestaciones => {
       this.prestacionesCargadas = prestaciones;
       this.calcularTablaResumen();
     });
-
-
-
     if (this.prestacionSeleccionada == 2) {
       this.nuevoReembolso = false;
     }
@@ -130,7 +127,6 @@ export class TablaResumenReembolsoComponent implements OnInit {
     try {
       //mostrar loader
       const dataResponse: IResponseConsignment | null = await this.postConsigment();
-      this.montoSolicitado = "40.001";
       this.numeroSolicitado = dataResponse!.remesa;
       //Ocultar loader
       this.mostrarModalFinal = true;
@@ -152,39 +148,37 @@ export class TablaResumenReembolsoComponent implements OnInit {
   }
 
   private makeConsignment(): IConsignment {
-    let sistemaOperativo: string = "WEB"; // que se tiene que setear?
-    //Asignar segun id prestacion
+    let sistemaOperativo: string = "Windows"; // "Windows|Android|iOS|Mac|Linux|Otros" - Get OS (FALTANTE)
+    //ASIGNACION CLASIFICACION Y COBERTURA SEGUN PRESTACION
     let clasificacion: number = 1;
-    let cobertura: number = 95;
-    //setear segun monto total de todos los gastos (+ de una prestacion)
-    let montoTotalTodosGastos = 0;
-    //Setear el beneficiario seleccionado
-    //let beneficiario = this.usuario.cargas.filter((carga) => carga.esSeleccionado === true)[0];
-    let beneficiario: IBeneficiario = {
-      rut: '17793573',
-      apellidos: 'HIDALGO AGUILAR',
-      dv: '5',
-      codParentesco: 2,
-      esSeleccionado: true,
-      estado: 'ACTIVO',
-      nombres: 'CAMILA ALEXANDRA',
-      parentesco: 'HIJO'
+    let cobertura: string = "95";
+    switch(this.prestacionesCargadas[0].idPrestacionSeleccionada) {
+      case 2: //Hospitalaria
+        clasificacion = 3;
+        cobertura = "0063";
+        break;
+      case 4: //dental
+        clasificacion = 2;
+        cobertura = "97";
+        break;
     }
-
+    //Setear el beneficiario seleccionado
+    let beneficiario = this.usuario.cargas.filter((carga: { rut: any; }) =>
+        carga.rut == this.prestacionesCargadas[0].formValues.stepOne_who.personaSeleccionada.slice(0, -1))[0];
     const dataConsignment: IConsignment = {
       policy: this.usuario.poliza,
       clasif: clasificacion,
-      idIsapre: 204, // setear la primera seleccionada en el detalle de prestacion, si no tiene setear la de data pehuen
-      folioDenuncio: 0, //OK
-      plataforma: 'WEB',
+      idIsapre: this.prestacionesCargadas[0].formValues.stepThree_general.agenciaSeleccionada,
+      folioDenuncio: 0,
+      plataforma: 'WEB', // "DESKTOP|APP|MOVIL" - GET Dispositivo (FALTANTE)
       sistemaOperativo: sistemaOperativo,
       apellidosBeneficiario: beneficiario.apellidos,
       apellidosTitular: this.usuario.apellidos,
-      codCobertura: `${cobertura}`, // si idPrestacion es 3 (dental) enviar '0063'
+      codCobertura: `${cobertura}`,
       codigoBanco: `${this.usuario.codBanco}`,
       dvRutBeneficiario: beneficiario.dv,
       dvRutTitular: this.usuario.cargas[0].dv,
-      fechaDenuncia: new Date(),
+      fechaDenuncia: new Date(), // eliminar timestap formatear (FALTANTE)
       mailCliente: this.usuario.mailCliente,
       nombresBeneficiario: beneficiario.nombres,
       nombresTitular: this.usuario.nombres,
@@ -192,42 +186,108 @@ export class TablaResumenReembolsoComponent implements OnInit {
       rutBeneficiario: beneficiario.rut,
       rutTitular: this.usuario.cargas[0].rut,
       nombreBanco: this.usuario.nombreBanco,
-      montoTotal: +montoTotalTodosGastos,
-      gastos: [
-        {
-          base64: '/9j/4AAQSkZJRgABAQEAeAB4AAD/2wBDAAIBAQIBAQICAgICAgICAwUDAwMDAwYEBAMFBwYHBwcGBwcICQsJCAgKCAcHCg0KCgsMDAwMBwkODw0MDgsMDAz/2wBDAQICAgMDAwYDAwYMCAcIDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAz/wAARCAABAAEDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9/KKKKAP/2Q==',
-          origenImagen: 'galería',
-          diagnostico: '',
-          docDiagnostico: [],
-          folio: 5645646, //numero ingresado en la prestacion obtener del formulario
-          idPrestacion: 2, //segun valuetech
-          idTipoDoc: 4, // reembolso, boleta,
-          descuentoAcumulado: 0,//numero ingresado en la prestacion obtener del formulario
-          rutPrestador: '18820774-k',  //numero ingresado en la prestacion obtener del formulario
-          montoDocumento: 5000, //monto total de la prestacion
-          docAdicionales: [], //cargar desde documentos adicionales si es que se ingresan
-          diagnosticoMonto: 0,
-          flagDescuentoAcumulado: false, //consultar
-          flagRecetaPermanente: false, //consultar
-          flagDocEnvIsapre: false, //consultar
-          flagMasDeUnaSesion: false, //consultar
-          fecha: new Date(), //fecha ingresada en el gasto
-          extension: 'jpg', //archivo principal
-          aranceles: [ //Detalles de prestacion
-            {
-              codigo: '101812',
-              descuento: 10000,
-              montoTotal: 15000,
-              nombre: 'Ginecologia y obstetricia',
-              sesiones: 1,
-              flagSesionValida: true,
-              montoComparacion: 14770
+      montoTotal: this.montoTotalSolicitado,
+      gastos : this.prestacionesCargadas.map(
+          (prestacion : any) => {
+            const file = this.getFileByIdPrestacion(prestacion);
+            let descAcum = 0;
+            let montoDoc = 0;
+            prestacion.prestaciones.forEach( (p: { valorPrestacion: number; bonificacion: number; }) => {
+              montoDoc += p.valorPrestacion;
+              descAcum += p.bonificacion;
+            });
+            const gasto : IGasto = {
+              base64 : file[0].files[0].base64,
+              origenImagen : file[0].files[0].extension == 'pdf' ? 'pdf' : 'galería',
+              diagnostico : '',
+              docDiagnostico : [],
+              folio : Number(prestacion.formValues.stepThree_general.boletaFactura),
+              idPrestacion : this.idPrestacionVT,
+              idTipoDoc : this.getTypeDocVT(prestacion),
+              descuentoAcumulado : descAcum,
+              rutPrestador : prestacion.formValues.stepThree_general.rutInstitucion,
+              montoDocumento : montoDoc - descAcum,
+              docAdicionales: [], //cargar desde documentos adicionales (FALTANTE)
+              diagnosticoMonto: 0,
+              flagDescuentoAcumulado: (prestacion.idPrestacionSeleccionada == 6 && descAcum > 0) ? true : false, //Dato solamente para medicamentos.
+              flagRecetaPermanente: (prestacion.idPrestacionSeleccionada == 6 &&
+                                    prestacion.formValues.stepThree_general.copagoMayor == "si") ? true : false, //Es el valor del copago cuando coloca receta permanente.
+              flagDocEnvIsapre: prestacion.formValues.stepTwo_selectOption.reembolsoPrevioIsapre == "si" ? true : false,
+              flagMasDeUnaSesion: ((prestacion.idPrestacionSeleccionada == 4 && prestacion.formValues.stepThree_general.copagoMayor == "si") || //Condicion si declara segun flag mas de una session en dental
+                                  ((prestacion.idPrestacionSeleccionada != 4 && prestacion.prestaciones.find((a: { sessiones: string | number; }) => +a.sessiones > 0)))) ? true : false, //Condicion si tiene aranceles con session distinto de prestacion dental
+              fecha: prestacion.formValues.stepThree_general.fechaAtencion, //fecha ingresada en el gasto dd/mm/yyyy (FALTANTE) por esto se cae
+              extension: file[0].files[0].extension,
+              aranceles : prestacion.prestaciones.map(
+                (detalle : any) => {
+                  const arancel : IArancel = {
+                    codigo : detalle.codigoPrestacion,
+                    descuento : detalle.bonificacion,
+                    montoTotal : detalle.valorPrestacion,
+                    nombre : detalle.prestacionSeleccionada,
+                    sesiones : detalle.sesiones ? +detalle.sesiones : 0,
+                    flagSesionValida : detalle.sesiones ? detalle.sesionValida : true,
+                    montoComparacion : detalle.sesiones ? detalle.montoHistorico : 0
+                  }
+                  return arancel;
+                }
+              )
             }
-          ]
-        }
-      ]
-    }
+            return gasto;
+          }
+      )
+    };
     return dataConsignment
+  }
+
+  getTypeDocVT(prestacion : any) : number {
+    let typeDocVT : number = 0
+    let id = prestacion.idPrestacionSeleccionada;
+    switch (prestacion.formValues.stepFour_general.tipoDocumentoSeleccionado){
+      case 1: //Documento reembolso
+        typeDocVT = 4;
+        break;
+      case 2:
+        typeDocVT = id == 4 || id == 6 ? 7 : 11;
+        break;
+      case 3:
+        typeDocVT = 8;
+        break;
+    }
+    if(id == 2){
+      typeDocVT == 11 ;
+    }
+    return typeDocVT;
+  }
+
+  getFileByIdPrestacion(prestacion: any) : any {
+    let file : any = [];
+    switch(prestacion.idprestacionSeleccionada){
+      case 1:
+        file = prestacion.formValues.files.docsStructure.consultamedica.nameFiles;
+        this.idPrestacionVT = 2;
+        break;
+      case 2:
+        file = prestacion.formValues.files.docsStructure.hospitalario.nameFiles;
+        this.idPrestacionVT = 3;
+        break;
+      case 3:
+        file = prestacion.formValues.files.docsStructure.lentes.nameFiles;
+        this.idPrestacionVT = 4;
+        break;
+      case 4:
+        file = prestacion.formValues.files.docsStructure.dentales.nameFiles;
+        this.idPrestacionVT = 5;
+        break;
+      case 5:
+        file = prestacion.formValues.files.docsStructure.examenes.nameFiles;
+        this.idPrestacionVT = 3;
+        break;
+      case 6:
+        file = prestacion.formValues.files.docsStructure.medicamentos.nameFiles;
+        this.idPrestacionVT = 1;
+        break;
+    }
+    return file;
   }
 
   setRadioBtn(status: boolean) {
@@ -245,7 +305,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
     this.reembolsoService.habilitarSeleccionBeneficiario.next(false)
     this.dataStorageService.idprestacionSeleccionadaBehavior.next(tarjeta.idPrestacion)
   }
-  
+
   formateoValor(valor: number) {
     if (valor < 1) return '$0';
     return '$' + this.formatter.format(valor);

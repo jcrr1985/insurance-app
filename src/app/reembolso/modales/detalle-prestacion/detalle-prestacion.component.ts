@@ -17,7 +17,7 @@ export class DetallePrestacionComponent
   public stepsStatusOn: any;
   public prestacionSeleccionada: any = {};
   @Output() hideModalEvent: EventEmitter<any> = new EventEmitter<any>();
-  
+
   public valor: any = 0;
   public bonificacion: any = 0;
   public montoReembolso: any = 0;
@@ -67,7 +67,7 @@ export class DetallePrestacionComponent
   closeModal(): void {
     this.hideModalEvent.emit(false);
   }
-  
+
   inval() {
     const inputFeilds = document.querySelectorAll("input");
     this.invalidInputs = Array.from(inputFeilds).filter(input => input.value == "" || input.value == undefined);
@@ -132,6 +132,9 @@ export class DetallePrestacionComponent
       this.arancel.montoHistorico = this.arancelService.montoHistorico;
       this.montoReferencia = this.arancelService.montoHistorico;
       this.warningMsg = this.arancelService.desviadoOK;
+    }else{
+      this.arancel.sesionValida = true;
+      this.arancel.montoHistorico = 0;
     }
   }
   /**

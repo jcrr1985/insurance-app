@@ -24,7 +24,7 @@
                 <span slot="element" class="text-right size-130px">Valor prestaciones</span>
                 <span slot="element" class="text-right size-130px">Monto solicitado</span>
             </div>
-        
+
             <div class="table-content">
                 <ng-container *ngFor="let solicitud of solicitudes">
                     <div class="table--row">
@@ -35,7 +35,7 @@
                     </div>
                 </ng-container>
             </div>
-        
+
             <div class="table--totalizers">
                 <div class="total">
                   <h6>Monto total solicitado</h6>
@@ -43,7 +43,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Fin de nueva tabla -->
 
         <!-- tabla mobile -->
@@ -206,7 +206,7 @@
                                 </ds-paragraph>
                                 <ds-paragraph type="p1" family="secondary" color="primary">
                                     <span slot="text" class="text-normal">
-                                        ${{this.montoSolicitado}}</span>
+                                        ${{this.montoTotalSolicitado}}</span>
                                 </ds-paragraph>
                             </div>
                         </div>
