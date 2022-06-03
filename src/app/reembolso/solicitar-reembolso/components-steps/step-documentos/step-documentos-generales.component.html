@@ -9,7 +9,8 @@
     </ds-title>
     <!-- Fin Title -->
     <div>
-      <ng-container *ngIf="(getStepsStatus('stepThree_general', 'agenciaSeleccionada') !='' && getStepsStatus('stepThree_general', 'rutInstitucion') !='' && getStepsStatus('stepThree_general', 'boletaFactura') !='' && getStepsStatus('stepThree_general', 'fechaAtencion') !='' && getStepsStatus('stepThree_general', 'copagoMayor') !='')
+      <ng-container
+        *ngIf="(getStepsStatus('stepThree_general', 'agenciaSeleccionada') !='' && getStepsStatus('stepThree_general', 'rutInstitucion') !='' && getStepsStatus('stepThree_general', 'boletaFactura') !='' && getStepsStatus('stepThree_general', 'fechaAtencion') !='' && getStepsStatus('stepThree_general', 'copagoMayor') !='')
       || (getStepsStatus('stepThree_general', 'montoSolicitado') != '' && getStepsStatus('stepThree_general', 'montoSolicitado') != '$0')">
         <!--pregunta tipo documento -->
         <div *ngIf="idPrestacionSeleccionada != 2" class="upload-documents__container">
@@ -47,7 +48,7 @@
     </div>
     <!-- Esperando seleccionar tipo documento -->
     <ng-container
-      *ngIf="getStepsStatus('stepFour_general','tipoDocumentoSeleccionado') || idPrestacionSeleccionada == 2">
+      *ngIf="getStepsStatus('stepFour_general','tipoDocumentoSeleccionado') || (idPrestacionSeleccionada == 2  && getStepsStatus('stepThree_general','montoSolicitado'))">
       <!-- Cards documentos -->
       <div class="cards-document__container">
         <!-- consulta medica -->
@@ -284,7 +285,12 @@
         <ds-icon (click)="mostrarPreview=false" color="actionPrimary" size="20" icon-name="bi-x"></ds-icon>
       </div>
       <div class="document--viewer">
-        <img [src]="fileUrl" type="application/pdf" width="100%" />
+        <ng-container *ngIf="previewDocumentType == 'application/pdf';else nopdf">
+          <img src="assets/svg/pdf.jpg" alt="show pdf img" width="100%">
+        </ng-container>
+        <ng-template #nopdf>
+          <img [src]="fileUrl" width="100%" />
+        </ng-template>
       </div>
       <div class="document--text">
         <span class="title_file_preview">{{previewDocumentName}}</span>

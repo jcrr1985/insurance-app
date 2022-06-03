@@ -1,3 +1,4 @@
+import { ReembolsoService } from './../../../shared/services/reembolso.service';
 import { DataStorageService } from './../../../shared/services/data-storage.service';
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
 import { Component, OnInit, AfterViewInit, EventEmitter, Output, OnChanges, SimpleChanges, Input } from '@angular/core';
@@ -37,7 +38,7 @@ export class DetallePrestacionComponent
 
   public montoReferencia = 50000;
 
-  constructor(private dataStorageService: DataStorageService, private arancelService: ArancelService) { }
+  constructor(private dataStorageService: DataStorageService, private arancelService: ArancelService, private reembolsoService: ReembolsoService) { }
 
   ngOnInit(): void {
     this.dataStorageService.getFormReemboslo().subscribe(statusOn => this.stepsStatusOn = statusOn);
@@ -93,12 +94,17 @@ export class DetallePrestacionComponent
     const bonificacion = this.arancel.bonificacion ? this.arancel.bonificacion : 0;
     this.montoReembolso = Number(prestacion) - Number(bonificacion);
   }
-
+public multiplesSesiones:any;
   setValue(key: any, value: any) {
     switch (key) {
       case 'valor':
         this.arancel.valorPrestacion = value;
+        this.arancel.valorPrestacion > 1?  this.multiplesSesiones = true : false;
+        console.log('this.multiplesSesiones', this.multiplesSesiones)
+        this.dataStorageService.setFlagMasDeUnaSesion(true)
+        console.log('this.dataStorageService.flagMasDeUnaSesion', this.dataStorageService.flagMasDeUnaSesion)
         break;
+
       case 'bonificacion':
         this.arancel.bonificacion = value;
         break;

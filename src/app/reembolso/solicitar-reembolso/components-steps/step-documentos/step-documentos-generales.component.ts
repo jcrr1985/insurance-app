@@ -21,58 +21,72 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
   isapreFonasaOptions: any = previsionesArray;
   idPrestacionSeleccionada: number = 1;
   descriptionDSFile: string = 'Adjunta un archivo (jpg, jpeg, png o pdf) que no supere los 15MB';
+  @Input() otroReembolso: any;
 
   fileUrl: any;
   mostrarPreview: boolean = false;
 
   handlerFunction = async (evt: any) => {
+    const sizeTop = 15728640;
+    const extensionesDisponibles = ['image/png', 'image/jpg', 'image/jpeg', 'application/pdf'];
     const index = parseInt(evt.target.id.replace('documento', ''));
     let i: number = 0;
     let fileEvnts: IFile[] = [];
     let multi = false;
-    while(i < evt.detail.length){
-      let base64 : string = await Utils.transformarABase64(evt.detail[i])
-      fileEvnts.push({
-        file : evt.detail[i],
-        base64 : base64.split(",")[1],
-        extension : evt.detail[i].type.split("/")[1],
-      })
+    while (i < evt.detail.length) {
+      let base64: string = await Utils.transformarABase64(evt.detail[i])
+      console.log("evt.detail[i].type", evt.detail[i].type);
+      if (evt.detail[i].size <= sizeTop && extensionesDisponibles.includes(evt.detail[i].type)) {
+        fileEvnts.push({
+          file: evt.detail[i],
+          base64: base64.split(",")[1],
+          extension: evt.detail[i].type.split("/")[1],
+        })
+      }
+      if (!extensionesDisponibles.includes(evt.detail[i].type)) {
+        alert("Solo se permiten archivos (.jpg .png .jpeg .pdf)");
+        return;
+      }
+      if (evt.detail[i].size >= sizeTop) {
+        alert("Excediste el tamaño permitido, 15MB");
+        return;
+      };
       i++;
     }
     switch (this.idPrestacionSeleccionada) {
       case 1:
         multi = this.documentsDisplay.consultamedica.nameFiles[index]['multi'];
-        multi ? this.documentsDisplay.consultamedica.nameFiles[index].files.push(...fileEvnts) : this.documentsDisplay.consultamedica.nameFiles[index].files = [fileEvnts[0]];
+        if (fileEvnts.length) multi ? this.documentsDisplay.consultamedica.nameFiles[index].files.push(...fileEvnts) : this.documentsDisplay.consultamedica.nameFiles[index].files = [fileEvnts[0]];
         this.validateFileState('consultamedica', index);
         this.emitirCambioArchivo()
         break;
       case 2:
         multi = this.documentsDisplay.hospitalario.nameFiles[index]['multi'];
-        multi ? this.documentsDisplay.hospitalario.nameFiles[index].files.push(...fileEvnts) : this.documentsDisplay.hospitalario.nameFiles[index].files = [fileEvnts[0]];
+        if (fileEvnts.length) multi ? this.documentsDisplay.hospitalario.nameFiles[index].files.push(...fileEvnts) : this.documentsDisplay.hospitalario.nameFiles[index].files = [fileEvnts[0]];
         this.validateFileState('hospitalario', index);
         this.emitirCambioArchivo()
         break;
       case 3:
         multi = this.documentsDisplay.lentes.nameFiles[index]['multi'];
-        multi ? this.documentsDisplay.lentes.nameFiles[index].files.push(...fileEvnts) : this.documentsDisplay.lentes.nameFiles[index].files = [fileEvnts[0]];
+        if (fileEvnts.length) multi ? this.documentsDisplay.lentes.nameFiles[index].files.push(...fileEvnts) : this.documentsDisplay.lentes.nameFiles[index].files = [fileEvnts[0]];
         this.validateFileState('lentes', index);
         this.emitirCambioArchivo()
         break;
       case 4:
         multi = this.documentsDisplay.dentales.nameFiles[index]['multi'];
-        multi ? this.documentsDisplay.dentales.nameFiles[index].files.push(...fileEvnts) : this.documentsDisplay.dentales.nameFiles[index].files = [fileEvnts[0]];
+        if (fileEvnts.length) multi ? this.documentsDisplay.dentales.nameFiles[index].files.push(...fileEvnts) : this.documentsDisplay.dentales.nameFiles[index].files = [fileEvnts[0]];
         this.validateFileState('dentales', index);
         this.emitirCambioArchivo()
         break;
       case 5:
         multi = this.documentsDisplay.examenes.nameFiles[index]['multi'];
-        multi ? this.documentsDisplay.examenes.nameFiles[index].files.push(...fileEvnts) : this.documentsDisplay.examenes.nameFiles[index].files = [fileEvnts[0]];
+        if (fileEvnts.length) multi ? this.documentsDisplay.examenes.nameFiles[index].files.push(...fileEvnts) : this.documentsDisplay.examenes.nameFiles[index].files = [fileEvnts[0]];
         this.validateFileState('examenes', index);
         this.emitirCambioArchivo()
         break;
       case 6:
         multi = this.documentsDisplay.medicamentos.nameFiles[index]['multi'];
-        multi ? this.documentsDisplay.medicamentos.nameFiles[index].files.push(...fileEvnts) : this.documentsDisplay.medicamentos.nameFiles[index].files.push(fileEvnts[0])
+        if (fileEvnts.length) multi ? this.documentsDisplay.medicamentos.nameFiles[index].files.push(...fileEvnts) : this.documentsDisplay.medicamentos.nameFiles[index].files.push(fileEvnts[0])
         this.validateFileState('medicamentos', index);
         this.emitirCambioArchivo()
         break;
@@ -91,6 +105,7 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
 
   public subtituloPrimerDocumento: string = '';
   public previewDocumentName: string = '';
+  public previewDocumentType: string = '';
   public nameDocSelectedPreview: string = '';
 
 
@@ -168,8 +183,10 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
   }
 
   validateFileState(nombrePrestacion: string, index: number) {
+    const documentException = this.getStepsStatus('stepThree_general', 'copagoMayor') == 'no' && index == 0 ? true : false;
     const isRequired = this.documentsDisplay[nombrePrestacion].nameFiles[index].required;
     this.documentsDisplay[nombrePrestacion].nameFiles[index].valid = isRequired ? this.documentsDisplay[nombrePrestacion].nameFiles[index].files.length > 0 ? true : false : true;
+    if (documentException) this.documentsDisplay[nombrePrestacion].nameFiles[index + 1].valid = true;
   }
   /**
    * @description valida si estan correctos los archivos cargados en los inputs
@@ -213,16 +230,16 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
     this.dataStorageService.setFormReembolso('stepFour_general', 'fileUploaded', archivosSubidosCorrectamente)
   }
   deleteDocs(prestacion: string, indexNameFiles: number, nameFile: string) {
-    let files = this.documentsDisplay[prestacion]['nameFiles'][indexNameFiles]['files'].filter( (e : IFile) => e.file.name != nameFile);
+    let files = this.documentsDisplay[prestacion]['nameFiles'][indexNameFiles]['files'].filter((e: IFile) => e.file.name != nameFile);
     this.documentsDisplay[prestacion]['nameFiles'][indexNameFiles]['files'] = files;
     this.validateFileState(prestacion, indexNameFiles);
     this.emitirCambioArchivo();
   }
   vistaPreviaArchivo(event: any, docName: string) {
     this.previewDocumentName = docName;
+    this.previewDocumentType = event.type;
     this.nameDocSelectedPreview = event.name;
     const extensionesDisponibles = ['image/png', 'image/jpg', 'image/jpeg', 'application/pdf'];
-    console.log(event);
     if (extensionesDisponibles.includes(event.type)) {
       const reader = new FileReader();
       reader.onload = () =>
