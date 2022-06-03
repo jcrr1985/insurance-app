@@ -6,7 +6,7 @@
       <span class="steps-title five" slot="text"
         [ngClass]="{'waitStepperText':this.stepperFiveSource()[0].status == 'waiting'}">Detalles de la prestación</span>
     </ds-title>
-    <div class="mensaje__container">
+    <div class="mensaje__container" [ngClass]="{'transicion-de-despliegue':this.stepperFiveSource()[0].status == 'active'}">
       <ng-container
         *ngIf="getStepsStatus('stepFour_general','tipoDocumentoSeleccionado') && getStepsStatus('stepFour_general','fileUploaded')">
         <div class="col-span-9">
@@ -28,7 +28,7 @@
             <ds-icon color="info2" size="24" icon-name="bi-plus-circle" slot="text2"></ds-icon>
           </ds-button>
         </div>
-        <div class="flex col-span-12" *ngIf="prestaciones.length">
+        <div class="flex col-span-12" *ngIf="prestaciones.length" [ngClass]="{'transicion-de-despliegue': prestaciones.length}">
           <app-table-resume-detalle-prestacion></app-table-resume-detalle-prestacion>
 
         </div>
@@ -36,6 +36,6 @@
     </div>
 
   </div>
-  <app-detalle-prestacion  *ngIf="showModal" (hideModalEvent)="hideAddMoreDetailModal()">
+  <app-detalle-prestacion  *ngIf="showModal" (hideModalEvent)="hideAddMoreDetailModal()" >
   </app-detalle-prestacion>
 </section>
