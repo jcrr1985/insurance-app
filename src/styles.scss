@@ -62,7 +62,7 @@
 
 
 app-custom-stepper {
-
+  height: auto !important;
   span.success_icon {
     ds-icon {
       svg {
@@ -328,12 +328,87 @@ app-solicitar-reembolso {
   align-items: flex-start;
   justify-content: flex-start;
   gap: 20px;
-  height: auto;
   width: 100%;
 
-
-
 }
+
+.transicion-de-despliegue{
+  height: 25px;
+  width: 1%;
+  opacity: 0;
+  animation-name: despliegue;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.question-despliegue{
+  height: 25px;
+  width: 1%;
+  opacity: 0;
+  animation-name: question-despliegue;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+// TRANSISIONES steps-content__container
+
+@keyframes despliegue{
+  0%{
+    display: none;
+    height: 25px;
+    width: 1%;
+    overflow: hidden;
+  }
+  1%{
+    opacity: 0;
+    display: flex;
+    height: 25px;
+    width: 1%;
+    overflow: visible;
+  }
+  50%{
+    width: 100%;
+  }
+  100%{
+    
+    opacity: 1;
+    height: auto;
+    width: 100%;
+  }
+}
+
+@keyframes question-despliegue{
+  0%{
+    display: none;
+    height: 25px;
+    width: 1%;
+    overflow: hidden;
+  }
+  1%{
+    opacity: 0;
+    display: flex;
+    height: 25px;
+    width: 1%;
+    overflow: visible;
+  }
+  50%{
+    min-width: 40vw;
+    max-width: 80vw;
+  }
+  100%{
+    
+    opacity: 1;
+    height: auto;
+    min-width: 40vw;
+    max-width: 80vw;
+  }
+}
+
+// FIN TRANSICIONES
 
 .css-2z5p18 {
   margin-bottom: 0px !important;
@@ -1396,5 +1471,17 @@ ds-title {
 
 } // Fin Responsive mobile
 
+// ── Estilos Calendario ──
+
+.litepicker .container__days .day-item.is-start-date.is-end-date{
+  padding-left: 8px !important;
+  margin-right: 8px !important;
+}
+
+.css-16uiodj input[type="text"] { font-size: 14px !important; }
+.css-1m6txwz input[type="text"] { font-size: 14px !important; }
+.css-1xngu61 input[type="text"] { font-size: 14px !important; }
+
+// ── Estilos Calendario ──
 
 

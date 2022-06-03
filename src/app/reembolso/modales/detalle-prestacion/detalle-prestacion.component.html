@@ -23,7 +23,7 @@
           <!--valor-->
           <ds-input-v2 label="{{ labelValor }}" type="text" maxlength="14" [formatoMoneda]="true"
             (keyupEv)="setValue('valor', $event)" (changeEv)="validarMensajeWarning()"
-            (keypress)="validarNumero($event)" id="valor">
+            (keypress)="validarNumero($event)" id="valor" subId="valorInput">
           </ds-input-v2>
 
           <!--bonificacion isapre/fonasa-->

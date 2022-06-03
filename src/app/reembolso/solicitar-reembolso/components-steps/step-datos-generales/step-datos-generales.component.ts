@@ -14,7 +14,6 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterView
   stepsStatusOn: any;
   isapreFonasaOptions: any = previsionesArray;
 
-
   @Output() sendData: EventEmitter<any> = new EventEmitter<any>();
   @Output() evaluateStepThree: EventEmitter<any> = new EventEmitter<any>();
   @Output() mostrarDocumentoAdicional: EventEmitter<any> = new EventEmitter<any>();
@@ -35,6 +34,7 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterView
     /* let datosGeneralesContainer = document.querySelector('datos-generales-container')
     let inputsDatosGeneralesArray = datosGeneralesContainer?.querySelectorAll('inputs')
     console.log('inputsDatosGeneralesArray', inputsDatosGeneralesArray) */
+
   }
   ngOnChanges(changes: SimpleChanges): void {
     this.definirTextoPregunta()
@@ -50,13 +50,6 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterView
     this.agregarAgenteEscucha();
     // this.prestacionService.setIdSubject$.subscribe(idPrestacionSeleccionada => { this.idPestacionSeleccionada = idPrestacionSeleccionada; });
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => (this.idPestacionSeleccionada = id))
-    setTimeout(() => {
-      let cal = document.querySelector('#start-date-single-undefined')
-      cal?.addEventListener('click', () => {
-        /* let days = document.querySelector('.data-time')
-        console.log('days', days) */
-      })
-    }, 600);
   }
 
   validarNumero(event: any) {
@@ -113,11 +106,17 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterView
 
   agregarAgenteEscucha() {
     window.addEventListener('onSelectDate', (event: any) => {
-      const id = event.path[1].id
-      if (id == 'fecha_on_generales') {
+      const calendario = document.getElementById('fecha_on_generales');
+      const formatoLocal = this.generarFormatoFecha();
+      const fechaSeleccionada = moment(event.detail.init, formatoLocal).toDate();
+      if (fechaSeleccionada <= new Date()) {
         this.validDate = true;
         const data = { step: 'stepThree_general', option: 'fechaAtencion', value: event.detail.init };
         this.setStepsStatus(data);
+        calendario?.setAttribute('state', 'success');
+      } else {
+        calendario?.setAttribute('state', 'error');
+        this.validDate = false;
       }
     });
   }
@@ -190,11 +189,11 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterView
     }
   }
 
-  setValue() {
-
+  generarFormatoFecha(): string {
+    let fechaLocal = (new Date(2022, 11, 31)).toLocaleDateString();
+    fechaLocal = fechaLocal.replace("31","DD").replace("12","MM").replace("2022","YYYY");
+    return fechaLocal.replace(/-/g, '/');
   }
-
-
 }
 
 const previsionesArray = [

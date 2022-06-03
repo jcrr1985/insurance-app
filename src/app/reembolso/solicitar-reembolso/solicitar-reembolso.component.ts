@@ -1,4 +1,3 @@
-import { StepTwoSelectedOption } from './../../shared/interfaces/IStepsStatusOn';
 import { DataStorageService } from './../../shared/services/data-storage.service';
 import { AfterContentChecked, Component, OnDestroy, OnInit } from '@angular/core';
 import '@vs-design-system/ds-input';
@@ -65,7 +64,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
   public formularioActual: any;
   public esReembolso!: boolean;
   public usuarioSeleccionado!: any;
-  public nombre:any;
+  public nombre: any;
   public apellido: any;
   constructor(
     private dataStorageService: DataStorageService,
@@ -88,6 +87,31 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     this.addAccessKey();
     this.getSizeStepper();
     this.validarPaso1Required();
+    this.noDragAndDrop()
+  }
+
+  noDragAndDrop() {
+
+    let dsInput = Array.from(document.querySelectorAll('ds-file'))
+  
+      document.addEventListener('drop', function (e:any ) {
+        e.preventDefault();
+        console.log('dropppppppppp')
+      })
+      document.addEventListener('drop',  function (e: any) {
+        e.preventDefault();
+        console.log('drop')
+      })
+      document.addEventListener('dragover',  function (e:any ) {
+        e.target.value;
+        console.log('e.target.value;', e.target.value )
+
+        e.preventDefault();
+        console.log('NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO')
+      })
+
+
+
   }
 
   ngAfterContentChecked() {
@@ -98,7 +122,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
    * @description se subscribe a los observables correspondientes y necesarios para el correcto funcionamiento
    */
   subscripcionDatos() {
-   this.usuarioSeleccionado = this.dataStorageService.getBeneficiario;
+    this.usuarioSeleccionado = this.dataStorageService.getBeneficiario;
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.prestacionSeleccionada = id)
     this.reembolsoService.habilitarSeleccionBeneficiario$.subscribe(val => {
       this.habilitarSeleccionBeneficiario = val;
@@ -229,7 +253,9 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       : 'waiting';
     this.stepperOneSource = () => [{ label: '', status }];
     if (status == 'completed') this.stepperTwoSource = () => [{ label: '', status: 'active' }];
-    this.getSizeStepper();
+    setTimeout(() => {
+      this.getSizeStepper();
+    }, 100);
   }
   /**
    * @description Evalua los requisitos necesarios para el progressF del 2do paso - Selecciona tu prestacion
@@ -246,6 +272,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       this.stepperThreeSource = () => [{ label: '', status: 'active' }];
       let stepThreeStatus = this.stepperThreeSource()[0].status
     }
+    this.getSizeStepper();
   }
   /**
    * @description Evalúa los requisitos necesarios para el progress del 3er paso - Datos Generales
