@@ -103,7 +103,15 @@ export class DataStorageService {
 
   public montoAndStuff: any;
 
+  public _flagMasDeUnaSesion: any;
 
+  public setFlagMasDeUnaSesion(flag: boolean) {
+    this._flagMasDeUnaSesion = flag;
+  }
+
+  public get flagMasDeUnaSesion(): boolean {
+    return this._flagMasDeUnaSesion;
+  }
 
   get getmontoAndStuff() {
     return this.montoAndStuff;
@@ -216,7 +224,34 @@ export class DataStorageService {
         reembolsoCalculation: false,
       },
       files: {
-        docsStructure: documentsDisplay,
+        // esto pasa por un tema de javascript que funciona por referencia..
+        docsStructure: {
+          consultamedica: {
+            nameFiles: [{ name: '', files: [], multi: false, required: true, valid: false, esDiagnostico: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, valid: false, esDiagnostico: true }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true, esDiagnostico: false }],
+            cols: 'col-span-4'
+          },
+          hospitalario: {
+            nameFiles: [{ name: 'Documento Hospitalario', files: [], multi: true, required: true, valid: false }],
+            filesUploades: [[], [], []],
+            cols: 'col-span-12',
+          },
+          lentes: {
+            nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Receta Óptica', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true }],
+            cols: 'col-span-4'
+          },
+          dentales: {
+            nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Formulario Dental', files: [], multi: true, required: true, valid: false }, { name: 'Presupuesto Dental', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true }],
+            cols: 'col-span-3'
+          },
+          examenes: {
+            nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true }],
+            cols: 'col-span-4'
+          },
+          medicamentos: {
+            nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Receta médica', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true }],
+            cols: 'col-span-4'
+          },
+        },
         firstDocName: ''
       }
     };
@@ -369,6 +404,8 @@ const documentsDisplay: any = {
   },
 }
 
+
+
 const formReembolso = {
   stepOne_who: {
     personaSeleccionada: false,
@@ -398,4 +435,6 @@ const formReembolso = {
     docsStructure: documentsDisplay,
     firstDocName: ''
   }
+
+
 };

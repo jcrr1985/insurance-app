@@ -1,24 +1,22 @@
-import { Prestacion } from './../interfaces/prestaciones';
-import { Foto } from '../interfaces/foto';
-import { ReembolsoEnCurso } from '../interfaces/reembolso';
+
 
 export class Reembolso {
   private readonly _idPrestacion: number;
-  private readonly _idPrestacionVT: number;
+  private readonly _idPrestacionVT!: number;
   private readonly _codigoIsapre: number;
   private readonly _folio: string;
   private readonly _fechaAtencion: Date;
-  private readonly _idTipoDoc: number;
+  private readonly _idTipoDoc!: number;
   private readonly _rutPrestador: string;
-  private readonly _archivosAdjuntos: Foto[];
-  private readonly _prestacionesAnadidas: Prestacion[];
-  private readonly _reembolsoResumen: ReembolsoEnCurso;
+  private readonly _archivosAdjuntos: any[];
+  private readonly _prestacionesAnadidas: any[];
+  private readonly _reembolsoResumen: any;
   private readonly _montoTotalSolicitado: number;
   private readonly _montoTotalBonificacion: number;
   private readonly _montoTotalPrestacion: number;
 
   // Flujo medicamentos
-  private _esRecetaPermanente: boolean;
+  private _esRecetaPermanente!: boolean;
   private _flagDescuentoAcumulado: boolean = false;
   private _descuentoAcumulado: number = 0;
 
@@ -39,10 +37,10 @@ export class Reembolso {
     fechaAtencion: Date,
     idTipoDoc: string,
     rutPrestador: string,
-    archivosAdjuntos: Foto[],
-    prestacionesAnadidas: Prestacion[],
-    reembolsoResumen: ReembolsoEnCurso,
-    montoTotalSolicitado: number,
+    archivosAdjuntos: any[],
+    prestacionesAnadidas: any[],
+    reembolsoResumen: any,
+    montoTotalSolicitado: any,
     montoTotalBonificacion: number,
     montoTotalPrestacion: number,
     esMasDeUnaAtencion: boolean,
@@ -171,11 +169,11 @@ export class Reembolso {
     this._esMasDeUnaAtencion = esMasDeUnaAtencion;
   }
 
-  public get reembolsoResumen(): ReembolsoEnCurso {
+  public get reembolsoResumen(): any {
     return this._reembolsoResumen;
   }
 
-  public get getReembolsoResumen(): Prestacion[] {
+  public get getReembolsoResumen(): any[] {
     return this._prestacionesAnadidas;
   }
 
@@ -195,7 +193,7 @@ export class Reembolso {
     return this._rutPrestador;
   }
 
-  public get archivosAdjuntos(): Foto[] {
+  public get archivosAdjuntos(): any[] {
     return this._archivosAdjuntos;
   }
 
