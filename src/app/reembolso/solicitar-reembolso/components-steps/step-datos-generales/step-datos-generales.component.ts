@@ -109,19 +109,17 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterView
 
   agregarAgenteEscucha() {
     window.addEventListener('onSelectDate', (event: any) => {
-      const id = event.path[1].id
-      if (id == 'fecha_on_generales') {
-        const calendario = document.getElementById('fecha_on_generales');
-        const fechaSeleccionada = moment(event.detail.init, 'DD-MM-YYYY').toDate();
-        if (fechaSeleccionada <= new Date()) {
-          this.validDate = true;
-          const data = { step: 'stepThree_general', option: 'fechaAtencion', value: event.detail.init };
-          this.setStepsStatus(data);
-          calendario?.setAttribute('state', 'success');
-        } else {
-          calendario?.setAttribute('state', 'error');
-          this.validDate = false;
-        }
+      const calendario = document.getElementById('fecha_on_generales');
+      const formatoLocal = this.generarFormatoFecha();
+      const fechaSeleccionada = moment(event.detail.init, formatoLocal).toDate();
+      if (fechaSeleccionada <= new Date()) {
+        this.validDate = true;
+        const data = { step: 'stepThree_general', option: 'fechaAtencion', value: event.detail.init };
+        this.setStepsStatus(data);
+        calendario?.setAttribute('state', 'success');
+      } else {
+        calendario?.setAttribute('state', 'error');
+        this.validDate = false;
       }
     });
   }
@@ -194,11 +192,11 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterView
     }
   }
 
-  setValue() {
-
+  generarFormatoFecha(): string {
+    let fechaLocal = (new Date(2022, 11, 31)).toLocaleDateString();
+    fechaLocal = fechaLocal.replace("31","DD").replace("12","MM").replace("2022","YYYY");
+    return fechaLocal.replace(/-/g, '/');
   }
-
-
 }
 
 const previsionesArray = [
