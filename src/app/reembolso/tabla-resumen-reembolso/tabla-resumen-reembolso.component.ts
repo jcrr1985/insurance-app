@@ -11,6 +11,7 @@ import { Usuario } from 'src/app/shared/interfaces/usuario';
 import { DataUsuarioService } from 'src/app/shared/services/data-usuario/data-usuario.service';
 import { IGasto } from 'src/app/shared/interfaces/IGasto';
 import { IArancel } from 'src/app/shared/interfaces/IArancel';
+import { IDocument } from 'src/app/shared/interfaces/IDocument';
 
 @Component({
   selector: 'app-tabla-resumen-reembolso',
@@ -178,7 +179,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
       codigoBanco: `${this.usuario.codBanco}`,
       dvRutBeneficiario: beneficiario.dv,
       dvRutTitular: this.usuario.cargas[0].dv,
-      fechaDenuncia: new Date(), // eliminar timestap formatear (FALTANTE)
+      fechaDenuncia: new Date(),
       mailCliente: this.usuario.mailCliente,
       nombresBeneficiario: beneficiario.nombres,
       nombresTitular: this.usuario.nombres,
@@ -189,34 +190,35 @@ export class TablaResumenReembolsoComponent implements OnInit {
       montoTotal: this.montoTotalSolicitado,
       gastos : this.prestacionesCargadas.map(
           (prestacion : any) => {
-            const file = this.getFileByIdPrestacion(prestacion);
+            const docs = this.getFileByIdPrestacion(prestacion);
             let descAcum = 0;
             let montoDoc = 0;
             prestacion.prestaciones.forEach( (p: { valorPrestacion: number; bonificacion: number; }) => {
               montoDoc += p.valorPrestacion;
               descAcum += p.bonificacion;
             });
+            const [month, day, year] = prestacion.formValues.stepThree_general.fechaAtencion.split('/');
             const gasto : IGasto = {
-              base64 : file[0].files[0].base64,
-              origenImagen : file[0].files[0].extension == 'pdf' ? 'pdf' : 'galería',
+              base64 : docs[0].files[0].base64,
+              origenImagen : docs[0].files[0].extension == 'pdf' ? 'pdf' : 'galería',
               diagnostico : '',
               docDiagnostico : [],
               folio : Number(prestacion.formValues.stepThree_general.boletaFactura),
               idPrestacion : this.idPrestacionVT,
               idTipoDoc : this.getTypeDocVT(prestacion),
               descuentoAcumulado : descAcum,
-              rutPrestador : prestacion.formValues.stepThree_general.rutInstitucion,
+              rutPrestador : prestacion.formValues.stepThree_general.rutInstitucion.replace(/\./g,""),
               montoDocumento : montoDoc - descAcum,
-              docAdicionales: [], //cargar desde documentos adicionales (FALTANTE)
+              docAdicionales: this.getDocsAdicionales(docs),
               diagnosticoMonto: 0,
               flagDescuentoAcumulado: (prestacion.idPrestacionSeleccionada == 6 && descAcum > 0) ? true : false, //Dato solamente para medicamentos.
               flagRecetaPermanente: (prestacion.idPrestacionSeleccionada == 6 &&
                                     prestacion.formValues.stepThree_general.copagoMayor == "si") ? true : false, //Es el valor del copago cuando coloca receta permanente.
               flagDocEnvIsapre: prestacion.formValues.stepTwo_selectOption.reembolsoPrevioIsapre == "si" ? true : false,
               flagMasDeUnaSesion: ((prestacion.idPrestacionSeleccionada == 4 && prestacion.formValues.stepThree_general.copagoMayor == "si") || //Condicion si declara segun flag mas de una session en dental
-                                  ((prestacion.idPrestacionSeleccionada != 4 && prestacion.prestaciones.find((a: { sessiones: string | number; }) => +a.sessiones > 0)))) ? true : false, //Condicion si tiene aranceles con session distinto de prestacion dental
-              fecha: prestacion.formValues.stepThree_general.fechaAtencion, //fecha ingresada en el gasto dd/mm/yyyy (FALTANTE) por esto se cae
-              extension: file[0].files[0].extension,
+                                  ((prestacion.idPrestacionSeleccionada != 4 && prestacion.prestaciones.find((a: { sesiones: string | number; }) => +a.sesiones > 1)))) ? true : false, //Condicion si tiene aranceles con session distinto de prestacion dental
+              fecha: new Date(+year, +month - 1, +day),
+              extension: docs[0].files[0].extension,
               aranceles : prestacion.prestaciones.map(
                 (detalle : any) => {
                   const arancel : IArancel = {
@@ -237,6 +239,26 @@ export class TablaResumenReembolsoComponent implements OnInit {
       )
     };
     return dataConsignment
+  }
+
+  getDocsAdicionales(documents : any) : IDocument[] {
+    let docs : IDocument[] = [];
+    let x: number = 0;
+    let y: number = 0;
+    while(x < documents.length){
+      y = x == 0 ? 1 : 0;
+      while(y < documents[x].files.length){
+        const document : IDocument = {
+          base64 : documents[x].files[y].base64,
+          extension : documents[x].files[y].extension,
+          origenImagen : documents[x].files[y].extension == 'pdf' ? 'pdf' : 'galería'
+        }
+        docs.push(document);
+        y++;
+      }
+      x++;
+    }
+    return docs;
   }
 
   getTypeDocVT(prestacion : any) : number {
