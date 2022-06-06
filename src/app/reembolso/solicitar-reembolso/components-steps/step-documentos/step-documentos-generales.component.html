@@ -25,19 +25,19 @@
           <div class="documents__options">
             <ds-radio *ngIf="
               getStepsStatus('stepTwo_selectOption', 'reembolsoPrevioIsapre') == 'si'
-            " (click)="setStepsStatus({step: 'stepFour_general', option: 'tipoDocumentoSeleccionado', value: 1})"
+            " (click)="setStepsStatus({step: 'stepFour_general', option: 'tipoDocumentoSeleccionado', value: 1}); setTipoDocumento('Documento Reembolso')"
               [attr.checked]="getStepsStatus('stepFour_general', 'tipoDocumentoSeleccionado') == 1"
               class="mx-5 md:w-max" type="s1" family="primary" label="Documento reembolso isapre o fonasa"
               name="documentType" value="1">
             </ds-radio>
             <ds-radio *ngIf="
-              getStepsStatus('stepTwo_selectOption', 'reembolsoPrevioIsapre') == 'si'
-            " (click)="setStepsStatus({step: 'stepFour_general',option: 'tipoDocumentoSeleccionado', value: 2})"
+              getStepsStatus('stepTwo_selectOption', 'reembolsoPrevioIsapre') == 'si'"
+              (click)="setStepsStatus({step: 'stepFour_general',option: 'tipoDocumentoSeleccionado', value: 2}); setTipoDocumento('Bono')"
               [attr.checked]="getStepsStatus('stepFour_general', 'tipoDocumentoSeleccionado') == 2" class="md:w-max"
               type="s1" family="primary" label="Bono" name="documentType" value="2">
             </ds-radio>
             <ds-radio
-              (click)="setStepsStatus({step: 'stepFour_general', option: 'tipoDocumentoSeleccionado', value: 3})"
+              (click)="setStepsStatus({step: 'stepFour_general', option: 'tipoDocumentoSeleccionado', value: 3}); setTipoDocumento('Boleta / Factura')"
               [attr.checked]="getStepsStatus('stepFour_general', 'tipoDocumentoSeleccionado') == 3" class=" md:w-max"
               type="s1" family="primary" label="Boleta / Factura" name="documentType" value="3">
             </ds-radio>
@@ -60,6 +60,11 @@
               <ds-file type="default" [attr.id]="'documento'+indexDocName"
                 bottom-text="Adjunta un archivo (jpg, jpeg, png o pdf) que no supere los 15MB">
               </ds-file>
+              <ng-container *ngIf="docs.error.show">
+                <div class="mensajeError"> <span><img src="./../../../../../assets/svg/chevron-right.svg"
+                      (click)="hideError()" alt="" srcset=""></span>{{docs.error.name}}
+                </div>
+              </ng-container>
               <ng-container *ngFor="let file of docs.files;let indexFile = index">
                 <p class="archivos-adjuntos__title" *ngIf="indexFile == 0">Archivos adjuntos</p>
                 <!-- Card documento adjunto -->
@@ -67,7 +72,7 @@
 
                   <div class="filesUploaded" (click)="vistaPreviaArchivo(file.file,docs.name)">
                     <!-- icon -->
-                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file.file,docs.name)">
+                    <div class="cursor-pointer icono-view" (click)="vistaPreviaArchivo(file.file,docs.name)">
                       <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                     </div>
 
@@ -78,7 +83,7 @@
                       <div class="text-no-overflow">{{file.file.name}} </div>
                     </div>
                     <!-- delete -->
-                    <div class="icono-delete cursor-pointer"
+                    <div class="cursor-pointer icono-delete"
                       (click)="validateFileState('consultamedica',indexDocName);deleteDocs('consultamedica',indexDocName,file.file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
@@ -87,8 +92,11 @@
                 </div>
                 <!--Fin Card documento adjunto -->
               </ng-container>
+              <ng-container *ngIf="archivoInvalido">
+              </ng-container>
             </div>
           </ng-container>
+
         </ng-container>
         <!--Fin consulta medica -->
         <!-- consulta hospitalaria -->
@@ -99,13 +107,18 @@
               <ds-file type="default" [attr.id]="'documento'+indexDocName"
                 bottom-text="Adjunta un archivo (jpg, jpeg, png o pdf) que no supere los 15MB">
               </ds-file>
+              <ng-container *ngIf="docs.error.show">
+                <div class="mensajeError"> <span><img src="./../../../../../assets/svg/chevron-right.svg"
+                      (click)="hideError()" alt="" srcset=""></span>{{docs.error.name}}
+                </div>
+              </ng-container>
               <ng-container *ngFor="let file of docs.files;let indexFile = index">
                 <p class="archivos-adjuntos__title" *ngIf="indexFile == 0">Archivos adjuntos</p>
                 <!-- Card documento adjunto -->
                 <div class="archivos-adjuntos__container">
                   <div class="filesUploaded" (click)="vistaPreviaArchivo(file.file,docs.name)">
                     <!-- icon -->
-                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file.file,docs.name)">
+                    <div class="cursor-pointer icono-view" (click)="vistaPreviaArchivo(file.file,docs.name)">
                       <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                     </div>
                     <!-- name -->
@@ -113,7 +126,7 @@
                       <div class="text-no-overflow">{{file.file.name}} </div>
                     </div>
                     <!-- delete -->
-                    <div class="icono-delete cursor-pointer"
+                    <div class="cursor-pointer icono-delete"
                       (click)="validateFileState('hospitalario',indexDocName);deleteDocs('hospitalario',indexDocName,file.file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
@@ -124,6 +137,7 @@
               </ng-container>
             </div>
           </ng-container>
+
         </ng-container>
         <!--Fin consulta hospitalaria -->
 
@@ -135,13 +149,18 @@
               <ds-file type="default" [attr.id]="'documento'+indexDocName"
                 bottom-text="Adjunta un archivo (jpg, jpeg, png o pdf) que no supere los 15MB">
               </ds-file>
+              <ng-container *ngIf="docs.error.show">
+                <div class="mensajeError"> <span><img src="./../../../../../assets/svg/chevron-right.svg"
+                      (click)="hideError()" alt="" srcset=""></span>{{docs.error.name}}
+                </div>
+              </ng-container>
               <ng-container *ngFor="let file of docs.files;let indexFile = index">
                 <p class="archivos-adjuntos__title" *ngIf="indexFile == 0">Archivos adjuntos</p>
                 <!-- Card documento adjunto -->
                 <div class="archivos-adjuntos__container">
                   <div class="filesUploaded" (click)="vistaPreviaArchivo(file.file,docs.name)">
                     <!-- icon -->
-                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file.file,docs.name)">
+                    <div class="cursor-pointer icono-view" (click)="vistaPreviaArchivo(file.file,docs.name)">
                       <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                     </div>
                     <!-- name -->
@@ -149,7 +168,7 @@
                       <div class="text-no-overflow">{{file.file.name}} </div>
                     </div>
                     <!-- delete -->
-                    <div class="icono-delete cursor-pointer"
+                    <div class="cursor-pointer icono-delete"
                       (click)="validateFileState('lentes',indexDocName);deleteDocs('lentes',indexDocName,file.file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
@@ -171,13 +190,18 @@
               <ds-file type="default" [attr.id]="'documento'+indexDocName"
                 bottom-text="Adjunta un archivo (jpg, jpeg, png o pdf) que no supere los 15MB">
               </ds-file>
+              <ng-container *ngIf="docs.error.show">
+                <div class="mensajeError"> <span><img src="./../../../../../assets/svg/chevron-right.svg"
+                      (click)="hideError()" alt="" srcset=""></span>{{docs.error.name}}
+                </div>
+              </ng-container>
               <ng-container *ngFor="let file of docs.files;let indexFile = index">
                 <p class="archivos-adjuntos__title" *ngIf="indexFile == 0">Archivos adjuntos</p>
                 <!-- Card documento adjunto -->
                 <div class="archivos-adjuntos__container">
                   <div class="filesUploaded" (click)="vistaPreviaArchivo(file.file,docs.name)">
                     <!-- icon -->
-                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file.file,docs.name)">
+                    <div class="cursor-pointer icono-view" (click)="vistaPreviaArchivo(file.file,docs.name)">
                       <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                     </div>
                     <!-- name -->
@@ -185,7 +209,7 @@
                       <div class="text-no-overflow">{{file.file.name}} </div>
                     </div>
                     <!-- delete -->
-                    <div class="icono-delete cursor-pointer"
+                    <div class="cursor-pointer icono-delete"
                       (click)="validateFileState('dentales',indexDocName);deleteDocs('dentales',indexDocName,file.file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
@@ -207,13 +231,18 @@
               <ds-file type="default" [attr.id]="'documento'+indexDocName"
                 bottom-text="Adjunta un archivo (jpg, jpeg, png o pdf) que no supere los 15MB">
               </ds-file>
+              <ng-container *ngIf="docs.error.show">
+                <div class="mensajeError"> <span><img src="./../../../../../assets/svg/chevron-right.svg"
+                      (click)="hideError()" alt="" srcset=""></span>{{docs.error.name}}
+                </div>
+              </ng-container>
               <ng-container *ngFor="let file of docs.files;let indexFile = index">
                 <p class="archivos-adjuntos__title" *ngIf="indexFile == 0">Archivos adjuntos</p>
                 <!-- Card documento adjunto -->
                 <div class="archivos-adjuntos__container">
                   <div class="filesUploaded" (click)="vistaPreviaArchivo(file.file,docs.name)">
                     <!-- icon -->
-                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file.file,docs.name)">
+                    <div class="cursor-pointer icono-view" (click)="vistaPreviaArchivo(file.file,docs.name)">
                       <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                     </div>
                     <!-- name -->
@@ -221,7 +250,7 @@
                       <div class="text-no-overflow">{{file.file.name}} </div>
                     </div>
                     <!-- delete -->
-                    <div class="icono-delete cursor-pointer"
+                    <div class="cursor-pointer icono-delete"
                       (click)="validateFileState('examenes',indexDocName);deleteDocs('examenes',indexDocName,file.file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>
@@ -243,13 +272,18 @@
               <ds-file type="default" [attr.id]="'documento'+indexDocName"
                 bottom-text="Adjunta un archivo (jpg, jpeg, png o pdf) que no supere los 15MB">
               </ds-file>
+              <ng-container *ngIf="docs.error.show">
+                <div class="mensajeError"> <span><img src="./../../../../../assets/svg/chevron-right.svg"
+                      (click)="hideError()" alt="" srcset=""></span>{{docs.error.name}}
+                </div>
+              </ng-container>
               <ng-container *ngFor="let file of docs.files;let indexFile = index">
                 <p class="archivos-adjuntos__title" *ngIf="indexFile == 0">Archivos adjuntos</p>
                 <!-- Card documento adjunto -->
                 <div class="archivos-adjuntos__container">
                   <div class="filesUploaded" (click)="vistaPreviaArchivo(file.file,docs.name)">
                     <!-- icon -->
-                    <div class="icono-view cursor-pointer" (click)="vistaPreviaArchivo(file.file,docs.name)">
+                    <div class="cursor-pointer icono-view" (click)="vistaPreviaArchivo(file.file,docs.name)">
                       <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                     </div>
                     <!-- name -->
@@ -257,7 +291,7 @@
                       <div class="text-no-overflow">{{file.file.name}} </div>
                     </div>
                     <!-- delete -->
-                    <div class="icono-delete cursor-pointer"
+                    <div class="cursor-pointer icono-delete"
                       (click)="validateFileState('medicamentos',indexDocName);deleteDocs('medicamentos',indexDocName,file.file.name)">
                       <ds-icon size="20" [iconName]="'bi-trash'"> </ds-icon>
                     </div>

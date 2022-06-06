@@ -17,7 +17,7 @@
         <!--step datos para hospitalario-->
         <ng-container *ngIf="idPestacionSeleccionada == 2">
           <!-- Monto Hospitalario -->
-          <ds-input-v2 class="col-span-12" label="Monto solicitado" helpText="" type="text" [formatoMoneda]="true"
+          <ds-input-v2 id="montoSolicitado" class="col-span-12" label="Monto solicitado" (keyupEv)="setvalHosp($event)" helpText="" type="text" [formatoMoneda]="true"
             [value]="getStepsStatus('stepThree_general','montoSolicitado')" helpText=""
             (changeEv)="setStepsStatus({step: 'stepThree_general',option: 'montoSolicitado', value: $event })" maxlength="14">
           </ds-input-v2>
@@ -25,29 +25,27 @@
         <!--Datos para cualquier flujo diferente a hospitalario-->
         <ng-container *ngIf="idPestacionSeleccionada   != 2 ">
           <!-- Isapre/Fonasa -->
-          <ds-select-v2 class="col-span-12 md:col-span-6 sm:col-span-6" label="Isapre/Fonasa"
+          <ds-select-v2 id="isapre" class="col-span-12 md:col-span-6 sm:col-span-6" label="Isapre/Fonasa"
             [source]="isapreFonasaOptions" [valueSelected]="getStepsStatus('stepThree_general','agenciaSeleccionada')"
             (changeEv)="setStepsStatus({step:'stepThree_general',option:'agenciaSeleccionada',value:$event.value})"
             helpText="">
           </ds-select-v2>
           <!-- RUT -->
-          <ds-input-v2 [formatoRut]="true" class="col-span-12 md:col-span-6 sm:col-span-6"
+          <ds-input-v2 id="rut" [formatoRut]="true" class="col-span-12 md:col-span-6 sm:col-span-6"
             label="Rut institucion/prestador" [tipo]="'isapre-fonasa'" helpText="ingresa cualquier tipo" type="text"
             helpText="" [value]="getStepsStatus('stepThree_general','rutInstitucion')"
             (changeEv)="setStepsStatus({step: 'stepThree_general',option: 'rutInstitucion', value: $event });validarRut($event)">
           </ds-input-v2>
           <!-- Numero Boleta -->
-          <ds-input-v2 (keypress)="validarNumero($event)" class="col-span-12 md:col-span-6 sm:col-span-6"
+          <ds-input-v2 id="bonificacion" (keypress)="validarNumero($event)" class="col-span-12 md:col-span-6 sm:col-span-6"
+
             label="Nº Boleta/Factura" helpText="ingresa cualquier tipo" type="text" helpText="" maxlength="10"
             [value]="getStepsStatus('stepThree_general','boletaFactura')"
             (changeEv)="setStepsStatus({step: 'stepThree_general',option: 'boletaFactura', value: $event })">
           </ds-input-v2>
           <!-- Fecha Atencion -->
           <div class="flex items-center justify-center col-span-12 gap-datepicker md:col-span-6 sm:col-span-6">
-            <!-- <ds-datepicker class="w-full inputsThirdField" id="fecha_on_generales" [type]="'single'" [size]="'s2'"
-              [helperMessage]="''" [initialLabel]="'Fecha de atención'">
-            </ds-datepicker> -->
-            <ds-datepicker type="single" initial-label="Fecha de atención"
+            <ds-datepicker id="datepicker" type="single" initial-label="Fecha de atención"
               id="fecha_on_generales">
             </ds-datepicker>
             <ds-icon *ngIf="validDate" size="25" icon-name="bi-check-circle-fill" color="info5"></ds-icon>

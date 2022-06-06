@@ -22,6 +22,7 @@ import { Router } from '@angular/router';
 import { IstepsStatusOn } from 'src/app/shared/interfaces/IStepsStatusOn';
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
 import { ChangeDetectorRef } from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-solicitar-reembolso',
@@ -90,29 +91,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     this.noDragAndDrop()
   }
 
-  noDragAndDrop() {
-
-    let dsInput = Array.from(document.querySelectorAll('ds-file'))
-  
-      document.addEventListener('drop', function (e:any ) {
-        e.preventDefault();
-        console.log('dropppppppppp')
-      })
-      document.addEventListener('drop',  function (e: any) {
-        e.preventDefault();
-        console.log('drop')
-      })
-      document.addEventListener('dragover',  function (e:any ) {
-        e.target.value;
-        console.log('e.target.value;', e.target.value )
-
-        e.preventDefault();
-        console.log('NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO')
-      })
-
-
-
-  }
+  noDragAndDrop() { }
 
   ngAfterContentChecked() {
     this.cdref.detectChanges();
@@ -185,7 +164,23 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     this.router.navigate(['/']);
   }
   botonSiguiente() {
-    this.dataStorageService.getPrestaciones().subscribe(prestaciones => this.prestacionesCargadas = prestaciones);
+    const dataDefaultHospitalario = {
+      tipoReembolso: 'Atención Hospitalaria',
+      numerosesiones: 0,
+      fecha: this.dataStorageService.getFechaAtencion,
+      prestacionSeleccionada: "Atención Hospitalaria",
+      tipoPrestacion: "Atencion Hospitalaria",
+      codigoPrestacion: "11126",
+      sesiones: "2",
+      valorPrestacion: Number(this.getStepsStatus('stepThree_general', 'montoSolicitado').replace('.', '').replace(',', '.').replace('$', '')),
+      bonificacion: 0,
+      sesionValida: true,
+      montoHistorico: 0,
+    }
+    this.dataStorageService.getPrestaciones().subscribe(prestaciones => {
+      if (this.prestacionSeleccionada != 2) this.prestacionesCargadas = prestaciones;
+      else this.prestacionesCargadas = [dataDefaultHospitalario];
+    });
     this.dataStorageService.getFormReemboslo().subscribe(form => this.formularioActual = form);
     this.dataStorageService.agregarPrestacionResumen({ prestaciones: this.prestacionesCargadas, idprestacionSeleccionada: this.prestacionSeleccionada, formValues: this.formularioActual });
     // this.dataStorageService.restaurarDetallePrestaciones();
@@ -299,10 +294,10 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       ? 'completed'
       : 'waiting';
 
-    const statusMontoSolicitado = 
-        (this.stepsStatusOn.stepThree_general.montoSolicitado != '$0' && this.stepsStatusOn.stepThree_general.montoSolicitado != '')
-      ? 'completed'
-      : 'waiting';
+    const statusMontoSolicitado =
+      (this.stepsStatusOn.stepThree_general.montoSolicitado != '$0' && this.stepsStatusOn.stepThree_general.montoSolicitado != '')
+        ? 'completed'
+        : 'waiting';
 
     let status: string;
 

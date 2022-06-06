@@ -155,19 +155,20 @@ ds-icon {
             flex-direction: column;
             gap: 30px;
 
-            .document{
+            .document {
                 width: 100%;
+
                 embed {
                     width: 60vw;
                     height: 75vh;
-    
+
                     body {
                         img {
                             height: 100%;
                             object-fit: cover;
                         }
                     }
-    
+
                 }
             }
         }
@@ -175,3 +176,24 @@ ds-icon {
 
 }
 
+.mensajeError {
+    /* Auto layout */
+
+    display: inline-flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 15px;
+    gap: 15px;
+
+    width: 100%;
+    min-height: 81.6px;
+    height: auto;
+
+    /* rojo/R5 */
+
+    background: #FFEDED;
+    /* rojo/R1 */
+
+    border: 1px solid #E60D2E;
+    border-radius: 4px;
+}
