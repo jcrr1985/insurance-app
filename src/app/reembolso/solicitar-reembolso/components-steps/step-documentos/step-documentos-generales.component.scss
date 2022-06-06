@@ -178,22 +178,47 @@ ds-icon {
 
 .mensajeError {
     /* Auto layout */
-
-    display: inline-flex;
+    display: flex;
     flex-direction: row;
     align-items: flex-start;
     padding: 15px;
     gap: 15px;
 
     width: 100%;
-    min-height: 81.6px;
+    min-height: 60px;
     height: auto;
 
-    /* rojo/R5 */
-
     background: #FFEDED;
-    /* rojo/R1 */
 
     border: 1px solid #E60D2E;
     border-radius: 4px;
+
+    ds-icon{
+        
+        .css-nmtaou{
+            display: grid !important;
+            place-content: center;
+        }
+ 
+    }
+
+    p{  
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 16px;
+        color: #43505E;
+        width: fit-content;
+    }
+}
+
+.mensaje-center{
+    align-items: center !important;
+}
+
+.errorHidden{
+    display: none;
+}
+
+.errorVisible{
+    display: flex;
 }

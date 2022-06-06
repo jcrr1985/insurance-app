@@ -61,8 +61,9 @@
                 bottom-text="Adjunta un archivo (jpg, jpeg, png o pdf) que no supere los 15MB">
               </ds-file>
               <ng-container *ngIf="docs.error.show">
-                <div class="mensajeError"> <span><img src="./../../../../../assets/svg/chevron-right.svg"
-                      (click)="hideError()" alt="" srcset=""></span>{{docs.error.name}}
+                <div [id]="indexDocName+'documento'" class="mensajeError">
+                  <ds-icon  color="info4" size="20" icon-name="bi-x-circle-fill" (click)="hideError(indexDocName+'documento')"></ds-icon>
+                  <p>{{docs.error.name}}</p>
                 </div>
               </ng-container>
               <ng-container *ngFor="let file of docs.files;let indexFile = index">
@@ -108,8 +109,9 @@
                 bottom-text="Adjunta un archivo (jpg, jpeg, png o pdf) que no supere los 15MB">
               </ds-file>
               <ng-container *ngIf="docs.error.show">
-                <div class="mensajeError"> <span><img src="./../../../../../assets/svg/chevron-right.svg"
-                      (click)="hideError()" alt="" srcset=""></span>{{docs.error.name}}
+                <div [id]="indexDocName+'documento'" class="mensajeError mensaje-center">
+                  <ds-icon  color="info4" size="20" icon-name="bi-x-circle-fill" (click)="hideError(indexDocName+'documento')"></ds-icon>
+                  <p>{{docs.error.name}}</p>
                 </div>
               </ng-container>
               <ng-container *ngFor="let file of docs.files;let indexFile = index">
@@ -150,8 +152,9 @@
                 bottom-text="Adjunta un archivo (jpg, jpeg, png o pdf) que no supere los 15MB">
               </ds-file>
               <ng-container *ngIf="docs.error.show">
-                <div class="mensajeError"> <span><img src="./../../../../../assets/svg/chevron-right.svg"
-                      (click)="hideError()" alt="" srcset=""></span>{{docs.error.name}}
+                <div [id]="indexDocName+'documento'" class="mensajeError">
+                  <ds-icon  color="info4" size="20" icon-name="bi-x-circle-fill" (click)="hideError(indexDocName+'documento')"></ds-icon>
+                  <p>{{docs.error.name}}</p>
                 </div>
               </ng-container>
               <ng-container *ngFor="let file of docs.files;let indexFile = index">
@@ -191,8 +194,9 @@
                 bottom-text="Adjunta un archivo (jpg, jpeg, png o pdf) que no supere los 15MB">
               </ds-file>
               <ng-container *ngIf="docs.error.show">
-                <div class="mensajeError"> <span><img src="./../../../../../assets/svg/chevron-right.svg"
-                      (click)="hideError()" alt="" srcset=""></span>{{docs.error.name}}
+                <div [id]="indexDocName+'documento'" class="mensajeError">
+                  <ds-icon  color="info4" size="20" icon-name="bi-x-circle-fill" (click)="hideError(indexDocName+'documento')"></ds-icon>
+                  <p>{{docs.error.name}}</p>
                 </div>
               </ng-container>
               <ng-container *ngFor="let file of docs.files;let indexFile = index">
@@ -232,8 +236,9 @@
                 bottom-text="Adjunta un archivo (jpg, jpeg, png o pdf) que no supere los 15MB">
               </ds-file>
               <ng-container *ngIf="docs.error.show">
-                <div class="mensajeError"> <span><img src="./../../../../../assets/svg/chevron-right.svg"
-                      (click)="hideError()" alt="" srcset=""></span>{{docs.error.name}}
+                <div [id]="indexDocName+'documento'" class="mensajeError">
+                  <ds-icon  color="info4" size="20" icon-name="bi-x-circle-fill" (click)="hideError(indexDocName+'documento')"></ds-icon>
+                  <p>{{docs.error.name}}</p>
                 </div>
               </ng-container>
               <ng-container *ngFor="let file of docs.files;let indexFile = index">
@@ -273,8 +278,9 @@
                 bottom-text="Adjunta un archivo (jpg, jpeg, png o pdf) que no supere los 15MB">
               </ds-file>
               <ng-container *ngIf="docs.error.show">
-                <div class="mensajeError"> <span><img src="./../../../../../assets/svg/chevron-right.svg"
-                      (click)="hideError()" alt="" srcset=""></span>{{docs.error.name}}
+                <div [id]="indexDocName+'documento'" class="mensajeError">
+                  <ds-icon  color="info4" size="20" icon-name="bi-x-circle-fill" (click)="hideError(indexDocName+'documento')"></ds-icon>
+                  <p>{{docs.error.name}}</p>
                 </div>
               </ng-container>
               <ng-container *ngFor="let file of docs.files;let indexFile = index">

@@ -22,7 +22,7 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
   idPrestacionSeleccionada: number = 1;
   descriptionDSFile: string = 'Adjunta un archivo (jpg, jpeg, png o pdf) que no supere los 15MB';
   @Input() otroReembolso: any;
-
+  public indexError : number = -1;
   fileUrl: any;
   mostrarPreview: boolean = false;
   public archivoInvalido = false;
@@ -33,8 +33,8 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
   handlerFunction = async (evt: any) => {
     const sizeTop = 15728640;
     const extensionesDisponibles = ['image/png', 'image/jpg', 'image/jpeg', 'application/pdf'];
-    const msgErrorExtension = 'El formato de archivo que intentas subir no está permitido, por favor utiliza un formato JPG, JPEG, PNG o PDF';
-    const msgErrorSize = 'El tamaño maximo permitido es de 15mb';
+    const msgErrorExtension = 'El formato de archivo que intentas subir no está permitido, por favor utiliza un formato JPG, JPEG, PNG';
+    const msgErrorSize = 'El archivo que intentas subir excede el tamaño máximo permitido (15 MB)';
 
     const index = parseInt(evt.target.id.replace('documento', ''));
     let i: number = 0;
@@ -230,6 +230,12 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
   displayError(nombrePrestacion: string, index: number, error: any) {
     const { name, show } = error;
     this.documentsDisplay[nombrePrestacion].nameFiles[index].error = { name, show };
+    console.log("index del display: ", index)
+    const errorDocumento = document.getElementById(`${index}documento`);
+    errorDocumento?.classList.remove("errorHidden");
+    errorDocumento?.classList.add("errorVisible");
+
+
   }
 
   /**
@@ -333,8 +339,11 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
     this.dataStorageService.tipoDocumento.next(tipoDocumento)
   }
 
-  hideError() {
-    //
+  hideError(index:string) {
+    const errorDocumento = document.getElementById(index);
+    errorDocumento?.classList.remove("errorVisible");
+    errorDocumento?.classList.add("errorHidden");
+
   }
 }
 
