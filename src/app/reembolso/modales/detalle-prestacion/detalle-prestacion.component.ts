@@ -138,6 +138,9 @@ export class DetallePrestacionComponent
       this.arancel.montoHistorico = this.arancelService.montoHistorico;
       this.montoReferencia = this.arancelService.montoHistorico;
       this.warningMsg = this.arancelService.desviadoOK;
+    }else{
+      this.arancel.sesionValida = true;
+      this.arancel.montoHistorico = 0;
     }
   }
   /**
