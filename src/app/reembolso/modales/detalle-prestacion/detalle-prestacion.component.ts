@@ -12,8 +12,8 @@ import { Arancel } from 'src/app/shared/interfaces/interfaces';
 })
 export class DetallePrestacionComponent
   implements OnInit {
-    public modalMontoReembolso!: number;
-    public prestacionNombre!: any;
+  public modalMontoReembolso!: number;
+  public prestacionNombre!: any;
   public idprestacionSeleccionada!: number;
   public stepsStatusOn: any;
   public prestacionSeleccionada: any = {};
@@ -94,12 +94,12 @@ export class DetallePrestacionComponent
     const bonificacion = this.arancel.bonificacion ? this.arancel.bonificacion : 0;
     this.montoReembolso = Number(prestacion) - Number(bonificacion);
   }
-public multiplesSesiones:any;
+  public multiplesSesiones: any;
   setValue(key: any, value: any) {
     switch (key) {
       case 'valor':
         this.arancel.valorPrestacion = value;
-        this.arancel.valorPrestacion > 1?  this.multiplesSesiones = true : false;
+        this.arancel.valorPrestacion > 1 ? this.multiplesSesiones = true : false;
         console.log('this.multiplesSesiones', this.multiplesSesiones)
         this.dataStorageService.setFlagMasDeUnaSesion(true)
         console.log('this.dataStorageService.flagMasDeUnaSesion', this.dataStorageService.flagMasDeUnaSesion)
@@ -149,10 +149,10 @@ public multiplesSesiones:any;
    */
   prestacionInvalid() {
     if (this.sesionRequired) {
-      if (this.arancel.sesiones > 0 && this.arancel.bonificacion >= 0 && this.arancel.valorPrestacion > 0) return false
+      if (this.arancel.sesiones > 0 && this.arancel.bonificacion > 0 && this.arancel.valorPrestacion > 0) return false
       else return true;
     } else {
-      if (this.arancel.bonificacion >= 0 && this.arancel.valorPrestacion > 0) return false
+      if (this.arancel.bonificacion > 0 && this.arancel.valorPrestacion > 0) return false
       else return true;
     }
   }
@@ -164,8 +164,8 @@ public multiplesSesiones:any;
     let numeroSesiones = document.querySelector('#numeroSesiones')?.querySelector('input')?.value
 
     if (inputBonificacion && inputValor) {
-      const valor =  inputValor.replace(/\D/g,'');
-      const bonificacion = inputBonificacion.replace(/\D/g,'');
+      const valor = inputValor.replace(/\D/g, '');
+      const bonificacion = inputBonificacion.replace(/\D/g, '');
       if (bonificacion >= valor) return true;
     }
 
@@ -177,16 +177,17 @@ public multiplesSesiones:any;
           return false;
         }
       } else {
-        return true;
+        if (inputBonificacion && Number(inputBonificacion) > 0)
+          return true;
       }
     }
 
-    if (inputValor &&  nombrePrestacion && inputBonificacion && ( inputBonificacion && Number(inputBonificacion) != 0) ){
-      if(numeroSesiones){
-      return false
-      }else
-      return false
-    }else{
+    if (inputValor && nombrePrestacion && inputBonificacion && (inputBonificacion && Number(inputBonificacion) > 0)) {
+      if (numeroSesiones) {
+        return false
+      } else
+        return false
+    } else {
       return true
     }
   }

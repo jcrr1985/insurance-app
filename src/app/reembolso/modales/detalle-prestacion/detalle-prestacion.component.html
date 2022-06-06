@@ -9,13 +9,13 @@
       <div class="modal--form">
         <div class="modal--row">
           <!--input nombre prestacion-->
-          <ds-search-v2  (keydown)="validarSoloLetras($event)" label="{{ labelArancel }}"
+          <ds-search-v2 (keydown)="validarSoloLetras($event)" label="{{ labelArancel }}"
             (changeEv)="itemSelected($event)" id="nombrePrestacion">
           </ds-search-v2>
 
           <!--input número de sesiones-->
-          <ds-input-v2 *ngIf="sesionRequired" (keypress)="validarNumero($event)" label="Número de Sesiones"
-            type="tel" maxlength="2" (keyupEv)="setValue('sesiones', $event)" id="numeroSesiones">
+          <ds-input-v2 *ngIf="sesionRequired" (keypress)="validarNumero($event)" label="Número de Sesiones" type="tel"
+            maxlength="2" (keyupEv)="setValue('sesiones', $event)" id="numeroSesiones">
           </ds-input-v2>
         </div>
 
@@ -28,13 +28,14 @@
 
           <!--bonificacion isapre/fonasa-->
           <ds-input-v2 *ngIf="!(esBoletaFactura && idprestacionSeleccionada !== 6)" label="{{ labelValorBon }}"
-            type="text" maxlength="14" [formatoMoneda]="true" (keyupEv)="setValue('bonificacion', $event)"
-            (changeEv)="validarMensajeWarning()" (keypress)="validarNumero($event)" id="bonificacion">
+            type="text" maxlength="14" [formatoMoneda]="true" [zeroValidate]="true"
+            (keyupEv)="setValue('bonificacion', $event)" (changeEv)="validarMensajeWarning()"
+            (keypress)="validarNumero($event)" id="bonificacion">
           </ds-input-v2>
         </div>
       </div>
       <!--Monto a rembolsar-->
-      <div class="form--total__container" [ngClass]="{ disabled: montoReembolso <= 0 }">
+      <div class="form--total__container" [ngClass]="{ disabled: prestacionInvalid() }">
         <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
           <span slot="text">Monto solicitado</span>
         </ds-paragraph>
@@ -57,8 +58,8 @@
         slot-name="cancel-button-slot">
         <span slot="cancel-button-slot">Cancelar</span>
       </ds-button>
-      <ds-button [disabled]="checkDsInputs()" id="ds-button-siguiente" (click)="sendData()" [size]="'s2'" variant="primary"
-        slot-name="next-button-slot">
+      <ds-button [disabled]="prestacionInvalid()" id="ds-button-siguiente" (click)="sendData()" [size]="'s2'"
+        variant="primary" slot-name="next-button-slot">
         <span slot="next-button-slot"> Guardar </span>
       </ds-button>
     </section>

@@ -1,3 +1,5 @@
+import { ReembolsoService } from 'src/app/shared/services/reembolso.service';
+/// <reference types="cypress" />
 import { DataStorageService } from 'src/app/shared/services/data-storage.service';
 import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges, AfterViewInit } from '@angular/core';
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
@@ -24,16 +26,32 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterView
 
   public sesionRequired: boolean = false;
   validDate: boolean = false;
-
+  public valHosp:any;
   copago: string | null = null;
   rutValid = false;
 
   constructor(private dataStorageService: DataStorageService, private prestacionService: ArancelService) {
+  
+  }
+  setvalHosp(valHosp:any){
+    console.log('valHosp', valHosp)
+
+    this.dataStorageService.dataDeHospitalarioBehavior.next(valHosp)
   }
   ngAfterViewInit(): void {
+
     /* let datosGeneralesContainer = document.querySelector('datos-generales-container')
     let inputsDatosGeneralesArray = datosGeneralesContainer?.querySelectorAll('inputs')
     console.log('inputsDatosGeneralesArray', inputsDatosGeneralesArray) */
+    const rut = this.dataStorageService.getBeneficiarioRut;
+    console.log('rut', rut)
+     
+
+    document.addEventListener('onSelectDate', (evt:any) => {
+      console.log(evt.detail)
+     this.dataStorageService.setFechaAtencionBehavior.next(evt.detail.init)
+     console.log('evt.detail.init', evt.detail.init)
+    })
 
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -45,6 +63,7 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterView
     this.dataStorageService.getFormReemboslo().subscribe(statusOn => this.stepsStatusOn = statusOn);
     if (this.stepsStatusOn['stepThree_general']['copagoMayor']) {
       this.copago = this.stepsStatusOn['stepThree_general']['copagoMayor'];
+
     }
 
     this.agregarAgenteEscucha();
@@ -105,18 +124,24 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterView
 
 
   agregarAgenteEscucha() {
+   
+
     window.addEventListener('onSelectDate', (event: any) => {
-      const calendario = document.getElementById('fecha_on_generales');
-      const formatoLocal = this.generarFormatoFecha();
-      const fechaSeleccionada = moment(event.detail.init, formatoLocal).toDate();
-      if (fechaSeleccionada <= new Date()) {
-        this.validDate = true;
-        const data = { step: 'stepThree_general', option: 'fechaAtencion', value: event.detail.init };
-        this.setStepsStatus(data);
-        calendario?.setAttribute('state', 'success');
-      } else {
-        calendario?.setAttribute('state', 'error');
-        this.validDate = false;
+      this.dataStorageService.setFechaAtencionBehavior.next(event.detail.init)
+      console.log('event.detail.init', event.detail.init)
+      const id = event.path[1].id
+      if (id == 'fecha_on_generales') {
+        const calendario = document.getElementById('fecha_on_generales');
+        const fechaSeleccionada = moment(event.detail.init, 'DD-MM-YYYY').toDate();
+        if (fechaSeleccionada <= new Date()) {
+          this.validDate = true;
+          const data = { step: 'stepThree_general', option: 'fechaAtencion', value: event.detail.init };
+          this.setStepsStatus(data);
+          calendario?.setAttribute('state', 'success');
+        } else {
+          calendario?.setAttribute('state', 'error');
+          this.validDate = false;
+        }
       }
     });
   }
@@ -164,7 +189,8 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterView
   setStepsStatus(data: any) {
     console.log("···· ->", data);
     this.dataStorageService.setFormReembolso(data.step, data.option, data.value);
-    this.mostrarDocumentoAdicional.emit(data.value)
+    this.dataStorageService.dataDeHospitalarioBehavior.next(data.value)
+    this.mostrarDocumentoAdicional.emit(data.value.value)
   }
   revisarSelectevent(dataEvt: any) {
   }
