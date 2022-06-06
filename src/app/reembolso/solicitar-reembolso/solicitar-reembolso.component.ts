@@ -248,7 +248,9 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       : 'waiting';
     this.stepperOneSource = () => [{ label: '', status }];
     if (status == 'completed') this.stepperTwoSource = () => [{ label: '', status: 'active' }];
-    this.getSizeStepper();
+    setTimeout(() => {
+      this.getSizeStepper();
+    }, 100);
   }
   /**
    * @description Evalua los requisitos necesarios para el progressF del 2do paso - Selecciona tu prestacion
@@ -265,6 +267,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
       this.stepperThreeSource = () => [{ label: '', status: 'active' }];
       let stepThreeStatus = this.stepperThreeSource()[0].status
     }
+    this.getSizeStepper();
   }
   /**
    * @description Evalúa los requisitos necesarios para el progress del 3er paso - Datos Generales

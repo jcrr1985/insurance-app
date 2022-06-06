@@ -218,11 +218,11 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterView
     }
   }
 
-  setValue() {
-
+  generarFormatoFecha(): string {
+    let fechaLocal = (new Date(2022, 11, 31)).toLocaleDateString();
+    fechaLocal = fechaLocal.replace("31","DD").replace("12","MM").replace("2022","YYYY");
+    return fechaLocal.replace(/-/g, '/');
   }
-
-
 }
 
 const previsionesArray = [

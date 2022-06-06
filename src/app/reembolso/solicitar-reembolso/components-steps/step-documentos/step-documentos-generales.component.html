@@ -8,7 +8,7 @@
         [ngClass]="{'waitStepperText':this.stepperFourSource()[0].status == 'waiting'}">Sube tus documentos</span>
     </ds-title>
     <!-- Fin Title -->
-    <div>
+    <div [ngClass]="{'transicion-de-despliegue':this.stepperFourSource()[0].status == 'active'}">
       <ng-container
         *ngIf="(getStepsStatus('stepThree_general', 'agenciaSeleccionada') !='' && getStepsStatus('stepThree_general', 'rutInstitucion') !='' && getStepsStatus('stepThree_general', 'boletaFactura') !='' && getStepsStatus('stepThree_general', 'fechaAtencion') !='' && getStepsStatus('stepThree_general', 'copagoMayor') !='')
       || (getStepsStatus('stepThree_general', 'montoSolicitado') != '' && getStepsStatus('stepThree_general', 'montoSolicitado') != '$0')">
@@ -48,9 +48,9 @@
     </div>
     <!-- Esperando seleccionar tipo documento -->
     <ng-container
-      *ngIf="getStepsStatus('stepFour_general','tipoDocumentoSeleccionado') || (idPrestacionSeleccionada == 2  && getStepsStatus('stepThree_general','montoSolicitado'))">
+      *ngIf="getStepsStatus('stepFour_general','tipoDocumentoSeleccionado') || (idPrestacionSeleccionada == 2  && getStepsStatus('stepThree_general','montoSolicitado'))" >
       <!-- Cards documentos -->
-      <div class="cards-document__container">
+      <div class="cards-document__container" [ngClass]="{'transicion-de-despliegue':getStepsStatus('stepFour_general','tipoDocumentoSeleccionado') || (idPrestacionSeleccionada == 2  && getStepsStatus('stepThree_general','montoSolicitado'))}">
         <!-- consulta medica -->
         <ng-container *ngIf="idPrestacionSeleccionada == 1">
           <ng-container *ngFor="let docs of documentsDisplay.consultamedica.nameFiles;let indexDocName = index">

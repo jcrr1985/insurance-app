@@ -1,14 +1,14 @@
 <section class="steps__container">
   <app-custom-stepper [height]="customStepperSize.stepperThree" [status]="this.stepperThreeSource()[0].status">
   </app-custom-stepper>
-  <div id="stepperThreeContent" class="w-full">
+  <div id="stepperThreeContent" class="w-full" [ngClass]="{'transicion-de-despliegue':this.stepperThreeSource()[0].status == 'active'}">
     <!-- Title -->
     <ds-title class="col-span-12" type="t4" family="secondary" weight="bold" color="primary">
       <span class="steps-title three" slot="text"
         [ngClass]="{'waitStepperText':this.stepperThreeSource()[0].status == 'waiting'}">Completa los siguientes
         datos</span>
     </ds-title>
-    <div class="grid grid-cols-12 gap-4 datos-generales-container">
+    <div class="grid grid-cols-12 gap-4 datos-generales-container" >
       <ng-container
         *ngIf="getStepsStatus('stepTwo_selectOption', 'prestacionSeleccionada') && getStepsStatus('stepTwo_selectOption', 'reembolsoPrevioIsapre')">
 
@@ -57,7 +57,10 @@
         <div class="question__container" *ngIf="getStepsStatus('stepThree_general','agenciaSeleccionada') != '' 
           && getStepsStatus('stepThree_general','rutInstitucion') != '' 
           && getStepsStatus('stepThree_general','boletaFactura') != ''
-          && rutValid && validDate">
+          && rutValid && validDate" [ngClass]="{'question-despliegue':getStepsStatus('stepThree_general','agenciaSeleccionada') != '' 
+          && getStepsStatus('stepThree_general','rutInstitucion') != '' 
+          && getStepsStatus('stepThree_general','boletaFactura') != ''
+          && rutValid && validDate}">
           <ds-paragraph class="question-style" type="p1" family="secondary" weight="semiBold" color="secondary">
             <span slot="text" class="font-bold">{{textPreguntas}}</span>
           </ds-paragraph>
