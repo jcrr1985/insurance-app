@@ -20,7 +20,7 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
   checkedSi: string = '';
 
   public cards: ICard[] = [
-    { prestacion: 'Consulta Médica', name: 'atencionmedica', status: 'disabled', idPrestacion: 1 },
+    { prestacion: 'Consulta Médica', name: 'atencionmedica', status: '', idPrestacion: 1 },
     { prestacion: 'Atención Hospitalaria', name: 'atencionhospitalaria', status: '', idPrestacion: 2 },
     { prestacion: 'Marcos y lentes', name: 'optica', status: '', idPrestacion: 3 },
     { prestacion: 'Atención Dental', name: 'dentista', status: '', idPrestacion: 4 },
@@ -109,6 +109,7 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
 
     this.cards.forEach(e => e.status = '');
     tarjeta.status = 'active';
+    // console.log("Estado de la tarjeta: ", tarjeta.status)
 
     this.tarjetaSeleccionada = tarjeta;
 

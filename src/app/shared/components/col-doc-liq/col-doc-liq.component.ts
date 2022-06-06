@@ -13,12 +13,12 @@ export class ColDocLiqComponent implements OnInit {
   constructor() { }
   
   ngOnInit(): void {
-    console.log('indice', this.indice)
+    // console.log('indice', this.indice)
 
    }
 
    desplegar(){
-    console.log('desplegado indice', this.indice);
+    // console.log('desplegado indice', this.indice);
     this.indiceEmitter.emit(this.indice);
    }
 }

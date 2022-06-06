@@ -42,12 +42,10 @@
                                 <span slot="element">{{solicitud.fecha}}</span>
                             </ds-table-body-column>
                             <ds-table-body-column slot="column">
-                                <span slot="element" *ngIf="prestacionSeleccionada != 2">$ {{solicitud.valorPrestacion |
-                                    number :'0.0-2'}}</span>
+                                <span slot="element" *ngIf="prestacionSeleccionada != 2">{{formateoValor(monTotal)}}</span>
                             </ds-table-body-column>
                             <ds-table-body-column slot="column">
-                                <span slot="element">$ {{solicitud.valorPrestacion - solicitud.bonificacion | number
-                                    :'0.0-2'}}</span>
+                                <span slot="element">{{formateoValor(montoTotalSolicitado)}}</span>
                             </ds-table-body-column>
                         </ds-table-body-row>
                     </ng-container>
@@ -66,7 +64,7 @@
                         </ds-table-body-column>
                         <ds-table-body-column-actions slot="column">
                             <span class="totalizador-monto-solicitado" slot="element"
-                                *ngIf="prestacionSeleccionada !=2">{{montoTotalSolicitado}}</span>
+                                *ngIf="prestacionSeleccionada !=2">{{formateoValor(montoTotalSolicitado)}}</span>
                             <span class="totalizador-monto-solicitado" slot="element"
                                 *ngIf="prestacionSeleccionada == 2">{{valorDeHospitalario}}</span>
                         </ds-table-body-column-actions>
