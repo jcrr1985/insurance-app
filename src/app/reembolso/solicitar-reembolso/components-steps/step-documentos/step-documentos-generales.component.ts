@@ -25,14 +25,47 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
 
   fileUrl: any;
   mostrarPreview: boolean = false;
+  public archivoInvalido = false;
+  public tipoDocumento: any;
+
+
 
   handlerFunction = async (evt: any) => {
     const sizeTop = 15728640;
     const extensionesDisponibles = ['image/png', 'image/jpg', 'image/jpeg', 'application/pdf'];
+    const msgErrorExtension = 'El formato de archivo que intentas subir no está permitido, por favor utiliza un formato JPG, JPEG, PNG o PDF';
+    const msgErrorSize = 'El tamaño maximo permitido es de 15mb';
+
     const index = parseInt(evt.target.id.replace('documento', ''));
     let i: number = 0;
     let fileEvnts: IFile[] = [];
     let multi = false;
+
+    const errorValidate = (idprestacionSeleccionada: number, msg: string) => {
+      switch (idprestacionSeleccionada) {
+        case 1:
+          this.displayError('consultamedica', index, { name: msg, show: msg != '' });
+          break;
+        case 2:
+          this.displayError('hospitalario', index, { name: msg, show: msg != '' });
+          break;
+        case 3:
+          this.displayError('lentes', index, { name: msg, show: msg != '' });
+          break;
+        case 4:
+          this.displayError('dentales', index, { name: msg, show: msg != '' });
+          break;
+        case 5:
+          this.displayError('examenes', index, { name: msg, show: msg != '' });
+          break;
+        case 6:
+          this.displayError('medicamentos', index, { name: msg, show: msg != '' });
+          break;
+        default:
+          break;
+      }
+
+    }
     while (i < evt.detail.length) {
       let base64: string = await Utils.transformarABase64(evt.detail[i])
       console.log("evt.detail[i].type", evt.detail[i].type);
@@ -44,19 +77,23 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
         })
       }
       if (!extensionesDisponibles.includes(evt.detail[i].type)) {
-        alert("Solo se permiten archivos (.jpg .png .jpeg .pdf)");
-        return;
+        errorValidate(this.idPrestacionSeleccionada, msgErrorExtension)
+      } else if (evt.detail[i].size >= sizeTop) {
+        errorValidate(this.idPrestacionSeleccionada, msgErrorSize)
+      } else {
+        errorValidate(this.idPrestacionSeleccionada, '')
       }
-      if (evt.detail[i].size >= sizeTop) {
-        alert("Excediste el tamaño permitido, 15MB");
-        return;
-      };
       i++;
     }
     switch (this.idPrestacionSeleccionada) {
       case 1:
         multi = this.documentsDisplay.consultamedica.nameFiles[index]['multi'];
-        if (fileEvnts.length) multi ? this.documentsDisplay.consultamedica.nameFiles[index].files.push(...fileEvnts) : this.documentsDisplay.consultamedica.nameFiles[index].files = [fileEvnts[0]];
+        if (fileEvnts.length)
+          if (multi) {
+            this.documentsDisplay.consultamedica.nameFiles[index].files.push(...fileEvnts);
+          } else {
+            this.documentsDisplay.consultamedica.nameFiles[index].files = [fileEvnts[0]];
+          }
         this.validateFileState('consultamedica', index);
         this.emitirCambioArchivo()
         break;
@@ -177,8 +214,9 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
     }
   }
 
-  addEventListener() {
 
+
+  addEventListener() {
     document.addEventListener('dsFileSendFiles', this.handlerFunction)
   }
 
@@ -188,6 +226,12 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
     this.documentsDisplay[nombrePrestacion].nameFiles[index].valid = isRequired ? this.documentsDisplay[nombrePrestacion].nameFiles[index].files.length > 0 ? true : false : true;
     if (documentException) this.documentsDisplay[nombrePrestacion].nameFiles[index + 1].valid = true;
   }
+
+  displayError(nombrePrestacion: string, index: number, error: any) {
+    const { name, show } = error;
+    this.documentsDisplay[nombrePrestacion].nameFiles[index].error = { name, show };
+  }
+
   /**
    * @description valida si estan correctos los archivos cargados en los inputs
    * @returns {Boolean} true / false
@@ -235,6 +279,7 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
     this.validateFileState(prestacion, indexNameFiles);
     this.emitirCambioArchivo();
   }
+
   vistaPreviaArchivo(event: any, docName: string) {
     this.previewDocumentName = docName;
     this.previewDocumentType = event.type;
@@ -266,6 +311,7 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
         break;
       case 3:
         this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de Boleta o Factura';
+        this.dataStorageService.tipoDocumento.next('Boleta')
         break;
 
       default:
@@ -281,6 +327,14 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
   */
   getStepsStatus(step: string, option: string) {
     return this.stepsStatusOn[step][option];
+  }
+
+  setTipoDocumento(tipoDocumento: string) {
+    this.dataStorageService.tipoDocumento.next(tipoDocumento)
+  }
+
+  hideError() {
+    //
   }
 }
 

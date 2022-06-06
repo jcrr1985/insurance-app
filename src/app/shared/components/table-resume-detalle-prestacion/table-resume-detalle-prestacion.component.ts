@@ -29,6 +29,7 @@ export class TableResumeDetallePrestacionComponent implements OnInit, OnDestroy 
       this.dataStorageService.montoTotalSolicitadoSubject.next(this.prestaciones)
       this.calcMounts();
     });
+
   }
 
   ngOnDestroy(): void {

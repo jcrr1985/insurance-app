@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { DataStorageService } from './../../shared/services/data-storage.service';
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
 import { ReembolsoService } from 'src/app/shared/services/reembolso.service';
@@ -9,6 +10,7 @@ import { IConsignment } from 'src/app/shared/interfaces/IConsignment';
 import { IBeneficiario } from 'src/app/shared/interfaces/beneficiarios';
 import { Usuario } from 'src/app/shared/interfaces/usuario';
 import { DataUsuarioService } from 'src/app/shared/services/data-usuario/data-usuario.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-tabla-resumen-reembolso',
@@ -16,7 +18,7 @@ import { DataUsuarioService } from 'src/app/shared/services/data-usuario/data-us
   styleUrls: ['./tabla-resumen-reembolso.component.scss']
 })
 export class TablaResumenReembolsoComponent implements OnInit {
-  public montoTotalSolicitado!: number;
+  public montoTotalSolicitado: any = 0;
   public nuevoReembolso: boolean = false;
   public prestacionesCargadas: any = [];
   public consignment!: IConsignment;
@@ -25,7 +27,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
   public usuario!: any;
   public usuarioSeleccionado!: any;
   public formatter = new Intl.NumberFormat('es-CL');
-
+  public fechaHoy: string = moment().format('DD/MM/YYYY');
   public solicitudes: any[] = [];
 
   public opcionesPrestacionesCLEM: ICard[] = [
@@ -50,35 +52,81 @@ export class TablaResumenReembolsoComponent implements OnInit {
   public mostrarModalFinal: boolean = false;
   public tarjetaSeleccionada!: ICard;
   public radioBtnNuevoReembolso: string = '';
+  public fechaAtencion: any;
+  public valorDeHospitalario!: boolean;
+  public monTotal: any;
+  public bonificacionTotal: any = 0;
+  public nombre: any;
+  public apellido: any;
+  public rut: any;
+  getTipoDoc: any;
+
 
   constructor(private dataStorageService: DataStorageService,
     private reembolsoService: ReembolsoService,
     private arancelService: ArancelService,
     private insuredData: DataUsuarioService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
+    document.addEventListener('onSelectDate', (evt: any) => {
+      // console.log("evt", evt);
+
+      const r = this.dataStorageService.getBeneficiarioRut
+      // console.log('r', r)
+    })
     this.usuario = this.insuredData.usuarioConectado;
-    this.usuarioSeleccionado = this.dataStorageService.getBeneficiario;
+
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => {
-      this.prestacionSeleccionada = id ? id : 1
+      this.prestacionSeleccionada = id;
+      // console.log('this.prestacionSeleccionada', this.prestacionSeleccionada)
 
     });
     this.dataStorageService.getPrestacionesResumen().subscribe(prestaciones => {
       this.prestacionesCargadas = prestaciones;
       this.calcularTablaResumen();
+      this.dataStorageService.getFormReemboslo().subscribe(data => {
+        this.montoSolicitado = data.stepThree_general.montoSolicitado
+        try {
+          const usuarioSeleccionadoFullName = this.dataStorageService.getBeneficiario;
+          // console.log('usuarioSeleccionadoFullName', usuarioSeleccionadoFullName)
+
+          let split = usuarioSeleccionadoFullName.key.split(" ");
+          // console.log('split', split)
+
+          this.nombre = split[0];
+          // console.log('this.nombre', this.nombre)
+
+          this.apellido = split[3];
+
+          // console.log('this.apellido', this.apellido)
+          this.usuarioSeleccionado = `${this.nombre} ${this.apellido}`
+
+          const rut = usuarioSeleccionadoFullName.value;
+          this.rut = usuarioSeleccionadoFullName.value;
+          // console.log('this.rut', this.rut)
+
+
+
+
+          this.fechaAtencion = this.dataStorageService.getFechaAtencion;
+        } catch (error) { }
+      });
     });
-
-
 
     if (this.prestacionSeleccionada == 2) {
       this.nuevoReembolso = false;
+
     }
+    this.dataStorageService.tipoDocument$.subscribe(e => {
+      // console.log('tipoDocument', e)
+
+    })
   }
 
   calcularTablaResumen() {
     this.solicitudes = [];
-
     for (let reembolsos of this.prestacionesCargadas) {
       for (let prestacion of reembolsos.prestaciones) {
         const dataSolicitud = {
@@ -86,16 +134,28 @@ export class TablaResumenReembolsoComponent implements OnInit {
           numerosesiones: prestacion.numerosesiones,
           valorPrestacion: prestacion.valorPrestacion,
           bonificacion: prestacion.bonificacion,
-          fecha: moment().format('DD/MM/YYYY')
+          fecha: this.dataStorageService.getFechaAtencion
         };
         this.solicitudes.push(dataSolicitud);
       }
     }
     let monto = 0;
+    let monTotal = 0
     for (let solicitudes of this.solicitudes) {
+      monTotal += Number(solicitudes.valorPrestacion)
       monto += Number(solicitudes.valorPrestacion) - Number(solicitudes.bonificacion);
+      // console.log('monto', monto)
+      this.bonificacionTotal += solicitudes.bonificacion
     }
     this.montoTotalSolicitado = monto;
+    // console.log('this.montoTotalSolicitado', this.montoTotalSolicitado)
+    this.monTotal = monTotal
+    // console.log('this.prestacionSeleccionada', this.prestacionSeleccionada)
+
+
+    this.valorDeHospitalario = this.dataStorageService.valorDeHospitalario
+    // console.log('this.valorDeHospitalario', this.valorDeHospitalario)
+
   }
 
   setPrestacion(id: number) {
@@ -103,21 +163,28 @@ export class TablaResumenReembolsoComponent implements OnInit {
     this.arancelService.idprestacionSeleccionada = id;
   }
   cancelar() {
-    this.restaurarFormulario();
+    this.restaurarFormulario(true);
+    this.dataStorageService.clearOrNot.next(true);
+    this.router.navigate(['/']);
   }
 
   habilitarSeleccionBeneficiario(valor: boolean) {
     this.reembolsoService.setHabilitarStepone(valor);
-    this.restaurarFormulario();
+    //this.restaurarFormulario();
+
 
   }
 
   returnValorRadioButtons() {
     return this.nuevoReembolso;
   }
-  restaurarFormulario() {
+  restaurarFormulario(restaruarAll?: boolean) {
     this.dataStorageService.resturarFormularioReembolso();
     this.dataStorageService.restaurarDetallePrestaciones();
+    if (restaruarAll) {
+      this.dataStorageService.setIdPrestacion(0);
+      this.dataStorageService.restaurarPrestacionesResumen()
+    }
   }
   construirFechaActual() {
     return moment().format('DD/MM/YYYY');
@@ -245,7 +312,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
     this.reembolsoService.habilitarSeleccionBeneficiario.next(false)
     this.dataStorageService.idprestacionSeleccionadaBehavior.next(tarjeta.idPrestacion)
   }
-  
+
   formateoValor(valor: number) {
     if (valor < 1) return '$0';
     return '$' + this.formatter.format(valor);

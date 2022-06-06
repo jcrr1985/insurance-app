@@ -22,7 +22,8 @@ export class DsInputComponent implements OnInit, AfterViewInit {
   @Input() statusActive: boolean = true;
   @Input() formatoMoneda!: boolean;
   @Input() formatoRut!: boolean
-  @Input() tipo!: string
+  @Input() tipo!: string;
+  @Input() zeroValidate: boolean = false;
   isValid: boolean = false;
   @ViewChild('inp') inp!: HTMLInputElement;
   @ViewChild('input') inputElement!: ElementRef;
@@ -50,7 +51,9 @@ export class DsInputComponent implements OnInit, AfterViewInit {
     if (this.formatoMoneda) {
       this.value = this.format(this.value);
       emit = this.value;
-      this.isValid = this.value && this.value.toString().trim() != '' ? true : false;
+      const primeraValidacion = this.value && this.value.toString().trim() != '' ? true : false;
+      const valdacionFinal = this.zeroValidate ? primeraValidacion && emit != '$0' ? true : false : primeraValidacion;
+      this.isValid = valdacionFinal;
       console.log(emit)
     }
     else if (this.formatoRut) {
@@ -163,8 +166,8 @@ export class DsInputComponent implements OnInit, AfterViewInit {
         }
       } else if (this.label === 'Bonificación Isapre/Fonasa') {
         if (this.value) {
-          const valor = +this.obtenerValueInputValor().replace(/\D/g,'');
-          const bonificacion = +(this.value.replace(/\D/g,''));
+          const valor = +this.obtenerValueInputValor().replace(/\D/g, '');
+          const bonificacion = +(this.value.replace(/\D/g, ''));
           if (bonificacion >= valor) {
             this.isValid = false;
           }
@@ -189,6 +192,6 @@ export class DsInputComponent implements OnInit, AfterViewInit {
 
   obtenerValueInputValor(): string {
     const inputValor = document.getElementById('valorInput') as HTMLInputElement;
-    return inputValor.value;
+    return inputValor?.value;
   }
 }
