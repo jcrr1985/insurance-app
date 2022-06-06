@@ -27,7 +27,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
   public consignment!: IConsignment;
   public montoSolicitado: string = '';
   public numeroSolicitado: string = '';
-  public usuario!: any;
+  public usuario!: Usuario;
   public usuarioSeleccionado!: any;
   public formatter = new Intl.NumberFormat('es-CL');
   public fechaHoy: string = moment().format('DD/MM/YYYY');
@@ -207,7 +207,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
     //ASIGNACION CLASIFICACION Y COBERTURA SEGUN PRESTACION
     let clasificacion: number = 1;
     let cobertura: string = "95";
-    switch(this.prestacionesCargadas[0].idPrestacionSeleccionada) {
+    switch(this.prestacionesCargadas[0].idprestacionSeleccionada) {
       case 2: //Hospitalaria
         clasificacion = 3;
         cobertura = "0063";
@@ -223,7 +223,8 @@ export class TablaResumenReembolsoComponent implements OnInit {
     const dataConsignment: IConsignment = {
       policy: this.usuario.poliza,
       clasif: clasificacion,
-      idIsapre: this.prestacionesCargadas[0].formValues.stepThree_general.agenciaSeleccionada,
+      idIsapre: this.prestacionesCargadas[0].idprestacionSeleccionada != 2 ?
+                this.prestacionesCargadas[0].formValues.stepThree_general.agenciaSeleccionada : +this.usuario.codigoIsapre,
       folioDenuncio: 0,
       plataforma: 'WEB', // "DESKTOP|APP|MOVIL" - GET Dispositivo (FALTANTE)
       sistemaOperativo: sistemaOperativo,
@@ -251,7 +252,8 @@ export class TablaResumenReembolsoComponent implements OnInit {
               montoDoc += p.valorPrestacion;
               descAcum += p.bonificacion;
             });
-            const [month, day, year] = prestacion.formValues.stepThree_general.fechaAtencion.split('/');
+            const fechaAtencion = prestacion.formValues.stepThree_general.fechaAtencion;
+            const [month, day, year] = fechaAtencion.split('/');
             const gasto : IGasto = {
               base64 : docs[0].files[0].base64,
               origenImagen : docs[0].files[0].extension == 'pdf' ? 'pdf' : 'galería',
@@ -265,13 +267,13 @@ export class TablaResumenReembolsoComponent implements OnInit {
               montoDocumento : montoDoc - descAcum,
               docAdicionales: this.getDocsAdicionales(docs),
               diagnosticoMonto: 0,
-              flagDescuentoAcumulado: (prestacion.idPrestacionSeleccionada == 6 && descAcum > 0) ? true : false, //Dato solamente para medicamentos.
-              flagRecetaPermanente: (prestacion.idPrestacionSeleccionada == 6 &&
+              flagDescuentoAcumulado: (prestacion.idprestacionSeleccionada == 6 && descAcum > 0) ? true : false, //Dato solamente para medicamentos.
+              flagRecetaPermanente: (prestacion.idprestacionSeleccionada == 6 &&
                                     prestacion.formValues.stepThree_general.copagoMayor == "si") ? true : false, //Es el valor del copago cuando coloca receta permanente.
               flagDocEnvIsapre: prestacion.formValues.stepTwo_selectOption.reembolsoPrevioIsapre == "si" ? true : false,
-              flagMasDeUnaSesion: ((prestacion.idPrestacionSeleccionada == 4 && prestacion.formValues.stepThree_general.copagoMayor == "si") || //Condicion si declara segun flag mas de una session en dental
-                                  ((prestacion.idPrestacionSeleccionada != 4 && prestacion.prestaciones.find((a: { sesiones: string | number; }) => +a.sesiones > 1)))) ? true : false, //Condicion si tiene aranceles con session distinto de prestacion dental
-              fecha: new Date(+year, +month - 1, +day),
+              flagMasDeUnaSesion: ((prestacion.idprestacionSeleccionada == 4 && prestacion.formValues.stepThree_general.copagoMayor == "si") || //Condicion si declara segun flag mas de una session en dental
+                                  ((prestacion.idprestacionSeleccionada != 4 && prestacion.prestaciones.find((a: { sesiones: string | number; }) => +a.sesiones > 1)))) ? true : false, //Condicion si tiene aranceles con session distinto de prestacion dental
+              fecha: fechaAtencion ? new Date(+year, +month - 1, +day) : new Date(),
               extension: docs[0].files[0].extension,
               aranceles : prestacion.prestaciones.map(
                 (detalle : any) => {
@@ -317,7 +319,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
 
   getTypeDocVT(prestacion : any) : number {
     let typeDocVT : number = 0
-    let id = prestacion.idPrestacionSeleccionada;
+    let id = prestacion.idprestacionSeleccionada;
     switch (prestacion.formValues.stepFour_general.tipoDocumentoSeleccionado){
       case 1: //Documento reembolso
         typeDocVT = 4;
@@ -329,8 +331,8 @@ export class TablaResumenReembolsoComponent implements OnInit {
         typeDocVT = 8;
         break;
     }
-    if(id == 2){
-      typeDocVT == 11 ;
+    if(+id == 2){
+      typeDocVT = 11 ;
     }
     return typeDocVT;
   }
