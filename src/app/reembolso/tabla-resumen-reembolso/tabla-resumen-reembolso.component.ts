@@ -14,6 +14,7 @@ import { IGasto } from 'src/app/shared/interfaces/IGasto';
 import { IArancel } from 'src/app/shared/interfaces/IArancel';
 import { IDocument } from 'src/app/shared/interfaces/IDocument';
 import { ThrowStmt } from '@angular/compiler';
+import Utils from 'src/app/shared/utils/utils';
 
 @Component({
   selector: 'app-tabla-resumen-reembolso',
@@ -253,7 +254,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
               descAcum += p.bonificacion;
             });
             const fechaAtencion = prestacion.formValues.stepThree_general.fechaAtencion;
-            const [month, day, year] = fechaAtencion.split('/');
+            const fechaIngresada = Utils.formatearFecha(fechaAtencion);
             const gasto : IGasto = {
               base64 : docs[0].files[0].base64,
               origenImagen : docs[0].files[0].extension == 'pdf' ? 'pdf' : 'galería',
@@ -273,7 +274,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
               flagDocEnvIsapre: prestacion.formValues.stepTwo_selectOption.reembolsoPrevioIsapre == "si" ? true : false,
               flagMasDeUnaSesion: ((prestacion.idprestacionSeleccionada == 4 && prestacion.formValues.stepThree_general.copagoMayor == "si") || //Condicion si declara segun flag mas de una session en dental
                                   ((prestacion.idprestacionSeleccionada != 4 && prestacion.prestaciones.find((a: { sesiones: string | number; }) => +a.sesiones > 1)))) ? true : false, //Condicion si tiene aranceles con session distinto de prestacion dental
-              fecha: fechaAtencion ? new Date(+year, +month - 1, +day) : new Date(),
+              fecha: fechaAtencion ? fechaIngresada : new Date(),
               extension: docs[0].files[0].extension,
               aranceles : prestacion.prestaciones.map(
                 (detalle : any) => {

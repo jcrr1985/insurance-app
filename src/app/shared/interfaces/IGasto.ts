@@ -4,7 +4,7 @@ import { IDocument } from './IDocument';
 export interface IGasto {
   idPrestacion: number;
   folio: number;
-  fecha: Date;
+  fecha: Date | string;
   idTipoDoc: number;
   rutPrestador: string;
   extension: string;
