@@ -29,18 +29,12 @@ export class DsInputComponent implements OnInit, AfterViewInit {
   @ViewChild('input') inputElement!: ElementRef;
   public formatter = new Intl.NumberFormat('es-CL');
   inputNgModel: null = null;
-  fechaHoy: string = moment().format('DD/MM/YYYY');
-
 
   ngOnInit(): void {
     // if (this.value) {
     //   this.isValid = this.value && this.value.toString().trim() != '' && this.value != '$ 0' ? true : false;
     //   if (this.formatoMoneda) this.value = this.format(this.value);
     // };
-    if (this.label === 'Rut institucion/prestador') {
-      let cal = document.getElementById('fecha_on_generales');
-      cal?.setAttribute('initial-date', this.fechaHoy);
-    }
   }
   async emitChange() {
     // delay necesario para que el buscador pueda compartir el input

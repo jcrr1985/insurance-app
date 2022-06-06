@@ -122,26 +122,20 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterView
     }
   }
 
-
   agregarAgenteEscucha() {
-   
-
     window.addEventListener('onSelectDate', (event: any) => {
-      this.dataStorageService.setFechaAtencionBehavior.next(event.detail.init)
-      console.log('event.detail.init', event.detail.init)
-      const id = event.path[1].id
-      if (id == 'fecha_on_generales') {
-        const calendario = document.getElementById('fecha_on_generales');
-        const fechaSeleccionada = moment(event.detail.init, 'DD-MM-YYYY').toDate();
-        if (fechaSeleccionada <= new Date()) {
-          this.validDate = true;
-          const data = { step: 'stepThree_general', option: 'fechaAtencion', value: event.detail.init };
-          this.setStepsStatus(data);
-          calendario?.setAttribute('state', 'success');
-        } else {
-          calendario?.setAttribute('state', 'error');
-          this.validDate = false;
-        }
+      const calendario = document.getElementById('fecha_on_generales');
+      const formatoLocal = this.generarFormatoFecha();
+      const fechaSeleccionada = moment(event.detail.init, formatoLocal).toDate();
+      this.dataStorageService.setFechaAtencionBehavior.next(event.detail.init);
+      if (fechaSeleccionada <= new Date()) {
+        this.validDate = true;
+        const data = { step: 'stepThree_general', option: 'fechaAtencion', value: event.detail.init };
+        this.setStepsStatus(data);
+        calendario?.setAttribute('state', 'success');
+      } else {
+        calendario?.setAttribute('state', 'error');
+        this.validDate = false;
       }
     });
   }

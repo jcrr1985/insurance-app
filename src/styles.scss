@@ -190,7 +190,6 @@ ds-file {
     font-size: 14px;
     color: rgb(67, 80, 94);
     line-height: 1.43;
-    padding: 10px 10px 4px 12px;
   }
 
   input.error {
@@ -210,7 +209,6 @@ ds-file {
     font-size: 14px;
     color: rgb(67, 80, 94);
     line-height: 1.43;
-    padding: 10px 10px 4px 12px;
   }
 
   input {
@@ -1006,9 +1004,9 @@ ds-title {
         display: none !important;
       }
   
-      #start-date-single-undefined{
-        padding: 10px !important;
-      }
+      // #start-date-single-undefined{
+      //   padding: 10px !important;
+      // }
       
       #rightIcon {
         position: absolute;
@@ -1482,6 +1480,28 @@ ds-title {
 .css-1m6txwz input[type="text"] { font-size: 14px !important; }
 .css-1xngu61 input[type="text"] { font-size: 14px !important; }
 
+.css-1m6txwz input[type="text"]:placeholder-shown + label {
+  padding-top: 3px !important;
+}
+
+.css-16uiodj label, .css-1m6txwz label, .css-1xngu61 label { 
+  color: #606E7D !important 
+}
+
+
+.css-16uiodj input[type="text"]:hover{
+  border-width: 1px 1px 1px 4px !important;
+  border-color: #628e37 !important;
+}
+
+.css-1xngu61 input[type="text"]:hover{
+  border-width: 1px 1px 1px 4px !important;
+  border-color: #E60D2E !important;
+}
+
+.css-1m6txwz input[type="text"]:hover{
+  border: 1px solid #d2d9df;
+  color: #606E7D;
+}
+
 // ── Estilos Calendario ──
-
-
