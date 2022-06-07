@@ -426,6 +426,7 @@ export class DataStorageService {
    */
   restaurarId() {
     this.idprestacionSeleccionada = 0;
+    console.log("id prestacion: ", this.idprestacionSeleccionada)
   }
 
   /**

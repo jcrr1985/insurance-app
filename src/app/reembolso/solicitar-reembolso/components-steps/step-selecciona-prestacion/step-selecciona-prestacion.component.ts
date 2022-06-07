@@ -114,6 +114,7 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
 
     this.cards.forEach(e => e.status = '');
     tarjeta.status = 'active';
+    // console.log("Estado de la tarjeta: ", tarjeta.status)
 
     this.tarjetaSeleccionada = tarjeta;
 

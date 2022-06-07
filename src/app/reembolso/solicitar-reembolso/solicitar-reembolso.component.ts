@@ -162,6 +162,8 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     this.dataStorageService.restaurarId();
     this.dataStorageService.restaurarPrestacionesResumen();
     this.router.navigate(['/']);
+    this.dataStorageService.setIdPrestacion(0);
+
   }
   botonSiguiente() {
     const dataDefaultHospitalario = {

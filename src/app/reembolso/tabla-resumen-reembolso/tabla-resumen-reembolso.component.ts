@@ -125,7 +125,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
           numerosesiones: prestacion.numerosesiones,
           valorPrestacion: prestacion.valorPrestacion,
           bonificacion: prestacion.bonificacion,
-          fecha: this.dataStorageService.getFechaAtencion
+          fecha: this.construirFechaActual()
         };
         this.solicitudes.push(dataSolicitud);
       }
