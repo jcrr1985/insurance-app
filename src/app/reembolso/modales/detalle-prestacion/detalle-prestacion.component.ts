@@ -138,7 +138,7 @@ export class DetallePrestacionComponent
       this.arancel.montoHistorico = this.arancelService.montoHistorico;
       this.montoReferencia = this.arancelService.montoHistorico;
       this.warningMsg = this.arancelService.desviadoOK;
-    }else{
+    } else {
       this.arancel.sesionValida = true;
       this.arancel.montoHistorico = 0;
     }
@@ -149,10 +149,10 @@ export class DetallePrestacionComponent
    */
   prestacionInvalid() {
     if (this.sesionRequired) {
-      if (this.arancel.sesiones > 0 && this.arancel.bonificacion > 0 && this.arancel.valorPrestacion > 0) return false
+      if (this.arancel.sesiones > 0 && this.arancel.bonificacion >= 0 && this.arancel.valorPrestacion > 0 && (this.arancel.bonificacion < this.arancel.valorPrestacion)) return false
       else return true;
     } else {
-      if (this.arancel.bonificacion > 0 && this.arancel.valorPrestacion > 0) return false
+      if (this.arancel.bonificacion >= 0 && this.arancel.valorPrestacion > 0 && (this.arancel.bonificacion < this.arancel.valorPrestacion)) return false
       else return true;
     }
   }

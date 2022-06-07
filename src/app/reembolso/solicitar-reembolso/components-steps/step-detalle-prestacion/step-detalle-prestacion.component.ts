@@ -16,18 +16,13 @@ export class StepDetallePrestacionComponent implements OnInit {
   prestaciones: any[] = [];
   prestacionSeleccionada: any;
   montoTotalPrestaciones: any;
-  //prestacionSeleccionada: any = this.arancelService.getPrestacionSeleccionada
+  public rutEmpresa: number = 0;
 
   constructor(private dataStorageService: DataStorageService, private arancelService: ArancelService) { }
-
-
   ngOnInit(): void {
     this.dataStorageService.getFormReemboslo().subscribe(statusOn => this.stepsStatusOn = statusOn);
     this.dataStorageService.getPrestaciones().subscribe(prestaciones => this.prestaciones = prestaciones);
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.prestacionSeleccionada = id)
-    /* this.arancelService.setIdSubject.subscribe(e => {
-      this.prestacionSeleccionada = e;
-    }) */
   }
   edit(prestacion: any) {
     this.prestacionSeleccionada = prestacion;
@@ -38,7 +33,6 @@ export class StepDetallePrestacionComponent implements OnInit {
     this.prestaciones = this.prestaciones.filter(e => e.id != prestacion.id)
   }
   nuevaPrestacionDataArray(prestacion: any) {
-    //this.prestaciones.push({ ...prestacion, id: this.arancelService.getPrestacionSeleccionadaId });
     const dataPrestacion = { ...prestacion, id: this.prestaciones.length + 1 };
     this.prestaciones.push(dataPrestacion);
     this.prestacionSeleccionada = {}
@@ -59,7 +53,7 @@ export class StepDetallePrestacionComponent implements OnInit {
     return this.stepsStatusOn[step][option];
   }
 
-  geTotalPrestaciones(e:any){
+  geTotalPrestaciones(e: any) {
     this.montoTotalPrestaciones = e;
     console.log('this.montoTotalPrestaciones', this.montoTotalPrestaciones)
   }
