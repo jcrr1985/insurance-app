@@ -65,7 +65,7 @@ export class ArancelService {
 
     switch (this.tarjetaSeleccionada) {
       case 'atencionhospitalaria':
-        filtroPrestacion = 'CONSULTA'; //TODO ¿Qué va aquí? no es consulta.. 'CONSULTA', consulta va abajo.. los aranceles tienen solo 5 tipos de tipoPrestacion al parecer
+        filtroPrestacion = 'CONSULTA';
         break;
       case 'atencionmedica':
         filtroPrestacion = 'CONSULTA';
@@ -150,7 +150,7 @@ export class ArancelService {
     cantidadSesiones: number
   ) {
     try {
-      const ssoToken : Token = JSON.parse(localStorage.getItem('Token')!);
+      const ssoToken: Token = JSON.parse(localStorage.getItem('Token')!);
       if (!ssoToken) throw new Error('No existe token guardado.');
 
       const headers = new HttpHeaders()

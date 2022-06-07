@@ -34,18 +34,18 @@ export class TablaResumenReembolsoComponent implements OnInit {
   public solicitudes: any[] = [];
 
   public opcionesPrestacionesCLEM: ICard[] = [
-    { prestacion: 'Consulta Médica', name: 'atencionmedica', status: '', idPrestacion: 1 },
-    { prestacion: 'Marcos y lentes', name: 'optica', status: '', idPrestacion: 3 },
-    { prestacion: 'Examenes y Procedimientos', name: 'examenes', status: '', idPrestacion: 5 },
-    { prestacion: 'Compra de medicamentos', name: 'medicamentos', status: '', idPrestacion: 6 },
+    { prestacion: 'Consulta Médica', name: 'atencionmedica', status: '', idPrestacion: 1, alias: 'consulta médica' },
+    { prestacion: 'Marcos y lentes', name: 'optica', status: '', idPrestacion: 3, alias: 'optica' },
+    { prestacion: 'Examenes y Procedimientos', name: 'examenes', status: '', idPrestacion: 5, alias: 'exámenes' },
+    { prestacion: 'Compra de medicamentos', name: 'medicamentos', status: '', idPrestacion: 6, alias: 'médicamentos' },
   ];
 
   public opcionesPrestacionesD: ICard[] = [
-    { prestacion: 'Atención Dental', name: 'dentista', status: '', idPrestacion: 4 },
+    { prestacion: 'Atención Dental', name: 'dentista', status: '', idPrestacion: 4, alias: 'dentista' },
   ];
 
   public opcionesPrestacionesH: ICard[] = [
-    { prestacion: '', name: '', status: '', idPrestacion: 2 },
+    { prestacion: '', name: '', status: '', idPrestacion: 2, alias: '' },
   ];
 
 
@@ -65,6 +65,8 @@ export class TablaResumenReembolsoComponent implements OnInit {
   public apellido: any;
   public rut: any;
   getTipoDoc: any;
+  public rutEmpresa: number = 0;
+  public cardSelected: any;
 
 
   constructor(private dataStorageService: DataStorageService,
@@ -74,7 +76,11 @@ export class TablaResumenReembolsoComponent implements OnInit {
     private router: Router
   ) { }
 
+  public nombrePrestacion: any = this.arancelService.getTarjetaSeleccionada as any;
   ngOnInit(): void {
+    this.cardSelected = this.dataStorageService.getCardSelected;
+    console.log('this.cardSelected', this.cardSelected)
+    this.rutEmpresa = this.dataStorageService.getRutEmpresa;
     document.addEventListener('onSelectDate', (evt: any) => {
       const r = this.dataStorageService.getBeneficiarioRut
     })
@@ -207,7 +213,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
     //ASIGNACION CLASIFICACION Y COBERTURA SEGUN PRESTACION
     let clasificacion: number = 1;
     let cobertura: string = "95";
-    switch(this.prestacionesCargadas[0].idPrestacionSeleccionada) {
+    switch (this.prestacionesCargadas[0].idPrestacionSeleccionada) {
       case 2: //Hospitalaria
         clasificacion = 3;
         cobertura = "0063";
@@ -219,7 +225,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
     }
     //Setear el beneficiario seleccionado
     let beneficiario = this.usuario.cargas.filter((carga: { rut: any; }) =>
-        carga.rut == this.prestacionesCargadas[0].formValues.stepOne_who.personaSeleccionada.slice(0, -1))[0];
+      carga.rut == this.prestacionesCargadas[0].formValues.stepOne_who.personaSeleccionada.slice(0, -1))[0];
     const dataConsignment: IConsignment = {
       policy: this.usuario.poliza,
       clasif: clasificacion,
@@ -242,70 +248,70 @@ export class TablaResumenReembolsoComponent implements OnInit {
       rutTitular: this.usuario.cargas[0].rut,
       nombreBanco: this.usuario.nombreBanco,
       montoTotal: this.montoTotalSolicitado,
-      gastos : this.prestacionesCargadas.map(
-          (prestacion : any) => {
-            const docs = this.getFileByIdPrestacion(prestacion);
-            let descAcum = 0;
-            let montoDoc = 0;
-            prestacion.prestaciones.forEach( (p: { valorPrestacion: number; bonificacion: number; }) => {
-              montoDoc += p.valorPrestacion;
-              descAcum += p.bonificacion;
-            });
-            const [month, day, year] = prestacion.formValues.stepThree_general.fechaAtencion.split('/');
-            const gasto : IGasto = {
-              base64 : docs[0].files[0].base64,
-              origenImagen : docs[0].files[0].extension == 'pdf' ? 'pdf' : 'galería',
-              diagnostico : '',
-              docDiagnostico : [],
-              folio : Number(prestacion.formValues.stepThree_general.boletaFactura),
-              idPrestacion : this.idPrestacionVT,
-              idTipoDoc : this.getTypeDocVT(prestacion),
-              descuentoAcumulado : descAcum,
-              rutPrestador : prestacion.formValues.stepThree_general.rutInstitucion.replace(/\./g,""),
-              montoDocumento : montoDoc - descAcum,
-              docAdicionales: this.getDocsAdicionales(docs),
-              diagnosticoMonto: 0,
-              flagDescuentoAcumulado: (prestacion.idPrestacionSeleccionada == 6 && descAcum > 0) ? true : false, //Dato solamente para medicamentos.
-              flagRecetaPermanente: (prestacion.idPrestacionSeleccionada == 6 &&
-                                    prestacion.formValues.stepThree_general.copagoMayor == "si") ? true : false, //Es el valor del copago cuando coloca receta permanente.
-              flagDocEnvIsapre: prestacion.formValues.stepTwo_selectOption.reembolsoPrevioIsapre == "si" ? true : false,
-              flagMasDeUnaSesion: ((prestacion.idPrestacionSeleccionada == 4 && prestacion.formValues.stepThree_general.copagoMayor == "si") || //Condicion si declara segun flag mas de una session en dental
-                                  ((prestacion.idPrestacionSeleccionada != 4 && prestacion.prestaciones.find((a: { sesiones: string | number; }) => +a.sesiones > 1)))) ? true : false, //Condicion si tiene aranceles con session distinto de prestacion dental
-              fecha: new Date(+year, +month - 1, +day),
-              extension: docs[0].files[0].extension,
-              aranceles : prestacion.prestaciones.map(
-                (detalle : any) => {
-                  const arancel : IArancel = {
-                    codigo : detalle.codigoPrestacion,
-                    descuento : detalle.bonificacion,
-                    montoTotal : detalle.valorPrestacion,
-                    nombre : detalle.prestacionSeleccionada,
-                    sesiones : detalle.sesiones ? +detalle.sesiones : 0,
-                    flagSesionValida : detalle.sesiones ? detalle.sesionValida : true,
-                    montoComparacion : detalle.sesiones ? detalle.montoHistorico : 0
-                  }
-                  return arancel;
+      gastos: this.prestacionesCargadas.map(
+        (prestacion: any) => {
+          const docs = this.getFileByIdPrestacion(prestacion);
+          let descAcum = 0;
+          let montoDoc = 0;
+          prestacion.prestaciones.forEach((p: { valorPrestacion: number; bonificacion: number; }) => {
+            montoDoc += p.valorPrestacion;
+            descAcum += p.bonificacion;
+          });
+          const [month, day, year] = prestacion.formValues.stepThree_general.fechaAtencion.split('/');
+          const gasto: IGasto = {
+            base64: docs[0].files[0].base64,
+            origenImagen: docs[0].files[0].extension == 'pdf' ? 'pdf' : 'galería',
+            diagnostico: '',
+            docDiagnostico: [],
+            folio: Number(prestacion.formValues.stepThree_general.boletaFactura),
+            idPrestacion: this.idPrestacionVT,
+            idTipoDoc: this.getTypeDocVT(prestacion),
+            descuentoAcumulado: descAcum,
+            rutPrestador: prestacion.formValues.stepThree_general.rutInstitucion.replace(/\./g, ""),
+            montoDocumento: montoDoc - descAcum,
+            docAdicionales: this.getDocsAdicionales(docs),
+            diagnosticoMonto: 0,
+            flagDescuentoAcumulado: (prestacion.idPrestacionSeleccionada == 6 && descAcum > 0) ? true : false, //Dato solamente para medicamentos.
+            flagRecetaPermanente: (prestacion.idPrestacionSeleccionada == 6 &&
+              prestacion.formValues.stepThree_general.copagoMayor == "si") ? true : false, //Es el valor del copago cuando coloca receta permanente.
+            flagDocEnvIsapre: prestacion.formValues.stepTwo_selectOption.reembolsoPrevioIsapre == "si" ? true : false,
+            flagMasDeUnaSesion: ((prestacion.idPrestacionSeleccionada == 4 && prestacion.formValues.stepThree_general.copagoMayor == "si") || //Condicion si declara segun flag mas de una session en dental
+              ((prestacion.idPrestacionSeleccionada != 4 && prestacion.prestaciones.find((a: { sesiones: string | number; }) => +a.sesiones > 1)))) ? true : false, //Condicion si tiene aranceles con session distinto de prestacion dental
+            fecha: new Date(+year, +month - 1, +day),
+            extension: docs[0].files[0].extension,
+            aranceles: prestacion.prestaciones.map(
+              (detalle: any) => {
+                const arancel: IArancel = {
+                  codigo: detalle.codigoPrestacion,
+                  descuento: detalle.bonificacion,
+                  montoTotal: detalle.valorPrestacion,
+                  nombre: detalle.prestacionSeleccionada,
+                  sesiones: detalle.sesiones ? +detalle.sesiones : 0,
+                  flagSesionValida: detalle.sesiones ? detalle.sesionValida : true,
+                  montoComparacion: detalle.sesiones ? detalle.montoHistorico : 0
                 }
-              )
-            }
-            return gasto;
+                return arancel;
+              }
+            )
           }
+          return gasto;
+        }
       )
     };
     return dataConsignment
   }
 
-  getDocsAdicionales(documents : any) : IDocument[] {
-    let docs : IDocument[] = [];
+  getDocsAdicionales(documents: any): IDocument[] {
+    let docs: IDocument[] = [];
     let x: number = 0;
     let y: number = 0;
-    while(x < documents.length){
+    while (x < documents.length) {
       y = x == 0 ? 1 : 0;
-      while(y < documents[x].files.length){
-        const document : IDocument = {
-          base64 : documents[x].files[y].base64,
-          extension : documents[x].files[y].extension,
-          origenImagen : documents[x].files[y].extension == 'pdf' ? 'pdf' : 'galería'
+      while (y < documents[x].files.length) {
+        const document: IDocument = {
+          base64: documents[x].files[y].base64,
+          extension: documents[x].files[y].extension,
+          origenImagen: documents[x].files[y].extension == 'pdf' ? 'pdf' : 'galería'
         }
         docs.push(document);
         y++;
@@ -315,10 +321,10 @@ export class TablaResumenReembolsoComponent implements OnInit {
     return docs;
   }
 
-  getTypeDocVT(prestacion : any) : number {
-    let typeDocVT : number = 0
+  getTypeDocVT(prestacion: any): number {
+    let typeDocVT: number = 0
     let id = prestacion.idPrestacionSeleccionada;
-    switch (prestacion.formValues.stepFour_general.tipoDocumentoSeleccionado){
+    switch (prestacion.formValues.stepFour_general.tipoDocumentoSeleccionado) {
       case 1: //Documento reembolso
         typeDocVT = 4;
         break;
@@ -329,15 +335,15 @@ export class TablaResumenReembolsoComponent implements OnInit {
         typeDocVT = 8;
         break;
     }
-    if(id == 2){
-      typeDocVT == 11 ;
+    if (id == 2) {
+      typeDocVT == 11;
     }
     return typeDocVT;
   }
 
-  getFileByIdPrestacion(prestacion: any) : any {
-    let file : any = [];
-    switch(prestacion.idprestacionSeleccionada){
+  getFileByIdPrestacion(prestacion: any): any {
+    let file: any = [];
+    switch (prestacion.idprestacionSeleccionada) {
       case 1:
         file = prestacion.formValues.files.docsStructure.consultamedica.nameFiles;
         this.idPrestacionVT = 2;

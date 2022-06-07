@@ -43,10 +43,6 @@ export class DataStorageService {
   public dataDeHospitalario$ = this.dataDeHospitalarioBehavior.asObservable();
   public dataDeHospitalario!: any;
 
-
-
-
-
   //#######################################################################
   //################## Para Beneficiario Seleccionado #####################
   //#######################################################################
@@ -125,9 +121,17 @@ export class DataStorageService {
   public montoTotalSolicitado$ = this.montoTotalSolicitadoSubject.asObservable();
 
   public montoAndStuff: any;
-
+  public rutEmpresa!: number
   public _flagMasDeUnaSesion: any;
   public fechaAtencion: any;
+  public rutEmpresaBehavior: BehaviorSubject<number> = new BehaviorSubject(0);
+  public rutEmpresa$ = this.rutEmpresaBehavior.asObservable()
+  public tipoDoc: any;
+  public cardSelectedBehavior: BehaviorSubject<string> = new BehaviorSubject('')
+  public cardSelected$ = this.cardSelectedBehavior.asObservable()
+
+  //--------------------------------------------------------------------------
+
 
   public setFlagMasDeUnaSesion(flag: boolean) {
     this._flagMasDeUnaSesion = flag;
@@ -140,7 +144,6 @@ export class DataStorageService {
   get getmontoAndStuff() {
     return this.montoAndStuff;
   }
-  public tipoDoc: any;
 
   public tipoDocumento: Subject<any> = new Subject();
   tipoDocument$ = this.tipoDocumento.asObservable()
@@ -155,11 +158,17 @@ export class DataStorageService {
     })
   }
 
+  public cardSelected: any
+
   constructor() {
 
+    this.cardSelectedBehavior.subscribe((card: any) => {
+      console.log('card', card)
+      this.cardSelected = card
+    })
+
+
     this.dataDeHospitalario$.subscribe((emit: any) => this.dataDeHospitalario = emit)
-
-
     this.beneficiarioBehavior = new BehaviorSubject('');
     this.beneficiario$ = this.beneficiarioBehavior.asObservable();
     this.beneficiario$.subscribe(e => {
@@ -169,10 +178,6 @@ export class DataStorageService {
       this.fechaAtencion = fechaAtencion
       console.log('fechaAtencion', this.fechaAtencion)
     })
-
-
-
-
 
     // _____________________________________________________________
     // _______________ Para Formulario Reembolso ___________________
@@ -198,6 +203,20 @@ export class DataStorageService {
     this.idprestacionSeleccionadaBehavior = new BehaviorSubject(0)
     this.idprestacionSeleccionada$ = this.idprestacionSeleccionadaBehavior.asObservable();
     this.idprestacionSeleccionada = 0;
+
+    this.rutEmpresa$.subscribe(rutEmpresa => {
+      this.rutEmpresa = rutEmpresa
+    })
+
+  }
+
+
+  public get getCardSelected() {
+    return this.cardSelected;
+  }
+
+  public get getRutEmpresa() {
+    return this.rutEmpresa;
   }
   /**
    * @description setea un valor en el observable y formulario de reembolso
@@ -212,8 +231,6 @@ export class DataStorageService {
   public get valorDeHospitalario() {
     return this.dataDeHospitalario
   }
-
-
   public get getFechaAtencion() {
     return this.fechaAtencion;
   }
@@ -258,8 +275,6 @@ export class DataStorageService {
   /**
    * @description restura el formulario de reembolso a su estado original y actualiza  todos los componentes subscritos
    */
-
-
   resturarFormularioReembolso() {
     this.reembolsoForm = {
       stepOne_who: {
@@ -318,12 +333,6 @@ export class DataStorageService {
     };
     this.reembolsoFormBehavior.next(this.reembolsoForm);
   }
-
-  // ---------------------------------------------------------------------
-  // ---------------------------------------------------------------------
-  // ---------------------------------------------------------------------
-
-
   /**
   * @description agrega una nueva prestacion al detalle de las prestaciones
   * @param prestacion prestacion recibida del modal de agregar detalle prestacion
@@ -358,10 +367,6 @@ export class DataStorageService {
   }
 
   // ---------------------------------------------------------------------
-  // ---------------------------------------------------------------------
-  // ---------------------------------------------------------------------
-
-
 
   /**
    * @description agrega una nueva prestacion a las prestaciones del resumen
@@ -396,7 +401,6 @@ export class DataStorageService {
     this.prestacionesCargadas = [];
     this.prestacionesCargadasBehavior.next(this.prestacionesCargadas);
   }
-
 
   // ---------------------------------------------------------------------
   // ---------------------------------------------------------------------
@@ -438,7 +442,6 @@ export class DataStorageService {
 
 }
 
-
 const prestaciones: any = [];
 
 const resumePrestaciones: any = [];
@@ -470,7 +473,6 @@ const documentsDisplay: any = {
     cols: 'col-span-4'
   },
 }
-
 
 
 const formReembolso = {

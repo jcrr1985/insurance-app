@@ -1,6 +1,7 @@
 export interface ICard {
-    prestacion: string;
-    name: string;
-    status: string;
-    idPrestacion: number;
-  }
+  prestacion: string;
+  name: string;
+  status: string;
+  idPrestacion: number;
+  alias: string
+}

@@ -26,31 +26,20 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterView
 
   public sesionRequired: boolean = false;
   validDate: boolean = false;
-  public valHosp:any;
+  public valHosp: any;
   copago: string | null = null;
   rutValid = false;
 
-  constructor(private dataStorageService: DataStorageService, private prestacionService: ArancelService) {
-  
-  }
-  setvalHosp(valHosp:any){
-    console.log('valHosp', valHosp)
-
+  constructor(private dataStorageService: DataStorageService, private prestacionService: ArancelService) { }
+  setvalHosp(valHosp: any) {
     this.dataStorageService.dataDeHospitalarioBehavior.next(valHosp)
   }
   ngAfterViewInit(): void {
-
-    /* let datosGeneralesContainer = document.querySelector('datos-generales-container')
-    let inputsDatosGeneralesArray = datosGeneralesContainer?.querySelectorAll('inputs')
-    console.log('inputsDatosGeneralesArray', inputsDatosGeneralesArray) */
     const rut = this.dataStorageService.getBeneficiarioRut;
-    console.log('rut', rut)
-     
-
-    document.addEventListener('onSelectDate', (evt:any) => {
+    document.addEventListener('onSelectDate', (evt: any) => {
       console.log(evt.detail)
-     this.dataStorageService.setFechaAtencionBehavior.next(evt.detail.init)
-     console.log('evt.detail.init', evt.detail.init)
+      this.dataStorageService.setFechaAtencionBehavior.next(evt.detail.init)
+      console.log('evt.detail.init', evt.detail.init)
     })
 
   }
@@ -78,7 +67,8 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterView
    * @description valida el rut recibidoo del dsInput
    */
   validarRut(rutFormat: string) {
-    //= '17793573-5'
+    this.dataStorageService.rutEmpresaBehavior.next(Number(rutFormat));
+    //= '17793573-5')
     let rut = rutFormat.replace(/\./g, '');
     if (rut.toString().trim() != '' && rut.toString().indexOf('-') > 0) {
       let caracteres = new Array();
@@ -211,7 +201,7 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterView
 
   generarFormatoFecha(): string {
     let fechaLocal = (new Date(2022, 11, 31)).toLocaleDateString();
-    fechaLocal = fechaLocal.replace("31","DD").replace("12","MM").replace("2022","YYYY");
+    fechaLocal = fechaLocal.replace("31", "DD").replace("12", "MM").replace("2022", "YYYY");
     return fechaLocal.replace(/-/g, '/');
   }
 }

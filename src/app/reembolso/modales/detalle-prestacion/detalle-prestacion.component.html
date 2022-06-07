@@ -28,9 +28,8 @@
 
           <!--bonificacion isapre/fonasa-->
           <ds-input-v2 *ngIf="!(esBoletaFactura && idprestacionSeleccionada !== 6)" label="{{ labelValorBon }}"
-            type="text" maxlength="14" [formatoMoneda]="true" [zeroValidate]="true"
-            (keyupEv)="setValue('bonificacion', $event)" (changeEv)="validarMensajeWarning()"
-            (keypress)="validarNumero($event)" id="bonificacion">
+            type="text" maxlength="14" [formatoMoneda]="true" (keyupEv)="setValue('bonificacion', $event)"
+            (changeEv)="validarMensajeWarning()" (keypress)="validarNumero($event)" id="bonificacion">
           </ds-input-v2>
         </div>
       </div>

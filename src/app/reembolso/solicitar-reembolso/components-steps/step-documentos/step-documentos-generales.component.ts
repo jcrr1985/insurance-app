@@ -22,7 +22,7 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
   idPrestacionSeleccionada: number = 1;
   descriptionDSFile: string = 'Adjunta un archivo (jpg, jpeg, png o pdf) que no supere los 15MB';
   @Input() otroReembolso: any;
-  public indexError : number = -1;
+  public indexError: number = -1;
   fileUrl: any;
   mostrarPreview: boolean = false;
   public archivoInvalido = false;
@@ -158,23 +158,58 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
       this.documentsDisplay = statusOn.files.docsStructure;
     });
     if (this.stepsStatusOn['stepFour_general']['tipoDocumentoSeleccionado']) {
-      switch (parseInt(this.stepsStatusOn['stepFour_general']['tipoDocumentoSeleccionado'])) {
+      if (parseInt(this.stepsStatusOn['stepFour_general']['tipoDocumentoSeleccionado']) == 1) this.subtituloPrimerDocumento = 'Documento de reembolso';
+      if (parseInt(this.stepsStatusOn['stepFour_general']['tipoDocumentoSeleccionado']) == 2) this.subtituloPrimerDocumento = 'Documento de Bono atencion';
+      if (parseInt(this.stepsStatusOn['stepFour_general']['tipoDocumentoSeleccionado']) == 3) this.subtituloPrimerDocumento = 'Documento de Boleta o Factura';
+
+      switch (this.idPrestacionSeleccionada) {
+        // Consulta Medica
         case 1:
-          this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de reembolso';
-          this.subtituloPrimerDocumento = 'Documento de reembolso';
+          this.documentsDisplay.consultamedica.nameFiles[0].name = this.subtituloPrimerDocumento;
           break;
+        // Atención hospitalario
         case 2:
-          this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de Bono atencion';
-          this.subtituloPrimerDocumento = 'Documento de Bono atencion';
+          this.documentsDisplay.hospitalario.nameFiles[0].name = this.subtituloPrimerDocumento;
           break;
+        // Marcos y Lentes
         case 3:
-          this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de Boleta o Factura';
-          this.subtituloPrimerDocumento = 'Documento de Boleta o Factura';
+          this.documentsDisplay.lentes.nameFiles[0].name = this.subtituloPrimerDocumento;
+          break;
+        // Dentales
+        case 4:
+          this.documentsDisplay.dentales.nameFiles[0].name = this.subtituloPrimerDocumento;
+          break;
+        // examenes y procedimientos
+        case 5:
+          this.documentsDisplay.examenes.nameFiles[0].name = this.subtituloPrimerDocumento;
+          break;
+        // medicamentos
+        case 6:
+          this.documentsDisplay.medicamentos.nameFiles[0].name = this.subtituloPrimerDocumento;
           break;
 
         default:
           break;
       }
+
+
+      /*  switch (parseInt(this.stepsStatusOn['stepFour_general']['tipoDocumentoSeleccionado'])) {
+         case 1:
+           this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de reembolso';
+           this.subtituloPrimerDocumento = 'Documento de reembolso';
+           break;
+         case 2:
+           this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de Bono atencion';
+           this.subtituloPrimerDocumento = 'Documento de Bono atencion';
+           break;
+         case 3:
+           this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de Boleta o Factura';
+           this.subtituloPrimerDocumento = 'Documento de Boleta o Factura';
+           break;
+ 
+         default:
+           break;
+       } */
     }
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.idPrestacionSeleccionada = id)
     this.addEventListener();
@@ -308,21 +343,75 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
   setStepsStatus(data: any) {
     this.dataStorageService.setFormReembolso(data.step, data.option, data.value);
 
-    switch (data.value) {
+    if (parseInt(this.stepsStatusOn['stepFour_general']['tipoDocumentoSeleccionado']) == 1) this.subtituloPrimerDocumento = 'Documento de reembolso';
+    if (parseInt(this.stepsStatusOn['stepFour_general']['tipoDocumentoSeleccionado']) == 2) this.subtituloPrimerDocumento = 'Documento de Bono atencion';
+    if (parseInt(this.stepsStatusOn['stepFour_general']['tipoDocumentoSeleccionado']) == 3) this.subtituloPrimerDocumento = 'Documento de Boleta o Factura';
+
+    switch (this.idPrestacionSeleccionada) {
+      // Consulta Medica
       case 1:
-        this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de reembolso';
+        this.documentsDisplay.consultamedica.nameFiles[0].name = this.subtituloPrimerDocumento;
         break;
+      // Atención hospitalario
       case 2:
-        this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de Bono atencion';
+        this.documentsDisplay.hospitalario.nameFiles[0].name = this.subtituloPrimerDocumento;
         break;
+      // Marcos y Lentes
       case 3:
-        this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de Boleta o Factura';
-        this.dataStorageService.tipoDocumento.next('Boleta')
+        this.documentsDisplay.lentes.nameFiles[0].name = this.subtituloPrimerDocumento;
+        break;
+      // Dentales
+      case 4:
+        this.documentsDisplay.dentales.nameFiles[0].name = this.subtituloPrimerDocumento;
+        break;
+      // examenes y procedimientos
+      case 5:
+        this.documentsDisplay.examenes.nameFiles[0].name = this.subtituloPrimerDocumento;
+        break;
+      // medicamentos
+      case 6:
+        this.documentsDisplay.medicamentos.nameFiles[0].name = this.subtituloPrimerDocumento;
         break;
 
       default:
         break;
     }
+
+
+    /*  switch (parseInt(this.stepsStatusOn['stepFour_general']['tipoDocumentoSeleccionado'])) {
+       case 1:
+         this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de reembolso';
+         this.subtituloPrimerDocumento = 'Documento de reembolso';
+         break;
+       case 2:
+         this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de Bono atencion';
+         this.subtituloPrimerDocumento = 'Documento de Bono atencion';
+         break;
+       case 3:
+         this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de Boleta o Factura';
+         this.subtituloPrimerDocumento = 'Documento de Boleta o Factura';
+         break;
+ 
+       default:
+         break;
+     } */
+
+
+    /*   switch (data.value) {
+        case 1:
+          this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de reembolso';
+          break;
+        case 2:
+          this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de Bono atencion';
+          break;
+        case 3:
+          this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de Boleta o Factura';
+          this.dataStorageService.tipoDocumento.next('Boleta')
+          break;
+  
+        default:
+          break;
+      } */
   }
   /**
   *
@@ -339,7 +428,7 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
     this.dataStorageService.tipoDocumento.next(tipoDocumento)
   }
 
-  hideError(index:string) {
+  hideError(index: string) {
     const errorDocumento = document.getElementById(index);
     errorDocumento?.classList.remove("errorVisible");
     errorDocumento?.classList.add("errorHidden");

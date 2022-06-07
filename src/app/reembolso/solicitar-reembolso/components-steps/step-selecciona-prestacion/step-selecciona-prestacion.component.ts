@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import { DataStorageService } from 'src/app/shared/services/data-storage.service';
 import { ICard } from './../../../../shared/interfaces/ICard';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
@@ -20,12 +21,14 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
   checkedSi: string = '';
 
   public cards: ICard[] = [
-    { prestacion: 'Consulta Médica', name: 'atencionmedica', status: 'disabled', idPrestacion: 1 },
-    { prestacion: 'Atención Hospitalaria', name: 'atencionhospitalaria', status: '', idPrestacion: 2 },
-    { prestacion: 'Marcos y lentes', name: 'optica', status: '', idPrestacion: 3 },
-    { prestacion: 'Atención Dental', name: 'dentista', status: '', idPrestacion: 4 },
-    { prestacion: 'Exámenes y procedimientos', name: 'examenes', status: '', idPrestacion: 5 },
-    { prestacion: 'Compra de medicamentos', name: 'medicamentos', status: '', idPrestacion: 6 },
+    {
+      prestacion: 'Consulta Médica', name: 'atencionmedica', status: 'disabled', idPrestacion: 1, alias: 'atención médica'
+    },
+    { prestacion: 'Atención Hospitalaria', name: 'atencionhospitalaria', status: '', idPrestacion: 2, alias: 'atencion hospitalaria' },
+    { prestacion: 'Marcos y lentes', name: 'optica', status: '', idPrestacion: 3, alias: 'óptica' },
+    { prestacion: 'Atención Dental', name: 'dentista', status: '', idPrestacion: 4, alias: 'dentista' },
+    { prestacion: 'Exámenes y procedimientos', name: 'examenes', status: '', idPrestacion: 5, alias: 'exámenes' },
+    { prestacion: 'Compra de medicamentos', name: 'medicamentos', status: '', idPrestacion: 6, alias: 'medicamentos' },
   ]
   public coldefined: string = 'col-span-4';
 
@@ -104,6 +107,8 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
   }
 
   setCard(tarjeta: ICard) {
+    this.dataStorageService.cardSelectedBehavior.next(tarjeta.alias)
+    console.log('tarjeta.name', tarjeta.alias)
     this.dataStorageService.setFormReembolso('stepTwo_selectOption', 'prestacionSeleccionada', tarjeta.prestacion);
     this.dataStorageService.setIdPrestacion(tarjeta.idPrestacion);
 

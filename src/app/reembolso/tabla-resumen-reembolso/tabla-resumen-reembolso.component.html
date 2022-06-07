@@ -36,7 +36,7 @@
                     <ng-container *ngFor="let solicitud of solicitudes">
                         <ds-table-body-row slot="row" class="sub-totales">
                             <ds-table-body-column slot="column">
-                                <span slot="element">{{solicitud.tipoReembolso}} </span>
+                                <span slot="element">{{cardSelected | titlecase}} </span>
                             </ds-table-body-column>
                             <ds-table-body-column slot="column">
                                 <span slot="element">{{solicitud.fecha}}</span>
@@ -179,7 +179,7 @@
                                 </ds-paragraph>
                                 <ds-paragraph type="p1" family="secondary" color="primary">
                                     <span slot="text" class="text-normal">
-                                        {{rut}}</span>
+                                        {{rutEmpresa}}</span>
                                 </ds-paragraph>
                             </div>
                             <div class="info-row">
