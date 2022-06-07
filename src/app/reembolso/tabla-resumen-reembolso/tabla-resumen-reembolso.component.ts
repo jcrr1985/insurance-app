@@ -35,18 +35,18 @@ export class TablaResumenReembolsoComponent implements OnInit {
   public solicitudes: any[] = [];
 
   public opcionesPrestacionesCLEM: ICard[] = [
-    { prestacion: 'Consulta Médica', name: 'atencionmedica', status: '', idPrestacion: 1 },
-    { prestacion: 'Marcos y lentes', name: 'optica', status: '', idPrestacion: 3 },
-    { prestacion: 'Examenes y Procedimientos', name: 'examenes', status: '', idPrestacion: 5 },
-    { prestacion: 'Compra de medicamentos', name: 'medicamentos', status: '', idPrestacion: 6 },
+    { prestacion: 'Consulta Médica', name: 'atencionmedica', status: '', idPrestacion: 1, alias: 'consulta médica' },
+    { prestacion: 'Marcos y lentes', name: 'optica', status: '', idPrestacion: 3, alias: 'optica' },
+    { prestacion: 'Examenes y Procedimientos', name: 'examenes', status: '', idPrestacion: 5, alias: 'exámenes' },
+    { prestacion: 'Compra de medicamentos', name: 'medicamentos', status: '', idPrestacion: 6, alias: 'médicamentos' },
   ];
 
   public opcionesPrestacionesD: ICard[] = [
-    { prestacion: 'Atención Dental', name: 'dentista', status: '', idPrestacion: 4 },
+    { prestacion: 'Atención Dental', name: 'dentista', status: '', idPrestacion: 4, alias: 'dentista' },
   ];
 
   public opcionesPrestacionesH: ICard[] = [
-    { prestacion: '', name: '', status: '', idPrestacion: 2 },
+    { prestacion: '', name: '', status: '', idPrestacion: 2, alias: '' },
   ];
 
 
@@ -66,6 +66,8 @@ export class TablaResumenReembolsoComponent implements OnInit {
   public apellido: any;
   public rut: any;
   getTipoDoc: any;
+  public rutEmpresa: number = 0;
+  public cardSelected: any;
 
 
   constructor(private dataStorageService: DataStorageService,
@@ -75,7 +77,11 @@ export class TablaResumenReembolsoComponent implements OnInit {
     private router: Router
   ) { }
 
+  public nombrePrestacion: any = this.arancelService.getTarjetaSeleccionada as any;
   ngOnInit(): void {
+    this.cardSelected = this.dataStorageService.getCardSelected;
+    console.log('this.cardSelected', this.cardSelected)
+    this.rutEmpresa = this.dataStorageService.getRutEmpresa;
     document.addEventListener('onSelectDate', (evt: any) => {
       const r = this.dataStorageService.getBeneficiarioRut
     })
