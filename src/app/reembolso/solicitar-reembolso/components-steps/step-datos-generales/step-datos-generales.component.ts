@@ -47,7 +47,6 @@ export class StepDatosGeneralesComponent implements OnInit, OnDestroy, OnChanges
   }
 
   ngAfterViewInit(): void {
-    console.log('documentos generales inicializado')
     const rut = this.dataStorageService.getBeneficiarioRut;
     this.desactivandoDiasInferioresaUnAnnio()
   }
@@ -58,25 +57,32 @@ export class StepDatosGeneralesComponent implements OnInit, OnDestroy, OnChanges
     let haceUnAnnioStamp = Number(hoyTimeStamp) - 31557600000;
     let today = Number(hoyTimeStamp);
     this.handlerFunctionClickDatePicker = (ev: any) => {
+      console.log('ev', ev)
       const funcionValidadora = () => {
-        let ldp = document.querySelector('.litepicker')
+        let ldp = document.querySelector('.litepicker') || document.getElementById('fecha_on_generales')
         if (ldp) {
+          console.log('ldp', ldp)
           let allDays = Array.from(ldp.querySelectorAll('.day-item'))
           allDays.forEach((dayItem: any) => {
+            console.log('click', 'click')
             if (Number(dayItem.getAttribute('data-time')) < haceUnAnnioStamp || Number(dayItem.getAttribute('data-time')) > today) {
-              console.log("desactivando")
-              dayItem.setAttribute('disabled', '') //aqui desactivo
-              dayItem.style.pointerEvents = "none" // aqui desactivo
+              dayItem.onclick = void 0
+              dayItem.onclick = void (0)
+              dayItem.setAttribute('disabled', '')
+              dayItem.style.pointerEvents = "none"
               dayItem.style.color = "rgb(180,180,180)";
+
             }
           });
         }
       }
 
-      if (ev.path[3] && ev.path[3].id == 'fecha_on_generales') {
+      if (document.getElementById('fecha_on_generales')) {
         funcionValidadora();
       }
       if (ev.target.className == 'button-previous-month' || ev.target.className == 'button-next-month') {
+        console.log('\'button-previous-month\'', 'button-previous-month')
+
         funcionValidadora();
       }
     }

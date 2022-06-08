@@ -358,7 +358,8 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     }
     else {
       this.dataStorageService.getPrestaciones().subscribe(prestaciones => {
-        prestaciones.length ? this.habilitarBotones = true : this.habilitarBotones = false;
+        const stepFour = (this.stepsStatusOn.stepFour_general.fileUploaded && this.stepsStatusOn.stepFour_general.tipoDocumentoSeleccionado) || (this.prestacionSeleccionada == 2 && this.stepsStatusOn.stepFour_general.fileUploaded)
+        prestaciones.length && stepFour ? this.habilitarBotones = true : this.habilitarBotones = false;
       })
     }
   }

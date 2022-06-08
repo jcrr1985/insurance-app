@@ -177,12 +177,9 @@ export class DataStorageService {
     })
     this.setFechaAtencionBehavior$.subscribe(fechaAtencion => {
       this.fechaAtencion = fechaAtencion
-      console.log('fechaAtencion', this.fechaAtencion)
-
       const ultimoChar: any = fechaAtencion.slice(-1)
       const cut = fechaAtencion.slice(0, -1)
       this.annioAnterior = cut + Number(ultimoChar - 1)
-      console.log('annioAnteriordss', this.annioAnterior);
     })
 
     // _____________________________________________________________

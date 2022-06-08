@@ -211,6 +211,17 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
            break;
        } */
     }
+    if (this.stepsStatusOn['stepThree_general']['fechaAtencion'] != '') {
+      const interval = setInterval(() => {
+        const ev = new CustomEvent('onSelectDate', { detail: { init: '06/06/2022', end: '' } });
+        window.dispatchEvent(ev);
+        const element: any = document.getElementById('start-date-single-undefined');
+        if (element) {
+          element.value = ev.detail.init;
+          clearInterval(interval)
+        }
+      }, 100)
+    }
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => this.idPrestacionSeleccionada = id)
     this.addEventListener();
   }
