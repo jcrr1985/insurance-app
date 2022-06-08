@@ -16,5 +16,5 @@ extends:
     npmrcInSecureFile: true
     scriptDelete: true
     devConfigName: 'development'
-    qaConfigName: 'production'
+    qaConfigName: 'qa'
     prodConfigName: 'production'
