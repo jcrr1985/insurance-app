@@ -38,7 +38,7 @@
       </div>
 
       <ng-container *ngFor="let registro of dataRegistros; let i = index">
-        <div class="collapsabe-box">       
+        <div class="collapsabe-box">
           <div class="table-info__container table--row">
             <div class="size-130px nombre-titular">
               <span class="texto-normal" slot="element">{{
@@ -51,24 +51,23 @@
             <span class="texto-normal" slot="element" class="size-100px">{{
               registro.numSolicitud
               }}</span>
-  
+
             <span class="texto-normal" slot="element" class="size-100px right-text">{{
               registro.montoSolicitado
               }}</span>
-  
+
             <span class="texto-normal" slot="element" class="size-100px right-text">{{
-              registro.fechaPago | date: "shortDate"
-              }}</span>
-  
+              registro.fechaPago | date: "shortDate" }}</span>
+
             <app-pill [texto]="registro.estado" class="size-160px"></app-pill>
             <app-col-doc-liq class="size-160px" (indiceEmitter)="toogleCollapsable($event)"
               [indice]="'registerColapsable'+i">
             </app-col-doc-liq>
-  
+
           </div>
           <!-- desplegable-->
           <div [id]="'registerColapsable'+i" class="contenido-colapsable--borde oculto">
-  
+
             <div class="div-colapsable" slot="row">
               <div class="header-colapsable">
                 <span class="texto-normal texto-header-colapsable size-160px" slot="element">Tipo Reembolso</span>
@@ -83,7 +82,7 @@
                 <ng-container *ngFor="let fila of filasColapsables">
                   <div class="line-divider"></div>
                   <div [id]="'registerColapsable'+i" class="info-row" slot="row">
-  
+
                     <span class="texto-normal size-160px" slot="element">
                       {{fila.motivo}}
                     </span>
@@ -109,7 +108,7 @@
               </div>
             </div>
             <!--Fin desplegable-->
-        </div>
+          </div>
 
         </div>
       </ng-container>
@@ -118,7 +117,7 @@
     <!-- tabla mobile -->
     <div class="table-mobile table-mobile--container">
       <ng-container *ngFor="let registro of dataRegistros; let i = index">
-       <div class="table-mobile--items">
+        <div class="table-mobile--items">
           <input type="checkbox" [id]="'collapsible-trigger'+i">
           <div class="titulo">
             <label [for]="'collapsible-trigger'+i">
@@ -126,13 +125,13 @@
               <div class="toggle-container">
                 <ds-icon id="chevron" icon-name="bi-chevron-down" size="12" class="css-7kp13n"></ds-icon>
               </div>
-            </label>                 
+            </label>
           </div>
           <div class="collapsable-content">
             <div class="content-group hidden">
               <div class="content">
-                  <h6 class="subtitulo">{{registro.nombre}}</h6>
-                  <p class="info">{{registro.parentesco}}</p>
+                <h6 class="subtitulo">{{registro.nombre}}</h6>
+                <p class="info">{{registro.parentesco}}</p>
               </div>
               <div class="content">
                 <h6 class="subtitulo">Estado</h6>
@@ -163,13 +162,17 @@
               <div class="content">
                 <div _ngcontent-djb-c69="" class="doc-download">
                   <img _ngcontent-djb-c69="" src="./../../../../assets/images/svgs/descargar.svg" alt="descargar">
-                  <span _ngcontent-djb-c69=""><p _ngcontent-djb-c69="">Descargar documento de liquidación</p></span>
+                  <span _ngcontent-djb-c69="">
+                    <p _ngcontent-djb-c69="">Descargar documento de liquidación</p>
+                  </span>
                 </div>
               </div>
               <div class="content">
                 <div _ngcontent-djb-c69="" class="doc-download">
                   <img _ngcontent-djb-c69="" src="./../../../../assets/images/svgs/descargar.svg" alt="descargar">
-                  <span _ngcontent-djb-c69=""><p _ngcontent-djb-c69="">Descargar nota de denuncio</p></span>
+                  <span _ngcontent-djb-c69="">
+                    <p _ngcontent-djb-c69="">Descargar nota de denuncio</p>
+                  </span>
                 </div>
               </div>
             </div>
@@ -177,7 +180,8 @@
 
         </div>
       </ng-container>
-    </div>    <!--Fin tabla mobile -->
+    </div>
+    <!--Fin tabla mobile -->
 
 
 
@@ -199,6 +203,6 @@
     </div>
   </ng-container>
 
-  
+
 
 </div>

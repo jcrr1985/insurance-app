@@ -29,7 +29,6 @@
     "@vs-design-system/ds-checkbox": "^1.2.0",
     "@vs-design-system/ds-collapsible": "^1.2.0",
     "@vs-design-system/ds-container": "^1.2.1",
-    "@vs-design-system/ds-datepicker": "^1.3.3",
     "@vs-design-system/ds-file": "^1.4.0",
     "@vs-design-system/ds-icon": "^1.2.0",
     "@vs-design-system/ds-input": "^1.2.6",

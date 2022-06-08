@@ -1,16 +1,18 @@
 import { ReembolsoService } from 'src/app/shared/services/reembolso.service';
 /// <reference types="cypress" />
 import { DataStorageService } from 'src/app/shared/services/data-storage.service';
-import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges, AfterViewInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
 import * as moment from 'moment';
+import { fromEvent } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-step-datos-generales',
   templateUrl: './step-datos-generales.component.html',
   styleUrls: ['./step-datos-generales.component.scss'],
 })
-export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterViewInit {
+export class StepDatosGeneralesComponent implements OnInit, OnDestroy, OnChanges, AfterViewInit {
   @Input() stepperThreeSource: any;
   @Input() customStepperSize: any;
   stepsStatusOn: any;
@@ -19,6 +21,7 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterView
   @Output() sendData: EventEmitter<any> = new EventEmitter<any>();
   @Output() evaluateStepThree: EventEmitter<any> = new EventEmitter<any>();
   @Output() mostrarDocumentoAdicional: EventEmitter<any> = new EventEmitter<any>();
+
 
   public textPreguntas = '';
   public mostrarRadioButtons!: boolean;
@@ -29,20 +32,58 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterView
   public valHosp: any;
   copago: string | null = null;
   rutValid = false;
+  buttonSubscription: any;
+  @ViewChild('btn') btn!: ElementRef;
+  fecha!: any;
+  handlerFunctionClickDatePicker: any;
 
-  constructor(private dataStorageService: DataStorageService, private prestacionService: ArancelService) { }
+  constructor(private dataStorageService: DataStorageService, private prestacionService: ArancelService, private elm: ElementRef) { }
+  ngOnDestroy(): void {
+    document.removeEventListener('click', this.handlerFunctionClickDatePicker);
+
+  }
   setvalHosp(valHosp: any) {
     this.dataStorageService.dataDeHospitalarioBehavior.next(valHosp)
   }
-  ngAfterViewInit(): void {
-    const rut = this.dataStorageService.getBeneficiarioRut;
-    document.addEventListener('onSelectDate', (evt: any) => {
-      console.log(evt.detail)
-      this.dataStorageService.setFechaAtencionBehavior.next(evt.detail.init)
-      console.log('evt.detail.init', evt.detail.init)
-    })
 
+  ngAfterViewInit(): void {
+    console.log('documentos generales inicializado')
+    const rut = this.dataStorageService.getBeneficiarioRut;
+    this.desactivandoDiasInferioresaUnAnnio()
   }
+
+  desactivandoDiasInferioresaUnAnnio() {
+    // let hoyTimeStamp = document.querySelector('.is-today')?.getAttribute('data-time')
+    let hoyTimeStamp = (new Date()).getTime()
+    let haceUnAnnioStamp = Number(hoyTimeStamp) - 31557600000;
+    let today = Number(hoyTimeStamp);
+    this.handlerFunctionClickDatePicker = (ev: any) => {
+      const funcionValidadora = () => {
+        let ldp = document.querySelector('.litepicker')
+        if (ldp) {
+          let allDays = Array.from(ldp.querySelectorAll('.day-item'))
+          allDays.forEach((dayItem: any) => {
+            if (Number(dayItem.getAttribute('data-time')) < haceUnAnnioStamp || Number(dayItem.getAttribute('data-time')) > today) {
+              console.log("desactivando")
+              dayItem.setAttribute('disabled', '') //aqui desactivo
+              dayItem.style.pointerEvents = "none" // aqui desactivo
+              dayItem.style.color = "rgb(180,180,180)";
+            }
+          });
+        }
+      }
+
+      if (ev.path[3] && ev.path[3].id == 'fecha_on_generales') {
+        funcionValidadora();
+      }
+      if (ev.target.className == 'button-previous-month' || ev.target.className == 'button-next-month') {
+        funcionValidadora();
+      }
+    }
+    document.addEventListener('click', this.handlerFunctionClickDatePicker)
+  }
+
+
   ngOnChanges(changes: SimpleChanges): void {
     this.definirTextoPregunta()
   }
