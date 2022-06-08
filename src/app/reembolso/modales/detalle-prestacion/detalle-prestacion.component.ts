@@ -147,7 +147,9 @@ export class DetallePrestacionComponent
    * @description valida si la prestacion es invalida
    * @returns {boolean} true | false
    */
-  prestacionInvalid() {
+  prestacionInvalid(): boolean {
+    const nombrePrestacion = document.querySelector('#nombrePrestacion')?.querySelector('input')?.value
+    if (!nombrePrestacion) return true;
     if (this.sesionRequired) {
       if (this.arancel.sesiones > 0 && this.arancel.bonificacion >= 0 && this.arancel.valorPrestacion > 0 && (this.arancel.bonificacion < this.arancel.valorPrestacion)) return false
       else return true;
