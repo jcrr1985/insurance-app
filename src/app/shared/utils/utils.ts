@@ -12,12 +12,21 @@ export default class Utils {
   public static formatearFecha(fecha: string) {
     const formato = this.generarFormatoFecha();
     if (formato === 'MM/DD/YYYY') {
-      const arrayFecha = fecha.split('/');
+      const arrayFecha = fecha.replace(/-/g, '/').split('/');
       const dia = +arrayFecha[1] > 9 ? arrayFecha[1] : `0${arrayFecha[1]}`
       const mes = +arrayFecha[0] > 9 ? arrayFecha[0] : `0${arrayFecha[0]}`
-      return `${dia}/${mes}/${arrayFecha[2]}`;
+      const fechaEscogida = new Date();
+      fechaEscogida.setFullYear(+arrayFecha[2]);
+      fechaEscogida.setMonth((+mes) - 1);
+      fechaEscogida.setDate(+dia);
+      return fechaEscogida;
     } else if (formato === 'DD/MM/YYYY') {
-      return fecha.replace(/-/g, '/');
+      const arrayFecha = fecha.replace(/-/g, '/').split('/');
+      const fechaEscogida = new Date();
+      fechaEscogida.setFullYear(+arrayFecha[2]);
+      fechaEscogida.setMonth((+arrayFecha[1]) - 1);
+      fechaEscogida.setDate(+arrayFecha[0]);
+      return fechaEscogida;
     } else {
       return fecha.replace(/-/g, '/');
     }

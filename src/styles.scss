@@ -287,6 +287,125 @@ ds-file {
 }
 
 
+
+// MODAL DE ERRORES //////////////////////////////////////
+
+.modal-errores{
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  background-color: #111111bd;
+  display: grid;
+  place-content: center;
+
+  .modal-error--container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    gap: 30px;
+    background-color: #FFF;
+    width: 640px;
+
+    box-shadow: 0px 4px 8px rgba(67, 80, 94, 0.2);
+    border-radius: 10px;
+
+    .modal-error--content{
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 20px;
+
+      h5{
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 20px;
+        text-align: center;
+        color: #43505E;
+      }
+
+      .error-time{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+
+        .text{
+          font-weight: 600;
+          font-size: 18px;
+          line-height: 20px;
+          text-align: center;
+          color: #424893;
+        }
+        .time{
+          font-weight: 600;
+          font-size: 26px;
+          line-height: 26px;
+          text-align: center;
+          color: #DC5A00;
+
+        }
+      }
+
+      .question{
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 20px;
+        text-align: center;
+        color: #424893;
+      }
+    }
+
+    .modal-error--buttons{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      padding: 0px;
+      gap: 10px;
+      width: 100%;
+
+      button{
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 15px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 20px;
+        height: 50px;
+        min-width: 160px;
+        width: auto;
+        cursor: pointer;
+
+      }
+
+      .button-secondary{
+        background: #FFFFFF;
+        border: 1px solid #D2D9DF;
+        box-shadow: 0px 4px 12px rgba(67, 80, 94, 0.1);
+        color: #43505E;
+      }
+
+      .button-primary{
+        background: #EF6F00;
+        border: 1px solid #DC5A00;
+        box-shadow: 0px 4px 12px rgba(67, 80, 94, 0.1);
+        color: #FFF;
+      }
+    }
+  }
+}
+
+// FIN MODAL DE ERRORES //////////////////////////////////////
+
+
+
 span.steps-title {
   font-weight: 600 !important;
   font-size: 22px;
@@ -352,6 +471,8 @@ app-solicitar-reembolso {
   animation-fill-mode: forwards;
 }
 
+
+
 // TRANSISIONES steps-content__container
 
 @keyframes despliegue{
@@ -406,6 +527,9 @@ app-solicitar-reembolso {
   }
 }
 
+
+
+
 // FIN TRANSICIONES
 
 .css-2z5p18 {
@@ -418,13 +542,14 @@ app-solicitar-reembolso {
   gap: 15px;
   min-width: 40vw;
   max-width: 80vw;
+  width: auto;
   height: auto;
   align-items: baseline;
   justify-content: space-between;
 
 
   ds-paragraph span {
-    width: max-content;
+    width: 100% !important;
     align-items: center;
     font-size: 18px;
 
@@ -1467,6 +1592,14 @@ ds-title {
   gap: 20px;
 }
 
+
+.modal-errores{
+  
+  .modal-error--container{
+    width: 90% !important;
+  }
+}
+
 } // Fin Responsive mobile
 
 // ── Estilos Calendario ──
@@ -1499,9 +1632,9 @@ ds-title {
   border-color: #E60D2E !important;
 }
 
-.css-1m6txwz input[type="text"]:hover{
-  border: 1px solid #d2d9df;
-  color: #606E7D;
+.css-1m6txwz input[type="text"]:hover {
+  border: 1px solid #d2d9df !important;
+  color: #606E7D !important;
 }
 
 // ── Estilos Calendario ──

@@ -10,8 +10,9 @@
     <!-- Fin Title -->
     <div [ngClass]="{'transicion-de-despliegue':this.stepperFourSource()[0].status == 'active'}">
       <ng-container
-        *ngIf="(getStepsStatus('stepThree_general', 'agenciaSeleccionada') !='' && getStepsStatus('stepThree_general', 'rutInstitucion') !='' && getStepsStatus('stepThree_general', 'boletaFactura') !='' && getStepsStatus('stepThree_general', 'fechaAtencion') !='' && getStepsStatus('stepThree_general', 'copagoMayor') !='')
-      || (getStepsStatus('stepThree_general', 'montoSolicitado') != '' && getStepsStatus('stepThree_general', 'montoSolicitado') != '$0')">
+        *ngIf="(getStepsStatus('stepThree_general', 'agenciaSeleccionada') !='' && getStepsStatus('stepThree_general', 'rutInstitucion') !='' && getStepsStatus('stepThree_general', 'boletaFactura') !='' && getStepsStatus('stepThree_general', 'fechaAtencion') !='' && getStepsStatus('stepThree_general', 'copagoMayor') !='' && idPrestacionSeleccionada !== 3)
+      || (getStepsStatus('stepThree_general', 'montoSolicitado') != '' && getStepsStatus('stepThree_general', 'montoSolicitado') != '$0')
+      || (getStepsStatus('stepThree_general', 'agenciaSeleccionada') !='' && getStepsStatus('stepThree_general', 'rutInstitucion') !='' && getStepsStatus('stepThree_general', 'boletaFactura') !='' && getStepsStatus('stepThree_general', 'fechaAtencion') !='' && idPrestacionSeleccionada === 3)">
         <!--pregunta tipo documento -->
         <div *ngIf="idPrestacionSeleccionada != 2" class="upload-documents__container">
           <ds-paragraph type="p1" family="primary" weight="regular" color="secondary">

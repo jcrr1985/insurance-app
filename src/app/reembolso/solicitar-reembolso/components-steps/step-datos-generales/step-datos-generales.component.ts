@@ -145,8 +145,8 @@ export class StepDatosGeneralesComponent implements OnInit, OnChanges, AfterView
         break;
       // Marcos y lentes
       case 3:
-        this.textPreguntas = '¿Estás declarando más de una atención en tu boleta?';
-        this.mostrarRadioButtons = true;
+        this.textPreguntas = '';
+        this.mostrarRadioButtons = false;
         break;
       // Atencion dental
       case 4:

@@ -306,7 +306,13 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
 
     let status: string;
 
-    if (this.prestacionSeleccionada != 2) {
+    if (this.prestacionSeleccionada === 3) {
+      if (agenciaSeleccionada == 'completed' && statusrutInstitucion == 'completed' && statusboletaFactura == 'completed' && statusFechaAtencion == 'completed') {
+        status = 'completed';
+        this.stepperThreeSource = () => [{ label: '', status }];
+        if (status == 'completed') this.stepperFourSource = () => [{ label: '', status: 'active' }];
+      }
+    } else if (this.prestacionSeleccionada != 2) {
       if (agenciaSeleccionada == 'completed' && statusrutInstitucion == 'completed' && statusboletaFactura == 'completed' && statusFechaAtencion == 'completed' && statusCopago == 'completed') {
         status = 'completed';
         this.stepperThreeSource = () => [{ label: '', status }];

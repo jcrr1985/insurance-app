@@ -7,13 +7,11 @@ import { ICard } from 'src/app/shared/interfaces/ICard';
 import * as moment from 'moment';
 import { IResponseConsignment } from 'src/app/shared/interfaces/IResponseConsignment';
 import { IConsignment } from 'src/app/shared/interfaces/IConsignment';
-import { IBeneficiario } from 'src/app/shared/interfaces/beneficiarios';
 import { Usuario } from 'src/app/shared/interfaces/usuario';
 import { DataUsuarioService } from 'src/app/shared/services/data-usuario/data-usuario.service';
 import { IGasto } from 'src/app/shared/interfaces/IGasto';
 import { IArancel } from 'src/app/shared/interfaces/IArancel';
 import { IDocument } from 'src/app/shared/interfaces/IDocument';
-import { ThrowStmt } from '@angular/compiler';
 import Utils from 'src/app/shared/utils/utils';
 
 @Component({
@@ -33,6 +31,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
   public formatter = new Intl.NumberFormat('es-CL');
   public fechaHoy: string = moment().format('DD/MM/YYYY');
   public solicitudes: any[] = [];
+  public esMostrarErrores: boolean = false;
 
   public opcionesPrestacionesCLEM: ICard[] = [
     { prestacion: 'Consulta Médica', name: 'atencionmedica', status: '', idPrestacion: 1, alias: 'consulta médica' },
@@ -68,7 +67,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
   getTipoDoc: any;
   public rutEmpresa: number = 0;
   public cardSelected: any;
-
+  public resumenesReembolsos: ITablaResumen[] = [];
 
   constructor(private dataStorageService: DataStorageService,
     private reembolsoService: ReembolsoService,
@@ -80,16 +79,13 @@ export class TablaResumenReembolsoComponent implements OnInit {
   public nombrePrestacion: any = this.arancelService.getTarjetaSeleccionada as any;
   ngOnInit(): void {
     this.cardSelected = this.dataStorageService.getCardSelected;
-    console.log('this.cardSelected', this.cardSelected)
     this.rutEmpresa = this.dataStorageService.getRutEmpresa;
-    document.addEventListener('onSelectDate', (evt: any) => {
-      const r = this.dataStorageService.getBeneficiarioRut
-    })
     this.usuario = this.insuredData.usuarioConectado;
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => {
       this.prestacionSeleccionada = id;
     });
     this.dataStorageService.getPrestacionesResumen().subscribe(prestaciones => {
+      this.generarResumen(prestaciones)
       this.prestacionesCargadas = prestaciones;
       this.calcularTablaResumen();
       this.dataStorageService.getFormReemboslo().subscribe(data => {
@@ -192,7 +188,8 @@ export class TablaResumenReembolsoComponent implements OnInit {
       this.numeroSolicitado = dataResponse!.remesa;
       //Ocultar loader
       this.mostrarModalFinal = true;
-      this.restaurarFormulario();
+      this.restaurarFormulario(true);
+      this.dataStorageService.clearOrNot.next(true);
     } catch (error) {
       //Mostrar mensaje de error
       setTimeout(() => {
@@ -210,7 +207,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
   }
 
   private makeConsignment(): IConsignment {
-    let sistemaOperativo: string = "Windows"; // "Windows|Android|iOS|Mac|Linux|Otros" - Get OS (FALTANTE)
+    let sistemaOperativo: string = this.obtenerSistemaOperativo();
     //ASIGNACION CLASIFICACION Y COBERTURA SEGUN PRESTACION
     let clasificacion: number = 1;
     let cobertura: string = "95";
@@ -233,7 +230,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
       idIsapre: this.prestacionesCargadas[0].idprestacionSeleccionada != 2 ?
                 this.prestacionesCargadas[0].formValues.stepThree_general.agenciaSeleccionada : +this.usuario.codigoIsapre,
       folioDenuncio: 0,
-      plataforma: 'WEB', // "DESKTOP|APP|MOVIL" - GET Dispositivo (FALTANTE)
+      plataforma: this.obtenerPlataforma(),
       sistemaOperativo: sistemaOperativo,
       apellidosBeneficiario: beneficiario.apellidos,
       apellidosTitular: this.usuario.apellidos,
@@ -396,7 +393,78 @@ export class TablaResumenReembolsoComponent implements OnInit {
     return '$' + this.formatter.format(valor);
   }
 
+  generarResumen(prestaciones: any[]) {
+    const resumenReembolsos: ITablaResumen[] = [];
+    for (const reembolso of prestaciones) {
+      let montoPrestacion = 0;
+      let montoSolicitado = 0;
+      for (let arancel of reembolso.prestaciones) {
+        montoPrestacion += +arancel.valorPrestacion;
+        montoSolicitado += (+arancel.valorPrestacion - +arancel.bonificacion);
+      }
+      const resumen: ITablaResumen = {
+        tipoReembolso: this.obtenerNombrePrestacion(reembolso.prestaciones[0].tipoPrestacion),
+        fecha: this.construirFechaActual(),
+        montoTotalPrestacion: montoPrestacion,
+        montoTotalSolicitado: montoSolicitado,
+      };
+      resumenReembolsos.push(resumen);
+    }
+    this.resumenesReembolsos = resumenReembolsos;
+  }
+
+  obtenerNombrePrestacion(prestacion: string) {
+    switch (prestacion) {
+      case 'CONSULTA':
+        return 'Consulta Médica';
+      case 'DENTAL':
+        return 'Atención Dental';
+      case 'EXAMENES Y PROCEDIMIENTOS':
+        return 'Exámenes y Procedimientos';
+      case 'MEDICAMENTO':
+        return 'Compra de Medicamentos';
+      case 'OPTICA':
+        return 'Marcos y Lentes';
+      default:
+        return 'Atención Hospitalaria';
+    }
+  }
+
+  obtenerPlataforma() {
+    const esMovil = /Mobi/i.test(window.navigator.userAgent)
+    if (esMovil) return 'MOVIL';
+    return 'DESKTOP';
+  }
+
+  obtenerSistemaOperativo() {
+    let userAgent = window.navigator.userAgent,
+        platform = window.navigator.platform,
+        macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
+        windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
+        iosPlatforms = ['iPhone', 'iPad', 'iPod'],
+        os = null;
+
+    if (macosPlatforms.indexOf(platform) !== -1) {
+      os = 'Mac';
+    } else if (iosPlatforms.indexOf(platform) !== -1) {
+      os = 'iOS';
+    } else if (windowsPlatforms.indexOf(platform) !== -1) {
+      os = 'Windows';
+    } else if (/Android/.test(userAgent)) {
+      os = 'Android';
+    } else if (!os && /Linux/.test(platform)) {
+      os = 'Linux';
+    } else {
+      os = 'Otros';
+    }
+    
+    return os;
+  }
 }
 
-
-
+interface ITablaResumen {
+  tipoReembolso: string;
+  fecha: string;
+  montoTotalPrestacion: number;
+  montoTotalSolicitado: number;
+}

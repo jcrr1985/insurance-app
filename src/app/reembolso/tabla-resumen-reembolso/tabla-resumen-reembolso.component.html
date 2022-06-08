@@ -4,9 +4,9 @@
     <div class="group-table">
         <div class="page-resumen--title__container">
             <ds-title type="t4" family="secondary" weight="bold" color="primary">
-                <span class="titulo-parte-izquierda">Detalle de reembolso de: {{nombre | titlecase }} {{apellido |
+                <span class="titulo-parte-izquierda">Detalle de reembolso de: </span>
+                <span class="titulo-parte-derecha">{{nombre | titlecase }} {{apellido |
                     titlecase }}</span>
-                <span class="titulo-parte-derecha"> </span>
             </ds-title>
             <div [routerLink]="['/solicitud']">
                 <ds-button (click)="goBack()" variant="complementary" slotName="back-button-slot">
@@ -16,65 +16,53 @@
                 </ds-button>
             </div>
         </div>
-        <div class="table__container">
-            <ds-table>
-                <ds-table-header slot="header">
-                    <ds-table-header-column slot="column"><span slot="element header-tabla-resumen">Tipo de
-                            reembolso</span>
-                    </ds-table-header-column>
-                    <ds-table-header-column slot="column"><span slot="element header-tabla-resumen">Fecha de
-                            emisión</span>
-                    </ds-table-header-column>
-                    <ds-table-header-column slot="column"><span slot="element header-tabla-resumen"
-                            *ngIf="prestacionSeleccionada!= 2">Valor
-                            prestaciones</span>
-                    </ds-table-header-column>
-                    <ds-table-header-column slot="column"><span slot="element">Monto solicitado</span>
-                    </ds-table-header-column>
-                </ds-table-header>
-                <ds-table-body slot="body">
-                    <ng-container *ngFor="let solicitud of solicitudes">
-                        <ds-table-body-row slot="row" class="sub-totales">
-                            <ds-table-body-column slot="column">
-                                <span slot="element">{{cardSelected | titlecase}}</span>
-                            </ds-table-body-column>
-                            <ds-table-body-column slot="column">
-                                <span slot="element">{{solicitud.fecha}}</span>
-                            </ds-table-body-column>
-                            <ds-table-body-column slot="column">
-                                <span slot="element" *ngIf="prestacionSeleccionada != 2">{{formateoValor(monTotal)}}</span>
-                            </ds-table-body-column>
-                            <ds-table-body-column slot="column">
-                                <span slot="element">{{formateoValor(montoTotalSolicitado)}}</span>
-                            </ds-table-body-column>
-                        </ds-table-body-row>
-                    </ng-container>
 
-                    <!-- rows of totals -->
-                    <!-- Row total reembolsar -->
-                    <ds-table-body-row class="row_defined wrapper-total row_total" slot="row">
-                        <ds-table-body-column slot="column">
-                            <span slot="element"><strong>Monto total solicitado</strong></span>
-                        </ds-table-body-column>
-                        <ds-table-body-column slot="column">
-                            <span slot="element"></span>
-                        </ds-table-body-column>
-                        <ds-table-body-column slot="column">
-                            <span slot="element" *ngIf="prestacionSeleccionada!= 2"></span>
-                        </ds-table-body-column>
-                        <ds-table-body-column-actions slot="column">
-                            <span class="totalizador-monto-solicitado" slot="element"
-                                *ngIf="prestacionSeleccionada !=2">{{formateoValor(montoTotalSolicitado)}}</span>
-                            <span class="totalizador-monto-solicitado" slot="element"
-                                *ngIf="prestacionSeleccionada == 2">{{valorDeHospitalario}}</span>
-                        </ds-table-body-column-actions>
-
-
-                    </ds-table-body-row>
-                </ds-table-body>
-            </ds-table> <!-- Fin ds-table -->
-
+        <!-- Nueva tabla -->
+        <div class="table__container table-desktop">
+            <div slot="header" class="table--header">
+                <span slot="element" class="text-left size-all">Tipo de reembolso</span>
+                <span slot="element" class="text-right size-130px">Fecha de emisión</span>
+                <span slot="element" class="text-right size-130px">Valor prestaciones</span>
+                <span slot="element" class="text-right size-130px">Monto solicitado</span>
+            </div>
+        
+            <div class="table-content">
+                <ng-container *ngFor="let reembolso of resumenesReembolsos">
+                    <div class="table--row">
+                            <span slot="element" class="text-left size-all">Total {{reembolso.tipoReembolso | titlecase}}</span>
+                            <span slot="element" class="text-right size-130px">{{ reembolso.fecha }}</span>
+                            <span slot="element" class="text-right size-130px">{{ formateoValor(reembolso.montoTotalPrestacion) }}</span>
+                            <span slot="element" class="text-right size-130px">{{ formateoValor(reembolso.montoTotalSolicitado) }}</span>
+                    </div>
+                </ng-container>
+            </div>
+        
+            <div class="table--totalizers">
+                <div class="total">
+                  <h6>Monto total solicitado</h6>
+                  <h6>{{ formateoValor(montoTotalSolicitado) }}</h6>
+                </div>
+            </div>
         </div>
+        
+        <!-- Fin de nueva tabla -->
+
+        <!-- tabla mobile -->
+        <div class="table-mobile table-mobile--container">
+            <div class="table-mobile--totalizers">
+                <ng-container *ngFor="let reembolso of resumenesReembolsos">
+                    <div class="subtotal-resumen">
+                        <h6>Total {{reembolso.tipoReembolso | titlecase}}</h6>
+                        <h6>{{ formateoValor(reembolso.montoTotalSolicitado) }}</h6>
+                    </div>
+                </ng-container>
+                <div class="total">
+                    <h6>Monto solicitado</h6>
+                    <h6>{{ formateoValor(montoTotalSolicitado) }}</h6>
+                </div>
+            </div>
+        </div>    <!--Fin tabla mobile -->
+
     </div>
     <!-- Nuevo reembolso -->
     <div class="seccion-agregar-nuevo-reembolso" *ngIf="prestacionSeleccionada != 2">
@@ -113,14 +101,12 @@
         <!-- botones-->
         <section>
             <div class="botones__row">
-                <ds-button id="ds-button-cancelar" [routerLink]="['/historial']"
-                    (click)="habilitarSeleccionBeneficiario(true);cancelar()" [size]="'s2'" variant="secondary"
-                    slot-name="cancel-button-slot">
-                    <span slot="cancel-button-slot">Cancelar</span>
+                <ds-button id="ds-button-cancelar" (click)="habilitarSeleccionBeneficiario(true);cancelar()"
+                    [size]="'s2'" variant="secondary" slot-name="cancel-button-slot">
+                    <span slot="cancel-button-slot" [routerLink]="['/historial']">Cancelar</span>
                 </ds-button>
-                <ds-button id="ds-button-siguiente"
-                    (click)="habilitarSeleccionBeneficiario(false); restaurarFormulario()" [disabled]="!continuar"
-                    *ngIf="returnValorRadioButtons() == true" [size]="'s2'" variant="primary"
+                <ds-button id="ds-button-siguiente" (click)="habilitarSeleccionBeneficiario(false)"
+                    [disabled]="!continuar" *ngIf="returnValorRadioButtons() == true" [size]="'s2'" variant="primary"
                     slot-name="next-button-slot" [routerLink]="['/solicitud']">
                     <span slot="next-button-slot"> Continuar </span>
                 </ds-button>
@@ -128,8 +114,7 @@
         </section>
 
     </ng-containter>
-    <ng-containter class="otro-reembolso__container"
-        *ngIf="(radioBtnNuevoReembolso == 'no' && prestacionSeleccionada!=2) || prestacionSeleccionada == 2">
+    <ng-containter class="otro-reembolso__container" *ngIf="(radioBtnNuevoReembolso == 'no' && prestacionSeleccionada!=2) || prestacionSeleccionada == 2">
         <!-- botones-->
         <section>
             <div class="botones__row">
@@ -146,6 +131,43 @@
     </ng-containter>
 </section>
 
+
+<!-- Modal errores -->
+<section class="modal-errores" *ngIf="esMostrarErrores">
+    <div class="modal-error--container">
+        <ds-icon  color="actionTertiary" size="44" icon-name="bi-exclamation-triangle"></ds-icon>
+        <div class="modal-error--content">
+            <h5>Lo sentimos, ha ocurrido un error al intentar procesar tu solicitud. <br> Por favor, inténtalo más tarde.</h5>
+        </div>
+        <div class="modal-error--buttons">
+            <button class="button-secondary">Quiero volver a intentarlo</button>
+            <button class="button-primary" [routerLink]="['/historial']" >Volver al inicio</button>
+        </div>
+    </div>
+</section>
+<!-- Fin Modal errores -->
+
+<!-- Modal final de sesion -->
+<section class="modal-errores" *ngIf="esMostrarErrores">
+    <div class="modal-error--container">
+        <ds-icon  color="actionTertiary" size="44" icon-name="bi-clock"></ds-icon>
+        <div class="modal-error--content">
+            <div class="error-time">
+                <p class="text">Tu sesión expirará en</p>
+                <p class="time">02:23 minutos</p>
+            </div>
+            <div class="question">¿Deseas continuar?</div>
+        </div>
+        <div class="modal-error--buttons">
+            <button class="button-secondary">Salir</button>
+            <button class="button-primary" [routerLink]="['/historial']" >Continuar</button>
+        </div>
+    </div>
+</section>
+<!-- Fin Modal final de sesion -->
+
+
+
 <section class="modal-pantalla-final" *ngIf="mostrarModalFinal">
 
     <div class="wrapper-final">
@@ -161,8 +183,7 @@
                             </span>
                         </span>
                     </ds-title>
-                    <p>Consulta médica y compra de medicamentos a favor de {{nombre | titlecase }} {{apellido |
-                        titlecase }}</p>
+                    <p>Consulta médica y compra de medicamentos a favor de Alejandro Salgado</p>
                     <div class="linea-division"></div>
                 </div>
                 <div class="info">
@@ -177,7 +198,7 @@
                                 </ds-paragraph>
                                 <ds-paragraph type="p1" family="secondary" color="primary">
                                     <span slot="text" class="text-normal">
-                                        {{rutEmpresa}}</span>
+                                        11.356.172-6</span>
                                 </ds-paragraph>
                             </div>
                             <div class="info-row">
@@ -187,7 +208,7 @@
                                 </ds-paragraph>
                                 <ds-paragraph type="p1" family="secondary" color="primary">
                                     <span slot="text" class="text-normal">
-                                        {{getTipoDoc}}</span>
+                                        Boleta</span>
                                 </ds-paragraph>
                             </div>
                             <div class="info-row">
@@ -220,10 +241,8 @@
                                         Monto solicitado:</span>
                                 </ds-paragraph>
                                 <ds-paragraph type="p1" family="secondary" color="primary">
-                                    <span class="totalizador-monto-solicitado" slot="element"
-                                        *ngIf="prestacionSeleccionada !=2"> {{montoTotalSolicitado}}</span>
-                                    <span class="totalizador-monto-solicitado" slot="element"
-                                        *ngIf="prestacionSeleccionada == 2">{{valorDeHospitalario}}</span>
+                                    <span slot="text" class="text-normal">
+                                        ${{this.montoSolicitado}}</span>
                                 </ds-paragraph>
                             </div>
                         </div>
