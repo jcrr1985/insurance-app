@@ -49,10 +49,14 @@ export class TablaHistorialComponent
     this.aciveTableHistorial();
     var tokenData: Token = JSON.parse(localStorage.getItem("Token")!);
     var UserInfo: TokenData = JWT(tokenData.access_token);
+
+
   }
 
   ngAfterContentChecked() {
   }
+
+
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -206,6 +210,7 @@ export class TablaHistorialComponent
     { motivo: 'Compra de Medicamentos', valor: '$5.000', bonificacion: '$3.000', observaciones: 'Observaciones' },
     { motivo: 'Marcos y Lentes', valor: '$550.000', bonificacion: '$93.000', observaciones: 'Observaciones' }
   ];
+
 
 
 }

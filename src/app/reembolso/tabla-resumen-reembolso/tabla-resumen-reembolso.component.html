@@ -25,26 +25,29 @@
                 <span slot="element" class="text-right size-130px">Valor prestaciones</span>
                 <span slot="element" class="text-right size-130px">Monto solicitado</span>
             </div>
-        
+
             <div class="table-content">
                 <ng-container *ngFor="let reembolso of resumenesReembolsos">
                     <div class="table--row">
-                            <span slot="element" class="text-left size-all">Total {{reembolso.tipoReembolso | titlecase}}</span>
-                            <span slot="element" class="text-right size-130px">{{ reembolso.fecha }}</span>
-                            <span slot="element" class="text-right size-130px">{{ formateoValor(reembolso.montoTotalPrestacion) }}</span>
-                            <span slot="element" class="text-right size-130px">{{ formateoValor(reembolso.montoTotalSolicitado) }}</span>
+                        <span slot="element" class="text-left size-all">Total {{reembolso.tipoReembolso |
+                            titlecase}}</span>
+                        <span slot="element" class="text-right size-130px">{{ reembolso.fecha }}</span>
+                        <span slot="element" class="text-right size-130px">{{
+                            formateoValor(reembolso.montoTotalPrestacion) }}</span>
+                        <span slot="element" class="text-right size-130px">{{
+                            formateoValor(reembolso.montoTotalSolicitado) }}</span>
                     </div>
                 </ng-container>
             </div>
-        
+
             <div class="table--totalizers">
                 <div class="total">
-                  <h6>Monto total solicitado</h6>
-                  <h6>{{ formateoValor(montoTotalSolicitado) }}</h6>
+                    <h6>Monto total solicitado</h6>
+                    <h6>{{ formateoValor(montoTotalSolicitado) }}</h6>
                 </div>
             </div>
         </div>
-        
+
         <!-- Fin de nueva tabla -->
 
         <!-- tabla mobile -->
@@ -61,7 +64,8 @@
                     <h6>{{ formateoValor(montoTotalSolicitado) }}</h6>
                 </div>
             </div>
-        </div>    <!--Fin tabla mobile -->
+        </div>
+        <!--Fin tabla mobile -->
 
     </div>
     <!-- Nuevo reembolso -->
@@ -105,16 +109,19 @@
                     [size]="'s2'" variant="secondary" slot-name="cancel-button-slot">
                     <span slot="cancel-button-slot" [routerLink]="['/historial']">Cancelar</span>
                 </ds-button>
-                <ds-button id="ds-button-siguiente" (click)="habilitarSeleccionBeneficiario(false)"
-                    [disabled]="!continuar" *ngIf="returnValorRadioButtons() == true" [size]="'s2'" variant="primary"
+                <ds-button id="ds-button-siguiente"
+                    (click)="habilitarSeleccionBeneficiario(false);restaurarFormulario()" [disabled]="!continuar"
+                    *ngIf="returnValorRadioButtons() == true" [size]="'s2'" variant="primary"
                     slot-name="next-button-slot" [routerLink]="['/solicitud']">
                     <span slot="next-button-slot"> Continuar </span>
+                    <!-- aqui m ebrooraron funcion -->
                 </ds-button>
             </div>
         </section>
 
     </ng-containter>
-    <ng-containter class="otro-reembolso__container" *ngIf="(radioBtnNuevoReembolso == 'no' && prestacionSeleccionada!=2) || prestacionSeleccionada == 2">
+    <ng-containter class="otro-reembolso__container"
+        *ngIf="(radioBtnNuevoReembolso == 'no' && prestacionSeleccionada!=2) || prestacionSeleccionada == 2">
         <!-- botones-->
         <section>
             <div class="botones__row">
@@ -135,13 +142,14 @@
 <!-- Modal errores -->
 <section class="modal-errores" *ngIf="esMostrarErrores">
     <div class="modal-error--container">
-        <ds-icon  color="actionTertiary" size="44" icon-name="bi-exclamation-triangle"></ds-icon>
+        <ds-icon color="actionTertiary" size="44" icon-name="bi-exclamation-triangle"></ds-icon>
         <div class="modal-error--content">
-            <h5>Lo sentimos, ha ocurrido un error al intentar procesar tu solicitud. <br> Por favor, inténtalo más tarde.</h5>
+            <h5>Lo sentimos, ha ocurrido un error al intentar procesar tu solicitud. <br> Por favor, inténtalo más
+                tarde.</h5>
         </div>
         <div class="modal-error--buttons">
             <button class="button-secondary">Quiero volver a intentarlo</button>
-            <button class="button-primary" [routerLink]="['/historial']" >Volver al inicio</button>
+            <button class="button-primary" [routerLink]="['/historial']">Volver al inicio</button>
         </div>
     </div>
 </section>
@@ -150,7 +158,7 @@
 <!-- Modal final de sesion -->
 <section class="modal-errores" *ngIf="esMostrarErrores">
     <div class="modal-error--container">
-        <ds-icon  color="actionTertiary" size="44" icon-name="bi-clock"></ds-icon>
+        <ds-icon color="actionTertiary" size="44" icon-name="bi-clock"></ds-icon>
         <div class="modal-error--content">
             <div class="error-time">
                 <p class="text">Tu sesión expirará en</p>
@@ -160,7 +168,7 @@
         </div>
         <div class="modal-error--buttons">
             <button class="button-secondary">Salir</button>
-            <button class="button-primary" [routerLink]="['/historial']" >Continuar</button>
+            <button class="button-primary" [routerLink]="['/historial']">Continuar</button>
         </div>
     </div>
 </section>
@@ -198,7 +206,7 @@
                                 </ds-paragraph>
                                 <ds-paragraph type="p1" family="secondary" color="primary">
                                     <span slot="text" class="text-normal">
-                                        11.356.172-6</span>
+                                        {{rutPrestador}}</span>
                                 </ds-paragraph>
                             </div>
                             <div class="info-row">

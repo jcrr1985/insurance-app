@@ -129,6 +129,7 @@ export class DataStorageService {
   public tipoDoc: any;
   public cardSelectedBehavior: BehaviorSubject<string> = new BehaviorSubject('')
   public cardSelected$ = this.cardSelectedBehavior.asObservable()
+  annioAnterior: any;
 
   //--------------------------------------------------------------------------
 
@@ -176,7 +177,9 @@ export class DataStorageService {
     })
     this.setFechaAtencionBehavior$.subscribe(fechaAtencion => {
       this.fechaAtencion = fechaAtencion
-      console.log('fechaAtencion', this.fechaAtencion)
+      const ultimoChar: any = fechaAtencion.slice(-1)
+      const cut = fechaAtencion.slice(0, -1)
+      this.annioAnterior = cut + Number(ultimoChar - 1)
     })
 
     // _____________________________________________________________
@@ -209,7 +212,6 @@ export class DataStorageService {
     })
 
   }
-
 
   public get getCardSelected() {
     return this.cardSelected;
@@ -440,6 +442,11 @@ export class DataStorageService {
   public get getBeneficiarioRut() {
     return this.beneficiario.value;
   }
+
+  public get getAnnioAnterior() {
+    return this.annioAnterior;
+  }
+
 
 }
 

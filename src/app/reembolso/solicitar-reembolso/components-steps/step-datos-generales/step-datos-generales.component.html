@@ -1,14 +1,15 @@
 <section class="steps__container">
   <app-custom-stepper [height]="customStepperSize.stepperThree" [status]="this.stepperThreeSource()[0].status">
   </app-custom-stepper>
-  <div id="stepperThreeContent" class="w-full" [ngClass]="{'transicion-de-despliegue':this.stepperThreeSource()[0].status == 'active'}">
+  <div id="stepperThreeContent" class="w-full"
+    [ngClass]="{'transicion-de-despliegue':this.stepperThreeSource()[0].status == 'active'}">
     <!-- Title -->
     <ds-title class="col-span-12" type="t4" family="secondary" weight="bold" color="primary">
       <span class="steps-title three" slot="text"
         [ngClass]="{'waitStepperText':this.stepperThreeSource()[0].status == 'waiting'}">Completa los siguientes
         datos</span>
     </ds-title>
-    <div class="grid grid-cols-12 gap-4 datos-generales-container" >
+    <div class="grid grid-cols-12 gap-4 datos-generales-container">
       <ng-container
         *ngIf="getStepsStatus('stepTwo_selectOption', 'prestacionSeleccionada') && getStepsStatus('stepTwo_selectOption', 'reembolsoPrevioIsapre')">
 
@@ -17,9 +18,11 @@
         <!--step datos para hospitalario-->
         <ng-container *ngIf="idPestacionSeleccionada == 2">
           <!-- Monto Hospitalario -->
-          <ds-input-v2 id="montoSolicitado" class="col-span-12" label="Monto solicitado" (keyupEv)="setvalHosp($event)" helpText="" type="text" [formatoMoneda]="true"
+          <ds-input-v2 id="montoSolicitado" class="col-span-12" label="Monto solicitado" (keyupEv)="setvalHosp($event)"
+            helpText="" type="text" [formatoMoneda]="true"
             [value]="getStepsStatus('stepThree_general','montoSolicitado')" helpText=""
-            (changeEv)="setStepsStatus({step: 'stepThree_general',option: 'montoSolicitado', value: $event })" maxlength="14">
+            (changeEv)="setStepsStatus({step: 'stepThree_general',option: 'montoSolicitado', value: $event })"
+            maxlength="14">
           </ds-input-v2>
         </ng-container>
         <!--Datos para cualquier flujo diferente a hospitalario-->
@@ -37,16 +40,14 @@
             (changeEv)="setStepsStatus({step: 'stepThree_general',option: 'rutInstitucion', value: $event });validarRut($event)">
           </ds-input-v2>
           <!-- Numero Boleta -->
-          <ds-input-v2 id="bonificacion" (keypress)="validarNumero($event)" class="col-span-12 md:col-span-6 sm:col-span-6"
-
-            label="Nº Boleta/Factura" helpText="ingresa cualquier tipo" type="text" helpText="" maxlength="10"
-            [value]="getStepsStatus('stepThree_general','boletaFactura')"
+          <ds-input-v2 id="bonificacion" (keypress)="validarNumero($event)"
+            class="col-span-12 md:col-span-6 sm:col-span-6" label="Nº Boleta/Factura" helpText="ingresa cualquier tipo"
+            type="text" helpText="" maxlength="10" [value]="getStepsStatus('stepThree_general','boletaFactura')"
             (changeEv)="setStepsStatus({step: 'stepThree_general',option: 'boletaFactura', value: $event })">
           </ds-input-v2>
           <!-- Fecha Atencion -->
           <div class="flex items-center justify-center col-span-12 gap-datepicker md:col-span-6 sm:col-span-6">
-            <ds-datepicker id="datepicker" type="single" initial-label="Fecha de atención"
-              id="fecha_on_generales">
+            <ds-datepicker #btn id="datepicker" type="single" initial-label="Fecha de atención" id="fecha_on_generales">
             </ds-datepicker>
             <ds-icon *ngIf="validDate" size="25" icon-name="bi-check-circle-fill" color="info5"></ds-icon>
           </div>

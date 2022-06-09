@@ -1,34 +1,26 @@
-<div class="modal-container flex items-center justify-center">
-  <div class="box md:w-4/5 grid grid-cols-12">
-    <div class="col-span-2 flex items-center justify-center">
+<div class="flex items-center justify-center modal-container">
+  <div class="grid grid-cols-12 box md:w-4/5">
+    <div class="flex items-center justify-center col-span-2">
       <ds-icon size="42" [iconName]="'bi-check2-circle'"> </ds-icon>
     </div>
-    <div class="col-span-8 flex items-center justify-start">
+    <div class="flex items-center justify-start col-span-8">
       <!-- <h1>Recibimos con éxito tu solicitud de reembolso</h1> -->
       <div class="grid grid-cols-12">
         <div class="col-span-12">
           <ds-title type="t4" family="primary" weight="bold" color="primary">
-            <span slot="text"
-              >Recibimos con éxito tu solicitud de reembolso
+            <span slot="text">Recibimos con éxito tu solicitud de reembolso
             </span>
           </ds-title>
         </div>
         <div class="col-span-12">
-          <ds-paragraph
-            type="p3"
-            family="secondary"
-            weight="bold"
-            color="quaternary"
-          >
-            <span slot="text"
-              >Consulta médica y compra de medicamentos a favor de Alejandro
-              Salgado</span
-            >
+          <ds-paragraph type="p3" family="secondary" weight="bold" color="quaternary">
+            <span slot="text">Consulta médica y compra de medicamentos a favor de Alejandro
+              Salgado</span>
           </ds-paragraph>
         </div>
       </div>
     </div>
-    <div class="col-span-2 relative">
+    <div class="relative col-span-2">
       <span class="button-close" (click)="closeModal()">
         <ds-icon size="23" [iconName]="'bi-x'"> </ds-icon>
       </span>
@@ -37,12 +29,12 @@
     <div class="col-span-10 mt-10 border-bottom"></div>
     <!-- <div class="col-span-2"></div> -->
     <div class="col-span-2"></div>
-    <div class="col-span-10 grid grid-cols-12 gap-8 mt-10">
+    <div class="grid grid-cols-12 col-span-10 gap-8 mt-10">
       <!-- First Row -->
       <div class="col-span-3 mt-5 font-bold-title">Prestador:</div>
-      <div class="col-span-3 mt-5 font-bold-value">11.356.172-6</div>
+      <div class="col-span-3 mt-5 font-bold-value">{{rutPrestador}}</div>
       <div class="col-span-3 mt-5 font-bold-title">Fecha emisión:</div>
-      <div class="col-span-3 mt-5 font-bold-value">11 / 06 / 2021</div>
+      <div class="col-span-3 mt-5 font-bold-value">{{fecha}}</div>
       <!-- Second Row -->
       <div class="col-span-3 mt-5 font-bold-title">Documento:</div>
       <div class="col-span-3 mt-5 font-bold-value">Boleta</div>
@@ -60,7 +52,7 @@
           Ante cualquier consulta escríbenos a contactovida@vidasecurity.cl
         </p>
       </div>
-      <div class="col-span-12 flex items-center justify-end text-white">
+      <div class="flex items-center justify-end col-span-12 text-white">
         <button [routerLink]="['/']">Volver a inicio</button>
       </div>
     </div>
