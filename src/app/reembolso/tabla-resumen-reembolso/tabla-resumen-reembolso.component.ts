@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { DataStorageService } from './../../shared/services/data-storage.service';
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
 import { ReembolsoService } from 'src/app/shared/services/reembolso.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ICard } from 'src/app/shared/interfaces/ICard';
 import * as moment from 'moment';
 import { IResponseConsignment } from 'src/app/shared/interfaces/IResponseConsignment';
@@ -74,24 +74,31 @@ export class TablaResumenReembolsoComponent implements OnInit {
   public rutPrestador!: number;
   public stepStatusOn: any;
   public documentName!: string;
+  public numeroCuenta!: string;
+  public nombreBanco!: string;
+  public montoSolicitadoNum!: number;
 
-  constructor(private dataStorageService: DataStorageService,
+  constructor(
+    private dataStorageService: DataStorageService,
     private reembolsoService: ReembolsoService,
     private arancelService: ArancelService,
     private insuredData: DataUsuarioService,
     private router: Router,
+    private dataUsuarioService: DataUsuarioService
 
   ) { }
 
   public nombrePrestacion: any = this.arancelService.getTarjetaSeleccionada as any;
   ngOnInit(): void {
+    this.nombreBanco = this.dataUsuarioService.usuarioConectado.nombreBanco;
+    this.numeroCuenta = this.dataUsuarioService.usuarioConectado.ctaBancaria;
     this.dataStorageService.getFormReemboslo().subscribe(form => { this.stepStatusOn = form; });
     this.rutPrestador = this.stepStatusOn.stepThree_general.rutInstitucion;
     this.getDocumentName();
     //this.rutPrestador = this.dataStorageService.getRutEmpresa;
     this.cardSelected = this.dataStorageService.getCardSelected;
     this.rutEmpresa = this.dataStorageService.getRutEmpresa;
-    this.usuario = this.insuredData.usuarioConectado;
+    this.usuario = this.insuredData.usuarioConectado; //
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => {
       this.prestacionSeleccionada = id;
     });
@@ -129,7 +136,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
     const docIndex = this.stepStatusOn.stepFour_general.tipoDocumentoSeleccionado;
     switch (docIndex) {
       case 1:
-        this.documentName = 'Isapre/Fonasa'
+        this.documentName = 'Documento de reembolso'
         break;
       case 2:
         this.documentName = 'Bono'
@@ -170,6 +177,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
     this.monTotal = monTotal
 
     this.montoSolicitado = monto.toString();
+    this.montoSolicitadoNum = monto;
     // console.log('this.prestacionSeleccionada', this.prestacionSeleccionada)
 
 
@@ -421,7 +429,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
   }
 
   formateoValor(valor: number) {
-    if (valor < 1) return '$0';
+    if (valor < 1 || valor == undefined || valor == null) return '$0';
     return '$' + this.formatter.format(valor);
   }
 

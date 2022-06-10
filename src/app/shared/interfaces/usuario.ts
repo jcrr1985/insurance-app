@@ -2,6 +2,7 @@ import { IBeneficiario } from './beneficiarios';
 import { ICobertura, IUsuario } from './usuario-api';
 import { Historico } from '../models/historico';
 
+
 export class Usuario {
   private readonly _codigoAsegurado: number;
   private readonly _mailCliente: string;
@@ -17,7 +18,7 @@ export class Usuario {
   private readonly _cargas: IBeneficiario[] = [];
   private readonly _coberturas: ICobertura[] = [];
   private _historial: Historico[] = [];
-  
+
   constructor(datosUsuario: IUsuario, rut: string, dv: string) {
     this._codigoAsegurado = datosUsuario.codigoAsegurado;
     this._mailCliente = datosUsuario.mailCliente;
@@ -31,7 +32,7 @@ export class Usuario {
 
     this._poliza = datosUsuario.polizas.poliza;
     this._rutEmpresa = datosUsuario.polizas.rutEmpresa;
-    
+
     datosUsuario.polizas.coberturas.forEach((cobertura) => {
       this._coberturas.push(cobertura);
     });
@@ -95,7 +96,7 @@ export class Usuario {
   }
 
   public get rutTitular(): string {
-    return (this.cargas[0].rut + '-' + this.cargas[0].dv).replace(/[.-]/g, '').replace( /^(\d{1,2})(\d{3})(\d{3})(\w{1})$/, '$1.$2.$3-$4');
+    return (this.cargas[0].rut + '-' + this.cargas[0].dv).replace(/[.-]/g, '').replace(/^(\d{1,2})(\d{3})(\d{3})(\w{1})$/, '$1.$2.$3-$4');
   }
 
   public get coberturasTitular(): number[] {
@@ -133,7 +134,7 @@ export class Usuario {
   public get codigoAsegurado(): number {
     return this._codigoAsegurado;
   }
-  
+
   public get poliza(): string {
     return this._poliza;
   }
