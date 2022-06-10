@@ -129,8 +129,8 @@
                     slot-name="cancel-button-slot">
                     <span slot="cancel-button-slot">Cancelar</span>
                 </ds-button>
-                <ds-button id="ds-button-finalizar" [disabled]="esEnviarDesactivado" [size]="'s2'" variant="primary" slot-name="next-button-slot"
-                    (click)="finalizarGo() && !esEnviarDesactivado">
+                <ds-button id="ds-button-finalizar" [disabled]="esEnviarDesactivado" [size]="'s2'" variant="primary"
+                    slot-name="next-button-slot" (click)="finalizarGo() && !esEnviarDesactivado">
                     <span slot="next-button-slot"> Finalizar y Enviar </span>
                 </ds-button>
             </div>
@@ -148,7 +148,8 @@
                 tarde.</h5>
         </div>
         <div class="modal-error--buttons">
-            <button class="button-secondary" (click)="respuestaModalConsignment(true)">Quiero volver a intentarlo</button>
+            <button class="button-secondary" (click)="respuestaModalConsignment(true)">Quiero volver a
+                intentarlo</button>
             <button class="button-primary" (click)="respuestaModalConsignment(false)">Volver al inicio</button>
         </div>
     </div>
@@ -191,7 +192,8 @@
                             </span>
                         </span>
                     </ds-title>
-                    <p>Consulta médica y compra de medicamentos a favor de Alejandro Salgado</p>
+                    <p>Consulta médica y compra de medicamentos a favor de {{nombre}} {{apellido}}</p>
+                    <!-- -->
                     <div class="linea-division"></div>
                 </div>
                 <div class="info">
@@ -216,7 +218,7 @@
                                 </ds-paragraph>
                                 <ds-paragraph type="p1" family="secondary" color="primary">
                                     <span slot="text" class="text-normal">
-                                        Boleta</span>
+                                        {{documentName}}</span>
                                 </ds-paragraph>
                             </div>
                             <div class="info-row">
