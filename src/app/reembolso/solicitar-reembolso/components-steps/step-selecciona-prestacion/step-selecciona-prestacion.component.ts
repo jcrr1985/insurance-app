@@ -128,6 +128,9 @@ export class StepSeleccionaPrestacionComponent implements OnInit {
       this.dataStorageService.setFormReembolso('stepTwo_selectOption', 'reembolsoPrevioIsapre', 'si');
     }
 
+    this.dataStorageService.restaurarDetallePrestaciones();
+    this.dataStorageService.resturarFormularioReembolsoOnlyFiles();
+
     this.evaluateStepTwo.emit();
 
   }

@@ -336,6 +336,43 @@ export class DataStorageService {
     this.reembolsoFormBehavior.next(this.reembolsoForm);
   }
   /**
+   * @description restura el formulario de reembolso a su estado original y actualiza  todos los componentes subscritos
+   */
+  resturarFormularioReembolsoOnlyFiles() {
+    this.reembolsoForm.files = {
+      docsStructure: {
+        consultamedica: {
+          nameFiles: [{ name: '', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false, esDiagnostico: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false, esDiagnostico: true }, { name: 'Documento adicional', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true, esDiagnostico: false }],
+          cols: 'col-span-4'
+        },
+        hospitalario: {
+          nameFiles: [{ name: 'Documento Hospitalario', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }],
+          filesUploades: [[], [], []],
+          cols: 'col-span-12',
+        },
+        lentes: {
+          nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Receta Óptica', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
+          cols: 'col-span-4'
+        },
+        dentales: {
+          nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Formulario Dental', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Presupuesto Dental', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
+          cols: 'col-span-3'
+        },
+        examenes: {
+          nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
+          cols: 'col-span-4'
+        },
+        medicamentos: {
+          nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Receta médica', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
+          cols: 'col-span-4'
+        },
+      },
+      firstDocName: ''
+    }
+    this.reembolsoForm.stepFour_general.fileUploaded = false;
+    this.reembolsoFormBehavior.next(this.reembolsoForm);
+  }
+  /**
   * @description agrega una nueva prestacion al detalle de las prestaciones
   * @param prestacion prestacion recibida del modal de agregar detalle prestacion
   */

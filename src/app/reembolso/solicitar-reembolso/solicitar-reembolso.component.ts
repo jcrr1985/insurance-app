@@ -133,6 +133,7 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
   subscribeChangesOnInput() {
     this.dataStorageService.getFormReemboslo().subscribe(statusOn => {
       this.stepsStatusOn = statusOn;
+      console.log("stepsStatusOn", this.stepsStatusOn);
       this.evaluateStepOne();
       this.evaluateStepTwo();
       this.evaluateStepThree();
