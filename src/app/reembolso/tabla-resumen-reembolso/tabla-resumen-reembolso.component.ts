@@ -31,7 +31,9 @@ export class TablaResumenReembolsoComponent implements OnInit {
   public formatter = new Intl.NumberFormat('es-CL');
   public fechaHoy: string = moment().format('DD/MM/YYYY');
   public solicitudes: any[] = [];
-  public esMostrarErrores: boolean = false;
+  public esMostrarErrorConsignment: boolean = false;
+  public esMostrarTimerToken: boolean = false;
+  public esEnviarDesactivado: boolean = false;
 
   public opcionesPrestacionesCLEM: ICard[] = [
     { prestacion: 'Consulta Médica', name: 'atencionmedica', status: '', idPrestacion: 1, alias: 'consulta médica' },
@@ -81,7 +83,6 @@ export class TablaResumenReembolsoComponent implements OnInit {
 
   public nombrePrestacion: any = this.arancelService.getTarjetaSeleccionada as any;
   ngOnInit(): void {
-    this.fecha = this.dataStorageService.getFechaAtencion()
     this.rutPrestador = this.dataStorageService.getRutEmpresa;
     this.cardSelected = this.dataStorageService.getCardSelected;
     this.rutEmpresa = this.dataStorageService.getRutEmpresa;
@@ -187,16 +188,16 @@ export class TablaResumenReembolsoComponent implements OnInit {
   }
   async finalizarGo() {
     //Desactivar boton finalizar mientras envia.
+    this.esEnviarDesactivado = true;
     try {
       //mostrar loader
       const dataResponse: IResponseConsignment | null = await this.postConsigment();
       this.numeroSolicitado = dataResponse!.remesa;
       //Ocultar loader
       this.mostrarModalFinal = true;
-      this.restaurarFormulario(true);
-      this.dataStorageService.clearOrNot.next(true);
     } catch (error) {
       //Mostrar mensaje de error
+      this.esMostrarErrorConsignment = true;
       setTimeout(() => {
         //oculatar loader
       }, 5000);
@@ -464,6 +465,13 @@ export class TablaResumenReembolsoComponent implements OnInit {
     }
 
     return os;
+  }
+
+  respuestaModalConsignment(esVolverIntentar: boolean) {
+    if (!esVolverIntentar) return this.cancelar();
+
+    this.esMostrarErrorConsignment = false;
+    this.esEnviarDesactivado = false;
   }
 }
 

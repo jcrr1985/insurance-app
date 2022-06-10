@@ -27,6 +27,7 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
   mostrarPreview: boolean = false;
   public archivoInvalido = false;
   public tipoDocumento: any;
+  public esMostrarErrores: boolean = false;
 
 
 
@@ -40,6 +41,8 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
     let i: number = 0;
     let fileEvnts: IFile[] = [];
     let multi = false;
+
+
 
     const errorValidate = (idprestacionSeleccionada: number, msg: string) => {
       switch (idprestacionSeleccionada) {
@@ -323,7 +326,7 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
     await timer(100).toPromise();
     this.dataStorageService.setFormReembolso('files', 'docsStructure', this.documentsDisplay);
     this.dataStorageService.setFormReembolso('files', 'firstDocName', this.subtituloPrimerDocumento);
-    this.dataStorageService.setFormReembolso('stepFour_general', 'fileUploaded', archivosSubidosCorrectamente)
+    this.dataStorageService.setFormReembolso('stepFour_general', 'fileUploaded', archivosSubidosCorrectamente);
   }
   deleteDocs(prestacion: string, indexNameFiles: number, nameFile: string) {
     let files = this.documentsDisplay[prestacion]['nameFiles'][indexNameFiles]['files'].filter((e: IFile) => e.file.name != nameFile);
@@ -445,6 +448,11 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
     errorDocumento?.classList.add("errorHidden");
 
   }
+
+  hideModalError(){
+    this.esMostrarErrores = false;
+  }  
+
 }
 
 const previsionesArray = [
@@ -457,3 +465,5 @@ const previsionesArray = [
   { key: 'Vida', value: 7, selected: false },
 
 ];
+
+

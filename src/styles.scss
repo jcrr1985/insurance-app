@@ -300,8 +300,10 @@ ds-file {
   left: 0;
   width: 100vw;
   background-color: #111111bd;
-  display: grid;
-  place-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
 
   .modal-error--container {
     display: flex;
@@ -367,6 +369,7 @@ ds-file {
       display: flex;
       flex-direction: row;
       justify-content: center;
+      flex-wrap: wrap;
       padding: 0px;
       gap: 10px;
       width: 100%;
@@ -1665,28 +1668,30 @@ ds-title {
     gap: 20px;
   }
 
-}
 
-// Fin Responsive mobile
-.text-normal--mail {
-  flex-direction: column !important;
-}
-
-.pagination__container {
-  flex-wrap: wrap;
-  justify-content: center !important;
-  gap: 20px;
-}
-
-
-.modal-errores {
-
-  .modal-error--container {
-    width: 90% !important;
+  .text-normal--mail {
+    flex-direction: column !important;
   }
-}
+  
+  .pagination__container {
+    flex-wrap: wrap;
+    justify-content: center !important;
+    gap: 20px;
+  }
+  
+  
+  .modal-errores {
+    width: 100%;
+    padding: 15px;
+    .modal-error--container {
+      width: 100%;
+    }
+    button{
+      min-width: 100px !important;
+    }
+  }
 
-// Fin Responsive mobile
+} // Fin Responsive mobile
 
 // ── Estilos Calendario ──
 

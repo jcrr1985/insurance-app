@@ -14,7 +14,7 @@ export class PantallaFinalComponent implements OnInit {
 
   ngOnInit(): void {
      const x  = this.dataStorageService.getTipoDoc
-     this.fechaAtencion = this.dataStorageService.getFechaAtencion  || moment().format('DD/MM/YYYY');
+     this.fechaAtencion = this.dataStorageService.getFechaAtencion()  || moment().format('DD/MM/YYYY');
   }
   construirFechaActual() {
     const fecha = new Date();

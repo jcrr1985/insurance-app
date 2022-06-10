@@ -129,8 +129,8 @@
                     slot-name="cancel-button-slot">
                     <span slot="cancel-button-slot">Cancelar</span>
                 </ds-button>
-                <ds-button id="ds-button-finalizar" [size]="'s2'" variant="primary" slot-name="next-button-slot"
-                    (click)="finalizarGo()">
+                <ds-button id="ds-button-finalizar" [disabled]="esEnviarDesactivado" [size]="'s2'" variant="primary" slot-name="next-button-slot"
+                    (click)="finalizarGo() && !esEnviarDesactivado">
                     <span slot="next-button-slot"> Finalizar y Enviar </span>
                 </ds-button>
             </div>
@@ -140,7 +140,7 @@
 
 
 <!-- Modal errores -->
-<section class="modal-errores" *ngIf="esMostrarErrores">
+<section class="modal-errores" *ngIf="esMostrarErrorConsignment">
     <div class="modal-error--container">
         <ds-icon color="actionTertiary" size="44" icon-name="bi-exclamation-triangle"></ds-icon>
         <div class="modal-error--content">
@@ -148,15 +148,15 @@
                 tarde.</h5>
         </div>
         <div class="modal-error--buttons">
-            <button class="button-secondary">Quiero volver a intentarlo</button>
-            <button class="button-primary" [routerLink]="['/historial']">Volver al inicio</button>
+            <button class="button-secondary" (click)="respuestaModalConsignment(true)">Quiero volver a intentarlo</button>
+            <button class="button-primary" (click)="respuestaModalConsignment(false)">Volver al inicio</button>
         </div>
     </div>
 </section>
 <!-- Fin Modal errores -->
 
 <!-- Modal final de sesion -->
-<section class="modal-errores" *ngIf="esMostrarErrores">
+<section class="modal-errores" *ngIf="esMostrarTimerToken">
     <div class="modal-error--container">
         <ds-icon color="actionTertiary" size="44" icon-name="bi-clock"></ds-icon>
         <div class="modal-error--content">
@@ -168,7 +168,7 @@
         </div>
         <div class="modal-error--buttons">
             <button class="button-secondary">Salir</button>
-            <button class="button-primary" [routerLink]="['/historial']">Continuar</button>
+            <button class="button-primary">Continuar</button>
         </div>
     </div>
 </section>
@@ -302,7 +302,7 @@
 
                 <!-- botón final-->
                 <section class="reembolso__botones--container">
-                    <ds-button id="ds-button-siguiente" [routerLink]="['/historial']" [size]="'s2'" variant="primary"
+                    <ds-button id="ds-button-siguiente" (click)="cancelar()" [size]="'s2'" variant="primary"
                         slot-name="next-button-slot">
                         <span slot="next-button-slot"> Volver al inicio </span>
                     </ds-button>

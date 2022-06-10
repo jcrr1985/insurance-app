@@ -50,9 +50,14 @@
     <!-- Esperando seleccionar tipo documento -->
     <ng-container
       *ngIf="getStepsStatus('stepFour_general','tipoDocumentoSeleccionado') || (idPrestacionSeleccionada == 2  && getStepsStatus('stepThree_general','montoSolicitado'))" >
+      
+     
+      
       <!-- Cards documentos -->
       <div class="cards-document__container" [ngClass]="{'transicion-de-despliegue':getStepsStatus('stepFour_general','tipoDocumentoSeleccionado') || (idPrestacionSeleccionada == 2  && getStepsStatus('stepThree_general','montoSolicitado'))}">
         <!-- consulta medica -->
+
+
         <ng-container *ngIf="idPrestacionSeleccionada == 1">
           <ng-container *ngFor="let docs of documentsDisplay.consultamedica.nameFiles;let indexDocName = index">
             <div [ngClass]="[documentsDisplay.consultamedica.cols]"
@@ -77,8 +82,6 @@
                     <div class="cursor-pointer icono-view" (click)="vistaPreviaArchivo(file.file,docs.name)">
                       <ds-icon size="20" [iconName]="'bi-eye-fill'"> </ds-icon>
                     </div>
-
-                    <!--pre view-->
 
                     <!-- name -->
                     <div class="flex items-center justify-start container-name-file">
@@ -340,3 +343,19 @@
     </div>
   </div>
 </div>
+
+ <!-- Modal error documento-->
+<div class="modal-errores" *ngIf="esMostrarErrores">
+  <div class="modal-error--container">
+      <ds-icon  color="actionTertiary" size="44" icon-name="bi-exclamation-triangle"></ds-icon>
+      <div class="modal-error--content">
+          <h5>Sólo se admite un solo documento</h5>
+          <div class="question">¿Deseas reemplazarlo?</div>
+      </div>
+      <div class="modal-error--buttons">
+          <button class="button-secondary" (click)="hideModalError()">No</button>
+          <button class="button-primary"  (click)="hideModalError()">Sí</button>
+      </div>
+  </div>
+</div>
+<!-- Fin Modal error documento -->

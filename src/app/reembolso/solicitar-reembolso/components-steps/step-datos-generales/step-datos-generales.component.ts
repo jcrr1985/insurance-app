@@ -57,14 +57,11 @@ export class StepDatosGeneralesComponent implements OnInit, OnDestroy, OnChanges
     let haceUnAnnioStamp = Number(hoyTimeStamp) - 31557600000;
     let today = Number(hoyTimeStamp);
     this.handlerFunctionClickDatePicker = (ev: any) => {
-      console.log('ev', ev)
       const funcionValidadora = () => {
         let ldp = document.querySelector('.litepicker') || document.getElementById('fecha_on_generales')
         if (ldp) {
-          console.log('ldp', ldp)
           let allDays = Array.from(ldp.querySelectorAll('.day-item'))
           allDays.forEach((dayItem: any) => {
-            console.log('click', 'click')
             if (Number(dayItem.getAttribute('data-time')) < haceUnAnnioStamp || Number(dayItem.getAttribute('data-time')) > today) {
               dayItem.onclick = void 0
               dayItem.onclick = void (0)
