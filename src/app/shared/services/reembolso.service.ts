@@ -3,7 +3,7 @@ import { Injectable, Injector } from '@angular/core';
 import { Chip, Reembolsos } from '../interfaces/interfaces';
 import { AuthenticationService } from './authentication.service';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { IConsignment } from '../interfaces/IConsignment';
 import { IResponseConsignment } from '../interfaces/IResponseConsignment';
 import { environment } from 'src/environments/environment';
@@ -21,7 +21,7 @@ export class ReembolsoService {
 
   constructor(private http: HttpClient) { }
 
-  async postConsignment (consignment: IConsignment): Promise<IResponseConsignment | null> {
+  async postConsignment (consignment: IConsignment): Promise<IResponseConsignment | void> {
     const request = {data: consignment};
     this.ssoToken = JSON.parse(localStorage.getItem('Token')!);
     this.headers = new HttpHeaders()
@@ -37,8 +37,10 @@ export class ReembolsoService {
         .toPromise();
       return data;
     } catch (error) {
-      console.log('error', error)
-      return null;
+      console.log('error', error);
+      if ((error as HttpErrorResponse).status >= 500) return localStorage.setItem('httpStatus', `${(error as HttpErrorResponse).status}`);
+      if ((error as any).status === 0) return localStorage.setItem('httpStatus', `401`);
+      return localStorage.setItem('httpStatus', `500`);
     }
   }
 

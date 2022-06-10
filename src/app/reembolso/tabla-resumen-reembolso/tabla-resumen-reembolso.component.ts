@@ -189,25 +189,32 @@ export class TablaResumenReembolsoComponent implements OnInit {
   async finalizarGo() {
     //Desactivar boton finalizar mientras envia.
     this.esEnviarDesactivado = true;
+    document.body.style.cursor = 'wait';
     try {
       //mostrar loader
-      const dataResponse: IResponseConsignment | null = await this.postConsigment();
+      const dataResponse: IResponseConsignment | void = await this.postConsigment();
       this.numeroSolicitado = dataResponse!.remesa;
       //Ocultar loader
+      document.body.style.cursor = 'default'
       this.mostrarModalFinal = true;
     } catch (error) {
-      //Mostrar mensaje de error
-      this.esMostrarErrorConsignment = true;
-      setTimeout(() => {
-        //oculatar loader
-      }, 5000);
-      setTimeout(() => {
-        //Activar boton finalizar.
-      }, 8000);
+      document.body.style.cursor = 'default'
+      switch (+localStorage.getItem('httpStatus')!) {
+        case 500:
+          this.esMostrarErrorConsignment = true;
+          break;
+        case 401:
+          // mostrar error sesiones
+          this.esMostrarTimerToken = true;
+          break;
+        default:
+          this.esMostrarErrorConsignment = true;
+          break;
+      }
     }
   }
 
-  async postConsigment(): Promise<IResponseConsignment | null> {
+  async postConsigment(): Promise<IResponseConsignment | void> {
     this.consignment = this.makeConsignment();
     return await this.reembolsoService.postConsignment(this.consignment);
   }

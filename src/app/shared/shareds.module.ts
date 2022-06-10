@@ -20,6 +20,7 @@ import { SelectParentescoComponent } from './components/inputs/select-parentesco
 import { ColDocLiqComponent } from "./components/col-doc-liq/col-doc-liq.component";
 import { PillComponent } from "./components/pill/pill.component";
 import { TablaMobileComponent } from './components/tabla-mobile/tabla-mobile.component';
+import { ModalTokenComponent } from './components/modal-token/modal-token.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { TablaMobileComponent } from './components/tabla-mobile/tabla-mobile.com
     SelectParentescoComponent,
     PillComponent,
     ColDocLiqComponent,
-    TablaMobileComponent
+    TablaMobileComponent,
+    ModalTokenComponent
   ],
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   exports: [
