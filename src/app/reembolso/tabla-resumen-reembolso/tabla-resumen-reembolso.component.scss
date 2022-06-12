@@ -239,7 +239,7 @@ ds-table-body-row {
           .detalles {
             display: flex;
             align-items: flex-start;
-            gap: 40px;
+            gap: 42px;
             width: 100%;
 
           }
@@ -570,4 +570,10 @@ ds-table-body-row {
     }
   }
 
+}
+
+.detalles-column-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

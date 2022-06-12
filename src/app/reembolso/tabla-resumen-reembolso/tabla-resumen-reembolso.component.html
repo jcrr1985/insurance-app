@@ -43,7 +43,7 @@
             <div class="table--totalizers">
                 <div class="total">
                     <h6>Monto total solicitado</h6>
-                    <h6>{{ formateoValor(montoTotalSolicitado) }}</h6>
+                    <h6>{{ formateoValor(montoTotalSolicitado) || 000123456789}}</h6>
                 </div>
             </div>
         </div>
@@ -198,7 +198,7 @@
                 </div>
                 <div class="info">
                     <!-- Detalles no Hospitalario Ni Medicamento -->
-                    <div class="detalles" *ngIf="prestacionSeleccionada != 2 &&  prestacionSeleccionada!= 6; ">
+                    <div class="detalles" *ngIf="true || prestacionSeleccionada == 2;">
                         <!--Detalles izquierda  -->
                         <div class="detalles--column">
                             <div class="info-row">
@@ -208,7 +208,7 @@
                                 </ds-paragraph>
                                 <ds-paragraph type="p1" family="secondary" color="primary">
                                     <span slot="text" class="text-normal">
-                                        {{rutPrestador}}</span>
+                                        {{rutPrestador || '11.111.111-1'}}</span>
                                 </ds-paragraph>
                             </div>
                             <div class="info-row">
@@ -218,7 +218,7 @@
                                 </ds-paragraph>
                                 <ds-paragraph type="p1" family="secondary" color="primary">
                                     <span slot="text" class="text-normal">
-                                        {{documentName}}</span>
+                                        {{documentName || 'Documento dummy' | titlecase}}</span>
                                 </ds-paragraph>
                             </div>
                             <div class="info-row">
@@ -228,7 +228,7 @@
                                 </ds-paragraph>
                                 <ds-paragraph type="p1" family="secondary" color="primary">
                                     <span slot="text" class="text-normal">
-                                        {{this.numeroSolicitado || 123456}}</span>
+                                        {{numeroSolicitado || 000123456789}}</span>
                                 </ds-paragraph>
                             </div>
                         </div>
@@ -256,149 +256,153 @@
                                 </ds-paragraph>
                             </div>
                         </div>
-                        <!--Fin Detalles derecha  -->
                     </div>
 
                     <!-- Detalles Hospitalario -->
+                    <div class="detalles" *ngIf="false || prestacionSeleccionada == 2; ">
+                        <!--Detalles izquierda  -->
+                        <div class="detalles--column">
+                            <div class="info-row">
+                                <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
+                                    <span slot="text" class="text--bold">
+                                        N° Siniestro:</span>
+                                </ds-paragraph>
+                            </div>
+                            <div class="info-row">
+                                <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
+                                    <span slot="text" class="text--bold">
+                                        Fecha emisión:</span>
+                                </ds-paragraph>
+                            </div>
+                            <div class="info-row">
+                                <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
+                                    <span slot="text" class="text--bold">
+                                        Monto total Solicitado:</span>
+                                </ds-paragraph>
+                            </div>
+                        </div>
+                        <!--Fin Detalles izquierda  -->
+
+                        <!--Detalles derecha  -->
+                        <div class="detalles--column" style="margin-right: -65%;">
+                            <div class=" info-row">
+                                <ds-paragraph type="p1" family="secondary" color="primary">
+                                    <span slot="text" class="text-normal">
+                                        {{numeroSolicitado || 000123456789}} </span>
+                                </ds-paragraph>
+                            </div>
+
+                            <div class="info-row">
+                                <ds-paragraph type="p1" family="secondary" color="primary">
+                                    <span slot="text" class="text-normal">
+                                        {{construirFechaActual()}}</span>
+                                </ds-paragraph>
+                            </div>
+                            <div class="info-row">
+                                <ds-paragraph type="p1" family="secondary" color="primary"
+                                    [ngStyle]="{'margin-left':true || prestacionSeleccionada == 2? '13%' : '0px' }">
+                                    <span slot="text" class="text-normal">
+                                        {{formateoValor(montoSolicitadoNum) || 000123456789}}</span>
+                                </ds-paragraph>
+                            </div>
+                        </div>
+                        <!--Fin Detalles derecha  -->
+                    </div>
+
+
+                </div>
+                <!--Fin Detalles  -->
+
+                <!-- Datos bancarios  -->
+                <div class="info">
+                    <!-- Detalles no Hospitalario Ni Medicamento -->
+                    <div class="detalles" *ngIf="prestacionSeleccionada != 2">
+                        <!--Detalles izquierda  -->
+                        <div class="detalles--column">
+
+                            <div class="info-row">
+                                <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
+                                    <span slot="text" class="text--bold">
+                                        Banco</span>
+                                </ds-paragraph>
+                                <ds-paragraph type="p1" family="secondary" color="primary">
+                                    <span slot="text" class="text-normal">
+                                        {{nombreBanco ||'Dummy Banco' | titlecase}}</span>
+                                </ds-paragraph>
+                            </div>
+                            <div class="info-row">
+                                <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
+                                    <span slot="text" class="text--bold">
+                                        Cuenta:</span>
+                                </ds-paragraph>
+                                <ds-paragraph type="p1" family="secondary" color="primary">
+                                    <span slot="text" class="text-normal">
+                                        {{numeroCuenta|| 000123456789}}</span>
+                                </ds-paragraph>
+                            </div>
+                        </div>
+
+                    </div>
+
                     <div class="detalles" *ngIf="prestacionSeleccionada == 2; ">
                         <!--Detalles izquierda  -->
                         <div class="detalles--column">
                             <div class="info-row">
                                 <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
                                     <span slot="text" class="text--bold">
-                                        N° Siniestro:</span>
+                                        Banco:</span>
                                 </ds-paragraph>
                             </div>
                             <div class="info-row">
                                 <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
                                     <span slot="text" class="text--bold">
-                                        Fecha emisión:</span>
+                                        Cuenta:</span>
                                 </ds-paragraph>
                             </div>
                         </div>
                         <!--Fin Detalles izquierda  -->
 
-                        <!--Detalles derecha  -->
+                        <!------------------->
                         <div class="detalles--column">
                             <div class="info-row">
                                 <ds-paragraph type="p1" family="secondary" color="primary">
                                     <span slot="text" class="text-normal">
-                                        {{this.numeroSolicitado || 123456}} </span>
+                                        {{nombreBanco || 'Banco Don Ramon' | titlecase}} </span>
                                 </ds-paragraph>
                             </div>
 
                             <div class="info-row">
                                 <ds-paragraph type="p1" family="secondary" color="primary">
                                     <span slot="text" class="text-normal">
-                                        {{construirFechaActual()}}</span>
+                                        {{numeroCuenta}}</span>
                                 </ds-paragraph>
                             </div>
                         </div>
                         <!--Fin Detalles derecha  -->
                     </div>
 
-                    <!-- Detalles Medicamentos -->
-                    <div class="detalles" *ngIf="prestacionSeleccionada == 6; ">
-                        <!--Detalles izquierda  -->
-                        <div class="detalles--column">
-                            <div class="info-row">
-                                <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
-                                    <span slot="text" class="text--bold">
-                                        N° Siniestro:</span>
-                                </ds-paragraph>
-                            </div>
-                            <div class="info-row">
-                                <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
-                                    <span slot="text" class="text--bold">
-                                        Fecha emisión:</span>
-                                </ds-paragraph>
-                            </div>
-                            <div class="info-row">
-                                <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
-                                    <span slot="text" class="text--bold">
-                                        Monto solicitado:</span>
-                                </ds-paragraph>
-                            </div>
-                        </div>
-                        <!--Fin Detalles izquierda  -->
-                        <!--Detalles derecha  -->
-                        <div class="detalles--column">
-                            <div class="info-row">
-                                <ds-paragraph type="p1" family="secondary" color="primary">
-                                    <span slot="text" class="text-normal">
-                                        {{this.numeroSolicitado || 123456 }}</span>
-                                </ds-paragraph>
-                            </div>
-                            <div class="info-row">
-                                <ds-paragraph type="p1" family="secondary" color="primary">
-                                    <span slot="text" class="text-normal">
-                                        {{construirFechaActual()}}</span>
-                                </ds-paragraph>
-                            </div>
-                            <div class="info-row">
-                                <ds-paragraph type="p1" family="secondary" color="primary">
-                                    <span slot="text" class="text-normal">
-                                        {{formateoValor(montoSolicitadoNum)}}</span>
-                                </ds-paragraph>
-                            </div>
-                        </div>
-                    </div>
-
 
                 </div>
-            </div>
+                <!--Fin Detalles  -->
 
-
-            <!--Fin Detalles  -->
-
-            <!-- Datos bancarios  -->
-            <div class="data-bank">
-                <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
-                    <span slot="text" class="bank-title">
-                        Tu reembolso se depositará en la siguiente cuenta bancaria:</span>
-                </ds-paragraph>
-                <div class="detalles--column">
-                    <div class="info-row">
-                        <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
-                            <span slot="text" class="text--bold">
-                                Banco</span>
-                        </ds-paragraph>
-                        <ds-paragraph type="p1" family="secondary" color="primary">
-                            <span slot="text" class="text-normal">
-                                {{nombreBanco | titlecase}}</span>
-                        </ds-paragraph>
-                    </div>
-                    <div class="info-row">
-                        <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
-                            <span slot="text" class="text--bold">
-                                Cuenta</span>
-                        </ds-paragraph>
-                        <ds-paragraph type="p1" family="secondary" color="primary">
-                            <span slot="text" class="text-normal">
-                                {{numeroCuenta}}</span>
-                        </ds-paragraph>
-                    </div>
+                <div class="mail">
+                    <ds-paragraph type="p1" family="secondary" color="secondary">
+                        <span slot="text" class="text-normal--mail">
+                            Pronto recibirás en tu correo el resultado de tu solicitud. <br>
+                            Ante cualquier consulta escríbenos a <a
+                                href="mailto:contactovida@vidasecurity.cl">contactovida@vidasecurity.cl</a>
+                        </span>
+                    </ds-paragraph>
                 </div>
-
-            </div><!-- Fin Datos bancarios  -->
-
-            <div class="mail">
-                <ds-paragraph type="p1" family="secondary" color="secondary">
-                    <span slot="text" class="text-normal--mail">
-                        Pronto recibirás en tu correo el resultado de tu solicitud. <br>
-                        Ante cualquier consulta escríbenos a <a
-                            href="mailto:contactovida@vidasecurity.cl">contactovida@vidasecurity.cl</a>
-                    </span>
-                </ds-paragraph>
+                <!-- botón final-->
+                <section class="reembolso__botones--container">
+                    <ds-button id="ds-button-siguiente" (click)="cancelar()" [size]="'s2'" variant="primary"
+                        slot-name="next-button-slot">
+                        <span slot="next-button-slot"> Volver al inicio </span>
+                    </ds-button>
+                </section>
+                <!-- fin content -->
             </div>
-            <!-- botón final-->
-            <section class="reembolso__botones--container">
-                <ds-button id="ds-button-siguiente" (click)="cancelar()" [size]="'s2'" variant="primary"
-                    slot-name="next-button-slot">
-                    <span slot="next-button-slot"> Volver al inicio </span>
-                </ds-button>
-            </section>
-            <!-- fin content -->
         </div>
     </div>
 </section>

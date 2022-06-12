@@ -10,16 +10,16 @@ import * as moment from 'moment';
 })
 export class AppComponent {
   title: string = 'web app';
-  
 
-  constructor(private dataStorageService:DataStorageService) {
+
+  constructor(private dataStorageService: DataStorageService) {
     const that = this
-    window.addEventListener("load", function(event) {
+    window.addEventListener("load", function (event) {
       console.log("'Todos los recursos terminaron de cargar!");
       const date = moment().format('DD/MM/YYYY');
       console.log('date', date)
       that.dataStorageService.setFechaAtencionBehavior.next(date)
-      
+
     });
   }
 
