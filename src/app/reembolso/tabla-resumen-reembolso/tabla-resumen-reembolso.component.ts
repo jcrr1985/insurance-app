@@ -52,7 +52,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
 
 
   public continuar: boolean = false;
-  public prestacionSeleccionada: any;
+  public prestacionSeleccionada: number = 0;
   public idPrestacionVT!: number;
   public tipoDocVT!: number;
   public goToMensajeFinal: boolean = false;
@@ -77,6 +77,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
   public numeroCuenta!: string;
   public nombreBanco!: string;
   public montoSolicitadoNum!: number;
+  public oneReembolso: number = 0;
 
   constructor(
     private dataStorageService: DataStorageService,
@@ -90,8 +91,8 @@ export class TablaResumenReembolsoComponent implements OnInit {
 
   public nombrePrestacion: any = this.arancelService.getTarjetaSeleccionada as any;
   ngOnInit(): void {
-    this.nombreBanco = this.dataUsuarioService.usuarioConectado.nombreBanco;
-    this.numeroCuenta = this.dataUsuarioService.usuarioConectado.ctaBancaria;
+    this.nombreBanco = this.dataUsuarioService.usuarioConectado?.nombreBanco;
+    this.numeroCuenta = this.dataUsuarioService.usuarioConectado?.ctaBancaria;
     this.dataStorageService.getFormReemboslo().subscribe(form => { this.stepStatusOn = form; });
     this.rutPrestador = this.stepStatusOn.stepThree_general.rutInstitucion;
     this.getDocumentName();
@@ -101,8 +102,10 @@ export class TablaResumenReembolsoComponent implements OnInit {
     this.usuario = this.insuredData.usuarioConectado; //
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => {
       this.prestacionSeleccionada = id;
+      console.log('this.prestacionSeleccionada', this.prestacionSeleccionada)
     });
     this.dataStorageService.getPrestacionesResumen().subscribe(prestaciones => {
+      this.oneReembolso = prestaciones.length == 1 ? 1 : 0;
       this.generarResumen(prestaciones)
       this.prestacionesCargadas = prestaciones;
       this.calcularTablaResumen();
@@ -199,8 +202,6 @@ export class TablaResumenReembolsoComponent implements OnInit {
   habilitarSeleccionBeneficiario(valor: boolean) {
     this.reembolsoService.setHabilitarStepone(valor);
     //this.restaurarFormulario();
-
-
   }
 
   returnValorRadioButtons() {

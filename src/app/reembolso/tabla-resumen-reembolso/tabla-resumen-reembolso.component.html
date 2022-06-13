@@ -78,7 +78,7 @@
         </div>
         <div class="radio-buttons__resumen">
             <ds-radio type="s1" family="primary" label="Sí" name="reembolsoIsapre" value="Sí"
-                [attr.checked]="radioBtnNuevoReembolso=='si'" (click)="setRadioBtn(true)">
+                [attr.checked]="radioBtnNuevoReembolso=='si'" (click)="setRadioBtn(true);">
             </ds-radio>
             <ds-radio type="s1" family="primary" [attr.checked]="radioBtnNuevoReembolso=='no'" label="No"
                 name="reembolsoIsapre" value="No" (click)="setRadioBtn(false)">
@@ -87,7 +87,7 @@
     </div> <!-- Fin Nuevo reembolso -->
 
     <!--inicio prestaciones condicionadas-->
-    <ng-containter class="otro-reembolso__container" *ngIf="nuevoReembolso=== true">
+    <ng-containter class="otro-reembolso__container" *ngIf="nuevoReembolso == true">
         <div class="reembolso__row"
             *ngIf="prestacionSeleccionada ===  1 || prestacionSeleccionada === 3 || prestacionSeleccionada === 5 || prestacionSeleccionada === 6">
             <app-card-option *ngFor="let x of opcionesPrestacionesCLEM; let id = index" [status]="x.status"
@@ -176,7 +176,7 @@
 <!-- Fin Modal final de sesion -->
 
 <!-- Modal mensaje final -->
-<section class="modal-pantalla-final" *ngIf="!mostrarModalFinal">
+<section class="modal-pantalla-final" *ngIf="mostrarModalFinal">
     <div class="wrapper-final">
         <div class="modal--container">
             <div class="icon">
@@ -197,8 +197,9 @@
                     <div class="linea-division"></div>
                 </div>
                 <div class="info">
-                    <!-- Detalles no Hospitalario Ni Medicamento -->
-                    <div class="detalles" *ngIf="true || prestacionSeleccionada == 2;">
+                    <!-- prestacion!=Hospitalario && !unicoReembolso -->
+                    <!-- oneReembolso == 1 -> se cumple la condicion de 1 solo reembolso -->
+                    <div class="detalles" *ngIf="prestacionSeleccionada != 2 && oneReembolso == 1">
                         <!--Detalles izquierda  -->
                         <div class="detalles--column">
                             <div class="info-row">
@@ -257,9 +258,9 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Detalles Hospitalario -->
-                    <div class="detalles" *ngIf="false || prestacionSeleccionada == 2; ">
+                    <!-- Hospitalario || unicoReembolso -->
+                    <!-- oneReembolso == 0 -> no se cumple la condicion de 1 solo reembolso -->
+                    <div class="detalles" *ngIf="prestacionSeleccionada == 2 || oneReembolso == 0  ">
                         <!--Detalles izquierda  -->
                         <div class="detalles--column">
                             <div class="info-row">
@@ -308,17 +309,14 @@
                         </div>
                         <!--Fin Detalles derecha  -->
                     </div>
-
-
                 </div>
                 <!--Fin Detalles  -->
 
                 <!-- Datos bancarios  -->
                 <div class="info">
-                    <!-- Detalles no Hospitalario Ni Medicamento -->
-                    <div class="detalles" *ngIf="prestacionSeleccionada != 2">
+                    <div class="detalles">
                         <!--Detalles izquierda  -->
-                        <div class="detalles--column">
+                        <div class=" detalles--column">
 
                             <div class="info-row">
                                 <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
@@ -341,47 +339,7 @@
                                 </ds-paragraph>
                             </div>
                         </div>
-
                     </div>
-
-                    <div class="detalles" *ngIf="prestacionSeleccionada == 2; ">
-                        <!--Detalles izquierda  -->
-                        <div class="detalles--column">
-                            <div class="info-row">
-                                <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
-                                    <span slot="text" class="text--bold">
-                                        Banco:</span>
-                                </ds-paragraph>
-                            </div>
-                            <div class="info-row">
-                                <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
-                                    <span slot="text" class="text--bold">
-                                        Cuenta:</span>
-                                </ds-paragraph>
-                            </div>
-                        </div>
-                        <!--Fin Detalles izquierda  -->
-
-                        <!------------------->
-                        <div class="detalles--column">
-                            <div class="info-row">
-                                <ds-paragraph type="p1" family="secondary" color="primary">
-                                    <span slot="text" class="text-normal">
-                                        {{nombreBanco || 'Banco Don Ramon' | titlecase}} </span>
-                                </ds-paragraph>
-                            </div>
-
-                            <div class="info-row">
-                                <ds-paragraph type="p1" family="secondary" color="primary">
-                                    <span slot="text" class="text-normal">
-                                        {{numeroCuenta}}</span>
-                                </ds-paragraph>
-                            </div>
-                        </div>
-                        <!--Fin Detalles derecha  -->
-                    </div>
-
-
                 </div>
                 <!--Fin Detalles  -->
 
