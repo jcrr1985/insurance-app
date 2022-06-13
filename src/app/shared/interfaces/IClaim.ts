@@ -6,64 +6,24 @@ export interface Beneficiary {
   relacion: string;
 }
 
-export interface Broker {
-  rut: number;
-  dv: string;
-  name: string;
-}
-
-export interface Contractor {
-  rut: number;
-  dv: string;
-  name: string;
-}
-
-export interface Insured {
-  rut: number;
-  dv: string;
-  name: string;
-}
-
 export interface ClaimType {
   code?: any;
   name?: any;
 }
 
-export interface Plan {
-  code: number;
-  name: string;
-  claimType: ClaimType;
-}
-
-export interface Policy {
-  renewalIdtrassa: number;
-  policyNumber: number;
-}
-
 export interface IClaim {
   beneficiary: Beneficiary;
-  broker: Broker;
-  claimChannel: string;
-  claimUser?: any;
   claimedAmount: number;
   claimsStatus: string;
-  comments: string;
-  companyRut: number;
-  contractor: Contractor;
-  correlative: number;
-  endValidityDate: Date;
-  fechaPago: string;
-  insured: Insured;
+  comments: string; // necesario?
   issueDate: Date;
   paidAmount: number;
   paymentDate: Date;
-  plan: Plan;
-  policy: Policy;
+  claimType: ClaimType;
   remittanceId: string;
   requestNumber: number;
   requestStatus: string;
   settlementDate: Date;
-  startValidityDate: Date;
 }
 
 export interface IClaims {

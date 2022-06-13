@@ -37,4 +37,21 @@ export default class Utils {
     fechaLocal = fechaLocal.replace("31","DD").replace("12","MM").replace("2022","YYYY");
     return fechaLocal.replace(/-/g, '/');
   }
+  public static generarFecha() {
+    const objetoFecha = new Date();
+    const anoAnterior = objetoFecha.getFullYear() - 3;
+
+    const fechaActual = objetoFecha.toISOString().split('T')[0];
+    objetoFecha.setFullYear(anoAnterior);
+    const fechaInicio = objetoFecha.toISOString().split('T')[0];
+
+    return [fechaInicio, fechaActual];
+  }
+}
+
+const formatter = new Intl.NumberFormat('es-CL');
+
+export function formateoValor(valor: number) {
+  if (valor < 1) return '$0';
+  return '$' + formatter.format(valor);
 }

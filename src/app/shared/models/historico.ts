@@ -6,19 +6,17 @@ export class Historico {
   private readonly _tipoPrestacion: string;
   private readonly _montoSolicitado: number;
   private readonly _montoReembolsado: any;
-  private readonly _nombreAsegurado: string;
   private readonly _nombreBeneficiario: string;
   private readonly _relacionBeneficiario: string;
   private readonly _numeroSolicitud: number;
-  private readonly _fechaPago: any;
+  private readonly _fechaPago: Date | null;
 
   constructor(reembolso: IClaim) {
     this._estado = reembolso.claimsStatus;
     this._fechaSolicitud = new Date(reembolso.issueDate);
-    this._tipoPrestacion = reembolso.plan.claimType.name ? reembolso.plan.claimType.name : 'Prestación Sin Nombre';
+    this._tipoPrestacion = reembolso.claimType.name ? reembolso.claimType.name : 'Prestación Sin Nombre';
     this._montoSolicitado = reembolso.claimedAmount;
-    this._montoReembolsado = reembolso.paidAmount ? reembolso.paidAmount : null;
-    this._nombreAsegurado = reembolso.insured.name;
+    this._montoReembolsado = reembolso.paidAmount;
     this._nombreBeneficiario = reembolso.beneficiary.name;
     this._relacionBeneficiario = reembolso.beneficiary.relacion;
     this._numeroSolicitud = reembolso.requestNumber;
@@ -45,10 +43,6 @@ export class Historico {
     return this._montoReembolsado;
   }
 
-  public get nombreAsegurado(): string {
-    return this._nombreAsegurado;
-  }
-
   public get nombreBeneficiario(): string {
     return this._nombreBeneficiario;
   }
@@ -61,7 +55,7 @@ export class Historico {
     return this._numeroSolicitud;
   }
 
-  public get fechaPago(): Date {
+  public get fechaPago(): Date | null {
     return this._fechaPago;
   }
 }

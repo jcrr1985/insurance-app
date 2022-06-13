@@ -4,6 +4,9 @@ import { environment } from 'src/environments/environment';
 import { Token } from '../../interfaces/sso';
 import { Usuario } from '../../interfaces/usuario';
 import { IUsuario } from '../../interfaces/usuario-api';
+import Utils from '../../utils/utils';
+import { IClaims } from '../../interfaces/IClaim';
+import { Historico } from '../../models/historico';
 
 
 @Injectable({
@@ -41,6 +44,33 @@ export class DataUsuarioService {
       }
       } catch (error) {
         console.warn(error);
+        return false;
+      }
+    }
+
+    async getReimbursements() {
+      const fechas = Utils.generarFecha();
+
+      const tokenData: Token = JSON.parse(localStorage.getItem("Token")!);
+      const header = new HttpHeaders()
+        .set('Authorization', `Bearer ${tokenData.access_token}`)
+        .set('x-ibm-client-id', environment.X_IBM_CLIENT_ID);
+
+      try {
+        const historialReembolso = await this.http.get<IClaims>(
+          `${environment.URL_BFF_BASE}/BFF/History/insured/${this.usuarioConectado.rutCuerpo}${this.usuarioConectado.rutDigitoVerificador}/policy/${this.usuarioConectado.poliza}?StarDate=${fechas[0]}&EndDate=${fechas[1]}&Page=1&Offset=20`,
+          { headers: header }).toPromise();
+
+        let historialCompleto: Historico[] = [];
+        historialReembolso.claims.forEach((reembolso) => {
+          historialCompleto.push(new Historico(reembolso));
+        })
+
+        this.usuarioConectado.historial = historialCompleto;
+        console.log(this.usuarioConectado.historial);
+        return true;
+      } catch (error) {
+        console.log(error);
         return false;
       }
     }
