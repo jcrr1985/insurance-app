@@ -297,55 +297,49 @@
                         </div>
                         <!--Fin Detalles izquierda  -->
                     </div>
+                    <!-- Datos bancarios  -->
+                    <div class="data-bank">
+                        <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
+                            <span slot="text" class="bank-title">
+                                Tu reembolso se depositará en la siguiente cuenta bancaria:</span>
+                        </ds-paragraph>
+                        <div class=" detalles--column">
+    
+                            <div class="info-row">
+                                <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
+                                    <span slot="text" class="text--bold">
+                                        Banco</span>
+                                </ds-paragraph>
+                                <ds-paragraph type="p1" family="secondary" color="primary">
+                                    <span slot="text" class="text-normal">
+                                        {{nombreBanco ||'Dummy Banco' | titlecase}}</span>
+                                </ds-paragraph>
+                            </div>
+                            <div class="info-row">
+                                <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
+                                    <span slot="text" class="text--bold">
+                                        Cuenta:</span>
+                                </ds-paragraph>
+                                <ds-paragraph type="p1" family="secondary" color="primary">
+                                    <span slot="text" class="text-normal">
+                                        {{numeroCuenta|| 000123456789}}</span>
+                                </ds-paragraph>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mail">
+                        <ds-paragraph type="p1" family="secondary" color="secondary">
+                            <span slot="text" class="text-normal--mail">
+                                Pronto recibirás en tu correo el resultado de tu solicitud. <br>
+                                Ante cualquier consulta escríbenos a <a
+                                    href="mailto:contactovida@vidasecurity.cl">contactovida@vidasecurity.cl</a>
+                            </span>
+                        </ds-paragraph>
+                    </div>
                 </div>
                 <!--Fin Detalles  -->
 
-                <!-- Datos bancarios  -->
-                <div class="data-bank">
-                    <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
-                        <span slot="text" class="bank-title">
-                            Tu reembolso se depositará en la siguiente cuenta bancaria:</span>
-                    </ds-paragraph>
-                    <div class=" detalles--column">
 
-                        <div class="info-row">
-                            <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
-                                <span slot="text" class="text--bold">
-                                    Banco</span>
-                            </ds-paragraph>
-                            <ds-paragraph type="p1" family="secondary" color="primary">
-                                <span slot="text" class="text-normal">
-                                    {{nombreBanco ||'Dummy Banco' | titlecase}}</span>
-                            </ds-paragraph>
-                        </div>
-                        <div class="info-row">
-                            <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
-                                <span slot="text" class="text--bold">
-                                    Cuenta:</span>
-                            </ds-paragraph>
-                            <ds-paragraph type="p1" family="secondary" color="primary">
-                                <span slot="text" class="text-normal">
-                                    {{numeroCuenta|| 000123456789}}</span>
-                            </ds-paragraph>
-                        </div>
-                    </div>
-                </div>
-                <div class="info">
-                    <div class="detalles">
-
-                    </div>
-                </div>
-                <!--Fin Detalles  -->
-
-                <div class="mail">
-                    <ds-paragraph type="p1" family="secondary" color="secondary">
-                        <span slot="text" class="text-normal--mail">
-                            Pronto recibirás en tu correo el resultado de tu solicitud. <br>
-                            Ante cualquier consulta escríbenos a <a
-                                href="mailto:contactovida@vidasecurity.cl">contactovida@vidasecurity.cl</a>
-                        </span>
-                    </ds-paragraph>
-                </div>
                 <!-- botón final-->
                 <section class="reembolso__botones--container">
                     <ds-button id="ds-button-siguiente" (click)="cancelar()" [size]="'s2'" variant="primary"
