@@ -1,5 +1,5 @@
 import { DataStorageService } from './../../shared/services/data-storage.service';
-import { AfterContentChecked, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterContentChecked, AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import '@vs-design-system/ds-input';
 import '@vs-design-system/ds-datepicker';
 import '@vs-design-system/ds-select';
@@ -29,7 +29,7 @@ import * as moment from 'moment';
   templateUrl: './solicitar-reembolso.component.html',
   styleUrls: ['./solicitar-reembolso.component.scss'],
 })
-export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterContentChecked {
+export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterContentChecked, AfterViewInit {
   public formReembolso!: FormGroup;
   public chipsData: Chip[];
 
@@ -67,6 +67,8 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
   public usuarioSeleccionado!: any;
   public nombre: any;
   public apellido: any;
+  @ViewChild('two') two!: ElementRef
+
   constructor(
     private dataStorageService: DataStorageService,
     private reembolsoService: ReembolsoService,
@@ -91,10 +93,15 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
     this.noDragAndDrop()
   }
 
+
   noDragAndDrop() { }
 
   ngAfterContentChecked() {
     this.cdref.detectChanges();
+  }
+
+  ngAfterViewInit(): void {
+    document.querySelector('.input_container  p')?.addEventListener('click', () => alert('hey'))
   }
 
   /**

@@ -6,21 +6,22 @@
       <span slot="text">Solicitud de Reembolso</span>
     </ds-title>
     <ds-title *ngIf="!habilitarSeleccionBeneficiario" type="t4" family="secondary" weight="bold" color="primary">
-      <span slot="text">Solicitud de Reembolso de: <span class="usuarioNuevoReembolso"> {{usuarioSeleccionado.key | titlecase }}</span></span>
+      <span slot="text">Solicitud de Reembolso de: <span class="usuarioNuevoReembolso"> {{usuarioSeleccionado.key |
+          titlecase }}</span></span>
     </ds-title>
-    
+
   </div>
 
   <!-- QUIEN SE ATENDIO -->
-  <app-step-quien-se-atendio *ngIf="habilitarSeleccionBeneficiario" [stepperOneSource]="stepperOneSource"
+  <app-step-quien-se-atendio #one *ngIf="habilitarSeleccionBeneficiario" [stepperOneSource]="stepperOneSource"
     [customStepperSize]="customStepperSize"></app-step-quien-se-atendio>
 
   <!-- SELECCIONA TU PRESTACION -->
-  <app-step-selecciona-prestacion [esReembolso]="esReembolso" [stepperTwoSource]="stepperTwoSource" [customStepperSize]="customStepperSize"
-    [chipsData]="chipsData" ></app-step-selecciona-prestacion>
+  <app-step-selecciona-prestacion [esReembolso]="esReembolso" [stepperTwoSource]="stepperTwoSource"
+    [customStepperSize]="customStepperSize" [chipsData]="chipsData"></app-step-selecciona-prestacion>
 
   <!-- COMPLETAR DATOS GENERALES -->
-  <app-step-datos-generales  (mostrarDocumentoAdicional)="mostrarDocumentoAdicional($event)"
+  <app-step-datos-generales (mostrarDocumentoAdicional)="mostrarDocumentoAdicional($event)"
     [stepperThreeSource]="stepperThreeSource" [customStepperSize]="customStepperSize"></app-step-datos-generales>
 
   <!-- CARGA DE DOCUMENTOS -->
@@ -35,11 +36,12 @@
   </app-step-detalle-prestacion>
 
   <!-- Button siguiente -->
-  <section  class="reembolso__botones--container">
+  <section class="reembolso__botones--container">
     <ds-button [size]="'s2'" variant="secondary" slot-name="cancel-button-slot">
-      <span slot="cancel-button-slot" (click)="botonCancelar()">Cancelar</span>
+      <span #two slot="cancel-button-slot" (click)="botonCancelar()">Cancelar</span>
     </ds-button>
-    <ds-button class="btn-siguiente" *ngIf="habilitarBotones" [size]="'s2'" variant="primary" slot-name="next-button-slot" (click)="botonSiguiente()">
+    <ds-button class="btn-siguiente" *ngIf="habilitarBotones" [size]="'s2'" variant="primary"
+      slot-name="next-button-slot" (click)="botonSiguiente()">
       <span slot="next-button-slot"> Siguiente </span>
     </ds-button>
   </section>

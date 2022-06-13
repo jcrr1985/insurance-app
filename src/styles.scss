@@ -1672,26 +1672,30 @@ ds-title {
   .text-normal--mail {
     flex-direction: column !important;
   }
-  
+
   .pagination__container {
     flex-wrap: wrap;
     justify-content: center !important;
     gap: 20px;
   }
-  
-  
+
+
   .modal-errores {
     width: 100%;
     padding: 15px;
+
     .modal-error--container {
       width: 100%;
     }
-    button{
+
+    button {
       min-width: 100px !important;
     }
   }
 
-} // Fin Responsive mobile
+}
+
+// Fin Responsive mobile
 
 // ── Estilos Calendario ──
 

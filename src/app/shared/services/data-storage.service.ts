@@ -14,7 +14,8 @@ export class DataStorageService {
   public setFechaAtencionBehavior: BehaviorSubject<any> = new BehaviorSubject('00/00/00')
   public setFechaAtencionBehavior$ = this.setFechaAtencionBehavior.asObservable();
 
-
+  public oneReembolso: BehaviorSubject<any> = new BehaviorSubject(0)
+  public oneReembolso$ = this.oneReembolso.asObservable();
 
   // para obtener todo el objeto reembolsoForm   
 

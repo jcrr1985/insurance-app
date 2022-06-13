@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { DataStorageService } from './../../shared/services/data-storage.service';
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
 import { ReembolsoService } from 'src/app/shared/services/reembolso.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ICard } from 'src/app/shared/interfaces/ICard';
 import * as moment from 'moment';
 import { IResponseConsignment } from 'src/app/shared/interfaces/IResponseConsignment';
@@ -52,7 +52,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
 
 
   public continuar: boolean = false;
-  public prestacionSeleccionada: any;
+  public prestacionSeleccionada: number = 0;
   public idPrestacionVT!: number;
   public tipoDocVT!: number;
   public goToMensajeFinal: boolean = false;
@@ -66,41 +66,55 @@ export class TablaResumenReembolsoComponent implements OnInit {
   public nombre: any;
   public apellido: any;
   public rut: any;
-  getTipoDoc: any;
+  public getTipoDoc: any;
   public rutEmpresa: number = 0;
   public cardSelected: any;
   public resumenesReembolsos: ITablaResumen[] = [];
   public fecha: any;
   public rutPrestador!: number;
+  public stepStatusOn: any;
+  public documentName!: string;
+  public numeroCuenta!: string;
+  public nombreBanco!: string;
+  public montoSolicitadoNum!: number;
+  public oneReembolso: number = 0;
 
-  constructor(private dataStorageService: DataStorageService,
+  constructor(
+    private dataStorageService: DataStorageService,
     private reembolsoService: ReembolsoService,
     private arancelService: ArancelService,
     private insuredData: DataUsuarioService,
     private router: Router,
+    private dataUsuarioService: DataUsuarioService
 
   ) { }
 
   public nombrePrestacion: any = this.arancelService.getTarjetaSeleccionada as any;
   ngOnInit(): void {
-    this.rutPrestador = this.dataStorageService.getRutEmpresa;
+    this.nombreBanco = this.dataUsuarioService.usuarioConectado?.nombreBanco;
+    this.numeroCuenta = this.dataUsuarioService.usuarioConectado?.ctaBancaria;
+    this.dataStorageService.getFormReemboslo().subscribe(form => { this.stepStatusOn = form; });
+    this.rutPrestador = this.stepStatusOn.stepThree_general.rutInstitucion;
+    this.getDocumentName();
+    //this.rutPrestador = this.dataStorageService.getRutEmpresa;
     this.cardSelected = this.dataStorageService.getCardSelected;
     this.rutEmpresa = this.dataStorageService.getRutEmpresa;
-    this.usuario = this.insuredData.usuarioConectado;
+    this.usuario = this.insuredData.usuarioConectado; //
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => {
       this.prestacionSeleccionada = id;
+      console.log('this.prestacionSeleccionada', this.prestacionSeleccionada)
     });
     this.dataStorageService.getPrestacionesResumen().subscribe(prestaciones => {
+      this.oneReembolso = prestaciones.length == 1 ? 1 : 0;
       this.generarResumen(prestaciones)
       this.prestacionesCargadas = prestaciones;
       this.calcularTablaResumen();
       this.dataStorageService.getFormReemboslo().subscribe(data => {
-        this.montoSolicitado = data.stepThree_general.montoSolicitado
         try {
           const usuarioSeleccionadoFullName = this.dataStorageService.getBeneficiario;
           let split = usuarioSeleccionadoFullName.key.split(" ");
           this.nombre = split[0];
-          this.apellido = split[3];
+          this.apellido = split[2];
           this.usuarioSeleccionado = `${this.nombre} ${this.apellido}`
           const rut = usuarioSeleccionadoFullName.value;
           this.rut = usuarioSeleccionadoFullName.value;
@@ -117,6 +131,26 @@ export class TablaResumenReembolsoComponent implements OnInit {
       // console.log('tipoDocument', e)
 
     })
+  }
+  /**
+   * @description obtiene el nombre del documento seelccionad
+   */
+  getDocumentName() {
+    const docIndex = this.stepStatusOn.stepFour_general.tipoDocumentoSeleccionado;
+    switch (docIndex) {
+      case 1:
+        this.documentName = 'Documento de reembolso'
+        break;
+      case 2:
+        this.documentName = 'Bono'
+        break;
+      case 3:
+        this.documentName = 'Boleta / Factura'
+        break;
+      default:
+        this.documentName = 'No Seleccionado'
+        break;
+    }
   }
 
   calcularTablaResumen() {
@@ -144,6 +178,9 @@ export class TablaResumenReembolsoComponent implements OnInit {
     this.montoTotalSolicitado = monto;
     // console.log('this.montoTotalSolicitado', this.montoTotalSolicitado)
     this.monTotal = monTotal
+
+    this.montoSolicitado = monto.toString();
+    this.montoSolicitadoNum = monto;
     // console.log('this.prestacionSeleccionada', this.prestacionSeleccionada)
 
 
@@ -165,8 +202,6 @@ export class TablaResumenReembolsoComponent implements OnInit {
   habilitarSeleccionBeneficiario(valor: boolean) {
     this.reembolsoService.setHabilitarStepone(valor);
     //this.restaurarFormulario();
-
-
   }
 
   returnValorRadioButtons() {
@@ -402,7 +437,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
   }
 
   formateoValor(valor: number) {
-    if (valor < 1) return '$0';
+    if (valor < 1 || valor == undefined || valor == null) return '$0';
     return '$' + this.formatter.format(valor);
   }
 

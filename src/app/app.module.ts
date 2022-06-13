@@ -1,3 +1,4 @@
+import { Usuario } from 'src/app/shared/interfaces/usuario';
 import { ArancelService } from 'src/app/shared/services/arancel-service.service';
 import { CommonModule } from '@angular/common';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
