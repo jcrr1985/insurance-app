@@ -47,7 +47,7 @@ export class ReembolsoComponent implements OnInit {
         (response) => {
           console.log(response);
           localStorage.setItem("Token", JSON.stringify(response));
-          this.router.navigateByUrl('/home');
+          this.LoadInsuredData();
       });
     }else{
       this._authService.getToken("17793573-5","vida2020").subscribe(
