@@ -336,10 +336,12 @@ export class DataStorageService {
     };
     this.reembolsoFormBehavior.next(this.reembolsoForm);
   }
+
   /**
-   * @description restura el formulario de reembolso a su estado original y actualiza  todos los componentes subscritos
+   * @description restura los archivos en el formulario de reembolso a su estado original y actualiza  todos los componentes subscritos;
    */
   resturarFormularioReembolsoOnlyFiles() {
+
     this.reembolsoForm.files = {
       docsStructure: {
         consultamedica: {

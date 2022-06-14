@@ -171,7 +171,7 @@
     </div>
 </section>
 <!-- Fin Modal final de sesion -->
-
+<h1>{{generarTituloPrestaciones()}} </h1>
 <!-- Modal mensaje final -->
 <section class="modal-pantalla-final" *ngIf="mostrarModalFinal">
     <div class="wrapper-final">
@@ -187,7 +187,7 @@
                             </span>
                         </span>
                     </ds-title>
-                    <p>Consulta médica y compra de medicamentos a favor de {{nombre | titlecase}} {{apellido
+                    <p>{{tituloModalFinal}} a favor de {{nombre | titlecase}} {{apellido
                         |titlecase}}
                     </p>
                     <!-- -->

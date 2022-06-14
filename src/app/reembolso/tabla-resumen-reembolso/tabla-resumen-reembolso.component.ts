@@ -50,7 +50,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
     { prestacion: '', name: '', status: '', idPrestacion: 2, alias: '' },
   ];
 
-
+  public tituloModalFinal = '';
   public continuar: boolean = false;
   public prestacionSeleccionada: number = 0;
   public idPrestacionVT!: number;
@@ -102,12 +102,12 @@ export class TablaResumenReembolsoComponent implements OnInit {
     this.usuario = this.insuredData.usuarioConectado; //
     this.dataStorageService.getIdPrestacionSeleccionada().subscribe(id => {
       this.prestacionSeleccionada = id;
-      console.log('this.prestacionSeleccionada', this.prestacionSeleccionada)
     });
     this.dataStorageService.getPrestacionesResumen().subscribe(prestaciones => {
       this.oneReembolso = prestaciones.length == 1 ? 1 : 0;
       this.generarResumen(prestaciones)
       this.prestacionesCargadas = prestaciones;
+      this.generarTituloPrestaciones();
       this.calcularTablaResumen();
       this.dataStorageService.getFormReemboslo().subscribe(data => {
         try {
@@ -442,6 +442,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
   }
 
   generarResumen(prestaciones: any[]) {
+    console.log("prstaciones cargadas actualmente", prestaciones);
     const resumenReembolsos: ITablaResumen[] = [];
     for (const reembolso of prestaciones) {
       let montoPrestacion = 0;
@@ -451,7 +452,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
         montoSolicitado += (+arancel.valorPrestacion - +arancel.bonificacion);
       }
       const resumen: ITablaResumen = {
-        tipoReembolso: this.obtenerNombrePrestacion(reembolso.prestaciones[0].tipoPrestacion),
+        tipoReembolso: this.obtenerNombrePrestacionFromName(reembolso.prestaciones[0].tipoPrestacion),
         fecha: this.construirFechaActual(),
         montoTotalPrestacion: montoPrestacion,
         montoTotalSolicitado: montoSolicitado,
@@ -461,7 +462,7 @@ export class TablaResumenReembolsoComponent implements OnInit {
     this.resumenesReembolsos = resumenReembolsos;
   }
 
-  obtenerNombrePrestacion(prestacion: string) {
+  obtenerNombrePrestacionFromName(prestacion: string) {
     switch (prestacion) {
       case 'CONSULTA':
         return 'Consulta Médica';
@@ -477,7 +478,59 @@ export class TablaResumenReembolsoComponent implements OnInit {
         return 'Atención Hospitalaria';
     }
   }
+  /**
+   * @description crea los nombre concatenados de las prestaciones cargadas
+   * @param prestaciones arreglo de las prestaciones cargadas
+   * @return {void} prestaciones concatenadas para el titulo
+   */
+  generarTituloPrestaciones(): void {
+    let index = 0;
+    let name = '';
+    let namePrestaciones = [];
+    const prestacionestemp = [{ idprestacionSeleccionada: 1 }, { idprestacionSeleccionada: 2 }, { idprestacionSeleccionada: 3 }];
+    for (let x of this.prestacionesCargadas) {
+      //for (let x of prestacionestemp) {
+      namePrestaciones.push(this.obtenerNombrePrestacionFromIdPrestacionSeleccionada(x.idprestacionSeleccionada));
+    }
 
+    for (let nombre of namePrestaciones) {
+      const size = namePrestaciones.length;
+      if (size == 1) name = nombre;
+      else if (size == 2) {
+        if (!index) name += nombre;
+        else name += ` y ${nombre}`;
+      } else {
+        if (index + 1 == size) name += ` y ${nombre}`
+        else name += `${nombre}, `;
+      }
+      index++;
+    }
+
+    this.tituloModalFinal = name;
+  }
+  /**
+   * 
+   * @param prestacion id de la prestacion
+   * @returns {string} nombre prestacion
+   */
+  obtenerNombrePrestacionFromIdPrestacionSeleccionada(prestacion: number) {
+    switch (prestacion) {
+      case 1:
+        return 'Consulta Médica';
+      case 2:
+        return 'Atención Hospitalaria';
+      case 3:
+        return 'Marcos y Lentes';
+      case 4:
+        return 'Atención Dental';
+      case 5:
+        return 'Exámenes y Procedimientos';
+      case 6:
+        return 'Compra de Medicamentos';
+      default:
+        return '';
+    }
+  }
   obtenerPlataforma() {
     const esMovil = /Mobi/i.test(window.navigator.userAgent)
     if (esMovil) return 'MOVIL';
