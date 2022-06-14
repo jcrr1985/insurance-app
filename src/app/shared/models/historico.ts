@@ -20,7 +20,7 @@ export class Historico {
     this._nombreBeneficiario = reembolso.beneficiary.name;
     this._relacionBeneficiario = reembolso.beneficiary.relacion;
     this._numeroSolicitud = reembolso.requestNumber;
-    this._fechaPago = reembolso.paymentDate ? new Date(reembolso.paymentDate) : null;
+    this._fechaPago = reembolso.paymentDate && new Date(reembolso.paymentDate).getFullYear() !== 1 ? new Date(reembolso.paymentDate) : null;
   }
 
   public get estado(): string {

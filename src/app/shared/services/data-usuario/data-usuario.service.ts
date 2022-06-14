@@ -67,6 +67,7 @@ export class DataUsuarioService {
         })
 
         this.usuarioConectado.historial = historialCompleto;
+        this.usuarioConectado.Pagination = historialReembolso.pagination;
         console.log(this.usuarioConectado.historial);
         return true;
       } catch (error) {
