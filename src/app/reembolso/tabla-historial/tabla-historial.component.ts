@@ -1,6 +1,5 @@
 import { Reembolsos, PaginationSource } from '../../shared/interfaces/interfaces';
 import {
-  AfterContentChecked,
   AfterViewInit,
   Component,
   ElementRef,
@@ -25,7 +24,7 @@ import { Historico } from 'src/app/shared/models/historico';
   styleUrls: ['./tabla-historial.component.scss'],
 })
 export class TablaHistorialComponent
-  implements OnInit, OnDestroy, AfterViewInit, AfterContentChecked {
+  implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('dsPageCounter') dsPageCounter: any;
   @ViewChild('theader')
   theader!: ElementRef;
@@ -35,6 +34,8 @@ export class TablaHistorialComponent
   showTable: boolean = false;
   public reembolsosUsuario: Historico[] = [];
   private formatter = new Intl.NumberFormat('es-CL');
+  public siguientePagina!: () => void;
+  public paginaAnterior!: () => void;
 
   constructor(
     private reembolsoService: ReembolsoService,
@@ -49,37 +50,34 @@ export class TablaHistorialComponent
 
   public tenEntriesByDefault!: any[];
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<any> {
     this.addAccessKey();
     this.aciveTableHistorial();
     var tokenData: Token = JSON.parse(localStorage.getItem("Token")!);
     var UserInfo: TokenData = JWT(tokenData.access_token);
     this.reembolsosUsuario = this.dataUsuario.usuarioConectado.historial;
 
+    const siguientePagina = () => {
+      let naranja = document.querySelector('.css-7mrpfl') as HTMLElement | null;
+      let naranjaNextSibling = naranja?.nextSibling as HTMLElement | null;
+      try {
+        naranjaNextSibling?.click();
+      } catch (error) {
+      }
+    }
+    const paginaAnterior = () => {
+      let naranja = document.querySelector('.css-7mrpfl') as HTMLElement | null;
+      let naranjaPreviousSibling = naranja?.previousSibling as HTMLElement | null;
+      naranjaPreviousSibling?.click();
+    }
+    this.siguientePagina = siguientePagina;
+    this.paginaAnterior = paginaAnterior
   }
-
-  ngAfterContentChecked() {
-  }
-
-
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-
-
     }, 200);
 
-  }
-  siguientePagina() {
-    let naranja = document.querySelector('.css-7mrpfl') as HTMLElement | null;
-    let naranjaNextSibling = naranja?.nextSibling as HTMLElement | null;
-    naranjaNextSibling?.click()
-  }
-
-  paginaAnterior() {
-    let naranja = document.querySelector('.css-7mrpfl') as HTMLElement | null;
-    let naranjaPreviousSibling = naranja?.previousSibling as HTMLElement | null;
-    naranjaPreviousSibling?.click();
   }
 
   resultadosPorPagina: number = 10;
@@ -103,7 +101,7 @@ export class TablaHistorialComponent
    * @description calcula el total de registros disponibles
    */
   calTotalRegistros() {
-    this.totalRegistros = this.reembolsoService.getReembolsos().length;
+    this.totalRegistros = this.reembolsoService.getReembolsos().length + 1;
   }
   /**
    * @description calcula segun la cantidad de registros las paginas disponibles

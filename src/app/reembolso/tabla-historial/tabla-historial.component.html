@@ -78,22 +78,22 @@
                 <span class="texto-normal texto-header-colapsable size-160px" slot="element">Motivo del estado</span>
               </div>
               <div v class="details">
-                  <div class="line-divider"></div>
-                  <div [id]="'registerColapsable'+i" class="info-row" slot="row">
+                <div class="line-divider"></div>
+                <div [id]="'registerColapsable'+i" class="info-row" slot="row">
 
-                    <span class="texto-normal size-160px" slot="element">
-                      {{historico.tipoPrestacion}}
-                    </span>
-                    <span class="texto-normal size-160px right-text" slot="element">
-                      {{formateoValor(historico.montoSolicitado)}}
-                    </span>
-                    <span class="texto-normal size-160px right-text" slot="element">
-                      {{formateoValor(historico.montoReembolsado)}}
-                    </span>
-                    <span class="texto-normal size-160px" slot="element">
-                      Observaciones
-                    </span>
-                  </div>
+                  <span class="texto-normal size-160px" slot="element">
+                    {{historico.tipoPrestacion}}
+                  </span>
+                  <span class="texto-normal size-160px right-text" slot="element">
+                    {{formateoValor(historico.montoSolicitado)}}
+                  </span>
+                  <span class="texto-normal size-160px right-text" slot="element">
+                    {{formateoValor(historico.montoReembolsado)}}
+                  </span>
+                  <span class="texto-normal size-160px" slot="element">
+                    Observaciones
+                  </span>
+                </div>
 
               </div>
               <div class="doc-nota">
@@ -126,7 +126,7 @@
             </label>
           </div>
           <div class="collapsable-content">
-            <div class="content-group hidden">
+            <div class="hidden content-group">
               <div class="content">
                 <h6 class="subtitulo">{{registro.nombre}}</h6>
                 <p class="info">{{registro.parentesco}}</p>
@@ -156,7 +156,7 @@
               <h6 class="subtitulo">Monto reembolsado</h6>
               <p class="info">{{registro.montoReembolsado}}</p>
             </div>
-            <div class="download-files hidden">
+            <div class="hidden download-files">
               <div class="content">
                 <div _ngcontent-djb-c69="" class="doc-download">
                   <img _ngcontent-djb-c69="" src="./../../../../assets/images/svgs/descargar.svg" alt="descargar">
