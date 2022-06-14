@@ -1,6 +1,7 @@
 import { IBeneficiario } from './beneficiarios';
 import { ICobertura, IUsuario } from './usuario-api';
 import { Historico } from '../models/historico';
+import { Pagination } from './IClaim';
 
 
 export class Usuario {
@@ -18,6 +19,7 @@ export class Usuario {
   private readonly _cargas: IBeneficiario[] = [];
   private readonly _coberturas: ICobertura[] = [];
   private _historial: Historico[] = [];
+  private _pagination!: Pagination;
 
   constructor(datosUsuario: IUsuario, rut: string, dv: string) {
     this._codigoAsegurado = datosUsuario.codigoAsegurado;
@@ -175,5 +177,12 @@ export class Usuario {
 
   public obtenerNombreAbreviado(nombres: string, apellido: string): string {
     return nombres.split(' ')[0] + ' ' + apellido.split(' ')[0];
+  }
+
+  public get Pagination() : Pagination {
+    return this._pagination;
+  }
+  public set Pagination(pagination : Pagination) {
+    this._pagination = pagination;
   }
 }

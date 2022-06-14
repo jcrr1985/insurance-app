@@ -32,11 +32,13 @@ export interface IClaims {
   httpMessage: string;
   internal_id: string;
   moreInformation: string;
-  pagination: {
-    numberOfPages: number;
-    numberOfRecords: number;
-    pageNumber: number;
-    recordsPerPage: number;
-  };
+  pagination: Pagination;
   userFriendlyError: string | null;
+}
+
+export interface Pagination {
+  numberOfPages: number;
+  numberOfRecords: number;
+  pageNumber: number;
+  recordsPerPage: number;
 }

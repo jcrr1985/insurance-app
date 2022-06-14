@@ -86,13 +86,11 @@ export class TablaHistorialComponent
   pageSelected: number = 1;
   totalRegistros: number = 0;
   totalPaginas: number = 1;
-  dataRegistros: any = [];
   sourcePagination = [{ "label": "0", "value": "0" }];
 
   async aciveTableHistorial() {
     this.calTotalRegistros();
     this.calculatePages();
-    this.getReembolsos();
     this.createSourcePagination();
     this.showTable = false;
     timer(10);
@@ -103,23 +101,13 @@ export class TablaHistorialComponent
    * @description calcula el total de registros disponibles
    */
   calTotalRegistros() {
-    this.totalRegistros = this.reembolsoService.getReembolsos().length;
+    this.totalRegistros = this.dataUsuario.usuarioConectado.Pagination.numberOfRecords;
   }
   /**
    * @description calcula segun la cantidad de registros las paginas disponibles
    */
   calculatePages() {
-    const numeroDisponible = this.totalRegistros / this.resultadosPorPagina;
-    const verificandoAdicional = numeroDisponible - parseInt((numeroDisponible).toString());
-    this.totalPaginas = numeroDisponible + (verificandoAdicional > 0 ? 1 : 0);
-  }
-  /**
-   * @description obtiene los registros segun la posicion seleccionada de la pagina y la cantidad a mostrar
-   */
-  getReembolsos() {
-    const inicio = (this.resultadosPorPagina * this.pageSelected) - this.resultadosPorPagina;
-    const final = inicio + this.resultadosPorPagina;
-    this.dataRegistros = (this.reembolsoService.getReembolsos()).slice(inicio, final);
+    this.totalPaginas = this.dataUsuario.usuarioConectado.Pagination.numberOfPages;
   }
 
   /**
