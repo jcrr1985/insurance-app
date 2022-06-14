@@ -16,6 +16,8 @@ import { Router } from '@angular/router';
 import { timer } from 'rxjs';
 import { Token, TokenData } from 'src/app/shared/interfaces/sso';
 import * as JWT from 'jwt-decode';
+import { DataUsuarioService } from 'src/app/shared/services/data-usuario/data-usuario.service';
+import { Historico } from 'src/app/shared/models/historico';
 
 @Component({
   selector: 'app-tabla-historial',
@@ -31,10 +33,13 @@ export class TablaHistorialComponent
   public indiceSeleccionado!: any;
   public reembolsos!: Reembolsos[];
   showTable: boolean = false;
+  public reembolsosUsuario: Historico[] = [];
+  private formatter = new Intl.NumberFormat('es-CL');
 
   constructor(
     private reembolsoService: ReembolsoService,
-    private router: Router
+    private router: Router,
+    private dataUsuario: DataUsuarioService
   ) {
   }
 
@@ -49,7 +54,7 @@ export class TablaHistorialComponent
     this.aciveTableHistorial();
     var tokenData: Token = JSON.parse(localStorage.getItem("Token")!);
     var UserInfo: TokenData = JWT(tokenData.access_token);
-
+    this.reembolsosUsuario = this.dataUsuario.usuarioConectado.historial;
 
   }
 
@@ -204,14 +209,10 @@ export class TablaHistorialComponent
     }
   }
 
-  //Datos dummy para filas colapsables
-  public filasColapsables = [
-    { motivo: 'Consulta Médica', valor: '$10.000', bonificacion: '$10.000', observaciones: 'Observaciones' },
-    { motivo: 'Compra de Medicamentos', valor: '$5.000', bonificacion: '$3.000', observaciones: 'Observaciones' },
-    { motivo: 'Marcos y Lentes', valor: '$550.000', bonificacion: '$93.000', observaciones: 'Observaciones' }
-  ];
-
-
+  formateoValor(valor: number) {
+    if (valor < 1) return '$0';
+    return '$' + this.formatter.format(valor);
+  }
 
 }
 
