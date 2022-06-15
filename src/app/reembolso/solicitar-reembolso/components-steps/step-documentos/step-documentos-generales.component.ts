@@ -88,6 +88,9 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
       }
       i++;
     }
+    // Añadiendo archivo y validando condiciones antes de la carga
+    // TODO añadir validacion si ya tiene archivos cargados para mostrar mensaje en archivos de carga unica
+
     switch (this.idPrestacionSeleccionada) {
       case 1:
         multi = this.documentsDisplay.consultamedica.nameFiles[index]['multi'];
@@ -166,7 +169,7 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
           if (this.counter == 1) {
             console.log('this.counter', this.counter)
             this.esMostrarErrores = true;
-            this.mostrarModalErrorCantidad.emit(this.esMostrarErrores);
+            this.mostrarModalErrorCantidad.emit(this.esMostrarErrores); // este es, piya
           }
           let target = evt?.target as any;
           if (target?.files.length == 0) {
