@@ -142,6 +142,7 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
 
   @Output() sendData: EventEmitter<any> = new EventEmitter<any>();
   @Output() evaluateStepFour: EventEmitter<any> = new EventEmitter<any>();
+  @Output() mostrarModalErrorCantidad: EventEmitter<any> = new EventEmitter<any>();
 
   public subtituloPrimerDocumento: string = '';
   public previewDocumentName: string = '';
@@ -152,9 +153,34 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
   public documentsDisplay: any;
   constructor(private dataStorageService: DataStorageService, private sanitizer: DomSanitizer, private arancelService: ArancelService) {
   }
-
+  public counter: number = 0;
   ngOnChanges(changes: SimpleChanges) { }
   ngOnInit(): void {
+
+    const interval = setInterval(() => {
+      let element = document.querySelector('#ds-file-id')
+      if (element) {
+        console.log('Primer Input Encontrado: ', element)
+        document.querySelector('#ds-file-id')?.addEventListener('change', (evt) => {
+          console.log('this.counter', this.counter)
+          if (this.counter == 1) {
+            console.log('this.counter', this.counter)
+            this.esMostrarErrores = true;
+            this.mostrarModalErrorCantidad.emit(this.esMostrarErrores);
+          }
+          let target = evt?.target as any;
+          if (target?.files.length == 0) {
+            console.log('no se ha cargado archivo')
+          } else {
+            this.counter += 1;
+            console.log('hay archivo a 100');
+          }
+
+        })
+        clearInterval(interval)
+      }
+    }, 100)
+
     this.dataStorageService.getFormReemboslo().subscribe(statusOn => {
       this.stepsStatusOn = statusOn;
       this.restoreDocs();
@@ -194,25 +220,6 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
         default:
           break;
       }
-
-
-      /*  switch (parseInt(this.stepsStatusOn['stepFour_general']['tipoDocumentoSeleccionado'])) {
-         case 1:
-           this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de reembolso';
-           this.subtituloPrimerDocumento = 'Documento de reembolso';
-           break;
-         case 2:
-           this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de Bono atencion';
-           this.subtituloPrimerDocumento = 'Documento de Bono atencion';
-           break;
-         case 3:
-           this.documentsDisplay.consultamedica.nameFiles[0].name = 'Documento de Boleta o Factura';
-           this.subtituloPrimerDocumento = 'Documento de Boleta o Factura';
-           break;
- 
-         default:
-           break;
-       } */
     }
     if (this.stepsStatusOn['stepThree_general']['fechaAtencion'] != '') {
       const interval = setInterval(() => {
@@ -449,9 +456,9 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
 
   }
 
-  hideModalError(){
+  hideModalError() {
     this.esMostrarErrores = false;
-  }  
+  }
 
 }
 
