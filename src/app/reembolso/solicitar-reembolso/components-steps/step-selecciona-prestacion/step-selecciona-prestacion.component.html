@@ -22,7 +22,7 @@
     <!--Pregunta Reembolsaste -->
     <ng-container
       *ngIf="tarjetaSeleccionada?.idPrestacion===1||tarjetaSeleccionada?.idPrestacion===2 ||tarjetaSeleccionada?.idPrestacion===5">
-      <div class="question__container"
+      <div id="question__container-01" class="question__container"
         [ngClass]="{'question-despliegue':tarjetaSeleccionada?.idPrestacion===1||tarjetaSeleccionada?.idPrestacion===2 ||tarjetaSeleccionada?.idPrestacion===5}">
         <ds-paragraph type="p1" family="secondary" weight="semiBold" color="secondary">
           <span *ngIf="tarjetaSeleccionada?.name==='atencionmedica'" slot="text"

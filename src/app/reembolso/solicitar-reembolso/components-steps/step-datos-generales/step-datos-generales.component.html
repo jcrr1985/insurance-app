@@ -55,7 +55,7 @@
 
         <!-- Second Row data -->
         <!-- Reembolsaste -->
-        <div class="question__container" *ngIf="getStepsStatus('stepThree_general','agenciaSeleccionada') != '' 
+        <div id="question__container-01" class="question__container" *ngIf="getStepsStatus('stepThree_general','agenciaSeleccionada') != '' 
           && getStepsStatus('stepThree_general','rutInstitucion') != '' 
           && getStepsStatus('stepThree_general','boletaFactura') != ''
           && rutValid && validDate" [ngClass]="{'question-despliegue':getStepsStatus('stepThree_general','agenciaSeleccionada') != '' 

@@ -549,7 +549,7 @@ app-solicitar-reembolso {
   padding-left: 25px !important;
 }
 
-.question__container {
+.question__container, #question__container-01, #question__container-02 {
   display: flex;
   gap: 15px;
   min-width: 40vw;
@@ -559,8 +559,13 @@ app-solicitar-reembolso {
   align-items: baseline;
   justify-content: space-between;
 
+  p{
+    display: flex !important;
+    width: 100% !important;
+  }
 
-  ds-paragraph span {
+  ds-paragraph p span {
+    display: flex !important;
     width: 100% !important;
     align-items: center;
     font-size: 18px;
@@ -629,6 +634,8 @@ ds-title {
   flex-direction: column;
   align-items: flex-start;
   gap: 20px;
+
+  
 
   ds-paragraph {
     display: flex !important;
