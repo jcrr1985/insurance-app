@@ -43,35 +43,20 @@ export class TablaHistorialComponent
     private dataUsuario: DataUsuarioService
   ) {
   }
-
-  ngOnDestroy(): void {
-    if (window.removeAllListeners) window.removeAllListeners();
-  }
-
   public tenEntriesByDefault!: any[];
 
   async ngOnInit(): Promise<any> {
     this.addAccessKey();
-    this.aciveTableHistorial();
+    await this.activeTableHistorial();
     var tokenData: Token = JSON.parse(localStorage.getItem("Token")!);
     var UserInfo: TokenData = JWT(tokenData.access_token);
     this.reembolsosUsuario = this.dataUsuario.usuarioConectado.historial;
+    //this.buttonsArrows();
 
-    const siguientePagina = () => {
-      let naranja = document.querySelector('.css-7mrpfl') as HTMLElement | null;
-      let naranjaNextSibling = naranja?.nextSibling as HTMLElement | null;
-      try {
-        naranjaNextSibling?.click();
-      } catch (error) {
-      }
-    }
-    const paginaAnterior = () => {
-      let naranja = document.querySelector('.css-7mrpfl') as HTMLElement | null;
-      let naranjaPreviousSibling = naranja?.previousSibling as HTMLElement | null;
-      naranjaPreviousSibling?.click();
-    }
-    this.siguientePagina = siguientePagina;
-    this.paginaAnterior = paginaAnterior
+  }
+
+  ngOnDestroy(): void {
+    if (window.removeAllListeners) window.removeAllListeners();
   }
 
   ngAfterViewInit(): void {
@@ -86,14 +71,34 @@ export class TablaHistorialComponent
   totalPaginas: number = 1;
   sourcePagination = [{ "label": "0", "value": "0" }];
 
-  async aciveTableHistorial() {
+  async activeTableHistorial() {
     this.calTotalRegistros();
     this.calculatePages();
     this.createSourcePagination();
     this.showTable = false;
-    timer(10);
+    console.log("waiting")
+    await timer(10).toPromise();
+    console.log("end waiting")
     this.showTable = true;
 
+  }
+
+  buttonsArrows() {
+    /*  const siguientePagina = () => {
+       let naranja = document.querySelector('.css-7mrpfl') as HTMLElement | null;
+       let naranjaNextSibling = naranja?.nextSibling as HTMLElement | null;
+       try {
+         naranjaNextSibling?.click();
+       } catch (error) {
+       }
+     }
+     const paginaAnterior = () => {
+       let naranja = document.querySelector('.css-7mrpfl') as HTMLElement | null;
+       let naranjaPreviousSibling = naranja?.previousSibling as HTMLElement | null;
+       naranjaPreviousSibling?.click();
+     }
+     this.siguientePagina = siguientePagina;
+     this.paginaAnterior = paginaAnterior */
   }
   /**
    * @description calcula el total de registros disponibles
@@ -133,10 +138,13 @@ export class TablaHistorialComponent
    * @param event evento de seleccion de pagina
    * @description recibe el numero de la pagina a visualizar
    */
-  eventSelectPage(event: any) {
-    if (event.detail) {
+  async eventSelectPage(event: any) {
+    if (this.pageSelected != event.detail) {
+      console.log("seleccionadno pagina", event);
       this.pageSelected = event.detail;
-      this.aciveTableHistorial();
+      await this.dataUsuario.getReimbursements(this.pageSelected, this.resultadosPorPagina);
+      this.reembolsosUsuario = this.dataUsuario.usuarioConectado.historial;
+      this.activeTableHistorial();
     }
   }
   /**
@@ -144,11 +152,14 @@ export class TablaHistorialComponent
    * @param event evento de seleccion de numero por pagina
    * @description recibe el valor de la cantidad de registros permitidos por pagina
    */
-  eventPaginationSource(event: any) {
-    if (event.detail[0]) {
+  async eventPaginationSource(event: any) {
+    console.log("me buscars", event);
+    if (event.detail[0] && event.detail[0].value) {
       this.resultadosPorPagina = event.detail[0].value;
       this.pageSelected = 1;
-      this.aciveTableHistorial();
+      await this.dataUsuario.getReimbursements(this.pageSelected, this.resultadosPorPagina);
+      this.reembolsosUsuario = this.dataUsuario.usuarioConectado.historial;
+      this.activeTableHistorial();
     }
   }
 

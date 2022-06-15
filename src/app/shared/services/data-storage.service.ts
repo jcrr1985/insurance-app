@@ -525,11 +525,11 @@ const documentsDisplay: any = {
 
 const formReembolso = {
   stepOne_who: {
-    personaSeleccionada: 'maestro karim',
+    personaSeleccionada: '',
   },
   stepTwo_selectOption: {
-    prestacionSeleccionada: true,
-    reembolsoPrevioIsapre: true,
+    prestacionSeleccionada: false,
+    reembolsoPrevioIsapre: false,
   },
   stepThree_general: {
     agenciaSeleccionada: '',

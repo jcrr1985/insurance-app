@@ -58,7 +58,8 @@
 
             <span *ngIf="historico.fechaPago" class="texto-normal" slot="element" class="size-100px right-text">{{
               historico.fechaPago | date:'dd/MM/yy' }}</span>
-            <span *ngIf="!historico.fechaPago" class="texto-normal" slot="element" class="size-100px center-text">-</span>
+            <span *ngIf="!historico.fechaPago" class="texto-normal" slot="element"
+              class="size-100px center-text">-</span>
 
             <app-pill [texto]="historico.estado" class="size-160px"></app-pill>
             <app-col-doc-liq class="size-160px" (indiceEmitter)="toogleCollapsable($event)"
@@ -78,19 +79,19 @@
                   Reembolsado</span>
               </div>
               <div v class="details">
-                  <div class="line-divider"></div>
-                  <div [id]="'registerColapsable'+i" class="info-row" slot="row">
+                <div class="line-divider"></div>
+                <div [id]="'registerColapsable'+i" class="info-row" slot="row">
 
-                    <span class="texto-normal size-160px" slot="element">
-                      {{historico.tipoPrestacion}}
-                    </span>
-                    <span class="texto-normal size-160px right-text" slot="element">
-                      {{formateoValor(historico.montoSolicitado)}}
-                    </span>
-                    <span class="texto-normal size-160px right-text" slot="element">
-                      {{formateoValor(historico.montoReembolsado)}}
-                    </span>
-                  </div>
+                  <span class="texto-normal size-160px" slot="element">
+                    {{historico.tipoPrestacion}}
+                  </span>
+                  <span class="texto-normal size-160px right-text" slot="element">
+                    {{formateoValor(historico.montoSolicitado)}}
+                  </span>
+                  <span class="texto-normal size-160px right-text" slot="element">
+                    {{formateoValor(historico.montoReembolsado)}}
+                  </span>
+                </div>
 
               </div>
               <div class="doc-nota">
@@ -137,10 +138,10 @@
                 <h6 class="subtitulo">N° Solicitud</h6>
                 <p class="info">{{ historico.numeroSolicitud }}</p>
               </div>
-              <div  class="content">
+              <div class="content">
                 <h6 class="subtitulo">Fecha de pago</h6>
                 <p *ngIf="historico.fechaPago" class="info">{{historico.fechaPago | date: "shortDate"}}</p>
-                <p *ngIf="!historico.fechaPago"class="info">-</p>
+                <p *ngIf="!historico.fechaPago" class="info">-</p>
               </div>
               <div class="content">
                 <h6 class="subtitulo">Monto solicitado</h6>
@@ -182,14 +183,15 @@
     <div class="pagination__container">
       <div class="pagination-wrapper">
         <div class="css-1r2g4su">
-          <ds-icon class="css-1h5x3dy" size="16" icon-name="bi-chevron-left" (click)="paginaAnterior()"></ds-icon>
+          <!--  <ds-icon class="css-1h5x3dy" size="16" icon-name="bi-chevron-left" (click)="paginaAnterior()"></ds-icon> -->
           <ds-pagination [initialPage]="pageSelected" [totalPages]="totalPaginas" (onchange)="eventSelectPage($event)">
           </ds-pagination>
-          <ds-icon class="css-1h5x3dy" size="16" icon-name="bi-chevron-right" (click)="siguientePagina()"></ds-icon>
+          <!--   <ds-icon class="css-1h5x3dy" size="16" icon-name="bi-chevron-right" (click)="siguientePagina()"></ds-icon> -->
         </div>
       </div>
       <div class="">
-        <ds-pagecounter (onchange)="eventPaginationSource($event)" [initialLabel]="'10'" [source]="sourcePagination">
+        <ds-pagecounter (onchange)="eventPaginationSource($event)" [initialLabel]="resultadosPorPagina.toString()"
+          [source]="sourcePagination">
         </ds-pagecounter>
       </div>
 
