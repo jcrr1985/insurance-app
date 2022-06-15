@@ -6,6 +6,7 @@ import { ArancelService } from 'src/app/shared/services/arancel-service.service'
 import { DomSanitizer } from '@angular/platform-browser';
 import { IFile } from 'src/app/shared/interfaces/interfaces';
 import Utils from 'src/app/shared/utils/utils';
+import { AlertaFileService } from 'src/app/shared/services/alerta-file.service';
 
 @Component({
   selector: 'app-step-documentos-generales',
@@ -28,6 +29,7 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
   public archivoInvalido = false;
   public tipoDocumento: any;
   public esMostrarErrores: boolean = false;
+  public msgErrorOnFile: any;
 
 
 
@@ -41,8 +43,6 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
     let i: number = 0;
     let fileEvnts: IFile[] = [];
     let multi = false;
-
-
 
     const errorValidate = (idprestacionSeleccionada: number, msg: string) => {
       switch (idprestacionSeleccionada) {
@@ -98,38 +98,104 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
           if (multi) {
             this.documentsDisplay.consultamedica.nameFiles[index].files.push(...fileEvnts);
           } else {
-            this.documentsDisplay.consultamedica.nameFiles[index].files = [fileEvnts[0]];
+            if (index == 0) {
+              let cantidadDeArchivos = this.documentsDisplay.consultamedica.nameFiles[index].files.length;
+              if (cantidadDeArchivos) { this.alertfile.setConfirmation('', () => { this.documentsDisplay.consultamedica.nameFiles[index].files = [fileEvnts[0]]; }, () => { }); }
+              else this.documentsDisplay.consultamedica.nameFiles[index].files = [fileEvnts[0]]
+            } else {
+              this.documentsDisplay.consultamedica.nameFiles[index].files = [fileEvnts[0]]
+            }
           }
         this.validateFileState('consultamedica', index);
         this.emitirCambioArchivo()
         break;
       case 2:
         multi = this.documentsDisplay.hospitalario.nameFiles[index]['multi'];
-        if (fileEvnts.length) multi ? this.documentsDisplay.hospitalario.nameFiles[index].files.push(...fileEvnts) : this.documentsDisplay.hospitalario.nameFiles[index].files = [fileEvnts[0]];
+        if (fileEvnts.length)
+          if (multi) {
+            this.documentsDisplay.hospitalario.nameFiles[index].files.push(...fileEvnts)
+          } else {
+            if (index == 0) {
+              let cantidadDeArchivos = this.documentsDisplay.hospitalario.nameFiles[index].files.length;
+              if (cantidadDeArchivos) { this.alertfile.setConfirmation('', () => { this.documentsDisplay.hospitalario.nameFiles[index].files = [fileEvnts[0]]; }, () => { }); }
+              else this.documentsDisplay.hospitalario.nameFiles[index].files = [fileEvnts[0]]
+            } else {
+              this.documentsDisplay.hospitalario.nameFiles[index].files = [fileEvnts[0]]
+            }
+            //this.documentsDisplay.hospitalario.nameFiles[index].files = [fileEvnts[0]];
+          }
         this.validateFileState('hospitalario', index);
         this.emitirCambioArchivo()
         break;
       case 3:
         multi = this.documentsDisplay.lentes.nameFiles[index]['multi'];
-        if (fileEvnts.length) multi ? this.documentsDisplay.lentes.nameFiles[index].files.push(...fileEvnts) : this.documentsDisplay.lentes.nameFiles[index].files = [fileEvnts[0]];
+        if (fileEvnts.length)
+          if (multi) {
+            this.documentsDisplay.lentes.nameFiles[index].files.push(...fileEvnts)
+          } else {
+            if (index == 0) {
+              let cantidadDeArchivos = this.documentsDisplay.lentes.nameFiles[index].files.length;
+              if (cantidadDeArchivos) { this.alertfile.setConfirmation('', () => { this.documentsDisplay.lentes.nameFiles[index].files = [fileEvnts[0]]; }, () => { }); }
+              else this.documentsDisplay.lentes.nameFiles[index].files = [fileEvnts[0]]
+            } else {
+              this.documentsDisplay.lentes.nameFiles[index].files = [fileEvnts[0]]
+            }
+            //this.documentsDisplay.lentes.nameFiles[index].files = [fileEvnts[0]];
+          }
         this.validateFileState('lentes', index);
         this.emitirCambioArchivo()
         break;
       case 4:
         multi = this.documentsDisplay.dentales.nameFiles[index]['multi'];
-        if (fileEvnts.length) multi ? this.documentsDisplay.dentales.nameFiles[index].files.push(...fileEvnts) : this.documentsDisplay.dentales.nameFiles[index].files = [fileEvnts[0]];
+        if (fileEvnts.length)
+          if (multi) {
+            this.documentsDisplay.dentales.nameFiles[index].files.push(...fileEvnts)
+          } else {
+            if (index == 0) {
+              let cantidadDeArchivos = this.documentsDisplay.dentales.nameFiles[index].files.length;
+              if (cantidadDeArchivos) { this.alertfile.setConfirmation('', () => { this.documentsDisplay.dentales.nameFiles[index].files = [fileEvnts[0]]; }, () => { }); }
+              else this.documentsDisplay.dentales.nameFiles[index].files = [fileEvnts[0]]
+            } else {
+              this.documentsDisplay.dentales.nameFiles[index].files = [fileEvnts[0]]
+            }
+            //this.documentsDisplay.dentales.nameFiles[index].files = [fileEvnts[0]];
+          }
         this.validateFileState('dentales', index);
         this.emitirCambioArchivo()
         break;
       case 5:
         multi = this.documentsDisplay.examenes.nameFiles[index]['multi'];
-        if (fileEvnts.length) multi ? this.documentsDisplay.examenes.nameFiles[index].files.push(...fileEvnts) : this.documentsDisplay.examenes.nameFiles[index].files = [fileEvnts[0]];
+        if (fileEvnts.length)
+          if (multi) {
+            this.documentsDisplay.examenes.nameFiles[index].files.push(...fileEvnts)
+          } else {
+            if (index == 0) {
+              let cantidadDeArchivos = this.documentsDisplay.examenes.nameFiles[index].files.length;
+              if (cantidadDeArchivos) { this.alertfile.setConfirmation('', () => { this.documentsDisplay.examenes.nameFiles[index].files = [fileEvnts[0]]; }, () => { }); }
+              else this.documentsDisplay.examenes.nameFiles[index].files = [fileEvnts[0]]
+            } else {
+              this.documentsDisplay.examenes.nameFiles[index].files = [fileEvnts[0]]
+            }
+            //this.documentsDisplay.examenes.nameFiles[index].files = [fileEvnts[0]];
+          }
         this.validateFileState('examenes', index);
         this.emitirCambioArchivo()
         break;
       case 6:
         multi = this.documentsDisplay.medicamentos.nameFiles[index]['multi'];
-        if (fileEvnts.length) multi ? this.documentsDisplay.medicamentos.nameFiles[index].files.push(...fileEvnts) : this.documentsDisplay.medicamentos.nameFiles[index].files.push(fileEvnts[0])
+        if (fileEvnts.length)
+          if (multi) {
+            this.documentsDisplay.medicamentos.nameFiles[index].files.push(...fileEvnts)
+          } else {
+            if (index == 0) {
+              let cantidadDeArchivos = this.documentsDisplay.medicamentos.nameFiles[index].files.length;
+              if (cantidadDeArchivos) { this.alertfile.setConfirmation('', () => { this.documentsDisplay.medicamentos.nameFiles[index].files = [fileEvnts[0]]; }, () => { }); }
+              else this.documentsDisplay.medicamentos.nameFiles[index].files = [fileEvnts[0]]
+            } else {
+              this.documentsDisplay.medicamentos.nameFiles[index].files = [fileEvnts[0]]
+            }
+            //this.documentsDisplay.medicamentos.nameFiles[index].files.push(fileEvnts[0])
+          }
         this.validateFileState('medicamentos', index);
         this.emitirCambioArchivo()
         break;
@@ -154,12 +220,14 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
 
 
   public documentsDisplay: any;
-  constructor(private dataStorageService: DataStorageService, private sanitizer: DomSanitizer, private arancelService: ArancelService) {
+  constructor(private dataStorageService: DataStorageService, private sanitizer: DomSanitizer, private arancelService: ArancelService, private alertfile: AlertaFileService) {
   }
   public counter: number = 0;
   ngOnChanges(changes: SimpleChanges) { }
   ngOnInit(): void {
-
+    this.alertfile.getMessage().subscribe(msg => {
+      this.msgErrorOnFile = msg;
+    })
     const interval = setInterval(() => {
       let element = document.querySelector('#ds-file-id')
       if (element) {
@@ -246,7 +314,7 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
   restoreDocs() {
     this.documentsDisplay = {
       consultamedica: {
-        nameFiles: [{ name: `${this.subtituloPrimerDocumento}`, files: [], multi: false, required: true, valid: false, esDiagnostico: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, valid: false, esDiagnostico: true }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true, esDiagnostico: false }],
+        nameFiles: [{ name: `${this.subtituloPrimerDocumento}`, files: [], multi: false, required: true, valid: false, esDiagnostico: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, valid: false, esDiagnostico: true }, { name: 'Documento adicional(Opcional)', files: [], multi: true, required: false, valid: true, esDiagnostico: false }],
         cols: 'col-span-4'
       },
       hospitalario: {
@@ -255,19 +323,19 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
         cols: 'col-span-12',
       },
       lentes: {
-        nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Receta Óptica', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true }],
+        nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Receta Óptica', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional(Opcional)', files: [], multi: true, required: false, valid: true }],
         cols: 'col-span-4'
       },
       dentales: {
-        nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Formulario Dental', files: [], multi: true, required: true, valid: false }, { name: 'Presupuesto Dental', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true }],
+        nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Formulario Dental', files: [], multi: true, required: true, valid: false }, { name: 'Presupuesto Dental', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional(Opcional)', files: [], multi: true, required: false, valid: true }],
         cols: 'col-span-3'
       },
       examenes: {
-        nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true }],
+        nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional(Opcional)', files: [], multi: true, required: false, valid: true }],
         cols: 'col-span-4'
       },
       medicamentos: {
-        nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Receta médica', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, valid: true }],
+        nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, valid: false }, { name: 'Receta médica', files: [], multi: true, required: true, valid: false }, { name: 'Documento adicional(Opcional)', files: [], multi: true, required: false, valid: true }],
         cols: 'col-span-4'
       },
     }
@@ -460,9 +528,8 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
   }
 
   hideModalError() {
-    this.esMostrarErrores = false;
+    this.esMostrarErrores = !this.esMostrarErrores;
   }
-
 }
 
 const previsionesArray = [

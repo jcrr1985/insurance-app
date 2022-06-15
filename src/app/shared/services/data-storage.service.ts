@@ -306,7 +306,7 @@ export class DataStorageService {
       files: {
         docsStructure: {
           consultamedica: {
-            nameFiles: [{ name: '', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false, esDiagnostico: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false, esDiagnostico: true }, { name: 'Documento adicional', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true, esDiagnostico: false }],
+            nameFiles: [{ name: '', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false, esDiagnostico: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false, esDiagnostico: true }, { name: 'Documento adicional (Opcional)', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true, esDiagnostico: false }],
             cols: 'col-span-4'
           },
           hospitalario: {
@@ -315,19 +315,19 @@ export class DataStorageService {
             cols: 'col-span-12',
           },
           lentes: {
-            nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Receta Óptica', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
+            nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Receta Óptica', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional (Opcional)', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
             cols: 'col-span-4'
           },
           dentales: {
-            nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Formulario Dental', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Presupuesto Dental', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
+            nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Formulario Dental', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Presupuesto Dental', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional (Opcional)', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
             cols: 'col-span-3'
           },
           examenes: {
-            nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
+            nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional (Opcional)', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
             cols: 'col-span-4'
           },
           medicamentos: {
-            nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Receta médica', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
+            nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Receta médica', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional (Opcional)', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
             cols: 'col-span-4'
           },
         },
@@ -345,7 +345,7 @@ export class DataStorageService {
     this.reembolsoForm.files = {
       docsStructure: {
         consultamedica: {
-          nameFiles: [{ name: '', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false, esDiagnostico: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false, esDiagnostico: true }, { name: 'Documento adicional', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true, esDiagnostico: false }],
+          nameFiles: [{ name: '', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false, esDiagnostico: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false, esDiagnostico: true }, { name: 'Documento adicional (Opcional)', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true, esDiagnostico: false }],
           cols: 'col-span-4'
         },
         hospitalario: {
@@ -354,19 +354,19 @@ export class DataStorageService {
           cols: 'col-span-12',
         },
         lentes: {
-          nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Receta Óptica', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
+          nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Receta Óptica', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional (Opcional)', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
           cols: 'col-span-4'
         },
         dentales: {
-          nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Formulario Dental', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Presupuesto Dental', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
+          nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Formulario Dental', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Presupuesto Dental', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional (Opcional)', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
           cols: 'col-span-3'
         },
         examenes: {
-          nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
+          nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional (Opcional)', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
           cols: 'col-span-4'
         },
         medicamentos: {
-          nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Receta médica', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
+          nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Receta médica', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional (Opcional)', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
           cols: 'col-span-4'
         },
       },
@@ -496,7 +496,7 @@ const resumePrestaciones: any = [];
 
 const documentsDisplay: any = {
   consultamedica: {
-    nameFiles: [{ name: '', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false, esDiagnostico: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false, esDiagnostico: true }, { name: 'Documento adicional (opcional)', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true, esDiagnostico: false }],
+    nameFiles: [{ name: '', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false, esDiagnostico: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false, esDiagnostico: true }, { name: 'Documento adicional (Opcional) (opcional)', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true, esDiagnostico: false }],
     cols: 'col-span-4'
   },
   hospitalario: {
@@ -505,19 +505,19 @@ const documentsDisplay: any = {
     cols: 'col-span-12',
   },
   lentes: {
-    nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Receta Óptica', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional (opcional)', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
+    nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Receta Óptica', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional (Opcional) (opcional)', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
     cols: 'col-span-4'
   },
   dentales: {
-    nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Formulario Dental', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Presupuesto Dental', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional (opcional)', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
+    nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Formulario Dental', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Presupuesto Dental', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional (Opcional) (opcional)', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
     cols: 'col-span-3'
   },
   examenes: {
-    nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional (opcional)', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
+    nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento de diagnóstico', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional (Opcional) (opcional)', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
     cols: 'col-span-4'
   },
   medicamentos: {
-    nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Receta médica', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional (opcional)', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
+    nameFiles: [{ name: 'Documento Reembolso', files: [], multi: false, required: true, error: { name: '', show: false }, valid: false }, { name: 'Receta médica', files: [], multi: true, required: true, error: { name: '', show: false }, valid: false }, { name: 'Documento adicional (Opcional) (opcional)', files: [], multi: true, required: false, error: { name: '', show: false }, valid: true }],
     cols: 'col-span-4'
   },
 }

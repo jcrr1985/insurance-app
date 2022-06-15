@@ -49,12 +49,13 @@
     </div>
     <!-- Esperando seleccionar tipo documento -->
     <ng-container
-      *ngIf="getStepsStatus('stepFour_general','tipoDocumentoSeleccionado') || (idPrestacionSeleccionada == 2  && getStepsStatus('stepThree_general','montoSolicitado'))" >
-      
-     
-      
+      *ngIf="getStepsStatus('stepFour_general','tipoDocumentoSeleccionado') || (idPrestacionSeleccionada == 2  && getStepsStatus('stepThree_general','montoSolicitado'))">
+
+
+
       <!-- Cards documentos -->
-      <div class="cards-document__container" [ngClass]="{'transicion-de-despliegue':getStepsStatus('stepFour_general','tipoDocumentoSeleccionado') || (idPrestacionSeleccionada == 2  && getStepsStatus('stepThree_general','montoSolicitado'))}">
+      <div class="cards-document__container"
+        [ngClass]="{'transicion-de-despliegue':getStepsStatus('stepFour_general','tipoDocumentoSeleccionado') || (idPrestacionSeleccionada == 2  && getStepsStatus('stepThree_general','montoSolicitado'))}">
         <!-- consulta medica -->
 
 
@@ -68,7 +69,8 @@
               </ds-file>
               <ng-container *ngIf="docs.error.show">
                 <div [id]="indexDocName+'documento'" class="mensajeError">
-                  <ds-icon  color="info4" size="20" icon-name="bi-x-circle-fill" (click)="hideError(indexDocName+'documento')"></ds-icon>
+                  <ds-icon color="info4" size="20" icon-name="bi-x-circle-fill"
+                    (click)="hideError(indexDocName+'documento')"></ds-icon>
                   <p>{{docs.error.name}}</p>
                 </div>
               </ng-container>
@@ -114,7 +116,8 @@
               </ds-file>
               <ng-container *ngIf="docs.error.show">
                 <div [id]="indexDocName+'documento'" class="mensajeError mensaje-center">
-                  <ds-icon  color="info4" size="20" icon-name="bi-x-circle-fill" (click)="hideError(indexDocName+'documento')"></ds-icon>
+                  <ds-icon color="info4" size="20" icon-name="bi-x-circle-fill"
+                    (click)="hideError(indexDocName+'documento')"></ds-icon>
                   <p>{{docs.error.name}}</p>
                 </div>
               </ng-container>
@@ -157,7 +160,8 @@
               </ds-file>
               <ng-container *ngIf="docs.error.show">
                 <div [id]="indexDocName+'documento'" class="mensajeError">
-                  <ds-icon  color="info4" size="20" icon-name="bi-x-circle-fill" (click)="hideError(indexDocName+'documento')"></ds-icon>
+                  <ds-icon color="info4" size="20" icon-name="bi-x-circle-fill"
+                    (click)="hideError(indexDocName+'documento')"></ds-icon>
                   <p>{{docs.error.name}}</p>
                 </div>
               </ng-container>
@@ -199,7 +203,8 @@
               </ds-file>
               <ng-container *ngIf="docs.error.show">
                 <div [id]="indexDocName+'documento'" class="mensajeError">
-                  <ds-icon  color="info4" size="20" icon-name="bi-x-circle-fill" (click)="hideError(indexDocName+'documento')"></ds-icon>
+                  <ds-icon color="info4" size="20" icon-name="bi-x-circle-fill"
+                    (click)="hideError(indexDocName+'documento')"></ds-icon>
                   <p>{{docs.error.name}}</p>
                 </div>
               </ng-container>
@@ -241,7 +246,8 @@
               </ds-file>
               <ng-container *ngIf="docs.error.show">
                 <div [id]="indexDocName+'documento'" class="mensajeError">
-                  <ds-icon  color="info4" size="20" icon-name="bi-x-circle-fill" (click)="hideError(indexDocName+'documento')"></ds-icon>
+                  <ds-icon color="info4" size="20" icon-name="bi-x-circle-fill"
+                    (click)="hideError(indexDocName+'documento')"></ds-icon>
                   <p>{{docs.error.name}}</p>
                 </div>
               </ng-container>
@@ -283,7 +289,8 @@
               </ds-file>
               <ng-container *ngIf="docs.error.show">
                 <div [id]="indexDocName+'documento'" class="mensajeError">
-                  <ds-icon  color="info4" size="20" icon-name="bi-x-circle-fill" (click)="hideError(indexDocName+'documento')"></ds-icon>
+                  <ds-icon color="info4" size="20" icon-name="bi-x-circle-fill"
+                    (click)="hideError(indexDocName+'documento')"></ds-icon>
                   <p>{{docs.error.name}}</p>
                 </div>
               </ng-container>
@@ -344,18 +351,19 @@
   </div>
 </div>
 
- <!-- Modal error documento-->
-<div class="modal-errores" *ngIf="esMostrarErrores">
+<!-- Modal error documento-->
+<!-- <div class="modal-errores" *ngIf="esMostrarErrores"> -->
+<div class="modal-errores" *ngIf="msgErrorOnFile && msgErrorOnFile.type == 'confirm'">
   <div class="modal-error--container">
-      <ds-icon  color="actionTertiary" size="44" icon-name="bi-exclamation-triangle"></ds-icon>
-      <div class="modal-error--content">
-          <h5>Sólo se admite un solo documento</h5>
-          <div class="question">¿Deseas reemplazarlo?</div>
-      </div>
-      <div class="modal-error--buttons">
-          <button class="button-secondary" (click)="hideModalError()">No</button>
-          <button class="button-primary"  (click)="hideModalError()">Sí</button>
-      </div>
+    <ds-icon color="actionTertiary" size="44" icon-name="bi-exclamation-triangle"></ds-icon>
+    <div class="modal-error--content">
+      <h5>Sólo se admite un solo documento</h5>
+      <div class="question">¿Deseas reemplazarlo?</div>
+    </div>
+    <div class="modal-error--buttons">
+      <button class="button-secondary" (click)="msgErrorOnFile.noFn()">No</button>
+      <button class="button-primary" (click)="msgErrorOnFile.siFn()">Sí</button>
+    </div>
   </div>
 </div>
 <!-- Fin Modal error documento -->

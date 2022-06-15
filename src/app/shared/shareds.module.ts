@@ -21,6 +21,7 @@ import { ColDocLiqComponent } from "./components/col-doc-liq/col-doc-liq.compone
 import { PillComponent } from "./components/pill/pill.component";
 import { TablaMobileComponent } from './components/tabla-mobile/tabla-mobile.component';
 import { ModalTokenComponent } from './components/modal-token/modal-token.component';
+import { AlertaFileService } from './services/alerta-file.service';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,7 @@ import { ModalTokenComponent } from './components/modal-token/modal-token.compon
     ColDocLiqComponent,
     TablaMobileComponent
   ],
-  providers: [DataStorageService],
+  providers: [DataStorageService, AlertaFileService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SharedsModule { }
