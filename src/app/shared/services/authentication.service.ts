@@ -30,7 +30,7 @@ export class AuthenticationService {
     body.set('grant_type', 'authorization_code');
     body.set('code', code);
     body.set('client_id', 'vs-web-salud');
-    body.set('redirect_uri', `${this.document.location.origin}/reembolso`);
+    body.set('redirect_uri', `${this.document.location.origin}`);
     body.set('scope', 'openid profile User');
     return this.httpClient.post<any>(`${this.UrlSSO}/token`, body.toString(), httpOptions)
   }
