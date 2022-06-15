@@ -18,14 +18,14 @@ export class DataUsuarioService {
   constructor(private http: HttpClient) { }
 
   async InsuredData(rut: string): Promise<boolean> {
-    var tokenData : Token = JSON.parse(localStorage.getItem("Token")!);
+    var tokenData: Token = JSON.parse(localStorage.getItem("Token")!);
 
-      const RutDv = rut.replace('-','');
-      const headers = new HttpHeaders()
+    const RutDv = rut.replace('-', '');
+    const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${tokenData.access_token}`)
       .set('x-ibm-client-id', environment.X_IBM_CLIENT_ID);
 
-      try {
+    try {
       const usuarioConectado = (
         await this.http
           .get<any>(`${environment.URL_BFF_BASE}/client/${RutDv}/cargas`, { headers: headers })
@@ -42,39 +42,39 @@ export class DataUsuarioService {
       } else {
         return false;
       }
-      } catch (error) {
-        console.warn(error);
-        return false;
-      }
+    } catch (error) {
+      console.warn(error);
+      return false;
     }
+  }
 
-    async getReimbursements() {
-      const fechas = Utils.generarFecha();
+  async getReimbursements(page: number = 1, offset: number = 10) {
+    const fechas = Utils.generarFecha();
 
-      const tokenData: Token = JSON.parse(localStorage.getItem("Token")!);
-      const header = new HttpHeaders()
-        .set('Authorization', `Bearer ${tokenData.access_token}`)
-        .set('x-ibm-client-id', environment.X_IBM_CLIENT_ID);
+    const tokenData: Token = JSON.parse(localStorage.getItem("Token")!);
+    const header = new HttpHeaders()
+      .set('Authorization', `Bearer ${tokenData.access_token}`)
+      .set('x-ibm-client-id', environment.X_IBM_CLIENT_ID);
 
-      try {
-        const historialReembolso = await this.http.get<IClaims>(
-          `${environment.URL_BFF_BASE}/BFF/History/insured/${this.usuarioConectado.rutCuerpo}${this.usuarioConectado.rutDigitoVerificador}/policy/${this.usuarioConectado.poliza}?StarDate=${fechas[0]}&EndDate=${fechas[1]}&Page=1&Offset=20`,
-          { headers: header }).toPromise();
+    try {
+      const historialReembolso = await this.http.get<IClaims>(
+        `${environment.URL_BFF_BASE}/BFF/History/insured/${this.usuarioConectado.rutCuerpo}${this.usuarioConectado.rutDigitoVerificador}/policy/${this.usuarioConectado.poliza}?StarDate=${fechas[0]}&EndDate=${fechas[1]}&Page=${page}&Offset=${offset}`,
+        { headers: header }).toPromise();
 
-        let historialCompleto: Historico[] = [];
-        historialReembolso.claims.forEach((reembolso) => {
-          historialCompleto.push(new Historico(reembolso));
-        })
+      let historialCompleto: Historico[] = [];
+      historialReembolso.claims.forEach((reembolso) => {
+        historialCompleto.push(new Historico(reembolso));
+      })
 
-        this.usuarioConectado.historial = historialCompleto;
-        this.usuarioConectado.Pagination = historialReembolso.pagination;
-        console.log(this.usuarioConectado.historial);
-        return true;
-      } catch (error) {
-        console.log(error);
-        return false;
-      }
+      this.usuarioConectado.historial = historialCompleto;
+      this.usuarioConectado.Pagination = historialReembolso.pagination;
+      console.log(this.usuarioConectado.historial);
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
     }
+  }
 
   public get usuarioConectado(): Usuario {
     return this._usuarioConectado;

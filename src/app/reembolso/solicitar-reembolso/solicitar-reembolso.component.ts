@@ -1,5 +1,5 @@
 import { DataStorageService } from './../../shared/services/data-storage.service';
-import { AfterContentChecked, AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterContentChecked, AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import '@vs-design-system/ds-input';
 import '@vs-design-system/ds-datepicker';
 import '@vs-design-system/ds-select';
@@ -68,6 +68,8 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
   public nombre: any;
   public apellido: any;
   @ViewChild('two') two!: ElementRef
+  public isFileLoaded: any;
+  @Output() mostrarErroresEmitter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private dataStorageService: DataStorageService,
@@ -85,6 +87,15 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
   }
 
   ngOnInit(): void {
+
+    // this.dataStorageService.getFormReemboslo().subscribe(statusOn => {
+    //   this.stepsStatusOn = statusOn;
+    //   this.isFileLoaded = statusOn.files.docsStructure.consultamedica.nameFiles[0].files.length; // contenedor booleano de archivo cargado
+    //   if (this.isFileLoaded) {
+    //     alert('tengo un valor')
+    //   } else
+    //     alert('no tengo un valor')
+    // })
     this.subscribeChangesOnInput();
     this.subscripcionDatos();
     this.addAccessKey();
@@ -101,8 +112,19 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
   }
 
   ngAfterViewInit(): void {
-    document.querySelector('.input_container  p')?.addEventListener('click', () => alert('hey'))
+    document.querySelector('#ds-file-id')?.addEventListener('change', (evt) => {
+      console.log('evt', evt)
+      this.dataStorageService.getFormReemboslo().subscribe(statusOn => {
+        this.stepsStatusOn = statusOn;
+        this.isFileLoaded = statusOn.files.docsStructure.consultamedica.nameFiles[0].files.length; // contenedor booleano de archivo cargado
+        if (this.isFileLoaded) {
+          alert('tengo un valor')
+        } else
+          alert('no tengo un valor')
+      })
+    })
   }
+
 
   /**
    * @description se subscribe a los observables correspondientes y necesarios para el correcto funcionamiento
@@ -333,9 +355,6 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
         if (status == 'completed') this.stepperFourSource = () => [{ label: '', status: 'active' }];
       }
     }
-
-
-
   }
   /**
    * @description Evalúa los requisitos necesarios para el progress del 4to paso - sube Documentos
@@ -452,5 +471,10 @@ export class SolicitarReembolsoComponent implements OnInit, OnDestroy, AfterCont
 
   mostrarDocumentoAdicional(respuestaCopago: string) {
     this.eliminarDocumentoAdicional = respuestaCopago;
+  }
+
+  showModalErrorCantidad(evt: any) {
+    console.log('evt', evt)
+    this.mostrarErroresEmitter.emit(evt)
   }
 }

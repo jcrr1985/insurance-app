@@ -215,7 +215,7 @@ export class StepDatosGeneralesComponent implements OnInit, OnDestroy, OnChanges
   }
 
   setStepsStatus(data: any) {
-    console.log("···· ->", data);
+    if (data.option == 'tipoDocumentoSeleccionado') this.dataStorageService.resturarFormularioReembolsoOnlyFiles();
     this.dataStorageService.setFormReembolso(data.step, data.option, data.value);
     this.dataStorageService.dataDeHospitalarioBehavior.next(data.value)
     this.mostrarDocumentoAdicional.emit(data.value.value)

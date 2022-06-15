@@ -67,21 +67,15 @@
           </ds-paragraph>
           <div class="question-options" *ngIf="mostrarRadioButtons && idPestacionSeleccionada !=2">
             <ds-radio type="s1" family="primary" label="Si" [attr.checked]="copago=='si'" name="copagoMayor" value="si"
-              (click)="
-              setStepsStatus({
-                step: 'stepThree_general',
-                option: 'copagoMayor',
-                value: 'si'
-              });copago='si';
+              (click)="setStepsStatus({step: 'stepThree_general',option: 'copagoMayor',value: 'si'});
+              setStepsStatus({step: 'stepFour_general',option: 'tipoDocumentoSeleccionado',value: ''});
+              copago='si';
             ">
             </ds-radio>
             <ds-radio type="s1" family="primary" label="No" [attr.checked]="copago=='no'" name="copagoMayor" value="no"
-              (click)="
-              setStepsStatus({
-                step: 'stepThree_general',
-                option: 'copagoMayor',
-                value: 'no'
-              });copago='no';
+              (click)="setStepsStatus({step: 'stepThree_general',option: 'copagoMayor',value: 'no'});
+              setStepsStatus({step: 'stepFour_general',option: 'tipoDocumentoSeleccionado',value: ''});
+              copago='no';
             ">
             </ds-radio>
           </div>

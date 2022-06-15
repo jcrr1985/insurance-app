@@ -336,10 +336,12 @@ export class DataStorageService {
     };
     this.reembolsoFormBehavior.next(this.reembolsoForm);
   }
+
   /**
-   * @description restura el formulario de reembolso a su estado original y actualiza  todos los componentes subscritos
+   * @description restura los archivos en el formulario de reembolso a su estado original y actualiza  todos los componentes subscritos;
    */
   resturarFormularioReembolsoOnlyFiles() {
+
     this.reembolsoForm.files = {
       docsStructure: {
         consultamedica: {
@@ -523,11 +525,11 @@ const documentsDisplay: any = {
 
 const formReembolso = {
   stepOne_who: {
-    personaSeleccionada: false,
+    personaSeleccionada: '',
   },
   stepTwo_selectOption: {
     prestacionSeleccionada: false,
-    reembolsoPrevioIsapre: null,
+    reembolsoPrevioIsapre: false,
   },
   stepThree_general: {
     agenciaSeleccionada: '',

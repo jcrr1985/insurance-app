@@ -25,8 +25,9 @@
     [stepperThreeSource]="stepperThreeSource" [customStepperSize]="customStepperSize"></app-step-datos-generales>
 
   <!-- CARGA DE DOCUMENTOS -->
-  <app-step-documentos-generales [otroReembolso]="" [eliminarDocumentoAdicional]="eliminarDocumentoAdicional"
-    [montoReelbolso]="montoReelbolso" [stepperFourSource]="stepperFourSource" [customStepperSize]="customStepperSize">
+  <app-step-documentos-generales (mostrarModalErrorCantidad)="showModalErrorCantidad('$event')" [otroReembolso]=""
+    [eliminarDocumentoAdicional]="eliminarDocumentoAdicional" [montoReelbolso]="montoReelbolso"
+    [stepperFourSource]="stepperFourSource" [customStepperSize]="customStepperSize">
   </app-step-documentos-generales>
 
   <!-- DETALLE PRESTACION -->
