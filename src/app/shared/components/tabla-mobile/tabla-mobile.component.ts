@@ -5,6 +5,7 @@ import { Observable, timer } from 'rxjs';
 import { Reembolsos } from '../../interfaces/interfaces';
 import { TokenData } from '../../interfaces/sso';
 import { BreakpointObserverService } from '../../services/breakpoint-observer.service';
+import { DataUsuarioService } from '../../services/data-usuario/data-usuario.service';
 import { ReembolsoService } from '../../services/reembolso.service';
 
 @Component({
@@ -26,7 +27,8 @@ export class TablaMobileComponent implements OnInit, OnDestroy, AfterViewInit, A
   constructor(
     private reembolsoService: ReembolsoService,
     private router: Router,
-    private _breakpointObserverService: BreakpointObserverService
+    private _breakpointObserverService: BreakpointObserverService,
+    private dataUsuario: DataUsuarioService
   ) {
   }
 
@@ -73,7 +75,6 @@ export class TablaMobileComponent implements OnInit, OnDestroy, AfterViewInit, A
   async aciveTableHistorial() {
     this.calTotalRegistros();
     this.calculatePages();
-    this.getReembolsos();
     this.createSourcePagination();
     this.showTable = false;
     timer(10);
@@ -84,7 +85,7 @@ export class TablaMobileComponent implements OnInit, OnDestroy, AfterViewInit, A
    * @description calcula el total de registros disponibles
    */
   calTotalRegistros() {
-    this.totalRegistros = this.reembolsoService.getReembolsos().length;
+    this.totalRegistros = this.dataUsuario.usuarioConectado.Pagination.numberOfRecords;
   }
   /**
    * @description calcula segun la cantidad de registros las paginas disponibles
@@ -93,14 +94,6 @@ export class TablaMobileComponent implements OnInit, OnDestroy, AfterViewInit, A
     const numeroDisponible = this.totalRegistros / this.resultadosPorPagina;
     const verificandoAdicional = numeroDisponible - parseInt((numeroDisponible).toString());
     this.totalPaginas = numeroDisponible + (verificandoAdicional > 0 ? 1 : 0);
-  }
-  /**
-   * @description obtiene los registros segun la posicion seleccionada de la pagina y la cantidad a mostrar
-   */
-  getReembolsos() {
-    const inicio = (this.resultadosPorPagina * this.pageSelected) - this.resultadosPorPagina;
-    const final = inicio + this.resultadosPorPagina;
-    this.dataRegistros = (this.reembolsoService.getReembolsos()).slice(inicio, final);
   }
 
   /**

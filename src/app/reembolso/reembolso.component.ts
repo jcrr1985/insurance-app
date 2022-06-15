@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import '@vs-design-system/ds-input';
-import '@vs-design-system/ds-datepicker'; 
+import '@vs-design-system/ds-datepicker';
 import '@vs-design-system/ds-select';
 import '@vs-design-system/ds-stepper';
 import '@vs-design-system/ds-radio';
@@ -66,8 +66,9 @@ export class ReembolsoComponent implements OnInit {
     const loginExitoso = await this.serviceUsuario.InsuredData(UserInfo.preferred_username);
     if (loginExitoso) {
       try {
-         this.router.navigate(["/home"]);
-         } catch (error) {
+          await this.serviceUsuario.getReimbursements();
+          this.router.navigate(["/home"]);
+        } catch (error) {
           console.warn('¡No se pudo recuperar los datos del asegurado!');
         }
       }

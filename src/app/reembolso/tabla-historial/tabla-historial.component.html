@@ -37,29 +37,30 @@
         <span slot="element" class="size-160px">Documento de liquidación</span>
       </div>
 
-      <ng-container *ngFor="let registro of dataRegistros; let i = index">
+      <ng-container *ngFor="let historico of reembolsosUsuario; let i = index">
         <div class="collapsabe-box">
           <div class="table-info__container table--row">
             <div class="size-130px nombre-titular">
               <span class="texto-normal" slot="element">{{
-                registro.nombre
+                historico.nombreBeneficiario | titlecase
                 }}</span>
               <span class="texto-especial" slot="element">{{
-                registro.parentesco
+                historico.relacionBeneficiario | titlecase
                 }}</span>
             </div>
             <span class="texto-normal" slot="element" class="size-100px">{{
-              registro.numSolicitud
+              historico.numeroSolicitud
               }}</span>
 
             <span class="texto-normal" slot="element" class="size-100px right-text">{{
-              registro.montoSolicitado
+              formateoValor(historico.montoSolicitado)
               }}</span>
 
-            <span class="texto-normal" slot="element" class="size-100px right-text">{{
-              registro.fechaPago | date: "shortDate" }}</span>
+            <span *ngIf="historico.fechaPago" class="texto-normal" slot="element" class="size-100px right-text">{{
+              historico.fechaPago | date:'dd/MM/yy' }}</span>
+            <span *ngIf="!historico.fechaPago" class="texto-normal" slot="element" class="size-100px center-text">-</span>
 
-            <app-pill [texto]="registro.estado" class="size-160px"></app-pill>
+            <app-pill [texto]="historico.estado" class="size-160px"></app-pill>
             <app-col-doc-liq class="size-160px" (indiceEmitter)="toogleCollapsable($event)"
               [indice]="'registerColapsable'+i">
             </app-col-doc-liq>
@@ -75,28 +76,22 @@
                   Solicitado</span>
                 <span class="texto-normal texto-header-colapsable size-160px right-text" slot="element">Monto
                   Reembolsado</span>
-                <span class="texto-normal texto-header-colapsable size-160px" slot="element">Motivo del estado</span>
               </div>
               <div v class="details">
-                <!-- registros para el colapsable -->
-                <ng-container *ngFor="let fila of filasColapsables">
                   <div class="line-divider"></div>
                   <div [id]="'registerColapsable'+i" class="info-row" slot="row">
 
                     <span class="texto-normal size-160px" slot="element">
-                      {{fila.motivo}}
+                      {{historico.tipoPrestacion}}
                     </span>
                     <span class="texto-normal size-160px right-text" slot="element">
-                      {{fila.valor}}
+                      {{formateoValor(historico.montoSolicitado)}}
                     </span>
                     <span class="texto-normal size-160px right-text" slot="element">
-                      {{fila.bonificacion}}
-                    </span>
-                    <span class="texto-normal size-160px" slot="element">
-                      {{fila.observaciones}}
+                      {{formateoValor(historico.montoReembolsado)}}
                     </span>
                   </div>
-                </ng-container>
+
               </div>
               <div class="doc-nota">
                 <span class="icono-doc">
@@ -116,12 +111,12 @@
 
     <!-- tabla mobile -->
     <div class="table-mobile table-mobile--container">
-      <ng-container *ngFor="let registro of dataRegistros; let i = index">
+      <ng-container *ngFor="let historico of reembolsosUsuario; let i = index">
         <div class="table-mobile--items">
           <input type="checkbox" [id]="'collapsible-trigger'+i">
           <div class="titulo">
             <label [for]="'collapsible-trigger'+i">
-              <h5>Nombre prestacion</h5>
+              <h5>Prestación {{historico.tipoPrestacion}}</h5>
               <div class="toggle-container">
                 <ds-icon id="chevron" icon-name="bi-chevron-down" size="12" class="css-7kp13n"></ds-icon>
               </div>
@@ -130,33 +125,31 @@
           <div class="collapsable-content">
             <div class="content-group hidden">
               <div class="content">
-                <h6 class="subtitulo">{{registro.nombre}}</h6>
-                <p class="info">{{registro.parentesco}}</p>
+                <h6 class="subtitulo">{{historico.nombreBeneficiario | titlecase}}</h6>
+                <p class="info">{{historico.relacionBeneficiario | titlecase}}</p>
               </div>
               <div class="content">
                 <h6 class="subtitulo">Estado</h6>
-                <p class="info">{{registro.estado}}</p>
-              </div>
-              <div class="content">
-                <h6 class="subtitulo">Motivo del estado</h6>
-                <p class="info">Observaciones</p>
+                <!-- <p class="info">{{registro.estado}}</p> -->
+                <app-pill [texto]="historico.estado" class="size-160px"></app-pill>
               </div>
               <div class="content">
                 <h6 class="subtitulo">N° Solicitud</h6>
-                <p class="info">{{registro.numSolicitud}}</p>
+                <p class="info">{{ historico.numeroSolicitud }}</p>
               </div>
-              <div class="content">
+              <div  class="content">
                 <h6 class="subtitulo">Fecha de pago</h6>
-                <p class="info">{{registro.fechaPago | date: "shortDate"}}</p>
+                <p *ngIf="historico.fechaPago" class="info">{{historico.fechaPago | date: "shortDate"}}</p>
+                <p *ngIf="!historico.fechaPago"class="info">-</p>
               </div>
               <div class="content">
                 <h6 class="subtitulo">Monto solicitado</h6>
-                <p class="info">{{registro.montoSolicitado}}</p>
+                <p class="info">{{ formateoValor(historico.montoSolicitado) }}</p>
               </div>
             </div>
             <div class="content">
               <h6 class="subtitulo">Monto reembolsado</h6>
-              <p class="info">{{registro.montoReembolsado}}</p>
+              <p class="info">{{formateoValor(historico.montoReembolsado)}}</p>
             </div>
             <div class="download-files hidden">
               <div class="content">

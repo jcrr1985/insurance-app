@@ -8,30 +8,33 @@ import { Component, Input, OnInit } from '@angular/core';
 export class PillComponent implements OnInit {
   @Input()
   texto!: string;
-  
+  public esAprobado: boolean = false;
+  public esRechazado: boolean = false;
+  public esEvaluacion: boolean = false;
+
   public check: any;
 
   constructor() {}
 
   ngOnInit(): void {
-    switch (this.texto) {
-      case 'Pagado':
-        this.check = './../../../../assets/images/svgs/pagado.svg'
+    switch (this.texto.toLocaleLowerCase()) {
+      case 'pagado':
+      case 'pagado parcial':
+      case 'aprobada':
+      case 'aprobado parcial':
+      case 'transacción imed':
+      case 'transacción farmacia':
+        this.check = '/assets/images/svgs/pagado.svg';
+        this.esAprobado = true;
         break;
-        case 'Pagado parcial':
-        this.check = './../../../../assets/images/svgs/pagado.svg'
+      case 'en evaluación':
+        this.check = '/assets/images/svgs/en-evaluacion.svg';
+        this.esEvaluacion = true;
         break;
-        case 'En evaluación':
-        this.check = './../../../../assets/images/svgs/en-evaluacion.svg'
-        break;
-        case 'Sin pago':
-        this.check = './../../../../assets/images/svgs/rechazado.svg'
-        break;
-        case 'Transacción IMED':
-        this.check = './../../../../assets/images/svgs/pagado.svg'
-        break;
-        case 'Transacción Farmacia':
-        this.check = './../../../../assets/images/svgs/pagado.svg'
+      case 'sin pago':
+      case 'rechazada':
+        this.check = '/assets/images/svgs/rechazado.svg';
+        this.esRechazado = true;
         break;
     }
   }

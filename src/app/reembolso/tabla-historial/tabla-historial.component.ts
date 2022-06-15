@@ -1,6 +1,5 @@
 import { Reembolsos, PaginationSource } from '../../shared/interfaces/interfaces';
 import {
-  AfterContentChecked,
   AfterViewInit,
   Component,
   ElementRef,
@@ -16,6 +15,8 @@ import { Router } from '@angular/router';
 import { timer } from 'rxjs';
 import { Token, TokenData } from 'src/app/shared/interfaces/sso';
 import * as JWT from 'jwt-decode';
+import { DataUsuarioService } from 'src/app/shared/services/data-usuario/data-usuario.service';
+import { Historico } from 'src/app/shared/models/historico';
 
 @Component({
   selector: 'app-tabla-historial',
@@ -23,7 +24,7 @@ import * as JWT from 'jwt-decode';
   styleUrls: ['./tabla-historial.component.scss'],
 })
 export class TablaHistorialComponent
-  implements OnInit, OnDestroy, AfterViewInit, AfterContentChecked {
+  implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('dsPageCounter') dsPageCounter: any;
   @ViewChild('theader')
   theader!: ElementRef;
@@ -31,10 +32,15 @@ export class TablaHistorialComponent
   public indiceSeleccionado!: any;
   public reembolsos!: Reembolsos[];
   showTable: boolean = false;
+  public reembolsosUsuario: Historico[] = [];
+  private formatter = new Intl.NumberFormat('es-CL');
+  public siguientePagina!: () => void;
+  public paginaAnterior!: () => void;
 
   constructor(
     private reembolsoService: ReembolsoService,
-    private router: Router
+    private router: Router,
+    private dataUsuario: DataUsuarioService
   ) {
   }
 
@@ -44,50 +50,45 @@ export class TablaHistorialComponent
 
   public tenEntriesByDefault!: any[];
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<any> {
     this.addAccessKey();
     this.aciveTableHistorial();
     var tokenData: Token = JSON.parse(localStorage.getItem("Token")!);
     var UserInfo: TokenData = JWT(tokenData.access_token);
+    this.reembolsosUsuario = this.dataUsuario.usuarioConectado.historial;
 
-
+    const siguientePagina = () => {
+      let naranja = document.querySelector('.css-7mrpfl') as HTMLElement | null;
+      let naranjaNextSibling = naranja?.nextSibling as HTMLElement | null;
+      try {
+        naranjaNextSibling?.click();
+      } catch (error) {
+      }
+    }
+    const paginaAnterior = () => {
+      let naranja = document.querySelector('.css-7mrpfl') as HTMLElement | null;
+      let naranjaPreviousSibling = naranja?.previousSibling as HTMLElement | null;
+      naranjaPreviousSibling?.click();
+    }
+    this.siguientePagina = siguientePagina;
+    this.paginaAnterior = paginaAnterior
   }
-
-  ngAfterContentChecked() {
-  }
-
-
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-
-
     }, 200);
 
-  }
-  siguientePagina() {
-    let naranja = document.querySelector('.css-7mrpfl') as HTMLElement | null;
-    let naranjaNextSibling = naranja?.nextSibling as HTMLElement | null;
-    naranjaNextSibling?.click()
-  }
-
-  paginaAnterior() {
-    let naranja = document.querySelector('.css-7mrpfl') as HTMLElement | null;
-    let naranjaPreviousSibling = naranja?.previousSibling as HTMLElement | null;
-    naranjaPreviousSibling?.click();
   }
 
   resultadosPorPagina: number = 10;
   pageSelected: number = 1;
   totalRegistros: number = 0;
   totalPaginas: number = 1;
-  dataRegistros: any = [];
   sourcePagination = [{ "label": "0", "value": "0" }];
 
   async aciveTableHistorial() {
     this.calTotalRegistros();
     this.calculatePages();
-    this.getReembolsos();
     this.createSourcePagination();
     this.showTable = false;
     timer(10);
@@ -98,23 +99,13 @@ export class TablaHistorialComponent
    * @description calcula el total de registros disponibles
    */
   calTotalRegistros() {
-    this.totalRegistros = this.reembolsoService.getReembolsos().length;
+    this.totalRegistros = this.dataUsuario.usuarioConectado.Pagination.numberOfRecords;
   }
   /**
    * @description calcula segun la cantidad de registros las paginas disponibles
    */
   calculatePages() {
-    const numeroDisponible = this.totalRegistros / this.resultadosPorPagina;
-    const verificandoAdicional = numeroDisponible - parseInt((numeroDisponible).toString());
-    this.totalPaginas = numeroDisponible + (verificandoAdicional > 0 ? 1 : 0);
-  }
-  /**
-   * @description obtiene los registros segun la posicion seleccionada de la pagina y la cantidad a mostrar
-   */
-  getReembolsos() {
-    const inicio = (this.resultadosPorPagina * this.pageSelected) - this.resultadosPorPagina;
-    const final = inicio + this.resultadosPorPagina;
-    this.dataRegistros = (this.reembolsoService.getReembolsos()).slice(inicio, final);
+    this.totalPaginas = this.dataUsuario.usuarioConectado.Pagination.numberOfPages;
   }
 
   /**
@@ -204,14 +195,10 @@ export class TablaHistorialComponent
     }
   }
 
-  //Datos dummy para filas colapsables
-  public filasColapsables = [
-    { motivo: 'Consulta Médica', valor: '$10.000', bonificacion: '$10.000', observaciones: 'Observaciones' },
-    { motivo: 'Compra de Medicamentos', valor: '$5.000', bonificacion: '$3.000', observaciones: 'Observaciones' },
-    { motivo: 'Marcos y Lentes', valor: '$550.000', bonificacion: '$93.000', observaciones: 'Observaciones' }
-  ];
-
-
+  formateoValor(valor: number) {
+    if (valor < 1) return '$0';
+    return '$' + this.formatter.format(valor);
+  }
 
 }
 
