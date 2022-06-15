@@ -173,7 +173,7 @@ export class StepDocumentosGeneralesComponent implements OnInit, OnChanges, OnDe
             console.log('no se ha cargado archivo')
           } else {
             this.counter += 1;
-            console.log('hay archivo a 100');
+            console.log('se ha cargado archivo');
           }
 
         })
