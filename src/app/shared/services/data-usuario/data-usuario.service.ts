@@ -75,32 +75,6 @@ export class DataUsuarioService {
       return false;
     }
   }
-  /**
-   * 
-   * @param page numero de la pagina
-   * @param offset numero de registros por pagina
-   */
-  public async getHistorialReemboslo(page: number, offset: number): Promise<any> {
-    const fechas = Utils.generarFecha();
-
-    const tokenData: Token = JSON.parse(localStorage.getItem("Token")!);
-    const header = new HttpHeaders()
-      .set('Authorization', `Bearer ${tokenData.access_token}`)
-      .set('x-ibm-client-id', environment.X_IBM_CLIENT_ID);
-    try {
-      const url = `${environment.URL_BFF_BASE}/BFF/History/insured/${this.usuarioConectado.rutCuerpo}${this.usuarioConectado.rutDigitoVerificador}/policy/${this.usuarioConectado.poliza}?StarDate=${fechas[0]}&EndDate=${fechas[1]}&Page=${page}&Offset=${offset}`;
-      console.log("url de la peticion", url);
-      const historialReembolso = await this.http.get<IClaims>(url, { headers: header }).toPromise();
-      let historialCompleto: Historico[] = [];
-      historialReembolso.claims.forEach((reembolso) => {
-        historialCompleto.push(new Historico(reembolso));
-      })
-      return historialCompleto;
-    } catch (error) {
-      console.log("error en la peticion", error);
-      return [];
-    }
-  }
 
   public get usuarioConectado(): Usuario {
     return this._usuarioConectado;
